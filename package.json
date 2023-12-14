@@ -1,0 +1,26 @@
+{
+  "name": "accru-client",
+  "version": "0.0.3",
+  "description": "Client SDK for Accru API",
+  "main": "index.js",
+  "repository": "TBH",
+  "author": "Accru Co.",
+  "license": "MIT",
+  "scripts": {
+    "watch": "tsc -w",
+    "postwatch": "yarn link && cp package.json dist/package.json",
+    "start": "concurrently \"npm:watch\" \"npm:postwatch\"",
+    "build": "tsc",
+    "postbuild": "cp package.json dist/package.json",
+    "publish": "yarn build && cd dist && npm publish --access public"
+  },
+  "dependencies": {
+    "@apollo/client": "^3.8.8",
+    "apollo-link": "^1.2.14",
+    "graphql": "^16.8.1"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "typescript": "^5.3.3"
+  }
+}
