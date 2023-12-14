@@ -1,6 +1,6 @@
 import { ApolloClient } from '@apollo/client';
 import { BILL_GET_QUERY } from './bills.queries';
-import { GetBillsRequest } from './bills.types';
+import { GetBillsRequest, GetBillRequest } from './bills.types';
 
 export default class Bills {
   private apolloClient: ApolloClient<unknown>;
@@ -23,7 +23,19 @@ export default class Bills {
     return response.data.userOrganizationBillStatement;
   };
 
-  public getOne = async (): Promise<any> => {};
+  public getOne = async ({
+    organizationBillId,
+    organizationId,
+  }: GetBillRequest): Promise<any> => {
+    const response = await this.apolloClient.query({
+      query: BILL_GET_QUERY,
+      variables: {
+        organizationId,
+        organizationBillId,
+      },
+    });
+    return response.data.userOrganizationBill;
+  };
 
   public create = async (): Promise<any> => {};
   public update = async (): Promise<any> => {};

@@ -15,10 +15,17 @@ export default class AccruClient {
   public invoices: Invoices;
   public statements: Statements;
   public sync: Sync;
-  public vendors: Vendors;
+  public vendorsClass: Vendors;
 
-  constructor({ token, baseUrl, auth = '' }:{token: string, baseUrl: string, auth?: string}){
-  
+  constructor({
+    token,
+    baseUrl,
+    auth = '',
+  }: {
+    token: string;
+    baseUrl: string;
+    auth?: string;
+  }) {
     this.apolloClient = createApolloClient({ token, baseUrl, auth });
     this.bills = new Bills(this.apolloClient);
     this.connections = new Connections(this.apolloClient);
@@ -26,6 +33,6 @@ export default class AccruClient {
     this.invoices = new Invoices(this.apolloClient);
     this.statements = new Statements(this.apolloClient);
     this.sync = new Sync(this.apolloClient);
-    this.vendors = new Vendors(this.apolloClient);
+    this.vendorsClass = new Vendors(this.apolloClient);
   }
 }

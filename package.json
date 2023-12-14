@@ -8,11 +8,12 @@
   "license": "MIT",
   "scripts": {
     "watch": "tsc -w",
-    "postwatch": "yarn link && cp package.json dist/package.json",
+    "postwatch": "cd dist && cp package.json dist/package.json && yarn link",
     "start": "concurrently \"npm:watch\" \"npm:postwatch\"",
     "build": "tsc",
     "postbuild": "cp package.json dist/package.json",
-    "publish": "yarn build && cd dist && npm publish --access public"
+    "publish": "yarn build && cd dist && npm publish --access public",
+    "sandbox": "yarn link accru-client && nodemon src/tests/sandbox.js"
   },
   "dependencies": {
     "@apollo/client": "^3.8.8",
@@ -21,6 +22,8 @@
   },
   "devDependencies": {
     "concurrently": "^8.2.2",
+    "nodemon": "^3.0.2",
+    "react": "^18.2.0",
     "typescript": "^5.3.3"
   }
 }
