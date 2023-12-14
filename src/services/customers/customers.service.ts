@@ -6,7 +6,7 @@ import {
   CREATE_CUSTOMER_MUTATION,
 } from './customers.queries';
 import getEdgesAsList from '../../utils/listAsEdges';
-import { GetCustomerQuery } from './customers.types';
+import { GetCustomersRequest } from './customers.types';
 
 export default class Customers {
   private apolloClient: ApolloClient<unknown>;
@@ -15,7 +15,7 @@ export default class Customers {
     this.apolloClient = apolloClient;
   }
 
-  public get = async (variables: GetCustomerQuery): Promise<any>  => {
+  public get = async (variables: GetCustomersRequest): Promise<any>  => {
     const response = await this.apolloClient.query({
       query: GET_ALL_CUSTOMERS_QUERY,
       fetchPolicy: 'no-cache',

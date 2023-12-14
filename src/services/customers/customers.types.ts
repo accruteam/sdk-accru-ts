@@ -1,4 +1,4 @@
-export interface GetCustomerQuery {
+export interface GetCustomersRequest {
   name?: String,
   after?: String,
   before?: String,
