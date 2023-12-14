@@ -1,15 +1,11 @@
 import { ApolloClient } from '@apollo/client';
 
 export default class Connections {
-  private apolloClient: ApolloClient<unknown>;
+  constructor(private apolloClient: ApolloClient<unknown>) {}
 
-  constructor(apolloClient: ApolloClient<unknown>) {
-    this.apolloClient = apolloClient;
-  }
-
-  public get = async (): Promise<any> => []
-  public getOne = async (): Promise<any> => {}
-  public create = async (): Promise<any> => {}
-  public update = async (): Promise<any> => {}
-  public del = async (): Promise<any> => {}
+  public get = async (): Promise<any> => [];
+  public getOne = async (): Promise<any> => {};
+  public create = async (): Promise<any> => {};
+  public update = async (): Promise<any> => {};
+  public del = async (): Promise<any> => {};
 }

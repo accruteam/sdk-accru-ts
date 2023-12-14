@@ -2,11 +2,7 @@ import { ApolloClient } from '@apollo/client';
 import { SYNC_PROVIDER } from './sync.queries';
 
 export default class Sync {
-  private apolloClient: ApolloClient<unknown>;
-
-  constructor(apolloClient: ApolloClient<unknown>) {
-    this.apolloClient = apolloClient;
-  }
+  constructor(private apolloClient: ApolloClient<unknown>) {}
 
   public sync = async ({ organizationId, accountProvider }: any) => {
     const synchronization = await this.apolloClient.mutate({

@@ -3,11 +3,7 @@ import { BILL_GET_QUERY } from './bills.queries';
 import { GetBillsRequest, GetBillRequest } from './bills.types';
 
 export default class Bills {
-  private apolloClient: ApolloClient<unknown>;
-
-  constructor(apolloClient: ApolloClient<unknown>) {
-    this.apolloClient = apolloClient;
-  }
+  constructor(private apolloClient: ApolloClient<unknown>) {}
 
   public get = async ({
     organizationId,

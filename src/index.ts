@@ -5,34 +5,36 @@ import Invoices from "./services/invoices";
 import Statements from "./services/statements";
 import Sync from "./services/sync";
 import Vendors from "./services/vendors";
+import Users from "./services/users";
 import { createApolloClient } from './api/apolloClient';
 
-export default class AccruClient {
-  public apolloClient: any;
-  public bills: Bills;
-  public customers: Customers;
-  public connections: Connections;
-  public invoices: Invoices;
-  public statements: Statements;
-  public sync: Sync;
-  public vendorsClass: Vendors;
+export class AccruClient {
+  public readonly apolloClient: any;
+  public readonly bills: Bills;
+  public readonly customers: Customers;
+  public readonly connections: Connections;
+  public readonly invoices: Invoices;
+  public readonly statements: Statements;
+  public readonly sync: Sync;
+  public readonly users: Users;
+  public readonly vendors: Vendors;
 
   constructor({
     token,
     baseUrl,
-    auth = '',
   }: {
     token: string;
     baseUrl: string;
     auth?: string;
   }) {
-    this.apolloClient = createApolloClient({ token, baseUrl, auth });
+    this.apolloClient = createApolloClient({ token, baseUrl });
     this.bills = new Bills(this.apolloClient);
     this.connections = new Connections(this.apolloClient);
     this.customers = new Customers(this.apolloClient);
     this.invoices = new Invoices(this.apolloClient);
     this.statements = new Statements(this.apolloClient);
     this.sync = new Sync(this.apolloClient);
-    this.vendorsClass = new Vendors(this.apolloClient);
+    this.users = new Users(this.apolloClient);
+    this.vendors = new Vendors(this.apolloClient);
   }
 }

@@ -9,23 +9,22 @@ import getEdgesAsList from '../../utils/listAsEdges';
 import { GetCustomersRequest } from './customers.types';
 
 export default class Customers {
-  private apolloClient: ApolloClient<unknown>;
+  constructor(private apolloClient: ApolloClient<unknown>) {}
 
-  constructor(apolloClient: ApolloClient<unknown>) {
-    this.apolloClient = apolloClient;
-  }
-
-  public get = async (variables: GetCustomersRequest): Promise<any>  => {
+  public get = async (variables: GetCustomersRequest): Promise<any> => {
     const response = await this.apolloClient.query({
       query: GET_ALL_CUSTOMERS_QUERY,
       fetchPolicy: 'no-cache',
-      variables
+      variables,
     });
     const edges = getEdgesAsList(response.data.userOrganizationCustomers.edges);
     return { data: edges, response: response.data.userOrganizationCustomers };
   };
 
-  public getOne = async ({ organizationId, organizationCustomerId }: any): Promise<any> => {
+  public getOne = async ({
+    organizationId,
+    organizationCustomerId,
+  }: any): Promise<any> => {
     const result = await this.apolloClient.query({
       query: GET_CUSTOMER_QUERY,
       fetchPolicy: 'no-cache',
@@ -48,7 +47,11 @@ export default class Customers {
     return newCustomer;
   };
 
-  public updateCustomer = async ({ organizationId, organizationCustomerId, data }: any): Promise<any> => {
+  public updateCustomer = async ({
+    organizationId,
+    organizationCustomerId,
+    data,
+  }: any): Promise<any> => {
     const updatedCustomer = await this.apolloClient.mutate({
       mutation: UPDATE_CUSTOMER_MUTATION,
       variables: {

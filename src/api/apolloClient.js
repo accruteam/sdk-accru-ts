@@ -1,7 +1,7 @@
 import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client';
 import { ApolloLink, concat } from 'apollo-link';;
 
-export const createApolloClient = ({ token, baseUrl, auth }) => {
+export const createApolloClient = ({ token, baseUrl }) => {
   const authMiddleware = new ApolloLink((operation, forward) => {
     operation.setContext({
       headers: {
