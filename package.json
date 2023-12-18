@@ -1,6 +1,6 @@
 {
   "name": "accru-client",
-  "version": "0.0.3",
+  "version": "0.0.7",
   "description": "Client SDK for Accru API",
   "main": "index.js",
   "repository": "TBH",
@@ -11,7 +11,7 @@
     "postwatch": "cp package.json dist/package.json && cd dist && yarn link",
     "start": "concurrently \"npm:watch\" \"npm:postwatch\"",
     "build": "tsc",
-    "postbuild": "cp package.json dist/package.json",
+    "postbuild": "node postBuild.js",
     "publish": "yarn build && cd dist && npm publish --access public",
     "sandbox": "yarn link accru-client && nodemon src/tests/sandbox.js"
   },
