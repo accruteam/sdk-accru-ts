@@ -6,60 +6,60 @@ import {
   CREATE_CUSTOMER_MUTATION,
 } from './customers.queries';
 import getEdgesAsList from '../../utils/listAsEdges';
-import { GetCustomersRequest } from './customers.types';
+import {
+  CustomersGetOneVariables,
+  CustomersGetVariables,
+  CustomersGetResponse,
+  CustomersGetOneResponse,
+  CustomersCreateVariables,
+  CustomersCreateResponse,
+  CustomersUpdateVariables,
+  CustomersUpdateResponse,
+} from './customers.types';
 
 export default class Customers {
   constructor(private apolloClient: ApolloClient<unknown>) {}
 
-  public get = async (variables: GetCustomersRequest): Promise<any> => {
+  public get = async (
+    variables: CustomersGetVariables
+  ): Promise<CustomersGetResponse> => {
     const response = await this.apolloClient.query({
       query: GET_ALL_CUSTOMERS_QUERY,
-      fetchPolicy: 'no-cache',
       variables,
     });
-    const edges = getEdgesAsList(response.data.userOrganizationCustomers.edges);
-    return { data: edges, response: response.data.userOrganizationCustomers };
+    return {
+      data: getEdgesAsList(response.data.userOrganizationCustomers.edges),
+    };
   };
 
-  public getOne = async ({
-    organizationId,
-    organizationCustomerId,
-  }: any): Promise<any> => {
+  public getOne = async (
+    variables: CustomersGetOneVariables
+  ): Promise<CustomersGetOneResponse> => {
     const result = await this.apolloClient.query({
       query: GET_CUSTOMER_QUERY,
       fetchPolicy: 'no-cache',
-      variables: {
-        organizationId,
-        organizationCustomerId,
-      },
+      variables,
     });
     return { data: result.data.userOrganizationCustomer };
   };
 
-  public create = async ({ data, organizationId }: any): Promise<any> => {
-    const newCustomer = await this.apolloClient.mutate({
+  public create = async (
+    variables: CustomersCreateVariables
+  ): Promise<CustomersCreateResponse> => {
+    const response = await this.apolloClient.mutate({
       mutation: CREATE_CUSTOMER_MUTATION,
-      variables: {
-        organizationId,
-        data,
-      },
+      variables,
     });
-    return newCustomer;
+    return response.data.userOrganizationCustomerCreate;
   };
 
-  public updateCustomer = async ({
-    organizationId,
-    organizationCustomerId,
-    data,
-  }: any): Promise<any> => {
-    const updatedCustomer = await this.apolloClient.mutate({
+  public update = async (
+    variables: CustomersUpdateVariables
+  ): Promise<CustomersUpdateResponse> => {
+    const response = await this.apolloClient.mutate({
       mutation: UPDATE_CUSTOMER_MUTATION,
-      variables: {
-        organizationId,
-        organizationCustomerId,
-        data,
-      },
+      variables,
     });
-    return updatedCustomer;
+    return response.data.userOrganizationCustomerUpdate;
   };
 };

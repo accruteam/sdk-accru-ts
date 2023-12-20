@@ -1,39 +1,36 @@
 import { ApolloClient } from '@apollo/client';
-import { BILL_GET_QUERY } from './bills.queries';
-import { GetBillsRequest, GetBillRequest } from './bills.types';
+import { BILL_CREATE_MUTATION, BILL_GET_QUERY, BILLS_GET_STATEMENT_QUERY } from './bills.queries';
+import { BillsGetOneVariables, BillGetVariables, BillsCreateVariables } from './bills.types';
+import getEdgesAsList from '../../utils/listAsEdges';
 
 export default class Bills {
   constructor(private apolloClient: ApolloClient<unknown>) {}
 
-  public get = async ({
-    organizationId,
-    organizationBillId,
-  }: GetBillsRequest): Promise<any> => {
+  public get = async (variables: BillGetVariables): Promise<any> => {
     const response = await this.apolloClient.query({
-      query: BILL_GET_QUERY,
-      variables: {
-        organizationId,
-        organizationBillId,
-      },
+      query: BILLS_GET_STATEMENT_QUERY,
+      variables,
     });
-    return response.data.userOrganizationBillStatement;
+    
+    return { data: getEdgesAsList(response.data.userOrganizationBillStatement.edges) }
   };
 
-  public getOne = async ({
-    organizationBillId,
-    organizationId,
-  }: GetBillRequest): Promise<any> => {
+  public getOne = async (variables: BillsGetOneVariables): Promise<any> => {
     const response = await this.apolloClient.query({
       query: BILL_GET_QUERY,
-      variables: {
-        organizationId,
-        organizationBillId,
-      },
+      variables,
     });
-    return response.data.userOrganizationBill;
+    return { data: response.data.userOrganizationBill };
   };
 
-  public create = async (): Promise<any> => {};
+  public create = async (variables: BillsCreateVariables): Promise<any> => {
+    const bill = await this.apolloClient.mutate({
+      mutation: BILL_CREATE_MUTATION,
+      variables: variables,
+    });
+    return bill.data.userOrganizationBillCreate;
+  };
+
   public update = async (): Promise<any> => {};
   public del = async (): Promise<any> => {};
 }

@@ -1,6 +1,6 @@
 import { ApolloClient } from '@apollo/client';
 
-export default class Connections {
+export default class Auth {
   constructor(private apolloClient: ApolloClient<unknown>) {}
 
   public getOne = async (): Promise<any> => {}

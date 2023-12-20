@@ -13,7 +13,8 @@
     "build": "tsc",
     "postbuild": "node postBuild.js",
     "deploy": "yarn build && cd dist && npm publish --access public",
-    "sandbox": "yarn link accru-client && nodemon src/tests/sandbox.js"
+    "sandbox": "yarn link accru-client && nodemon src/tests/sandbox.js",
+    "service": "node scripts/newService.js"
   },
   "dependencies": {
     "@apollo/client": "^3.8.8",
