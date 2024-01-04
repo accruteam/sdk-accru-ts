@@ -1,7 +1,12 @@
-import { gql } from '@apollo/client';
+import { gql } from '@gql';
 
-export const SYNC_PROVIDER = gql`
-  mutation userOrganizationAcctProviderSynchronize ($organizationId: String!, $accountProvider: ACCT_PROVIDER!, $push: Boolean!, $pull: Boolean!) {
+export const SYNC_PROVIDER = gql(`
+  mutation userOrganizationAcctProviderSynchronize(
+    $organizationId: String!
+    $accountProvider: ACCT_PROVIDER!
+    $push: Boolean!
+    $pull: Boolean!
+  ) {
     userOrganizationAcctProviderSynchronize(
       organization_id: $organizationId
       acct_provider_code: $accountProvider
@@ -12,6 +17,4 @@ export const SYNC_PROVIDER = gql`
       name
     }
   }
-`;
-
-export default { SYNC_PROVIDER };
+`);

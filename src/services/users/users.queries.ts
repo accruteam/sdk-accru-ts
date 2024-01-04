@@ -1,7 +1,7 @@
-import gql from "graphql-tag";
+import { gql } from '@gql';
 
-export const USER_QUERY = gql`
-  query {
+export const USER_QUERY = gql(`
+  query User {
     user {
       id
       email
@@ -25,4 +25,4 @@ export const USER_QUERY = gql`
       }
     }
   }
-`;
+`);

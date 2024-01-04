@@ -1,65 +1,67 @@
 import { ApolloClient } from '@apollo/client';
 import {
+  UserOrganizationCustomerCreateMutation,
+  UserOrganizationCustomerCreateMutationVariables,
+  UserOrganizationCustomerQuery,
+  UserOrganizationCustomerQueryVariables,
+  UserOrganizationCustomerUpdateMutation,
+  UserOrganizationCustomerUpdateMutationVariables,
+  UserOrganizationCustomersQuery,
+  UserOrganizationCustomersQueryVariables,
+} from '@api/gql/graphql';
+import {
+  ListResponse,
+  processResponseAsList,
+} from '@utils/processResponseAsList';
+import { Res } from '@utils/response.type';
+import {
   GET_ALL_CUSTOMERS_QUERY,
   GET_CUSTOMER_QUERY,
   UPDATE_CUSTOMER_MUTATION,
   CREATE_CUSTOMER_MUTATION,
 } from './customers.queries';
-import getEdgesAsList from '../../utils/listAsEdges';
-import {
-  CustomersGetOneVariables,
-  CustomersGetVariables,
-  CustomersGetResponse,
-  CustomersGetOneResponse,
-  CustomersCreateVariables,
-  CustomersCreateResponse,
-  CustomersUpdateVariables,
-  CustomersUpdateResponse,
-} from './customers.types';
 
 export default class Customers {
   constructor(private apolloClient: ApolloClient<unknown>) {}
 
   public get = async (
-    variables: CustomersGetVariables
-  ): Promise<CustomersGetResponse> => {
-    const response = await this.apolloClient.query({
+    variables: UserOrganizationCustomersQueryVariables,
+  ): Promise<ListResponse<Res<UserOrganizationCustomersQuery>>> => {
+    const { data } = await this.apolloClient.query({
       query: GET_ALL_CUSTOMERS_QUERY,
       variables,
     });
-    return {
-      data: getEdgesAsList(response.data.userOrganizationCustomers.edges),
-    };
+    return processResponseAsList(data.userOrganizationCustomers);
   };
 
   public getOne = async (
-    variables: CustomersGetOneVariables
-  ): Promise<CustomersGetOneResponse> => {
-    const result = await this.apolloClient.query({
+    variables: UserOrganizationCustomerQueryVariables,
+  ): Promise<Res<UserOrganizationCustomerQuery>> => {
+    const { data } = await this.apolloClient.query({
       query: GET_CUSTOMER_QUERY,
       fetchPolicy: 'no-cache',
       variables,
     });
-    return { data: result.data.userOrganizationCustomer };
+    return data.userOrganizationCustomer;
   };
 
   public create = async (
-    variables: CustomersCreateVariables
-  ): Promise<CustomersCreateResponse> => {
-    const response = await this.apolloClient.mutate({
+    variables: UserOrganizationCustomerCreateMutationVariables,
+  ): Promise<Res<UserOrganizationCustomerCreateMutation>> => {
+    const { data } = await this.apolloClient.mutate({
       mutation: CREATE_CUSTOMER_MUTATION,
       variables,
     });
-    return response.data.userOrganizationCustomerCreate;
+    return data!.userOrganizationCustomerCreate;
   };
 
   public update = async (
-    variables: CustomersUpdateVariables
-  ): Promise<CustomersUpdateResponse> => {
-    const response = await this.apolloClient.mutate({
+    variables: UserOrganizationCustomerUpdateMutationVariables,
+  ): Promise<Res<UserOrganizationCustomerUpdateMutation>> => {
+    const { data } = await this.apolloClient.mutate({
       mutation: UPDATE_CUSTOMER_MUTATION,
       variables,
     });
-    return response.data.userOrganizationCustomerUpdate;
+    return data!.userOrganizationCustomerUpdate;
   };
-};
+}

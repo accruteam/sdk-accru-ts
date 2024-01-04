@@ -1,7 +1,7 @@
-import { DocumentNode, gql } from '@apollo/client';
+import { gql } from '@gql';
 
-export const CUSTOMER_QUERY_FRAGMENT: DocumentNode = gql`
-  fragment OrganizationCustomerFields on OrganizationCustomer {
+export const CUSTOMER_QUERY_FRAGMENT = gql(`
+  fragment OrganizationCustomerFragment on OrganizationCustomer {
     id
     is_active
     email
@@ -12,6 +12,11 @@ export const CUSTOMER_QUERY_FRAGMENT: DocumentNode = gql`
     tax_code
     created_at
     updated_at
+
+    conn_locked_data_at
+    connection {
+      ...OrganizationConnectionFragment
+    }
 
     contacts {
       id
@@ -67,14 +72,14 @@ export const CUSTOMER_QUERY_FRAGMENT: DocumentNode = gql`
       status
     }
   }
-`;
+`);
 
-export const GET_ALL_CUSTOMERS_QUERY: DocumentNode = gql`
-  query userOrganizationCustomers (
+export const GET_ALL_CUSTOMERS_QUERY = gql(`
+  query userOrganizationCustomers(
     $organizationId: String!,
 
     $name: String,
-    
+
     $after: ConnectionCursor,
     $first: Int,
 
@@ -106,7 +111,7 @@ export const GET_ALL_CUSTOMERS_QUERY: DocumentNode = gql`
         edges {
           cursor
           node {
-            ...OrganizationCustomerFields
+            ...OrganizationCustomerFragment
           }
         }
         pageInfo {
@@ -117,43 +122,35 @@ export const GET_ALL_CUSTOMERS_QUERY: DocumentNode = gql`
         }
       }
     }
+`);
 
-  ${CUSTOMER_QUERY_FRAGMENT}
-`;
-
-export const GET_CUSTOMER_QUERY: DocumentNode = gql`
+export const GET_CUSTOMER_QUERY = gql(`
   query UserOrganizationCustomer($organizationCustomerId: String!, $organizationId: String!) {
   userOrganizationCustomer(organization_customer_id: $organizationCustomerId, organization_id: $organizationId) {
-    ...OrganizationCustomerFields
+    ...OrganizationCustomerFragment
   }
 }
+`);
 
-${CUSTOMER_QUERY_FRAGMENT}
-`;
-
-export const UPDATE_CUSTOMER_MUTATION: DocumentNode = gql`
+export const UPDATE_CUSTOMER_MUTATION = gql(`
   mutation userOrganizationCustomerUpdate ($organizationId: String!, $organizationCustomerId: String!, $data: UserOrganizationCustomerSchema!) {
     userOrganizationCustomerUpdate(
       organization_id: $organizationId
       organization_customer_id: $organizationCustomerId
       data: $data
     ) {
-      ...OrganizationCustomerFields
+      ...OrganizationCustomerFragment
     }
   }
-  
-  ${CUSTOMER_QUERY_FRAGMENT}
-`;
+`);
 
-export const CREATE_CUSTOMER_MUTATION: DocumentNode = gql`
+export const CREATE_CUSTOMER_MUTATION = gql(`
   mutation userOrganizationCustomerCreate ($organizationId: String!, $data: UserOrganizationCustomerSchema!) {
     userOrganizationCustomerCreate(
       organization_id: $organizationId
       data: $data
     ) {
-      ...OrganizationCustomerFields
+      ...OrganizationCustomerFragment
     }
   }
-
-  ${CUSTOMER_QUERY_FRAGMENT}
-`;
+`);

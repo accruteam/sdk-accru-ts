@@ -1,7 +1,7 @@
-import { DocumentNode, gql } from "@apollo/client";
+import { gql } from '@gql';
 
-export const BILL_QUERY_FRAGMENT: DocumentNode = gql`
-  fragment OrganizationBillFields on OrganizationBill {
+export const BILL_QUERY_FRAGMENT = gql(`
+  fragment OrganizationBillFragment on OrganizationBill {
     id
     unique_code
     number
@@ -85,10 +85,10 @@ export const BILL_QUERY_FRAGMENT: DocumentNode = gql`
       }
     }
   }
-`;
+`);
 
-export const BILLS_GET_STATEMENT_QUERY = gql`
-  query GetOrganizationBillStatement(
+export const BILLS_GET_STATEMENT_QUERY = gql(`
+  query UserOrganizationBillStatement(
     $organizationId: String!
     $organizationVendorId: String
     $currency: CURRENCY
@@ -145,7 +145,7 @@ export const BILLS_GET_STATEMENT_QUERY = gql`
         edges {
           cursor
           node {
-            ...OrganizationBillFields
+            ...OrganizationBillFragment
           }
         }
         pageInfo {
@@ -164,12 +164,10 @@ export const BILLS_GET_STATEMENT_QUERY = gql`
       status
     }
   }
+`);
 
-  ${BILL_QUERY_FRAGMENT}
-`;
-
-export const BILL_GET_QUERY = gql`
-  query GetOrganizationBill(
+export const BILL_GET_QUERY = gql(`
+  query UserOrganizationBill(
     $organizationId: String!
     $organizationBillId: String!
   ) {
@@ -177,22 +175,18 @@ export const BILL_GET_QUERY = gql`
       organization_id: $organizationId
       organization_bill_id: $organizationBillId
     ) {
-      ...OrganizationBillFields
+      ...OrganizationBillFragment
     }
   }
+`);
 
-  ${BILL_QUERY_FRAGMENT}
-`;
-
-export const BILL_CREATE_MUTATION = gql`
-  mutation userOrganizationBillCreate(
+export const BILL_CREATE_MUTATION = gql(`
+  mutation UserOrganizationBillCreate(
     $organizationId: String!
     $data: UserOrganizationBillSchema!
   ) {
     userOrganizationBillCreate(organization_id: $organizationId, data: $data) {
-      ...OrganizationBillFields
+      ...OrganizationBillFragment
     }
   }
-
-  ${BILL_QUERY_FRAGMENT}
-`;
+`);

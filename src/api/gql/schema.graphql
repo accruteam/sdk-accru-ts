@@ -1,0 +1,2071 @@
+enum ACCT_PROVIDER {
+  QUICKBOOKS
+}
+
+enum AUTH_PROVIDER {
+  FIREBASE
+  INTUIT
+}
+
+enum BILL_STATUS {
+  OPEN
+  PAID
+}
+
+enum CURRENCY {
+  BRL
+  EUR
+  USD
+}
+
+"""
+Cursor for pagination
+"""
+scalar ConnectionCursor
+
+"""
+The javascript `Date` as string. Type represents date and time as the ISO Date string.
+"""
+scalar DateTime
+
+type File {
+  allow_public_access: Boolean!
+  archived_at: DateTime
+  checksum_md5: String!
+  checksum_sha256: String!
+  created_at: DateTime!
+  extension: String!
+  filename: String!
+  id: ID!
+  mime_type: MIME_TYPE!
+  payload: JSON!
+  public_url: String
+  public_url_expires_at: DateTime
+  recipient_id: String
+  recipient_type: RECIPIENT_TYPE!
+  size: Int!
+  storage_provider_code: STORAGE_PROVIDER!
+  type: String!
+  updated_at: DateTime!
+}
+
+enum INVOICE_STATUS {
+  OPEN
+  PAID
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
+enum MIME_TYPE {
+  JPEG
+  OTHER
+  PDF
+  PNG
+}
+
+type Mutation {
+  adminClearCache: DateTime!
+  unconnectedUserCustomerOrganizationInvoiceStatementVerify(
+    email: String!
+    unique_code: String!
+  ): DateTime!
+  userAuthProviderDisconnect(
+    auth_provider_code: AUTH_PROVIDER!
+  ): UserAuthProviderConn!
+  userAuthProviderGetOAuthToken(
+    auth_provider_code: AUTH_PROVIDER!
+    authorization_token: String!
+  ): String!
+  userAuthProviderGetOAuthUrl(auth_provider_code: AUTH_PROVIDER!): String!
+  userCustomerOrganizationInvoiceCreateSyncBill(
+    organization_id: String!
+    organization_invoice_id: String!
+    organization_vendor_id: String!
+  ): OrganizationBill!
+  userCustomerOrganizationProjectChangeRequestAccept(
+    allow_bypass: Boolean!
+    organization_id: String!
+    organization_project_change_request_id: String!
+    organization_project_id: String!
+    organization_vendor_id: String!
+  ): OrganizationProjectChangeRequest!
+  userCustomerOrganizationProjectChangeRequestCancel(
+    allow_bypass: Boolean!
+    organization_id: String!
+    organization_project_change_request_id: String!
+    organization_project_id: String!
+    organization_vendor_id: String!
+  ): OrganizationProjectChangeRequest!
+  userCustomerOrganizationProjectChangeRequestCreate(
+    data: UserOrganizationProjectChangeRequestCreateSchema!
+    organization_id: String!
+    organization_project_id: String!
+    organization_vendor_id: String!
+  ): OrganizationProjectChangeRequest!
+  userCustomerOrganizationProjectChangeRequestReject(
+    allow_bypass: Boolean!
+    organization_id: String!
+    organization_project_change_request_id: String!
+    organization_project_id: String!
+    organization_vendor_id: String!
+  ): OrganizationProjectChangeRequest!
+  userEmailVerifyOrChangeFinish(
+    data: UserEmailVerifyOrChangeFinishSchema!
+  ): User!
+  userEmailVerifyOrChangeStart(
+    data: UserEmailVerifyOrChangeStartSchema!
+  ): DateTime!
+  userOrganizationAcctProviderConnConfigurationPullOptionsGet(
+    acct_provider_code: ACCT_PROVIDER!
+    organization_id: String!
+  ): JSON!
+  userOrganizationAcctProviderConnConfigurationPullOptionsSet(
+    acct_provider_code: ACCT_PROVIDER!
+    organization_id: String!
+    payload: JSON!
+  ): OrganizationAcctProviderConn!
+  userOrganizationAcctProviderConnConfigurationPushOptionsGet(
+    acct_provider_code: ACCT_PROVIDER!
+    organization_id: String!
+  ): JSON!
+  userOrganizationAcctProviderConnConfigurationPushOptionsSet(
+    acct_provider_code: ACCT_PROVIDER!
+    organization_id: String!
+    payload: JSON!
+  ): OrganizationAcctProviderConn!
+  userOrganizationAcctProviderConnDisconnect(
+    acct_provider_code: ACCT_PROVIDER!
+    organization_id: String!
+  ): OrganizationAcctProviderConn!
+  userOrganizationAcctProviderConnUpdate(
+    acct_provider_code: ACCT_PROVIDER!
+    data: UserOrganizationAcctProviderConnUpdateSchema!
+    organization_id: String!
+  ): OrganizationAcctProviderConn!
+  userOrganizationAcctProviderConnect(
+    acct_provider_code: ACCT_PROVIDER!
+    automatic_pull_enabled: Boolean!
+    automatic_push_enabled: Boolean!
+    organization_id: String!
+    url: String!
+  ): OrganizationAcctProviderConn!
+  userOrganizationAcctProviderGetOAuthUrl(
+    acct_provider_code: ACCT_PROVIDER!
+    organization_id: String!
+  ): String!
+  userOrganizationAcctProviderSynchronize(
+    acct_provider_code: ACCT_PROVIDER!
+    organization_id: String!
+    pull: Boolean!
+    push: Boolean!
+  ): Organization!
+  userOrganizationBillConnLock(
+    organization_bill_id: String!
+    organization_id: String!
+  ): OrganizationBill!
+  userOrganizationBillConnSync(
+    organization_bill_id: String!
+    organization_id: String!
+  ): OrganizationBill!
+  userOrganizationBillConnUnlock(
+    organization_bill_id: String!
+    organization_id: String!
+  ): OrganizationBill!
+  userOrganizationBillCreate(
+    data: UserOrganizationBillSchema!
+    organization_id: String!
+  ): OrganizationBill!
+  userOrganizationBillDelete(
+    organization_bill_ids: [String!]!
+    organization_id: String!
+  ): [OrganizationBill!]!
+  userOrganizationBillFileDelete(
+    organization_bill_id: String!
+    organization_id: String!
+  ): OrganizationBill!
+  userOrganizationBillManualPaymentCreate(
+    data: UserOrganizationBillManualPaymentCreateSchema!
+    organization_bill_id: String!
+    organization_id: String!
+  ): OrganizationBill!
+  userOrganizationBillManualPaymentDelete(
+    organization_bill_id: String!
+    organization_id: String!
+    organization_transaction_id: String!
+  ): OrganizationBill!
+  userOrganizationBillUpdate(
+    data: UserOrganizationBillSchema!
+    organization_bill_id: String!
+    organization_id: String!
+  ): OrganizationBill!
+  userOrganizationCollaboratorDelete(
+    organization_id: String!
+    organization_user_id: String!
+  ): OrganizationUser!
+  userOrganizationCollaboratorUpdate(
+    data: UserOrganizationCollaboratorUpdateSchema!
+    organization_id: String!
+    organization_user_id: String!
+  ): OrganizationUser!
+  userOrganizationConnectionAccept(
+    organization_connection_id: String!
+    organization_id: String!
+  ): OrganizationConnection!
+  userOrganizationConnectionInviteCustomer(
+    organization_customer_id: String!
+    organization_id: String!
+  ): OrganizationConnection!
+  userOrganizationConnectionInviteVendor(
+    organization_id: String!
+    organization_vendor_id: String!
+  ): OrganizationConnection!
+  userOrganizationConnectionReject(
+    organization_connection_id: String!
+    organization_id: String!
+  ): OrganizationConnection!
+  userOrganizationCreate(data: UserOrganizationCreateSchema!): Organization!
+  userOrganizationCustomerConnLock(
+    organization_customer_id: String!
+    organization_id: String!
+  ): OrganizationCustomer!
+  userOrganizationCustomerConnSync(
+    organization_customer_id: String!
+    organization_id: String!
+  ): OrganizationCustomer!
+  userOrganizationCustomerConnUnlock(
+    organization_customer_id: String!
+    organization_id: String!
+  ): OrganizationCustomer!
+  userOrganizationCustomerContactCreate(
+    data: UserOrganizationCustomerContactCreateSchema!
+    organization_customer_id: String!
+    organization_id: String!
+  ): OrganizationCustomerContact!
+  userOrganizationCustomerContactDelete(
+    organization_customer_contact_id: String!
+    organization_customer_id: String!
+    organization_id: String!
+  ): OrganizationCustomerContact!
+  userOrganizationCustomerContactUpdate(
+    data: UserOrganizationCustomerContactUpdateSchema!
+    organization_customer_contact_id: String!
+    organization_customer_id: String!
+    organization_id: String!
+  ): OrganizationCustomerContact!
+  userOrganizationCustomerCreate(
+    data: UserOrganizationCustomerSchema!
+    organization_id: String!
+  ): OrganizationCustomer!
+  userOrganizationCustomerSendInvoiceEmail(
+    organization_id: String!
+    targets: [UserOrganizationCustomerSendInvoiceEmailSchema!]!
+  ): JSON!
+  userOrganizationCustomerSendStatementEmail(
+    organization_id: String!
+    targets: [UserOrganizationCustomerSendInvoiceStatementEmailSchema!]!
+  ): JSON!
+  userOrganizationCustomerUniqueCodeUpdate(
+    organization_customer_id: String!
+    organization_id: String!
+  ): OrganizationCustomer!
+  userOrganizationCustomerUpdate(
+    data: UserOrganizationCustomerSchema!
+    organization_customer_id: String!
+    organization_id: String!
+  ): OrganizationCustomer!
+  userOrganizationDelete(organization_id: String!): Organization!
+  userOrganizationEmailVerifyOrChangeFinish(
+    data: UserOrganizationEmailVerifyOrChangeFinishSchema!
+    organization_id: String!
+  ): Organization!
+  userOrganizationEmailVerifyOrChangeStart(
+    data: UserOrganizationEmailVerifyOrChangeStartSchema!
+    organization_id: String!
+  ): DateTime!
+  userOrganizationInviteCollaboratorCancel(
+    organization_id: String!
+    organization_invite_id: String!
+  ): OrganizationInvite!
+  userOrganizationInviteCollaboratorCreate(
+    data: UserOrganizationInviteCollaboratorCreateSchema!
+    organization_id: String!
+  ): OrganizationInvite!
+  userOrganizationInviteReject(
+    code: String!
+    organization_id: String!
+    organization_invite_id: String!
+  ): OrganizationInvite!
+  userOrganizationInvoiceCreate(
+    data: UserOrganizationInvoiceSchema!
+    organization_id: String!
+  ): OrganizationInvoice!
+  userOrganizationInvoiceDelete(
+    organization_id: String!
+    organization_invoice_ids: [String!]!
+  ): [OrganizationInvoice!]!
+  userOrganizationInvoiceFileDelete(
+    organization_id: String!
+    organization_invoice_id: String!
+  ): OrganizationInvoice!
+  userOrganizationInvoiceManualPaymentCreate(
+    data: UserOrganizationInvoiceManualPaymentCreateSchema!
+    organization_id: String!
+    organization_invoice_id: String!
+  ): OrganizationInvoice!
+  userOrganizationInvoiceManualPaymentDelete(
+    organization_id: String!
+    organization_invoice_id: String!
+    organization_transaction_id: String!
+  ): OrganizationInvoice!
+  userOrganizationInvoiceUpdate(
+    data: UserOrganizationInvoiceSchema!
+    organization_id: String!
+    organization_invoice_id: String!
+  ): OrganizationInvoice!
+  userOrganizationLeave(organization_id: String!): OrganizationUser!
+  userOrganizationLogoPictureRemove(organization_id: String!): Organization!
+  userOrganizationPaymentMethodDelete(
+    organization_id: String!
+    organization_payment_method_id: String!
+  ): OrganizationPaymentMethod!
+  userOrganizationPaymentMethodUpdate(
+    data: UserOrganizationPaymentMethodUpdateSchema!
+    organization_id: String!
+    organization_payment_method_id: String!
+  ): OrganizationPaymentMethod!
+  userOrganizationProjectChangeRequestAccept(
+    allow_bypass: Boolean!
+    organization_id: String!
+    organization_project_change_request_id: String!
+    organization_project_id: String!
+  ): OrganizationProjectChangeRequest!
+  userOrganizationProjectChangeRequestCancel(
+    allow_bypass: Boolean!
+    organization_id: String!
+    organization_project_change_request_id: String!
+    organization_project_id: String!
+  ): OrganizationProjectChangeRequest!
+  userOrganizationProjectChangeRequestCreate(
+    data: UserOrganizationProjectChangeRequestCreateSchema!
+    organization_id: String!
+    organization_project_id: String!
+  ): OrganizationProjectChangeRequest!
+  userOrganizationProjectChangeRequestReject(
+    allow_bypass: Boolean!
+    organization_id: String!
+    organization_project_change_request_id: String!
+    organization_project_id: String!
+  ): OrganizationProjectChangeRequest!
+  userOrganizationProjectCreate(
+    data: UserOrganizationProjectCreateSchema!
+    organization_id: String!
+  ): OrganizationProject!
+  userOrganizationProjectDelete(
+    organization_id: String!
+    organization_project_id: String!
+  ): OrganizationProject!
+  userOrganizationProjectUpdate(
+    data: UserOrganizationProjectUpdateSchema!
+    organization_id: String!
+    organization_project_id: String!
+  ): OrganizationProject!
+  userOrganizationReceivingMethodDelete(
+    organization_id: String!
+    organization_receiving_method_id: String!
+  ): OrganizationReceivingMethod!
+  userOrganizationReceivingMethodUpdate(
+    data: UserOrganizationReceivingMethodUpdateSchema!
+    organization_id: String!
+    organization_receiving_method_id: String!
+  ): OrganizationReceivingMethod!
+  userOrganizationReminderSettingCreate(
+    data: UserOrganizationReminderSettingCreateSchema!
+    organization_id: String!
+  ): OrganizationReminderSetting!
+  userOrganizationReminderSettingDelete(
+    organization_id: String!
+    organization_reminder_setting_id: String!
+  ): OrganizationReminderSetting!
+  userOrganizationSendGenericInviteMail(
+    email: String!
+    organization_id: String!
+  ): DateTime!
+  userOrganizationUniqueCodeUpdate(organization_id: String!): Organization!
+  userOrganizationUniqueNameUpdate(organization_id: String!): Organization!
+  userOrganizationUpdate(
+    data: UserOrganizationUpdateSchema!
+    organization_id: String!
+  ): Organization!
+  userOrganizationUserInviteAccept(
+    code: String!
+    organization_id: String!
+    organization_invite_id: String!
+  ): OrganizationUser!
+  userOrganizationVendorConnLock(
+    organization_id: String!
+    organization_vendor_id: String!
+  ): OrganizationVendor!
+  userOrganizationVendorConnSync(
+    organization_id: String!
+    organization_vendor_id: String!
+  ): OrganizationVendor!
+  userOrganizationVendorConnUnlock(
+    organization_id: String!
+    organization_vendor_id: String!
+  ): OrganizationVendor!
+  userOrganizationVendorContactCreate(
+    data: UserOrganizationVendorContactCreateSchema!
+    organization_id: String!
+    organization_vendor_id: String!
+  ): OrganizationVendorContact!
+  userOrganizationVendorContactDelete(
+    organization_id: String!
+    organization_vendor_contact_id: String!
+    organization_vendor_id: String!
+  ): OrganizationVendorContact!
+  userOrganizationVendorContactUpdate(
+    data: UserOrganizationVendorContactUpdateSchema!
+    organization_id: String!
+    organization_vendor_contact_id: String!
+    organization_vendor_id: String!
+  ): OrganizationVendorContact!
+  userOrganizationVendorCreate(
+    data: UserOrganizationVendorSchema!
+    organization_id: String!
+  ): OrganizationVendor!
+  userOrganizationVendorUniqueCodeUpdate(
+    organization_id: String!
+    organization_vendor_id: String!
+  ): OrganizationVendor!
+  userOrganizationVendorUpdate(
+    data: UserOrganizationVendorSchema!
+    organization_id: String!
+    organization_vendor_id: String!
+  ): OrganizationVendor!
+  userPasswordChangeFinish(data: UserPasswordChangeFinishSchema!): String!
+  userPasswordChangeStart(data: UserPasswordChangeStartSchema!): DateTime!
+  userPasswordResetFinish(data: UserPasswordResetFinishSchema!): String!
+  userPasswordResetStart(data: UserPasswordResetStartSchema!): String!
+  userPhoneNumberRemove: User!
+  userPhoneNumberVerifyOrChangeFinish(
+    data: UserPhoneNumberVerifyOrChangeFinishSchema!
+  ): User!
+  userPhoneNumberVerifyOrChangeStart(
+    data: UserPhoneNumberVerifyOrChangeStartSchema!
+  ): DateTime!
+  userProfilePictureRemove: User!
+  userSessionsClose: UserAuthProviderConn!
+  userSignUpWithEmailFinish(data: UserSignUpWithEmailFinishSchema!): String!
+  userSignUpWithEmailStart(data: UserSignUpWithEmailStartSchema!): DateTime!
+  userSignUpWithEmailVerify(data: UserSignUpWithEmailVerifySchema!): DateTime!
+  userUpdateData(data: UserUpdateDataSchema!): User!
+}
+
+enum ORGANIZATION_CONNECTION_STATUS {
+  ACCEPTED
+  INVITED
+  REJECTED
+}
+
+enum ORGANIZATION_INVITE_SIDE {
+  CUSTOMER
+  ORGANIZATION
+}
+
+enum ORGANIZATION_USER_ROLE {
+  ADMIN
+  EDITOR
+  OWNER
+  VIEWER
+}
+
+type Organization {
+  address_city: String
+  address_country_code_iso_3: String
+  address_lat: Float
+  address_line_1: String
+  address_line_2: String
+  address_lng: Float
+  address_number: String
+  address_state: String
+  address_zip_code: String
+  archived_at: DateTime
+  business_address_city: String
+  business_address_country_code_iso_3: String
+  business_address_lat: Float
+  business_address_line_1: String
+  business_address_line_2: String
+  business_address_lng: Float
+  business_address_number: String
+  business_address_state: String
+  business_address_zip_code: String
+  business_name: String
+  business_tax_code: String
+  business_tax_code_type: String
+  created_at: DateTime!
+  current_email_verification_id: String
+  current_phone_number_verification_id: String
+  email: String!
+  id: ID!
+  language: String
+  logo_picture_file: File
+  logo_picture_file_id: String
+  name: String!
+  phone_number: String
+  primary_contact_name: String
+  timezone: String
+  unique_code: String!
+  unique_name: String!
+  updated_at: DateTime!
+}
+
+type OrganizationAcctProviderConn {
+  acct_provider_code: ACCT_PROVIDER!
+  automatic_pull_enabled: Boolean!
+  automatic_push_enabled: Boolean!
+  code: String!
+  conn_expires_at: DateTime!
+  created_at: DateTime!
+  disconnected_at: DateTime
+  id: ID!
+  organization_id: String!
+  payload: JSON
+  updated_at: DateTime!
+}
+
+type OrganizationAcctProviderConnBill {
+  code: String!
+  created_at: DateTime!
+  id: ID!
+  last_sync_at: DateTime
+  last_sync_id: String
+  last_sync_success: Boolean
+  organization_acct_provider_conn: OrganizationAcctProviderConn!
+  organization_acct_provider_conn_id: String!
+  organization_bill_id: String!
+  payload: JSON
+  updated_at: DateTime!
+}
+
+type OrganizationAcctProviderConnCustomer {
+  code: String!
+  created_at: DateTime!
+  id: ID!
+  last_sync_at: DateTime
+  last_sync_id: String
+  last_sync_success: Boolean
+  organization_acct_provider_conn: OrganizationAcctProviderConn!
+  organization_acct_provider_conn_id: String!
+  organization_customer_id: String!
+  payload: JSON
+  updated_at: DateTime!
+}
+
+type OrganizationAcctProviderConnInvoice {
+  code: String!
+  created_at: DateTime!
+  id: ID!
+  last_sync_at: DateTime
+  last_sync_id: String
+  last_sync_success: Boolean
+  organization_acct_provider_conn: OrganizationAcctProviderConn!
+  organization_acct_provider_conn_id: String!
+  organization_invoice_id: String!
+  payload: JSON
+  updated_at: DateTime!
+}
+
+type OrganizationAcctProviderConnSynchronization {
+  created_at: DateTime!
+  errors: [String!]!
+  failed_at: DateTime
+  finished_at: DateTime
+  id: ID!
+  local_create_failure_count: Float!
+  local_create_success_count: Float!
+  local_delete_failure_count: Float!
+  local_delete_success_count: Float!
+  local_read_failure_count: Float!
+  local_read_success_count: Float!
+  local_update_failure_count: Float!
+  local_update_success_count: Float!
+  organization_acct_provider_conn_id: String!
+  organization_id: String!
+  payload: JSON
+  pull: Boolean!
+  push: Boolean!
+  remote_create_failure_count: Float!
+  remote_create_success_count: Float!
+  remote_delete_failure_count: Float!
+  remote_delete_success_count: Float!
+  remote_read_failure_count: Float!
+  remote_read_success_count: Float!
+  remote_update_failure_count: Float!
+  remote_update_success_count: Float!
+  started_at: DateTime!
+  status_description: String!
+  succeeded_at: DateTime
+  sync_cluster_code: String!
+  trigger_code: String!
+  updated_at: DateTime!
+}
+
+type OrganizationAcctProviderConnTransaction {
+  code: String!
+  created_at: DateTime!
+  id: ID!
+  last_sync_at: DateTime
+  last_sync_id: String
+  last_sync_success: Boolean
+  organization_acct_provider_conn: OrganizationAcctProviderConn!
+  organization_acct_provider_conn_id: String!
+  organization_transaction_id: String!
+  payload: JSON
+  updated_at: DateTime!
+}
+
+type OrganizationAcctProviderConnVendor {
+  code: String!
+  created_at: DateTime!
+  id: ID!
+  last_sync_at: DateTime
+  last_sync_id: String
+  last_sync_success: Boolean
+  organization_acct_provider_conn: OrganizationAcctProviderConn!
+  organization_acct_provider_conn_id: String!
+  organization_vendor_id: String!
+  payload: JSON
+  updated_at: DateTime!
+}
+
+type OrganizationBill {
+  amount: Int!
+  archived_at: DateTime
+
+  """
+  The open amount for this bill. Balance 0 represents bill fully paid.
+  """
+  balance: Int
+  bill_date: DateTime!
+  conn_linked_invoice_id: String
+  conn_locked_data_at: DateTime
+  created_at: DateTime!
+  currency_code: CURRENCY!
+  description: String!
+  discount_amount: Int!
+  due_date: DateTime!
+  file: File
+  file_id: String
+  has_sync_errors: Boolean
+  history(
+    after: ConnectionCursor
+    before: ConnectionCursor
+    first: Int
+    last: Int
+    skip: Int
+    sorting: [SortingFieldSchema!]
+    take: Int
+  ): OrganizationBillHistoryPaginationConnection!
+  id: ID!
+  is_overdue: Boolean
+  number: String!
+  organization: Organization!
+  organization_acct_provider_conn_bills: [OrganizationAcctProviderConnBill!]!
+  organization_id: String!
+  organization_project: OrganizationProject
+  organization_project_id: String
+  organization_vendor: OrganizationVendor!
+  organization_vendor_id: String!
+  paid_amount: Int
+  paid_at: DateTime
+  payload: JSON
+  status: BILL_STATUS
+  tax_amount: Int!
+  total_amount: Int!
+  transaction_links: [OrganizationTransactionLink!]
+  unique_code: String!
+  updated_at: DateTime!
+  vendor_address_city: String
+  vendor_address_country_code_iso_3: String
+  vendor_address_lat: Float
+  vendor_address_line_1: String
+  vendor_address_line_2: String
+  vendor_address_lng: Float
+  vendor_address_number: String
+  vendor_address_state: String
+  vendor_address_zip_code: String
+  vendor_email: String!
+}
+
+type OrganizationBillHistory {
+  created_at: DateTime!
+  id: ID!
+  organization_bill_id: String!
+  payload: JSON
+  updated_at: DateTime!
+}
+
+type OrganizationBillHistoryPaginationConnection {
+  edges: [OrganizationBillHistoryPaginationEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type OrganizationBillHistoryPaginationEdge {
+  cursor: ConnectionCursor!
+  node: OrganizationBillHistory!
+}
+
+type OrganizationBillPaginationConnection {
+  edges: [OrganizationBillPaginationEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type OrganizationBillPaginationEdge {
+  cursor: ConnectionCursor!
+  node: OrganizationBill!
+}
+
+type OrganizationBillStatement {
+  balance: Int!
+  currency: CURRENCY
+  customer_organization: Organization!
+  customer_organization_id: String!
+  customer_organization_vendor: OrganizationVendor
+  customer_organization_vendor_id: String
+  data: OrganizationBillPaginationConnection!
+  end_date: DateTime
+  overdue_amount: Int!
+  paid_amount: Int!
+  start_date: DateTime
+  status: BILL_STATUS
+  total_amount: Int!
+  vendor_organization: Organization
+  vendor_organization_id: String
+}
+
+type OrganizationConnection {
+  created_at: DateTime!
+  customer_conn_status: ORGANIZATION_CONNECTION_STATUS
+  customer_conn_status_at: DateTime
+  customer_organization_email: String
+  customer_organization_id: String
+  customer_organization_name: String
+  customer_target_vendor_email: String
+  customer_target_vendor_id: String
+  customer_target_vendor_name: String
+  id: ID!
+  is_connected: Boolean!
+  is_valid: Boolean!
+  updated_at: DateTime!
+  vendor_conn_status: ORGANIZATION_CONNECTION_STATUS
+  vendor_conn_status_at: DateTime
+  vendor_organization_email: String
+  vendor_organization_id: String
+  vendor_organization_name: String
+  vendor_target_customer_email: String
+  vendor_target_customer_id: String
+  vendor_target_customer_name: String
+}
+
+type OrganizationConnectionPaginationConnection {
+  edges: [OrganizationConnectionPaginationEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type OrganizationConnectionPaginationEdge {
+  cursor: ConnectionCursor!
+  node: OrganizationConnection!
+}
+
+type OrganizationCustomer {
+  address_city: String
+  address_country_code_iso_3: String
+  address_lat: Float
+  address_line_1: String
+  address_line_2: String
+  address_lng: Float
+  address_number: String
+  address_state: String
+  address_zip_code: String
+  balance: Int
+  conn_locked_data_at: DateTime
+  connection: OrganizationConnection
+  contacts: [OrganizationCustomerContact!]!
+  created_at: DateTime!
+  email: String!
+  id: ID!
+  invoice_statement(
+    after: ConnectionCursor
+    before: ConnectionCursor
+    currency: CURRENCY
+    end_date: DateTime
+    first: Int
+    is_overdue: Boolean
+    last: Int
+    skip: Int
+    sorting: [SortingFieldSchema!]
+    start_date: DateTime
+    status: INVOICE_STATUS
+    take: Int
+  ): OrganizationInvoiceStatement!
+  is_active: Boolean!
+  language: String
+  name: String!
+  organization: Organization!
+  organization_acct_provider_conn_customers: [OrganizationAcctProviderConnCustomer!]!
+  organization_id: String!
+  phone_number: String
+  tax_code: String
+  tax_code_type: String
+  timezone: String
+  unique_code: String!
+  updated_at: DateTime!
+}
+
+type OrganizationCustomerContact {
+  created_at: DateTime!
+  email: String!
+  id: ID!
+  is_default: Boolean!
+  name: String!
+  organization_customer_id: String!
+  phone_number: String
+  send_invoice_reminders: Boolean!
+  updated_at: DateTime!
+}
+
+type OrganizationCustomerContactPaginationConnection {
+  edges: [OrganizationCustomerContactPaginationEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type OrganizationCustomerContactPaginationEdge {
+  cursor: ConnectionCursor!
+  node: OrganizationCustomerContact!
+}
+
+type OrganizationCustomerPaginationConnection {
+  edges: [OrganizationCustomerPaginationEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type OrganizationCustomerPaginationEdge {
+  cursor: ConnectionCursor!
+  node: OrganizationCustomer!
+}
+
+type OrganizationInvite {
+  accepted_at: DateTime
+  canceled_at: DateTime
+  code: String!
+  created_at: DateTime!
+  created_by_user: User!
+  created_by_user_id: String!
+  email: String!
+  expires_at: DateTime!
+  id: ID!
+  organization: Organization!
+  organization_id: String!
+  payload: JSON
+  rejected_at: DateTime
+  role: ORGANIZATION_USER_ROLE!
+  updated_at: DateTime!
+}
+
+type OrganizationInvoice {
+  amount: Int!
+  archived_at: DateTime
+
+  """
+  The open amount for this invoice. Balance 0 represents invoice fully paid.
+  """
+  balance: Int
+  created_at: DateTime!
+  currency_code: CURRENCY!
+  customer_address_city: String
+  customer_address_country_code_iso_3: String
+  customer_address_lat: Float
+  customer_address_line_1: String
+  customer_address_line_2: String
+  customer_address_lng: Float
+  customer_address_number: String
+  customer_address_state: String
+  customer_address_zip_code: String
+  customer_email: String!
+  description: String!
+  discount_amount: Int!
+  due_date: DateTime!
+  email_sent_at: DateTime
+  file: File
+  file_id: String
+  has_sync_errors: Boolean
+  history(
+    after: ConnectionCursor
+    before: ConnectionCursor
+    first: Int
+    last: Int
+    skip: Int
+    sorting: [SortingFieldSchema!]
+    take: Int
+  ): OrganizationInvoiceHistoryPaginationConnection!
+  id: ID!
+  invoice_date: DateTime!
+  is_overdue: Boolean
+  number: String!
+  organization: Organization!
+  organization_acct_provider_conn_invoices: [OrganizationAcctProviderConnInvoice!]!
+  organization_customer: OrganizationCustomer!
+  organization_customer_id: String!
+  organization_id: String!
+  organization_project: OrganizationProject
+  organization_project_id: String
+  paid_amount: Int
+  paid_at: DateTime
+  payload: JSON
+  status: INVOICE_STATUS
+  tax_amount: Int!
+  total_amount: Int!
+  transaction_links: [OrganizationTransactionLink!]
+  unique_code: String!
+  updated_at: DateTime!
+}
+
+type OrganizationInvoiceHistory {
+  created_at: DateTime!
+  id: ID!
+  organization_invoice_id: String!
+  payload: JSON
+  updated_at: DateTime!
+}
+
+type OrganizationInvoiceHistoryPaginationConnection {
+  edges: [OrganizationInvoiceHistoryPaginationEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type OrganizationInvoiceHistoryPaginationEdge {
+  cursor: ConnectionCursor!
+  node: OrganizationInvoiceHistory!
+}
+
+type OrganizationInvoicePaginationConnection {
+  edges: [OrganizationInvoicePaginationEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type OrganizationInvoicePaginationEdge {
+  cursor: ConnectionCursor!
+  node: OrganizationInvoice!
+}
+
+type OrganizationInvoiceStatement {
+  balance: Int!
+  currency: CURRENCY
+  customer_organization: Organization
+  customer_organization_id: String
+  data: OrganizationInvoicePaginationConnection!
+  end_date: DateTime
+  overdue_amount: Int!
+  paid_amount: Int!
+  start_date: DateTime
+  status: INVOICE_STATUS
+  total_amount: Int!
+  vendor_organization: Organization!
+  vendor_organization_customer: OrganizationCustomer
+  vendor_organization_customer_id: String
+  vendor_organization_id: String!
+}
+
+type OrganizationPaymentMethod {
+  archived_at: DateTime
+  created_at: DateTime!
+  id: ID!
+  is_default: Boolean!
+  is_enabled: Boolean!
+  organization_id: String!
+  payment_provider_code: PAYMENT_METHOD!
+  updated_at: DateTime!
+}
+
+type OrganizationProject {
+  archived_at: DateTime
+  budget_amount: Float!
+  budget_currency_code: CURRENCY!
+  canceled_at: DateTime
+  completed_at: DateTime
+  contract_url: String
+  created_at: DateTime!
+  description: String!
+  ends_at: DateTime!
+  id: ID!
+  name: String!
+  organization: Organization!
+  organization_customer: OrganizationCustomer!
+  organization_customer_id: String!
+  organization_id: String!
+  updated_at: DateTime!
+}
+
+type OrganizationProjectChange {
+  changed_budget_amount: Float!
+  changed_ends_at: DateTime!
+  changed_name: String!
+  created_at: DateTime!
+  id: ID!
+  organization_project_change_request: OrganizationProjectChangeRequest!
+  organization_project_change_request_id: String!
+  previous_budget_amount: Float!
+  previous_ends_at: DateTime!
+  previous_name: String!
+  updated_at: DateTime!
+}
+
+type OrganizationProjectChangeRequest {
+  accepted_at: DateTime
+  budget_amount: Float!
+  canceled_at: DateTime
+  contract_url: String
+  created_at: DateTime!
+  created_by_user: User
+  created_by_user_id: String
+  created_side: ORGANIZATION_INVITE_SIDE!
+  ends_at: DateTime!
+  expires_at: DateTime!
+  finished_by_user: User
+  finished_by_user_id: String
+  finished_side: ORGANIZATION_INVITE_SIDE
+  id: ID!
+  name: String!
+  organization_project: OrganizationProject!
+  organization_project_changes: [OrganizationProjectChange!]!
+  organization_project_id: String!
+  payload: JSON!
+  rejected_at: DateTime
+  updated_at: DateTime!
+}
+
+type OrganizationReceivingMethod {
+  archived_at: DateTime
+  created_at: DateTime!
+  id: ID!
+  is_default: Boolean!
+  is_enabled: Boolean!
+  organization_id: String!
+  receiving_provider_code: RECEIVING_METHOD!
+  updated_at: DateTime!
+}
+
+type OrganizationReminderSetting {
+  created_at: DateTime!
+  days_amount: Int!
+  due_date_mode: REMINDER_DUE_DATE_MODE!
+  id: ID!
+  organization_customer_id: String
+  organization_id: String!
+  organization_invoice_id: String
+  organization_project_id: String
+  payload: JSON
+  repeat_mode: REMINDER_REPEAT_MODE
+  repeat_value: Int
+  selected_hour: Int!
+  updated_at: DateTime!
+}
+
+type OrganizationTransaction {
+  amount: Int!
+  archived_at: DateTime
+  created_at: DateTime!
+  currency_code: CURRENCY!
+  failed_at: DateTime
+  id: ID!
+  links: [OrganizationTransactionLink!]!
+  method_id: String
+  method_type: TRANSACTION_METHOD!
+  organization_acct_provider_conn_transactions: [OrganizationAcctProviderConnTransaction!]!
+  provider_code: TRANSACTION_PROVIDER!
+  provider_transaction_code: String!
+  recipient_organization_id: String
+  reverted_at: DateTime
+  sender_organization_id: String
+  started_at: DateTime
+  succeeded_at: DateTime
+  updated_at: DateTime!
+}
+
+type OrganizationTransactionLink {
+  amount: Int!
+  created_at: DateTime!
+  id: ID!
+  item_id: String!
+  item_type: TRANSACTION_ITEM_TYPE!
+  organization_transaction: OrganizationTransaction!
+  organization_transaction_id: String!
+  updated_at: DateTime!
+}
+
+type OrganizationUser {
+  archived_at: DateTime
+  created_at: DateTime!
+  id: ID!
+  organization: Organization!
+  organization_id: String!
+  payload: JSON
+  role: ORGANIZATION_USER_ROLE!
+  send_invoice_reminders: Boolean!
+  updated_at: DateTime!
+  user: User
+  user_id: String!
+}
+
+type OrganizationVendor {
+  address_city: String
+  address_country_code_iso_3: String
+  address_lat: Float
+  address_line_1: String
+  address_line_2: String
+  address_lng: Float
+  address_number: String
+  address_state: String
+  address_zip_code: String
+  balance: Int
+  bill_statement(
+    after: ConnectionCursor
+    before: ConnectionCursor
+    currency: CURRENCY
+    end_date: DateTime
+    first: Int
+    is_overdue: Boolean
+    last: Int
+    skip: Int
+    sorting: [SortingFieldSchema!]
+    start_date: DateTime
+    status: BILL_STATUS
+    take: Int
+  ): OrganizationBillStatement!
+  conn_locked_data_at: DateTime
+  connection: OrganizationConnection
+  contacts: [OrganizationVendorContact!]!
+  created_at: DateTime!
+  email: String!
+  id: ID!
+  is_active: Boolean!
+  language: String
+  name: String!
+  organization: Organization!
+  organization_acct_provider_conn_vendors: [OrganizationAcctProviderConnVendor!]!
+  organization_id: String!
+  phone_number: String
+  tax_code: String
+  tax_code_type: String
+  timezone: String
+  unique_code: String!
+  updated_at: DateTime!
+}
+
+type OrganizationVendorContact {
+  created_at: DateTime!
+  email: String!
+  id: ID!
+  is_default: Boolean!
+  name: String!
+  organization_vendor_id: String!
+  phone_number: String
+  updated_at: DateTime!
+}
+
+type OrganizationVendorContactPaginationConnection {
+  edges: [OrganizationVendorContactPaginationEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type OrganizationVendorContactPaginationEdge {
+  cursor: ConnectionCursor!
+  node: OrganizationVendorContact!
+}
+
+type OrganizationVendorPaginationConnection {
+  edges: [OrganizationVendorPaginationEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type OrganizationVendorPaginationEdge {
+  cursor: ConnectionCursor!
+  node: OrganizationVendor!
+}
+
+enum PAYMENT_METHOD {
+  MANUAL
+  QUICKBOOKS
+}
+
+type PageInfo {
+  endCursor: String
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+}
+
+type Query {
+  session: Session!
+  unauthorizedUserOrganizationUserInvite(
+    code: String!
+    email: String!
+    organization_id: String!
+    organization_invite_id: String!
+  ): UnauthorizedUserOrganizationUserInviteResponse!
+  unconnectedUserCustomerOrganizationInvoiceStatement(
+    after: ConnectionCursor
+    before: ConnectionCursor
+    currency: CURRENCY
+    email: String!
+    end_date: DateTime
+    first: Int
+    is_overdue: Boolean
+    last: Int
+    organization_id: String
+    skip: Int
+    sorting: [SortingFieldSchema!]
+    start_date: DateTime
+    status: INVOICE_STATUS
+    take: Int
+    token: String!
+    unique_code: String!
+  ): OrganizationInvoiceStatement!
+  user: User!
+  userCustomerOrganization(
+    organization_id: String!
+    organization_vendor_id: String!
+  ): OrganizationConnection!
+  userCustomerOrganizationInvoice(
+    organization_id: String!
+    organization_invoice_id: String!
+    organization_vendor_id: String!
+  ): OrganizationInvoice!
+  userCustomerOrganizationInvoiceStatement(
+    after: ConnectionCursor
+    before: ConnectionCursor
+    currency: CURRENCY
+    end_date: DateTime
+    first: Int
+    is_overdue: Boolean
+    last: Int
+    organization_id: String!
+    organization_vendor_id: String!
+    skip: Int
+    sorting: [SortingFieldSchema!]
+    start_date: DateTime
+    status: INVOICE_STATUS
+    take: Int
+  ): OrganizationInvoiceStatement!
+  userCustomerOrganizationInvoices(
+    after: ConnectionCursor
+    before: ConnectionCursor
+    first: Int
+    last: Int
+    organization_id: String!
+    organization_vendor_id: String!
+    skip: Int
+    sorting: [SortingFieldSchema!]
+    take: Int
+  ): OrganizationInvoicePaginationConnection!
+  userCustomerOrganizationProject(
+    organization_id: String!
+    organization_project_id: String!
+    organization_vendor_id: String!
+  ): OrganizationProject!
+  userCustomerOrganizationProjectChange(
+    organization_id: String!
+    organization_project_change_id: String!
+    organization_project_id: String!
+    organization_vendor_id: String!
+  ): OrganizationProjectChange!
+  userCustomerOrganizationProjectChangeRequest(
+    organization_id: String!
+    organization_project_change_request_id: String!
+    organization_project_id: String!
+    organization_vendor_id: String!
+  ): OrganizationProjectChangeRequest!
+  userCustomerOrganizationProjectChangeRequests(
+    accepted: Boolean!
+    after: ConnectionCursor
+    before: ConnectionCursor
+    canceled: Boolean!
+    expired: Boolean!
+    first: Int
+    last: Int
+    organization_id: String!
+    organization_project_id: String!
+    organization_vendor_id: String!
+    rejected: Boolean!
+    skip: Int
+    take: Int
+  ): [OrganizationProjectChangeRequest!]!
+  userCustomerOrganizationProjectChanges(
+    after: ConnectionCursor
+    before: ConnectionCursor
+    first: Int
+    last: Int
+    organization_id: String!
+    organization_project_id: String!
+    organization_vendor_id: String!
+    skip: Int
+    take: Int
+  ): [OrganizationProjectChange!]!
+  userCustomerOrganizationProjects(
+    after: ConnectionCursor
+    before: ConnectionCursor
+    first: Int
+    last: Int
+    organization_id: String!
+    organization_vendor_id: String!
+    skip: Int
+    take: Int
+  ): [OrganizationProject!]!
+  userCustomerOrganizations(
+    organization_id: String!
+  ): [OrganizationConnection!]!
+  userOrganization(organization_id: String!): Organization!
+  userOrganizationAcctProvider(
+    organization_acct_provider_conn_id: String!
+    organization_id: String!
+  ): OrganizationAcctProviderConn!
+  userOrganizationAcctProviderSynchronization(
+    organization_acct_provider_conn_synchronization_id: String!
+    organization_id: String!
+  ): OrganizationAcctProviderConnSynchronization!
+  userOrganizationAcctProviderSynchronizations(
+    after: ConnectionCursor
+    before: ConnectionCursor
+    first: Int
+    last: Int
+    organization_acct_provider_conn_id: String
+    organization_id: String!
+    skip: Int
+    sorting: [SortingFieldSchema!]
+    take: Int
+  ): [OrganizationAcctProviderConnSynchronization!]!
+  userOrganizationAcctProviders(
+    after: ConnectionCursor
+    before: ConnectionCursor
+    first: Int
+    last: Int
+    organization_id: String!
+    skip: Int
+    take: Int
+  ): [OrganizationAcctProviderConn!]!
+  userOrganizationBill(
+    organization_bill_id: String!
+    organization_id: String!
+  ): OrganizationBill!
+  userOrganizationBillStatement(
+    after: ConnectionCursor
+    before: ConnectionCursor
+    currency: CURRENCY
+    end_date: DateTime
+    first: Int
+    is_overdue: Boolean
+    last: Int
+    organization_id: String!
+    organization_vendor_id: String
+    skip: Int
+    sorting: [SortingFieldSchema!]
+    start_date: DateTime
+    status: BILL_STATUS
+    take: Int
+  ): OrganizationBillStatement!
+  userOrganizationBills(
+    after: ConnectionCursor
+    before: ConnectionCursor
+    first: Int
+    is_overdue: Boolean
+    last: Int
+    number: String
+    organization_id: String!
+    organization_project_id: String
+    organization_vendor_id: String
+    skip: Int
+    sorting: [SortingFieldSchema!]
+    status: BILL_STATUS
+    take: Int
+    unique_code: String
+  ): OrganizationBillPaginationConnection!
+  userOrganizationCollaborator(
+    organization_id: String!
+    organization_user_id: String!
+  ): OrganizationUser!
+  userOrganizationCollaborators(organization_id: String!): [OrganizationUser!]!
+  userOrganizationConnection(
+    organization_connection_id: String!
+    organization_id: String!
+  ): OrganizationConnection!
+  userOrganizationConnections(
+    organization_id: String!
+    status: ORGANIZATION_CONNECTION_STATUS
+  ): OrganizationConnectionPaginationConnection!
+  userOrganizationCustomer(
+    organization_customer_id: String!
+    organization_id: String!
+  ): OrganizationCustomer!
+  userOrganizationCustomerContact(
+    organization_customer_contact_id: String!
+    organization_customer_id: String!
+    organization_id: String!
+  ): OrganizationCustomerContact!
+  userOrganizationCustomerContacts(
+    after: ConnectionCursor
+    before: ConnectionCursor
+    first: Int
+    last: Int
+    name: String
+    organization_customer_id: String!
+    organization_id: String!
+    skip: Int
+    sorting: [SortingFieldSchema!]
+    take: Int
+  ): OrganizationCustomerContactPaginationConnection!
+  userOrganizationCustomers(
+    after: ConnectionCursor
+    before: ConnectionCursor
+    first: Int
+    last: Int
+    name: String
+    organization_id: String!
+    skip: Int
+    sorting: [SortingFieldSchema!]
+    take: Int
+  ): OrganizationCustomerPaginationConnection!
+  userOrganizationInviteCollaborator(
+    organization_id: String!
+    organization_invite_id: String!
+  ): OrganizationInvite!
+  userOrganizationInviteCollaborators(
+    after: ConnectionCursor
+    before: ConnectionCursor
+    first: Int
+    last: Int
+    organization_id: String!
+    skip: Int
+    take: Int
+  ): [OrganizationInvite!]!
+  userOrganizationInvoice(
+    organization_id: String!
+    organization_invoice_id: String!
+  ): OrganizationInvoice!
+  userOrganizationInvoiceStatement(
+    after: ConnectionCursor
+    before: ConnectionCursor
+    currency: CURRENCY
+    end_date: DateTime
+    first: Int
+    is_overdue: Boolean
+    last: Int
+    organization_customer_id: String
+    organization_id: String!
+    skip: Int
+    sorting: [SortingFieldSchema!]
+    start_date: DateTime
+    status: INVOICE_STATUS
+    take: Int
+  ): OrganizationInvoiceStatement!
+  userOrganizationInvoices(
+    after: ConnectionCursor
+    before: ConnectionCursor
+    first: Int
+    is_overdue: Boolean
+    last: Int
+    number: String
+    organization_customer_id: String
+    organization_id: String!
+    organization_project_id: String
+    skip: Int
+    sorting: [SortingFieldSchema!]
+    status: INVOICE_STATUS
+    take: Int
+    unique_code: String
+  ): OrganizationInvoicePaginationConnection!
+  userOrganizationPaymentMethod(
+    organization_id: String!
+    organization_payment_method_id: String!
+  ): OrganizationPaymentMethod!
+  userOrganizationPaymentMethodTransaction(
+    organization_id: String!
+    organization_payment_method_id: String!
+    organization_transaction_id: String!
+  ): OrganizationTransaction!
+  userOrganizationPaymentMethodTransactions(
+    after: ConnectionCursor
+    before: ConnectionCursor
+    first: Int
+    last: Int
+    organization_id: String!
+    organization_payment_method_id: String!
+    skip: Int
+    take: Int
+  ): [OrganizationTransaction!]!
+  userOrganizationPaymentMethods(
+    after: ConnectionCursor
+    before: ConnectionCursor
+    first: Int
+    last: Int
+    organization_id: String!
+    skip: Int
+    take: Int
+  ): [OrganizationPaymentMethod!]!
+  userOrganizationProject(
+    organization_id: String!
+    organization_project_id: String!
+  ): OrganizationProject!
+  userOrganizationProjectChange(
+    organization_id: String!
+    organization_project_change_id: String!
+    organization_project_id: String!
+  ): OrganizationProjectChange!
+  userOrganizationProjectChangeRequest(
+    organization_id: String!
+    organization_project_change_request_id: String!
+    organization_project_id: String!
+  ): OrganizationProjectChangeRequest!
+  userOrganizationProjectChangeRequests(
+    accepted: Boolean!
+    after: ConnectionCursor
+    before: ConnectionCursor
+    canceled: Boolean!
+    expired: Boolean!
+    first: Int
+    last: Int
+    organization_id: String!
+    organization_project_id: String!
+    rejected: Boolean!
+    skip: Int
+    take: Int
+  ): [OrganizationProjectChangeRequest!]!
+  userOrganizationProjectChanges(
+    after: ConnectionCursor
+    before: ConnectionCursor
+    first: Int
+    last: Int
+    organization_id: String!
+    organization_project_id: String!
+    skip: Int
+    take: Int
+  ): [OrganizationProjectChange!]!
+  userOrganizationProjects(
+    after: ConnectionCursor
+    before: ConnectionCursor
+    first: Int
+    last: Int
+    organization_id: String!
+    skip: Int
+    take: Int
+  ): [OrganizationProject!]!
+  userOrganizationReceivingMethod(
+    organization_id: String!
+    organization_receiving_method_id: String!
+  ): OrganizationReceivingMethod!
+  userOrganizationReceivingMethodTransaction(
+    organization_id: String!
+    organization_receiving_method_id: String!
+    organization_transaction_id: String!
+  ): OrganizationTransaction!
+  userOrganizationReceivingMethodTransactions(
+    after: ConnectionCursor
+    before: ConnectionCursor
+    first: Int
+    last: Int
+    organization_id: String!
+    organization_receiving_method_id: String!
+    skip: Int
+    take: Int
+  ): [OrganizationTransaction!]!
+  userOrganizationReceivingMethods(
+    after: ConnectionCursor
+    before: ConnectionCursor
+    first: Int
+    last: Int
+    organization_id: String!
+    skip: Int
+    take: Int
+  ): [OrganizationReceivingMethod!]!
+  userOrganizationReminderSetting(
+    organization_id: String!
+    organization_reminder_setting_id: String!
+  ): OrganizationReminderSetting!
+  userOrganizationReminderSettings(
+    after: ConnectionCursor
+    before: ConnectionCursor
+    first: Int
+    last: Int
+    organization_customer_id: String
+    organization_id: String!
+    organization_invoice_id: String
+    organization_project_id: String
+    skip: Int
+    take: Int
+  ): [OrganizationReminderSetting!]!
+  userOrganizationUserInvite(
+    organization_invite_id: String!
+  ): OrganizationInvite!
+  userOrganizationUserInvites(
+    after: ConnectionCursor
+    before: ConnectionCursor
+    first: Int
+    last: Int
+    skip: Int
+    take: Int
+  ): [OrganizationInvite!]!
+  userOrganizationVendor(
+    organization_id: String!
+    organization_vendor_id: String!
+  ): OrganizationVendor!
+  userOrganizationVendorContact(
+    organization_id: String!
+    organization_vendor_contact_id: String!
+    organization_vendor_id: String!
+  ): OrganizationVendorContact!
+  userOrganizationVendorContacts(
+    after: ConnectionCursor
+    before: ConnectionCursor
+    first: Int
+    last: Int
+    name: String
+    organization_id: String!
+    organization_vendor_id: String!
+    skip: Int
+    sorting: [SortingFieldSchema!]
+    take: Int
+  ): OrganizationVendorContactPaginationConnection!
+  userOrganizationVendors(
+    after: ConnectionCursor
+    before: ConnectionCursor
+    first: Int
+    last: Int
+    name: String
+    organization_id: String!
+    skip: Int
+    sorting: [SortingFieldSchema!]
+    take: Int
+  ): OrganizationVendorPaginationConnection!
+  userOrganizations(
+    after: ConnectionCursor
+    before: ConnectionCursor
+    first: Int
+    last: Int
+    skip: Int
+    take: Int
+  ): [Organization!]!
+}
+
+enum RECEIVING_METHOD {
+  MANUAL
+}
+
+enum RECIPIENT_TYPE {
+  ORGANIZATION
+  USER
+}
+
+enum REMINDER_DUE_DATE_MODE {
+  AFTER
+  BEFORE
+}
+
+enum REMINDER_REPEAT_MODE {
+  DAILY
+  MONTHLY
+  WEEKLY
+}
+
+enum SORT_ORDER {
+  ASC
+  DESC
+}
+
+enum STORAGE_PROVIDER {
+  GOOGLE_CLOUD_STORAGE
+}
+
+type Session {
+  user: User!
+  user_auth_provider_conn: UserAuthProviderConn!
+  user_session: UserSession!
+}
+
+input SortingFieldSchema {
+  field: String!
+  order: SORT_ORDER!
+}
+
+enum TRANSACTION_ITEM_TYPE {
+  BILL
+  INVOICE
+  OTHER
+}
+
+enum TRANSACTION_METHOD {
+  PAYMENT
+  RECEIVING
+}
+
+enum TRANSACTION_PROVIDER {
+  MANUAL
+  QUICKBOOKS
+}
+
+type UnauthorizedUserOrganizationUserInviteResponse {
+  invited_by: String
+  organization_id: String!
+  organization_name: String!
+}
+
+type User {
+  archived_at: DateTime
+  created_at: DateTime!
+  current_email_verification_id: String
+  current_phone_number_verification_id: String
+  email: String!
+  first_name: String
+  id: ID!
+  language: String
+  last_name: String
+  organizations: [OrganizationUser]
+  phone_number: String
+  profile_picture_file: File
+  profile_picture_file_id: String
+  timezone: String
+  updated_at: DateTime!
+}
+
+type UserAuthProviderConn {
+  auth_provider_code: AUTH_PROVIDER!
+  code: String!
+  created_at: DateTime!
+  disconnected_at: DateTime
+  id: ID!
+  payload: JSON!
+  updated_at: DateTime!
+  user_id: String!
+}
+
+input UserEmailVerifyOrChangeFinishSchema {
+  email: String!
+  verification_code: String!
+}
+
+input UserEmailVerifyOrChangeStartSchema {
+  email: String!
+}
+
+input UserOrganizationAcctProviderConnUpdateSchema {
+  automatic_pull_enabled: Boolean!
+  automatic_push_enabled: Boolean!
+}
+
+input UserOrganizationBillManualPaymentCreateSchema {
+  amount: Float!
+  currency_code: CURRENCY!
+}
+
+input UserOrganizationBillSchema {
+  amount: Float!
+  bill_date: DateTime!
+  currency_code: CURRENCY!
+  description: String!
+  discount_amount: Float!
+  due_date: DateTime!
+  number: String
+  organization_project_id: String
+  organization_vendor_id: String!
+  total_amount: Float!
+}
+
+input UserOrganizationCollaboratorUpdateSchema {
+  role: ORGANIZATION_USER_ROLE!
+  send_invoice_reminders: Boolean!
+}
+
+input UserOrganizationCreateSchema {
+  address_city: String
+  address_country_code_iso_3: String
+  address_line_1: String
+  address_line_2: String
+  address_number: String
+  address_state: String
+  address_zip_code: String
+  business_address_city: String
+  business_address_country_code_iso_3: String
+  business_address_line_1: String
+  business_address_line_2: String
+  business_address_number: String
+  business_address_state: String
+  business_address_zip_code: String
+  business_name: String
+  business_tax_code: String
+  business_tax_code_type: String
+  email: String!
+  language: String
+  name: String!
+  phone_number: String
+  primary_contact_name: String
+  timezone: String
+}
+
+input UserOrganizationCustomerContactCreateSchema {
+  email: String!
+  is_default: Boolean!
+  name: String!
+  phone_number: String
+  send_invoice_reminders: Boolean!
+}
+
+input UserOrganizationCustomerContactUpdateSchema {
+  email: String!
+  is_default: Boolean!
+  name: String!
+  phone_number: String
+  send_invoice_reminders: Boolean!
+}
+
+input UserOrganizationCustomerSchema {
+  address_city: String
+  address_country_code_iso_3: String
+  address_line_1: String
+  address_line_2: String
+  address_number: String
+  address_state: String
+  address_zip_code: String
+  email: String!
+  is_active: Boolean!
+  language: String
+  name: String!
+  phone_number: String
+  tax_code: String
+  tax_code_type: String
+  timezone: String
+}
+
+input UserOrganizationCustomerSendInvoiceEmailSchema {
+  contact_ids: [String!]!
+  organization_invoice_id: String!
+  send_to_primary_contact: Boolean!
+}
+
+input UserOrganizationCustomerSendInvoiceStatementEmailSchema {
+  contact_ids: [String!]!
+  organization_customer_id: String!
+  send_to_primary_contact: Boolean!
+}
+
+input UserOrganizationEmailVerifyOrChangeFinishSchema {
+  email: String!
+  verification_code: String!
+}
+
+input UserOrganizationEmailVerifyOrChangeStartSchema {
+  email: String!
+}
+
+input UserOrganizationInviteCollaboratorCreateSchema {
+  email: String!
+  role: ORGANIZATION_USER_ROLE!
+}
+
+input UserOrganizationInvoiceManualPaymentCreateSchema {
+  amount: Float!
+  currency_code: CURRENCY!
+}
+
+input UserOrganizationInvoiceSchema {
+  amount: Float!
+  currency_code: CURRENCY!
+  description: String!
+  discount_amount: Float!
+  due_date: DateTime!
+  invoice_date: DateTime!
+  number: String
+  organization_customer_id: String!
+  organization_project_id: String
+  total_amount: Float!
+}
+
+input UserOrganizationPaymentMethodUpdateSchema {
+  is_default: Boolean!
+  is_enabled: Boolean!
+}
+
+input UserOrganizationProjectChangeRequestCreateSchema {
+  budget_amount: Float!
+  change_request_expires_at: DateTime
+  contract_url: String
+  ends_at: DateTime!
+  name: String!
+}
+
+input UserOrganizationProjectCreateSchema {
+  budget_amount: Float!
+  budget_currency_code: CURRENCY!
+  contract_url: String
+  description: String!
+  ends_at: DateTime!
+  name: String!
+  organization_customer_id: String!
+}
+
+input UserOrganizationProjectUpdateSchema {
+  canceled_at: DateTime
+  completed_at: DateTime
+  contract_url: String
+  description: String!
+  organization_customer_id: String!
+}
+
+input UserOrganizationReceivingMethodUpdateSchema {
+  is_default: Boolean!
+  is_enabled: Boolean!
+}
+
+input UserOrganizationReminderSettingCreateSchema {
+  days_amount: Int!
+  due_date_mode: REMINDER_DUE_DATE_MODE!
+  organization_customer_id: String
+  organization_invoice_id: String
+  organization_project_id: String
+  repeat_mode: REMINDER_REPEAT_MODE
+  repeat_value: Int
+  selected_hour: Int!
+}
+
+input UserOrganizationUpdateSchema {
+  address_city: String
+  address_country_code_iso_3: String
+  address_line_1: String
+  address_line_2: String
+  address_number: String
+  address_state: String
+  address_zip_code: String
+  business_address_city: String
+  business_address_country_code_iso_3: String
+  business_address_line_1: String
+  business_address_line_2: String
+  business_address_number: String
+  business_address_state: String
+  business_address_zip_code: String
+  business_name: String
+  business_tax_code: String
+  business_tax_code_type: String
+  language: String
+  name: String!
+  phone_number: String
+  primary_contact_name: String
+  timezone: String
+}
+
+input UserOrganizationVendorContactCreateSchema {
+  email: String!
+  is_default: Boolean!
+  name: String!
+  phone_number: String
+}
+
+input UserOrganizationVendorContactUpdateSchema {
+  email: String!
+  is_default: Boolean!
+  name: String!
+  phone_number: String
+}
+
+input UserOrganizationVendorSchema {
+  address_city: String
+  address_country_code_iso_3: String
+  address_line_1: String
+  address_line_2: String
+  address_number: String
+  address_state: String
+  address_zip_code: String
+  email: String!
+  is_active: Boolean!
+  language: String
+  name: String!
+  phone_number: String
+  tax_code: String
+  tax_code_type: String
+  timezone: String
+}
+
+input UserPasswordChangeFinishSchema {
+  new_password: String!
+  verification_code: String!
+}
+
+input UserPasswordChangeStartSchema {
+  current_password: String
+}
+
+input UserPasswordResetFinishSchema {
+  email: String!
+  new_password: String!
+  user_id: String!
+  verification_code: String!
+}
+
+input UserPasswordResetStartSchema {
+  email: String!
+}
+
+input UserPhoneNumberVerifyOrChangeFinishSchema {
+  phone_number: String!
+  verification_code: String!
+}
+
+input UserPhoneNumberVerifyOrChangeStartSchema {
+  phone_number: String!
+}
+
+type UserSession {
+  access_token: String!
+  access_token_expires_at: DateTime!
+  canceled_at: DateTime
+  created_at: DateTime!
+  id: ID!
+  parent_session: UserSession
+  parent_session_id: String
+  payload: JSON!
+  refresh_token: String
+  refresh_token_expires_at: DateTime
+  updated_at: DateTime!
+  user_auth_provider_conn: UserAuthProviderConn!
+  user_auth_provider_conn_id: String!
+}
+
+input UserSignUpWithEmailFinishSchema {
+  email: String!
+  password: String!
+  verification_code: String!
+}
+
+input UserSignUpWithEmailStartSchema {
+  email: String!
+}
+
+input UserSignUpWithEmailVerifySchema {
+  email: String!
+  verification_code: String!
+}
+
+input UserUpdateDataSchema {
+  first_name: String!
+  language: String!
+  last_name: String!
+  timezone: String!
+}

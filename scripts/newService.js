@@ -19,7 +19,7 @@ const setQuestions = () => [
   },
 ];
 
-function setDirectoryName (name = 'hey') {
+function setDirectoryName(name = 'hey') {
   state.model = name[0].toUpperCase() + name.substring(1);
   state.serviceName = name.toLowerCase();
   state.directory = `${__dirname}/../src/services/${name.toLowerCase()}`;
@@ -54,11 +54,11 @@ export default class ${state.model} {
   `;
 }
 
-function setQueriesFileContent(){
-  state.queriesFileContent = `import { DocumentNode, gql } from '@apollo/client';`;
+function setQueriesFileContent() {
+  state.queriesFileContent = `import { gql } from '@gql';`;
 }
 
-function setTypesFileContent(){
+function setTypesFileContent() {
   state.typesFileContent = `import { StandardQueryOptions } from '../types';
 export interface ${state.model}GetVariables extends StandardQueryOptions {}
 export interface ${state.model}GetResponse {}
@@ -73,41 +73,50 @@ export interface ${state.model}UpdateVariables {}
 export type ${state.model}UpdateResponse = Object;`;
 }
 
-function createIndexFile(){
-  fs.writeFileSync(`${state.directory}/index.ts`, state.indexFileContent)
+function createIndexFile() {
+  fs.writeFileSync(`${state.directory}/index.ts`, state.indexFileContent);
 }
-function createServiceFile(){
-  fs.writeFileSync(`${state.directory}/${state.serviceName}.service.ts`, state.serviceFileContent)
+function createServiceFile() {
+  fs.writeFileSync(
+    `${state.directory}/${state.serviceName}.service.ts`,
+    state.serviceFileContent,
+  );
 }
-function createQueriesFile(){
-  fs.writeFileSync(`${state.directory}/${state.serviceName}.queries.ts`, state.queriesFileContent)
+function createQueriesFile() {
+  fs.writeFileSync(
+    `${state.directory}/${state.serviceName}.queries.ts`,
+    state.queriesFileContent,
+  );
 }
-function createTypesFile(){
-  fs.writeFileSync(`${state.directory}/${state.serviceName}.types.ts`, state.typesFileContent)
+function createTypesFile() {
+  fs.writeFileSync(
+    `${state.directory}/${state.serviceName}.types.ts`,
+    state.typesFileContent,
+  );
 }
 
 const init = async () => {
   // const questions = setQuestions();
   // const responses = await inquirer.prompt(questions);
-  
+
   // setDirectoryName(responses.serviceName);
   setDirectoryName('auth');
 
-  if (checkIfDirectoryExists()){
+  if (checkIfDirectoryExists()) {
     throw new Error('Aborting Directory already exists.');
-  };
+  }
 
   setIndexFileContent();
   setServiceFileContent();
   setQueriesFileContent();
   setTypesFileContent();
-  
+
   createDirectory();
-  
+
   createIndexFile();
   createServiceFile();
   createQueriesFile();
   createTypesFile();
-}
+};
 
 init();

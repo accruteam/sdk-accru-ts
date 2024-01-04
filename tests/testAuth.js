@@ -18,7 +18,7 @@ async function getAuthToken() {
 
   const res = await fetch(
     `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.FIREBASE_WEB_API_KEY}`,
-    requestOptions
+    requestOptions,
   );
   const { idToken } = await res.json();
   return idToken;

@@ -1,6 +1,6 @@
-import { DocumentNode, gql } from '@apollo/client';
+import { gql } from '@gql';
 
-export const CONNECT_INTUIT_MUTATION = gql`
+export const CONNECT_INTUIT_MUTATION = gql(`
   mutation userOrganizationAcctProviderConnect(
     $organizationId: String!
     $accountProvider: ACCT_PROVIDER!
@@ -24,9 +24,9 @@ export const CONNECT_INTUIT_MUTATION = gql`
       acct_provider_code
     }
   }
-`;
+`);
 
-const GET_INTUIT_OAUTH_MUTATION = gql`
+export const GET_INTUIT_OAUTH_MUTATION = gql(`
   mutation userOrganizationAcctProviderGetOAuthUrl(
     $organizationId: String!
     $accountProvider: ACCT_PROVIDER!
@@ -36,8 +36,9 @@ const GET_INTUIT_OAUTH_MUTATION = gql`
       acct_provider_code: $accountProvider
     )
   }
-`;
-const GET_PUSH_OPTIONS_MUTATION = gql`
+`);
+
+export const GET_PUSH_OPTIONS_MUTATION = gql(`
   mutation userOrganizationAcctProviderConnConfigurationPushOptionsGet(
     $organizationId: String!
     $accountProvider: ACCT_PROVIDER!
@@ -47,9 +48,9 @@ const GET_PUSH_OPTIONS_MUTATION = gql`
       acct_provider_code: $accountProvider
     )
   }
-`;
+`);
 
-const SET_PUSH_OPTIONS_MUTATION = gql`
+export const SET_PUSH_OPTIONS_MUTATION = gql(`
   mutation userOrganizationAcctProviderConnConfigurationPushOptionsSet(
     $organizationId: String!
     $accountProvider: ACCT_PROVIDER!
@@ -68,4 +69,4 @@ const SET_PUSH_OPTIONS_MUTATION = gql`
       acct_provider_code
     }
   }
-`;
+`);
