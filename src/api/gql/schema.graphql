@@ -18,9 +18,7 @@ enum CURRENCY {
   USD
 }
 
-"""
-Cursor for pagination
-"""
+"""Cursor for pagination"""
 scalar ConnectionCursor
 
 """
@@ -68,394 +66,101 @@ enum MIME_TYPE {
 
 type Mutation {
   adminClearCache: DateTime!
-  unconnectedUserCustomerOrganizationInvoiceStatementVerify(
-    email: String!
-    unique_code: String!
-  ): DateTime!
-  userAuthProviderDisconnect(
-    auth_provider_code: AUTH_PROVIDER!
-  ): UserAuthProviderConn!
-  userAuthProviderGetOAuthToken(
-    auth_provider_code: AUTH_PROVIDER!
-    authorization_token: String!
-  ): String!
+  unconnectedUserCustomerOrganizationInvoiceStatementVerify(email: String!, unique_code: String!): DateTime!
+  userAuthProviderDisconnect(auth_provider_code: AUTH_PROVIDER!): UserAuthProviderConn!
+  userAuthProviderGetOAuthToken(auth_provider_code: AUTH_PROVIDER!, authorization_token: String!): String!
   userAuthProviderGetOAuthUrl(auth_provider_code: AUTH_PROVIDER!): String!
-  userCustomerOrganizationInvoiceCreateSyncBill(
-    organization_id: String!
-    organization_invoice_id: String!
-    organization_vendor_id: String!
-  ): OrganizationBill!
-  userCustomerOrganizationProjectChangeRequestAccept(
-    allow_bypass: Boolean!
-    organization_id: String!
-    organization_project_change_request_id: String!
-    organization_project_id: String!
-    organization_vendor_id: String!
-  ): OrganizationProjectChangeRequest!
-  userCustomerOrganizationProjectChangeRequestCancel(
-    allow_bypass: Boolean!
-    organization_id: String!
-    organization_project_change_request_id: String!
-    organization_project_id: String!
-    organization_vendor_id: String!
-  ): OrganizationProjectChangeRequest!
-  userCustomerOrganizationProjectChangeRequestCreate(
-    data: UserOrganizationProjectChangeRequestCreateSchema!
-    organization_id: String!
-    organization_project_id: String!
-    organization_vendor_id: String!
-  ): OrganizationProjectChangeRequest!
-  userCustomerOrganizationProjectChangeRequestReject(
-    allow_bypass: Boolean!
-    organization_id: String!
-    organization_project_change_request_id: String!
-    organization_project_id: String!
-    organization_vendor_id: String!
-  ): OrganizationProjectChangeRequest!
-  userEmailVerifyOrChangeFinish(
-    data: UserEmailVerifyOrChangeFinishSchema!
-  ): User!
-  userEmailVerifyOrChangeStart(
-    data: UserEmailVerifyOrChangeStartSchema!
-  ): DateTime!
-  userOrganizationAcctProviderConnConfigurationPullOptionsGet(
-    acct_provider_code: ACCT_PROVIDER!
-    organization_id: String!
-  ): JSON!
-  userOrganizationAcctProviderConnConfigurationPullOptionsSet(
-    acct_provider_code: ACCT_PROVIDER!
-    organization_id: String!
-    payload: JSON!
-  ): OrganizationAcctProviderConn!
-  userOrganizationAcctProviderConnConfigurationPushOptionsGet(
-    acct_provider_code: ACCT_PROVIDER!
-    organization_id: String!
-  ): JSON!
-  userOrganizationAcctProviderConnConfigurationPushOptionsSet(
-    acct_provider_code: ACCT_PROVIDER!
-    organization_id: String!
-    payload: JSON!
-  ): OrganizationAcctProviderConn!
-  userOrganizationAcctProviderConnDisconnect(
-    acct_provider_code: ACCT_PROVIDER!
-    organization_id: String!
-  ): OrganizationAcctProviderConn!
-  userOrganizationAcctProviderConnUpdate(
-    acct_provider_code: ACCT_PROVIDER!
-    data: UserOrganizationAcctProviderConnUpdateSchema!
-    organization_id: String!
-  ): OrganizationAcctProviderConn!
-  userOrganizationAcctProviderConnect(
-    acct_provider_code: ACCT_PROVIDER!
-    automatic_pull_enabled: Boolean!
-    automatic_push_enabled: Boolean!
-    organization_id: String!
-    url: String!
-  ): OrganizationAcctProviderConn!
-  userOrganizationAcctProviderGetOAuthUrl(
-    acct_provider_code: ACCT_PROVIDER!
-    organization_id: String!
-  ): String!
-  userOrganizationAcctProviderSynchronize(
-    acct_provider_code: ACCT_PROVIDER!
-    organization_id: String!
-    pull: Boolean!
-    push: Boolean!
-  ): Organization!
-  userOrganizationBillConnLock(
-    organization_bill_id: String!
-    organization_id: String!
-  ): OrganizationBill!
-  userOrganizationBillConnSync(
-    organization_bill_id: String!
-    organization_id: String!
-  ): OrganizationBill!
-  userOrganizationBillConnUnlock(
-    organization_bill_id: String!
-    organization_id: String!
-  ): OrganizationBill!
-  userOrganizationBillCreate(
-    data: UserOrganizationBillSchema!
-    organization_id: String!
-  ): OrganizationBill!
-  userOrganizationBillDelete(
-    organization_bill_ids: [String!]!
-    organization_id: String!
-  ): [OrganizationBill!]!
-  userOrganizationBillFileDelete(
-    organization_bill_id: String!
-    organization_id: String!
-  ): OrganizationBill!
-  userOrganizationBillManualPaymentCreate(
-    data: UserOrganizationBillManualPaymentCreateSchema!
-    organization_bill_id: String!
-    organization_id: String!
-  ): OrganizationBill!
-  userOrganizationBillManualPaymentDelete(
-    organization_bill_id: String!
-    organization_id: String!
-    organization_transaction_id: String!
-  ): OrganizationBill!
-  userOrganizationBillUpdate(
-    data: UserOrganizationBillSchema!
-    organization_bill_id: String!
-    organization_id: String!
-  ): OrganizationBill!
-  userOrganizationCollaboratorDelete(
-    organization_id: String!
-    organization_user_id: String!
-  ): OrganizationUser!
-  userOrganizationCollaboratorUpdate(
-    data: UserOrganizationCollaboratorUpdateSchema!
-    organization_id: String!
-    organization_user_id: String!
-  ): OrganizationUser!
-  userOrganizationConnectionAccept(
-    organization_connection_id: String!
-    organization_id: String!
-  ): OrganizationConnection!
-  userOrganizationConnectionInviteCustomer(
-    organization_customer_id: String!
-    organization_id: String!
-  ): OrganizationConnection!
-  userOrganizationConnectionInviteVendor(
-    organization_id: String!
-    organization_vendor_id: String!
-  ): OrganizationConnection!
-  userOrganizationConnectionReject(
-    organization_connection_id: String!
-    organization_id: String!
-  ): OrganizationConnection!
+  userCustomerOrganizationInvoiceCreateSyncBill(organization_id: String!, organization_invoice_id: String!, organization_vendor_id: String!): OrganizationBill!
+  userCustomerOrganizationProjectChangeRequestAccept(allow_bypass: Boolean!, organization_id: String!, organization_project_change_request_id: String!, organization_project_id: String!, organization_vendor_id: String!): OrganizationProjectChangeRequest!
+  userCustomerOrganizationProjectChangeRequestCancel(allow_bypass: Boolean!, organization_id: String!, organization_project_change_request_id: String!, organization_project_id: String!, organization_vendor_id: String!): OrganizationProjectChangeRequest!
+  userCustomerOrganizationProjectChangeRequestCreate(data: UserOrganizationProjectChangeRequestCreateSchema!, organization_id: String!, organization_project_id: String!, organization_vendor_id: String!): OrganizationProjectChangeRequest!
+  userCustomerOrganizationProjectChangeRequestReject(allow_bypass: Boolean!, organization_id: String!, organization_project_change_request_id: String!, organization_project_id: String!, organization_vendor_id: String!): OrganizationProjectChangeRequest!
+  userEmailVerifyOrChangeFinish(data: UserEmailVerifyOrChangeFinishSchema!): User!
+  userEmailVerifyOrChangeStart(data: UserEmailVerifyOrChangeStartSchema!): DateTime!
+  userOrganizationAcctProviderConnConfigurationPullOptionsGet(acct_provider_code: ACCT_PROVIDER!, organization_id: String!): JSON!
+  userOrganizationAcctProviderConnConfigurationPullOptionsSet(acct_provider_code: ACCT_PROVIDER!, organization_id: String!, payload: JSON!): OrganizationAcctProviderConn!
+  userOrganizationAcctProviderConnConfigurationPushOptionsGet(acct_provider_code: ACCT_PROVIDER!, organization_id: String!): JSON!
+  userOrganizationAcctProviderConnConfigurationPushOptionsSet(acct_provider_code: ACCT_PROVIDER!, organization_id: String!, payload: JSON!): OrganizationAcctProviderConn!
+  userOrganizationAcctProviderConnDisconnect(acct_provider_code: ACCT_PROVIDER!, organization_id: String!): OrganizationAcctProviderConn!
+  userOrganizationAcctProviderConnUpdate(acct_provider_code: ACCT_PROVIDER!, data: UserOrganizationAcctProviderConnUpdateSchema!, organization_id: String!): OrganizationAcctProviderConn!
+  userOrganizationAcctProviderConnect(acct_provider_code: ACCT_PROVIDER!, automatic_pull_enabled: Boolean!, automatic_push_enabled: Boolean!, organization_id: String!, url: String!): OrganizationAcctProviderConn!
+  userOrganizationAcctProviderGetOAuthUrl(acct_provider_code: ACCT_PROVIDER!, organization_id: String!): String!
+  userOrganizationAcctProviderSynchronize(acct_provider_code: ACCT_PROVIDER!, organization_id: String!, pull: Boolean!, push: Boolean!): Organization!
+  userOrganizationBillConnLock(organization_bill_id: String!, organization_id: String!): OrganizationBill!
+  userOrganizationBillConnSync(organization_bill_id: String!, organization_id: String!): OrganizationBill!
+  userOrganizationBillConnUnlock(organization_bill_id: String!, organization_id: String!): OrganizationBill!
+  userOrganizationBillCreate(data: UserOrganizationBillSchema!, organization_id: String!): OrganizationBill!
+  userOrganizationBillDelete(organization_bill_ids: [String!]!, organization_id: String!): [OrganizationBill!]!
+  userOrganizationBillFileDelete(organization_bill_id: String!, organization_id: String!): OrganizationBill!
+  userOrganizationBillManualPaymentCreate(data: UserOrganizationBillManualPaymentCreateSchema!, organization_bill_id: String!, organization_id: String!): OrganizationBill!
+  userOrganizationBillManualPaymentDelete(organization_bill_id: String!, organization_id: String!, organization_transaction_id: String!): OrganizationBill!
+  userOrganizationBillUpdate(data: UserOrganizationBillSchema!, organization_bill_id: String!, organization_id: String!): OrganizationBill!
+  userOrganizationCollaboratorDelete(organization_id: String!, organization_user_id: String!): OrganizationUser!
+  userOrganizationCollaboratorUpdate(data: UserOrganizationCollaboratorUpdateSchema!, organization_id: String!, organization_user_id: String!): OrganizationUser!
+  userOrganizationConnectionAccept(organization_connection_id: String!, organization_id: String!): OrganizationConnection!
+  userOrganizationConnectionInviteCustomer(organization_customer_id: String!, organization_id: String!): OrganizationConnection!
+  userOrganizationConnectionInviteVendor(organization_id: String!, organization_vendor_id: String!): OrganizationConnection!
+  userOrganizationConnectionReject(organization_connection_id: String!, organization_id: String!): OrganizationConnection!
   userOrganizationCreate(data: UserOrganizationCreateSchema!): Organization!
-  userOrganizationCustomerConnLock(
-    organization_customer_id: String!
-    organization_id: String!
-  ): OrganizationCustomer!
-  userOrganizationCustomerConnSync(
-    organization_customer_id: String!
-    organization_id: String!
-  ): OrganizationCustomer!
-  userOrganizationCustomerConnUnlock(
-    organization_customer_id: String!
-    organization_id: String!
-  ): OrganizationCustomer!
-  userOrganizationCustomerContactCreate(
-    data: UserOrganizationCustomerContactCreateSchema!
-    organization_customer_id: String!
-    organization_id: String!
-  ): OrganizationCustomerContact!
-  userOrganizationCustomerContactDelete(
-    organization_customer_contact_id: String!
-    organization_customer_id: String!
-    organization_id: String!
-  ): OrganizationCustomerContact!
-  userOrganizationCustomerContactUpdate(
-    data: UserOrganizationCustomerContactUpdateSchema!
-    organization_customer_contact_id: String!
-    organization_customer_id: String!
-    organization_id: String!
-  ): OrganizationCustomerContact!
-  userOrganizationCustomerCreate(
-    data: UserOrganizationCustomerSchema!
-    organization_id: String!
-  ): OrganizationCustomer!
-  userOrganizationCustomerSendInvoiceEmail(
-    organization_id: String!
-    targets: [UserOrganizationCustomerSendInvoiceEmailSchema!]!
-  ): JSON!
-  userOrganizationCustomerSendStatementEmail(
-    organization_id: String!
-    targets: [UserOrganizationCustomerSendInvoiceStatementEmailSchema!]!
-  ): JSON!
-  userOrganizationCustomerUniqueCodeUpdate(
-    organization_customer_id: String!
-    organization_id: String!
-  ): OrganizationCustomer!
-  userOrganizationCustomerUpdate(
-    data: UserOrganizationCustomerSchema!
-    organization_customer_id: String!
-    organization_id: String!
-  ): OrganizationCustomer!
+  userOrganizationCustomerConnLock(organization_customer_id: String!, organization_id: String!): OrganizationCustomer!
+  userOrganizationCustomerConnSync(organization_customer_id: String!, organization_id: String!): OrganizationCustomer!
+  userOrganizationCustomerConnUnlock(organization_customer_id: String!, organization_id: String!): OrganizationCustomer!
+  userOrganizationCustomerContactCreate(data: UserOrganizationCustomerContactCreateSchema!, organization_customer_id: String!, organization_id: String!): OrganizationCustomerContact!
+  userOrganizationCustomerContactDelete(organization_customer_contact_id: String!, organization_customer_id: String!, organization_id: String!): OrganizationCustomerContact!
+  userOrganizationCustomerContactUpdate(data: UserOrganizationCustomerContactUpdateSchema!, organization_customer_contact_id: String!, organization_customer_id: String!, organization_id: String!): OrganizationCustomerContact!
+  userOrganizationCustomerCreate(data: UserOrganizationCustomerSchema!, organization_id: String!): OrganizationCustomer!
+  userOrganizationCustomerSendInvoiceEmail(organization_id: String!, targets: [UserOrganizationCustomerSendInvoiceEmailSchema!]!): JSON!
+  userOrganizationCustomerSendStatementEmail(organization_id: String!, targets: [UserOrganizationCustomerSendInvoiceStatementEmailSchema!]!): JSON!
+  userOrganizationCustomerUniqueCodeUpdate(organization_customer_id: String!, organization_id: String!): OrganizationCustomer!
+  userOrganizationCustomerUpdate(data: UserOrganizationCustomerSchema!, organization_customer_id: String!, organization_id: String!): OrganizationCustomer!
   userOrganizationDelete(organization_id: String!): Organization!
-  userOrganizationEmailVerifyOrChangeFinish(
-    data: UserOrganizationEmailVerifyOrChangeFinishSchema!
-    organization_id: String!
-  ): Organization!
-  userOrganizationEmailVerifyOrChangeStart(
-    data: UserOrganizationEmailVerifyOrChangeStartSchema!
-    organization_id: String!
-  ): DateTime!
-  userOrganizationInviteCollaboratorCancel(
-    organization_id: String!
-    organization_invite_id: String!
-  ): OrganizationInvite!
-  userOrganizationInviteCollaboratorCreate(
-    data: UserOrganizationInviteCollaboratorCreateSchema!
-    organization_id: String!
-  ): OrganizationInvite!
-  userOrganizationInviteReject(
-    code: String!
-    organization_id: String!
-    organization_invite_id: String!
-  ): OrganizationInvite!
-  userOrganizationInvoiceCreate(
-    data: UserOrganizationInvoiceSchema!
-    organization_id: String!
-  ): OrganizationInvoice!
-  userOrganizationInvoiceDelete(
-    organization_id: String!
-    organization_invoice_ids: [String!]!
-  ): [OrganizationInvoice!]!
-  userOrganizationInvoiceFileDelete(
-    organization_id: String!
-    organization_invoice_id: String!
-  ): OrganizationInvoice!
-  userOrganizationInvoiceManualPaymentCreate(
-    data: UserOrganizationInvoiceManualPaymentCreateSchema!
-    organization_id: String!
-    organization_invoice_id: String!
-  ): OrganizationInvoice!
-  userOrganizationInvoiceManualPaymentDelete(
-    organization_id: String!
-    organization_invoice_id: String!
-    organization_transaction_id: String!
-  ): OrganizationInvoice!
-  userOrganizationInvoiceUpdate(
-    data: UserOrganizationInvoiceSchema!
-    organization_id: String!
-    organization_invoice_id: String!
-  ): OrganizationInvoice!
+  userOrganizationEmailVerifyOrChangeFinish(data: UserOrganizationEmailVerifyOrChangeFinishSchema!, organization_id: String!): Organization!
+  userOrganizationEmailVerifyOrChangeStart(data: UserOrganizationEmailVerifyOrChangeStartSchema!, organization_id: String!): DateTime!
+  userOrganizationInviteCollaboratorCancel(organization_id: String!, organization_invite_id: String!): OrganizationInvite!
+  userOrganizationInviteCollaboratorCreate(data: UserOrganizationInviteCollaboratorCreateSchema!, organization_id: String!): OrganizationInvite!
+  userOrganizationInviteReject(code: String!, organization_id: String!, organization_invite_id: String!): OrganizationInvite!
+  userOrganizationInvoiceCreate(data: UserOrganizationInvoiceSchema!, organization_id: String!): OrganizationInvoice!
+  userOrganizationInvoiceDelete(organization_id: String!, organization_invoice_ids: [String!]!): [OrganizationInvoice!]!
+  userOrganizationInvoiceFileDelete(organization_id: String!, organization_invoice_id: String!): OrganizationInvoice!
+  userOrganizationInvoiceManualPaymentCreate(data: UserOrganizationInvoiceManualPaymentCreateSchema!, organization_id: String!, organization_invoice_id: String!): OrganizationInvoice!
+  userOrganizationInvoiceManualPaymentDelete(organization_id: String!, organization_invoice_id: String!, organization_transaction_id: String!): OrganizationInvoice!
+  userOrganizationInvoiceUpdate(data: UserOrganizationInvoiceSchema!, organization_id: String!, organization_invoice_id: String!): OrganizationInvoice!
   userOrganizationLeave(organization_id: String!): OrganizationUser!
   userOrganizationLogoPictureRemove(organization_id: String!): Organization!
-  userOrganizationPaymentMethodDelete(
-    organization_id: String!
-    organization_payment_method_id: String!
-  ): OrganizationPaymentMethod!
-  userOrganizationPaymentMethodUpdate(
-    data: UserOrganizationPaymentMethodUpdateSchema!
-    organization_id: String!
-    organization_payment_method_id: String!
-  ): OrganizationPaymentMethod!
-  userOrganizationProjectChangeRequestAccept(
-    allow_bypass: Boolean!
-    organization_id: String!
-    organization_project_change_request_id: String!
-    organization_project_id: String!
-  ): OrganizationProjectChangeRequest!
-  userOrganizationProjectChangeRequestCancel(
-    allow_bypass: Boolean!
-    organization_id: String!
-    organization_project_change_request_id: String!
-    organization_project_id: String!
-  ): OrganizationProjectChangeRequest!
-  userOrganizationProjectChangeRequestCreate(
-    data: UserOrganizationProjectChangeRequestCreateSchema!
-    organization_id: String!
-    organization_project_id: String!
-  ): OrganizationProjectChangeRequest!
-  userOrganizationProjectChangeRequestReject(
-    allow_bypass: Boolean!
-    organization_id: String!
-    organization_project_change_request_id: String!
-    organization_project_id: String!
-  ): OrganizationProjectChangeRequest!
-  userOrganizationProjectCreate(
-    data: UserOrganizationProjectCreateSchema!
-    organization_id: String!
-  ): OrganizationProject!
-  userOrganizationProjectDelete(
-    organization_id: String!
-    organization_project_id: String!
-  ): OrganizationProject!
-  userOrganizationProjectUpdate(
-    data: UserOrganizationProjectUpdateSchema!
-    organization_id: String!
-    organization_project_id: String!
-  ): OrganizationProject!
-  userOrganizationReceivingMethodDelete(
-    organization_id: String!
-    organization_receiving_method_id: String!
-  ): OrganizationReceivingMethod!
-  userOrganizationReceivingMethodUpdate(
-    data: UserOrganizationReceivingMethodUpdateSchema!
-    organization_id: String!
-    organization_receiving_method_id: String!
-  ): OrganizationReceivingMethod!
-  userOrganizationReminderSettingCreate(
-    data: UserOrganizationReminderSettingCreateSchema!
-    organization_id: String!
-  ): OrganizationReminderSetting!
-  userOrganizationReminderSettingDelete(
-    organization_id: String!
-    organization_reminder_setting_id: String!
-  ): OrganizationReminderSetting!
-  userOrganizationSendGenericInviteMail(
-    email: String!
-    organization_id: String!
-  ): DateTime!
+  userOrganizationPaymentMethodDelete(organization_id: String!, organization_payment_method_id: String!): OrganizationPaymentMethod!
+  userOrganizationPaymentMethodUpdate(data: UserOrganizationPaymentMethodUpdateSchema!, organization_id: String!, organization_payment_method_id: String!): OrganizationPaymentMethod!
+  userOrganizationProjectChangeRequestAccept(allow_bypass: Boolean!, organization_id: String!, organization_project_change_request_id: String!, organization_project_id: String!): OrganizationProjectChangeRequest!
+  userOrganizationProjectChangeRequestCancel(allow_bypass: Boolean!, organization_id: String!, organization_project_change_request_id: String!, organization_project_id: String!): OrganizationProjectChangeRequest!
+  userOrganizationProjectChangeRequestCreate(data: UserOrganizationProjectChangeRequestCreateSchema!, organization_id: String!, organization_project_id: String!): OrganizationProjectChangeRequest!
+  userOrganizationProjectChangeRequestReject(allow_bypass: Boolean!, organization_id: String!, organization_project_change_request_id: String!, organization_project_id: String!): OrganizationProjectChangeRequest!
+  userOrganizationProjectCreate(data: UserOrganizationProjectCreateSchema!, organization_id: String!): OrganizationProject!
+  userOrganizationProjectDelete(organization_id: String!, organization_project_id: String!): OrganizationProject!
+  userOrganizationProjectUpdate(data: UserOrganizationProjectUpdateSchema!, organization_id: String!, organization_project_id: String!): OrganizationProject!
+  userOrganizationReceivingMethodDelete(organization_id: String!, organization_receiving_method_id: String!): OrganizationReceivingMethod!
+  userOrganizationReceivingMethodUpdate(data: UserOrganizationReceivingMethodUpdateSchema!, organization_id: String!, organization_receiving_method_id: String!): OrganizationReceivingMethod!
+  userOrganizationReminderSettingCreate(data: UserOrganizationReminderSettingCreateSchema!, organization_id: String!): OrganizationReminderSetting!
+  userOrganizationReminderSettingDelete(organization_id: String!, organization_reminder_setting_id: String!): OrganizationReminderSetting!
+  userOrganizationSendGenericInviteMail(email: String!, organization_id: String!): DateTime!
   userOrganizationUniqueCodeUpdate(organization_id: String!): Organization!
   userOrganizationUniqueNameUpdate(organization_id: String!): Organization!
-  userOrganizationUpdate(
-    data: UserOrganizationUpdateSchema!
-    organization_id: String!
-  ): Organization!
-  userOrganizationUserInviteAccept(
-    code: String!
-    organization_id: String!
-    organization_invite_id: String!
-  ): OrganizationUser!
-  userOrganizationVendorConnLock(
-    organization_id: String!
-    organization_vendor_id: String!
-  ): OrganizationVendor!
-  userOrganizationVendorConnSync(
-    organization_id: String!
-    organization_vendor_id: String!
-  ): OrganizationVendor!
-  userOrganizationVendorConnUnlock(
-    organization_id: String!
-    organization_vendor_id: String!
-  ): OrganizationVendor!
-  userOrganizationVendorContactCreate(
-    data: UserOrganizationVendorContactCreateSchema!
-    organization_id: String!
-    organization_vendor_id: String!
-  ): OrganizationVendorContact!
-  userOrganizationVendorContactDelete(
-    organization_id: String!
-    organization_vendor_contact_id: String!
-    organization_vendor_id: String!
-  ): OrganizationVendorContact!
-  userOrganizationVendorContactUpdate(
-    data: UserOrganizationVendorContactUpdateSchema!
-    organization_id: String!
-    organization_vendor_contact_id: String!
-    organization_vendor_id: String!
-  ): OrganizationVendorContact!
-  userOrganizationVendorCreate(
-    data: UserOrganizationVendorSchema!
-    organization_id: String!
-  ): OrganizationVendor!
-  userOrganizationVendorUniqueCodeUpdate(
-    organization_id: String!
-    organization_vendor_id: String!
-  ): OrganizationVendor!
-  userOrganizationVendorUpdate(
-    data: UserOrganizationVendorSchema!
-    organization_id: String!
-    organization_vendor_id: String!
-  ): OrganizationVendor!
+  userOrganizationUpdate(data: UserOrganizationUpdateSchema!, organization_id: String!): Organization!
+  userOrganizationUserInviteAccept(code: String!, organization_id: String!, organization_invite_id: String!): OrganizationUser!
+  userOrganizationVendorConnLock(organization_id: String!, organization_vendor_id: String!): OrganizationVendor!
+  userOrganizationVendorConnSync(organization_id: String!, organization_vendor_id: String!): OrganizationVendor!
+  userOrganizationVendorConnUnlock(organization_id: String!, organization_vendor_id: String!): OrganizationVendor!
+  userOrganizationVendorContactCreate(data: UserOrganizationVendorContactCreateSchema!, organization_id: String!, organization_vendor_id: String!): OrganizationVendorContact!
+  userOrganizationVendorContactDelete(organization_id: String!, organization_vendor_contact_id: String!, organization_vendor_id: String!): OrganizationVendorContact!
+  userOrganizationVendorContactUpdate(data: UserOrganizationVendorContactUpdateSchema!, organization_id: String!, organization_vendor_contact_id: String!, organization_vendor_id: String!): OrganizationVendorContact!
+  userOrganizationVendorCreate(data: UserOrganizationVendorSchema!, organization_id: String!): OrganizationVendor!
+  userOrganizationVendorUniqueCodeUpdate(organization_id: String!, organization_vendor_id: String!): OrganizationVendor!
+  userOrganizationVendorUpdate(data: UserOrganizationVendorSchema!, organization_id: String!, organization_vendor_id: String!): OrganizationVendor!
   userPasswordChangeFinish(data: UserPasswordChangeFinishSchema!): String!
   userPasswordChangeStart(data: UserPasswordChangeStartSchema!): DateTime!
   userPasswordResetFinish(data: UserPasswordResetFinishSchema!): String!
   userPasswordResetStart(data: UserPasswordResetStartSchema!): String!
   userPhoneNumberRemove: User!
-  userPhoneNumberVerifyOrChangeFinish(
-    data: UserPhoneNumberVerifyOrChangeFinishSchema!
-  ): User!
-  userPhoneNumberVerifyOrChangeStart(
-    data: UserPhoneNumberVerifyOrChangeStartSchema!
-  ): DateTime!
+  userPhoneNumberVerifyOrChangeFinish(data: UserPhoneNumberVerifyOrChangeFinishSchema!): User!
+  userPhoneNumberVerifyOrChangeStart(data: UserPhoneNumberVerifyOrChangeStartSchema!): DateTime!
   userProfilePictureRemove: User!
   userSessionsClose: UserAuthProviderConn!
   userSignUpWithEmailFinish(data: UserSignUpWithEmailFinishSchema!): String!
@@ -645,9 +350,7 @@ type OrganizationBill {
   amount: Int!
   archived_at: DateTime
 
-  """
-  The open amount for this bill. Balance 0 represents bill fully paid.
-  """
+  """The open amount for this bill. Balance 0 represents bill fully paid."""
   balance: Int
   bill_date: DateTime!
   conn_linked_invoice_id: String
@@ -660,15 +363,7 @@ type OrganizationBill {
   file: File
   file_id: String
   has_sync_errors: Boolean
-  history(
-    after: ConnectionCursor
-    before: ConnectionCursor
-    first: Int
-    last: Int
-    skip: Int
-    sorting: [SortingFieldSchema!]
-    take: Int
-  ): OrganizationBillHistoryPaginationConnection!
+  history(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, skip: Int, sorting: [SortingFieldSchema!], take: Int): OrganizationBillHistoryPaginationConnection!
   id: ID!
   is_overdue: Boolean
   number: String!
@@ -800,20 +495,7 @@ type OrganizationCustomer {
   created_at: DateTime!
   email: String!
   id: ID!
-  invoice_statement(
-    after: ConnectionCursor
-    before: ConnectionCursor
-    currency: CURRENCY
-    end_date: DateTime
-    first: Int
-    is_overdue: Boolean
-    last: Int
-    skip: Int
-    sorting: [SortingFieldSchema!]
-    start_date: DateTime
-    status: INVOICE_STATUS
-    take: Int
-  ): OrganizationInvoiceStatement!
+  invoice_statement(after: ConnectionCursor, before: ConnectionCursor, currency: CURRENCY, end_date: DateTime, first: Int, is_overdue: Boolean, last: Int, skip: Int, sorting: [SortingFieldSchema!], start_date: DateTime, status: INVOICE_STATUS, take: Int): OrganizationInvoiceStatement!
   is_active: Boolean!
   language: String
   name: String!
@@ -907,15 +589,7 @@ type OrganizationInvoice {
   file: File
   file_id: String
   has_sync_errors: Boolean
-  history(
-    after: ConnectionCursor
-    before: ConnectionCursor
-    first: Int
-    last: Int
-    skip: Int
-    sorting: [SortingFieldSchema!]
-    take: Int
-  ): OrganizationInvoiceHistoryPaginationConnection!
+  history(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, skip: Int, sorting: [SortingFieldSchema!], take: Int): OrganizationInvoiceHistoryPaginationConnection!
   id: ID!
   invoice_date: DateTime!
   is_overdue: Boolean
@@ -1138,20 +812,7 @@ type OrganizationVendor {
   address_state: String
   address_zip_code: String
   balance: Int
-  bill_statement(
-    after: ConnectionCursor
-    before: ConnectionCursor
-    currency: CURRENCY
-    end_date: DateTime
-    first: Int
-    is_overdue: Boolean
-    last: Int
-    skip: Int
-    sorting: [SortingFieldSchema!]
-    start_date: DateTime
-    status: BILL_STATUS
-    take: Int
-  ): OrganizationBillStatement!
+  bill_statement(after: ConnectionCursor, before: ConnectionCursor, currency: CURRENCY, end_date: DateTime, first: Int, is_overdue: Boolean, last: Int, skip: Int, sorting: [SortingFieldSchema!], start_date: DateTime, status: BILL_STATUS, take: Int): OrganizationBillStatement!
   conn_locked_data_at: DateTime
   connection: OrganizationConnection
   contacts: [OrganizationVendorContact!]!
@@ -1219,452 +880,64 @@ type PageInfo {
 
 type Query {
   session: Session!
-  unauthorizedUserOrganizationUserInvite(
-    code: String!
-    email: String!
-    organization_id: String!
-    organization_invite_id: String!
-  ): UnauthorizedUserOrganizationUserInviteResponse!
-  unconnectedUserCustomerOrganizationInvoiceStatement(
-    after: ConnectionCursor
-    before: ConnectionCursor
-    currency: CURRENCY
-    email: String!
-    end_date: DateTime
-    first: Int
-    is_overdue: Boolean
-    last: Int
-    organization_id: String
-    skip: Int
-    sorting: [SortingFieldSchema!]
-    start_date: DateTime
-    status: INVOICE_STATUS
-    take: Int
-    token: String!
-    unique_code: String!
-  ): OrganizationInvoiceStatement!
+  unauthorizedUserOrganizationUserInvite(code: String!, email: String!, organization_id: String!, organization_invite_id: String!): UnauthorizedUserOrganizationUserInviteResponse!
+  unconnectedUserCustomerOrganizationInvoiceStatement(after: ConnectionCursor, before: ConnectionCursor, currency: CURRENCY, email: String!, end_date: DateTime, first: Int, is_overdue: Boolean, last: Int, organization_id: String, skip: Int, sorting: [SortingFieldSchema!], start_date: DateTime, status: INVOICE_STATUS, take: Int, token: String!, unique_code: String!): OrganizationInvoiceStatement!
   user: User!
-  userCustomerOrganization(
-    organization_id: String!
-    organization_vendor_id: String!
-  ): OrganizationConnection!
-  userCustomerOrganizationInvoice(
-    organization_id: String!
-    organization_invoice_id: String!
-    organization_vendor_id: String!
-  ): OrganizationInvoice!
-  userCustomerOrganizationInvoiceStatement(
-    after: ConnectionCursor
-    before: ConnectionCursor
-    currency: CURRENCY
-    end_date: DateTime
-    first: Int
-    is_overdue: Boolean
-    last: Int
-    organization_id: String!
-    organization_vendor_id: String!
-    skip: Int
-    sorting: [SortingFieldSchema!]
-    start_date: DateTime
-    status: INVOICE_STATUS
-    take: Int
-  ): OrganizationInvoiceStatement!
-  userCustomerOrganizationInvoices(
-    after: ConnectionCursor
-    before: ConnectionCursor
-    first: Int
-    last: Int
-    organization_id: String!
-    organization_vendor_id: String!
-    skip: Int
-    sorting: [SortingFieldSchema!]
-    take: Int
-  ): OrganizationInvoicePaginationConnection!
-  userCustomerOrganizationProject(
-    organization_id: String!
-    organization_project_id: String!
-    organization_vendor_id: String!
-  ): OrganizationProject!
-  userCustomerOrganizationProjectChange(
-    organization_id: String!
-    organization_project_change_id: String!
-    organization_project_id: String!
-    organization_vendor_id: String!
-  ): OrganizationProjectChange!
-  userCustomerOrganizationProjectChangeRequest(
-    organization_id: String!
-    organization_project_change_request_id: String!
-    organization_project_id: String!
-    organization_vendor_id: String!
-  ): OrganizationProjectChangeRequest!
-  userCustomerOrganizationProjectChangeRequests(
-    accepted: Boolean!
-    after: ConnectionCursor
-    before: ConnectionCursor
-    canceled: Boolean!
-    expired: Boolean!
-    first: Int
-    last: Int
-    organization_id: String!
-    organization_project_id: String!
-    organization_vendor_id: String!
-    rejected: Boolean!
-    skip: Int
-    take: Int
-  ): [OrganizationProjectChangeRequest!]!
-  userCustomerOrganizationProjectChanges(
-    after: ConnectionCursor
-    before: ConnectionCursor
-    first: Int
-    last: Int
-    organization_id: String!
-    organization_project_id: String!
-    organization_vendor_id: String!
-    skip: Int
-    take: Int
-  ): [OrganizationProjectChange!]!
-  userCustomerOrganizationProjects(
-    after: ConnectionCursor
-    before: ConnectionCursor
-    first: Int
-    last: Int
-    organization_id: String!
-    organization_vendor_id: String!
-    skip: Int
-    take: Int
-  ): [OrganizationProject!]!
-  userCustomerOrganizations(
-    organization_id: String!
-  ): [OrganizationConnection!]!
+  userCustomerOrganization(organization_id: String!, organization_vendor_id: String!): OrganizationConnection!
+  userCustomerOrganizationInvoice(organization_id: String!, organization_invoice_id: String!, organization_vendor_id: String!): OrganizationInvoice!
+  userCustomerOrganizationInvoiceStatement(after: ConnectionCursor, before: ConnectionCursor, currency: CURRENCY, end_date: DateTime, first: Int, is_overdue: Boolean, last: Int, organization_id: String!, organization_vendor_id: String!, skip: Int, sorting: [SortingFieldSchema!], start_date: DateTime, status: INVOICE_STATUS, take: Int): OrganizationInvoiceStatement!
+  userCustomerOrganizationInvoices(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, organization_id: String!, organization_vendor_id: String!, skip: Int, sorting: [SortingFieldSchema!], take: Int): OrganizationInvoicePaginationConnection!
+  userCustomerOrganizationProject(organization_id: String!, organization_project_id: String!, organization_vendor_id: String!): OrganizationProject!
+  userCustomerOrganizationProjectChange(organization_id: String!, organization_project_change_id: String!, organization_project_id: String!, organization_vendor_id: String!): OrganizationProjectChange!
+  userCustomerOrganizationProjectChangeRequest(organization_id: String!, organization_project_change_request_id: String!, organization_project_id: String!, organization_vendor_id: String!): OrganizationProjectChangeRequest!
+  userCustomerOrganizationProjectChangeRequests(accepted: Boolean!, after: ConnectionCursor, before: ConnectionCursor, canceled: Boolean!, expired: Boolean!, first: Int, last: Int, organization_id: String!, organization_project_id: String!, organization_vendor_id: String!, rejected: Boolean!, skip: Int, take: Int): [OrganizationProjectChangeRequest!]!
+  userCustomerOrganizationProjectChanges(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, organization_id: String!, organization_project_id: String!, organization_vendor_id: String!, skip: Int, take: Int): [OrganizationProjectChange!]!
+  userCustomerOrganizationProjects(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, organization_id: String!, organization_vendor_id: String!, skip: Int, take: Int): [OrganizationProject!]!
+  userCustomerOrganizations(organization_id: String!): [OrganizationConnection!]!
   userOrganization(organization_id: String!): Organization!
-  userOrganizationAcctProvider(
-    organization_acct_provider_conn_id: String!
-    organization_id: String!
-  ): OrganizationAcctProviderConn!
-  userOrganizationAcctProviderSynchronization(
-    organization_acct_provider_conn_synchronization_id: String!
-    organization_id: String!
-  ): OrganizationAcctProviderConnSynchronization!
-  userOrganizationAcctProviderSynchronizations(
-    after: ConnectionCursor
-    before: ConnectionCursor
-    first: Int
-    last: Int
-    organization_acct_provider_conn_id: String
-    organization_id: String!
-    skip: Int
-    sorting: [SortingFieldSchema!]
-    take: Int
-  ): [OrganizationAcctProviderConnSynchronization!]!
-  userOrganizationAcctProviders(
-    after: ConnectionCursor
-    before: ConnectionCursor
-    first: Int
-    last: Int
-    organization_id: String!
-    skip: Int
-    take: Int
-  ): [OrganizationAcctProviderConn!]!
-  userOrganizationBill(
-    organization_bill_id: String!
-    organization_id: String!
-  ): OrganizationBill!
-  userOrganizationBillStatement(
-    after: ConnectionCursor
-    before: ConnectionCursor
-    currency: CURRENCY
-    end_date: DateTime
-    first: Int
-    is_overdue: Boolean
-    last: Int
-    organization_id: String!
-    organization_vendor_id: String
-    skip: Int
-    sorting: [SortingFieldSchema!]
-    start_date: DateTime
-    status: BILL_STATUS
-    take: Int
-  ): OrganizationBillStatement!
-  userOrganizationBills(
-    after: ConnectionCursor
-    before: ConnectionCursor
-    first: Int
-    is_overdue: Boolean
-    last: Int
-    number: String
-    organization_id: String!
-    organization_project_id: String
-    organization_vendor_id: String
-    skip: Int
-    sorting: [SortingFieldSchema!]
-    status: BILL_STATUS
-    take: Int
-    unique_code: String
-  ): OrganizationBillPaginationConnection!
-  userOrganizationCollaborator(
-    organization_id: String!
-    organization_user_id: String!
-  ): OrganizationUser!
+  userOrganizationAcctProvider(organization_acct_provider_conn_id: String!, organization_id: String!): OrganizationAcctProviderConn!
+  userOrganizationAcctProviderSynchronization(organization_acct_provider_conn_synchronization_id: String!, organization_id: String!): OrganizationAcctProviderConnSynchronization!
+  userOrganizationAcctProviderSynchronizations(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, organization_acct_provider_conn_id: String, organization_id: String!, skip: Int, sorting: [SortingFieldSchema!], take: Int): [OrganizationAcctProviderConnSynchronization!]!
+  userOrganizationAcctProviders(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, organization_id: String!, skip: Int, take: Int): [OrganizationAcctProviderConn!]!
+  userOrganizationBill(organization_bill_id: String!, organization_id: String!): OrganizationBill!
+  userOrganizationBillStatement(after: ConnectionCursor, before: ConnectionCursor, currency: CURRENCY, end_date: DateTime, first: Int, is_overdue: Boolean, last: Int, organization_id: String!, organization_vendor_id: String, skip: Int, sorting: [SortingFieldSchema!], start_date: DateTime, status: BILL_STATUS, take: Int): OrganizationBillStatement!
+  userOrganizationBills(after: ConnectionCursor, before: ConnectionCursor, first: Int, is_overdue: Boolean, last: Int, number: String, organization_id: String!, organization_project_id: String, organization_vendor_id: String, skip: Int, sorting: [SortingFieldSchema!], status: BILL_STATUS, take: Int, unique_code: String): OrganizationBillPaginationConnection!
+  userOrganizationCollaborator(organization_id: String!, organization_user_id: String!): OrganizationUser!
   userOrganizationCollaborators(organization_id: String!): [OrganizationUser!]!
-  userOrganizationConnection(
-    organization_connection_id: String!
-    organization_id: String!
-  ): OrganizationConnection!
-  userOrganizationConnections(
-    organization_id: String!
-    status: ORGANIZATION_CONNECTION_STATUS
-  ): OrganizationConnectionPaginationConnection!
-  userOrganizationCustomer(
-    organization_customer_id: String!
-    organization_id: String!
-  ): OrganizationCustomer!
-  userOrganizationCustomerContact(
-    organization_customer_contact_id: String!
-    organization_customer_id: String!
-    organization_id: String!
-  ): OrganizationCustomerContact!
-  userOrganizationCustomerContacts(
-    after: ConnectionCursor
-    before: ConnectionCursor
-    first: Int
-    last: Int
-    name: String
-    organization_customer_id: String!
-    organization_id: String!
-    skip: Int
-    sorting: [SortingFieldSchema!]
-    take: Int
-  ): OrganizationCustomerContactPaginationConnection!
-  userOrganizationCustomers(
-    after: ConnectionCursor
-    before: ConnectionCursor
-    first: Int
-    last: Int
-    name: String
-    organization_id: String!
-    skip: Int
-    sorting: [SortingFieldSchema!]
-    take: Int
-  ): OrganizationCustomerPaginationConnection!
-  userOrganizationInviteCollaborator(
-    organization_id: String!
-    organization_invite_id: String!
-  ): OrganizationInvite!
-  userOrganizationInviteCollaborators(
-    after: ConnectionCursor
-    before: ConnectionCursor
-    first: Int
-    last: Int
-    organization_id: String!
-    skip: Int
-    take: Int
-  ): [OrganizationInvite!]!
-  userOrganizationInvoice(
-    organization_id: String!
-    organization_invoice_id: String!
-  ): OrganizationInvoice!
-  userOrganizationInvoiceStatement(
-    after: ConnectionCursor
-    before: ConnectionCursor
-    currency: CURRENCY
-    end_date: DateTime
-    first: Int
-    is_overdue: Boolean
-    last: Int
-    organization_customer_id: String
-    organization_id: String!
-    skip: Int
-    sorting: [SortingFieldSchema!]
-    start_date: DateTime
-    status: INVOICE_STATUS
-    take: Int
-  ): OrganizationInvoiceStatement!
-  userOrganizationInvoices(
-    after: ConnectionCursor
-    before: ConnectionCursor
-    first: Int
-    is_overdue: Boolean
-    last: Int
-    number: String
-    organization_customer_id: String
-    organization_id: String!
-    organization_project_id: String
-    skip: Int
-    sorting: [SortingFieldSchema!]
-    status: INVOICE_STATUS
-    take: Int
-    unique_code: String
-  ): OrganizationInvoicePaginationConnection!
-  userOrganizationPaymentMethod(
-    organization_id: String!
-    organization_payment_method_id: String!
-  ): OrganizationPaymentMethod!
-  userOrganizationPaymentMethodTransaction(
-    organization_id: String!
-    organization_payment_method_id: String!
-    organization_transaction_id: String!
-  ): OrganizationTransaction!
-  userOrganizationPaymentMethodTransactions(
-    after: ConnectionCursor
-    before: ConnectionCursor
-    first: Int
-    last: Int
-    organization_id: String!
-    organization_payment_method_id: String!
-    skip: Int
-    take: Int
-  ): [OrganizationTransaction!]!
-  userOrganizationPaymentMethods(
-    after: ConnectionCursor
-    before: ConnectionCursor
-    first: Int
-    last: Int
-    organization_id: String!
-    skip: Int
-    take: Int
-  ): [OrganizationPaymentMethod!]!
-  userOrganizationProject(
-    organization_id: String!
-    organization_project_id: String!
-  ): OrganizationProject!
-  userOrganizationProjectChange(
-    organization_id: String!
-    organization_project_change_id: String!
-    organization_project_id: String!
-  ): OrganizationProjectChange!
-  userOrganizationProjectChangeRequest(
-    organization_id: String!
-    organization_project_change_request_id: String!
-    organization_project_id: String!
-  ): OrganizationProjectChangeRequest!
-  userOrganizationProjectChangeRequests(
-    accepted: Boolean!
-    after: ConnectionCursor
-    before: ConnectionCursor
-    canceled: Boolean!
-    expired: Boolean!
-    first: Int
-    last: Int
-    organization_id: String!
-    organization_project_id: String!
-    rejected: Boolean!
-    skip: Int
-    take: Int
-  ): [OrganizationProjectChangeRequest!]!
-  userOrganizationProjectChanges(
-    after: ConnectionCursor
-    before: ConnectionCursor
-    first: Int
-    last: Int
-    organization_id: String!
-    organization_project_id: String!
-    skip: Int
-    take: Int
-  ): [OrganizationProjectChange!]!
-  userOrganizationProjects(
-    after: ConnectionCursor
-    before: ConnectionCursor
-    first: Int
-    last: Int
-    organization_id: String!
-    skip: Int
-    take: Int
-  ): [OrganizationProject!]!
-  userOrganizationReceivingMethod(
-    organization_id: String!
-    organization_receiving_method_id: String!
-  ): OrganizationReceivingMethod!
-  userOrganizationReceivingMethodTransaction(
-    organization_id: String!
-    organization_receiving_method_id: String!
-    organization_transaction_id: String!
-  ): OrganizationTransaction!
-  userOrganizationReceivingMethodTransactions(
-    after: ConnectionCursor
-    before: ConnectionCursor
-    first: Int
-    last: Int
-    organization_id: String!
-    organization_receiving_method_id: String!
-    skip: Int
-    take: Int
-  ): [OrganizationTransaction!]!
-  userOrganizationReceivingMethods(
-    after: ConnectionCursor
-    before: ConnectionCursor
-    first: Int
-    last: Int
-    organization_id: String!
-    skip: Int
-    take: Int
-  ): [OrganizationReceivingMethod!]!
-  userOrganizationReminderSetting(
-    organization_id: String!
-    organization_reminder_setting_id: String!
-  ): OrganizationReminderSetting!
-  userOrganizationReminderSettings(
-    after: ConnectionCursor
-    before: ConnectionCursor
-    first: Int
-    last: Int
-    organization_customer_id: String
-    organization_id: String!
-    organization_invoice_id: String
-    organization_project_id: String
-    skip: Int
-    take: Int
-  ): [OrganizationReminderSetting!]!
-  userOrganizationUserInvite(
-    organization_invite_id: String!
-  ): OrganizationInvite!
-  userOrganizationUserInvites(
-    after: ConnectionCursor
-    before: ConnectionCursor
-    first: Int
-    last: Int
-    skip: Int
-    take: Int
-  ): [OrganizationInvite!]!
-  userOrganizationVendor(
-    organization_id: String!
-    organization_vendor_id: String!
-  ): OrganizationVendor!
-  userOrganizationVendorContact(
-    organization_id: String!
-    organization_vendor_contact_id: String!
-    organization_vendor_id: String!
-  ): OrganizationVendorContact!
-  userOrganizationVendorContacts(
-    after: ConnectionCursor
-    before: ConnectionCursor
-    first: Int
-    last: Int
-    name: String
-    organization_id: String!
-    organization_vendor_id: String!
-    skip: Int
-    sorting: [SortingFieldSchema!]
-    take: Int
-  ): OrganizationVendorContactPaginationConnection!
-  userOrganizationVendors(
-    after: ConnectionCursor
-    before: ConnectionCursor
-    first: Int
-    last: Int
-    name: String
-    organization_id: String!
-    skip: Int
-    sorting: [SortingFieldSchema!]
-    take: Int
-  ): OrganizationVendorPaginationConnection!
-  userOrganizations(
-    after: ConnectionCursor
-    before: ConnectionCursor
-    first: Int
-    last: Int
-    skip: Int
-    take: Int
-  ): [Organization!]!
+  userOrganizationConnection(organization_connection_id: String!, organization_id: String!): OrganizationConnection!
+  userOrganizationConnections(organization_id: String!, status: ORGANIZATION_CONNECTION_STATUS): OrganizationConnectionPaginationConnection!
+  userOrganizationCustomer(organization_customer_id: String!, organization_id: String!): OrganizationCustomer!
+  userOrganizationCustomerContact(organization_customer_contact_id: String!, organization_customer_id: String!, organization_id: String!): OrganizationCustomerContact!
+  userOrganizationCustomerContacts(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, name: String, organization_customer_id: String!, organization_id: String!, skip: Int, sorting: [SortingFieldSchema!], take: Int): OrganizationCustomerContactPaginationConnection!
+  userOrganizationCustomers(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, name: String, organization_id: String!, skip: Int, sorting: [SortingFieldSchema!], take: Int): OrganizationCustomerPaginationConnection!
+  userOrganizationInviteCollaborator(organization_id: String!, organization_invite_id: String!): OrganizationInvite!
+  userOrganizationInviteCollaborators(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, organization_id: String!, skip: Int, take: Int): [OrganizationInvite!]!
+  userOrganizationInvoice(organization_id: String!, organization_invoice_id: String!): OrganizationInvoice!
+  userOrganizationInvoiceStatement(after: ConnectionCursor, before: ConnectionCursor, currency: CURRENCY, end_date: DateTime, first: Int, is_overdue: Boolean, last: Int, organization_customer_id: String, organization_id: String!, skip: Int, sorting: [SortingFieldSchema!], start_date: DateTime, status: INVOICE_STATUS, take: Int): OrganizationInvoiceStatement!
+  userOrganizationInvoices(after: ConnectionCursor, before: ConnectionCursor, first: Int, is_overdue: Boolean, last: Int, number: String, organization_customer_id: String, organization_id: String!, organization_project_id: String, skip: Int, sorting: [SortingFieldSchema!], status: INVOICE_STATUS, take: Int, unique_code: String): OrganizationInvoicePaginationConnection!
+  userOrganizationPaymentMethod(organization_id: String!, organization_payment_method_id: String!): OrganizationPaymentMethod!
+  userOrganizationPaymentMethodTransaction(organization_id: String!, organization_payment_method_id: String!, organization_transaction_id: String!): OrganizationTransaction!
+  userOrganizationPaymentMethodTransactions(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, organization_id: String!, organization_payment_method_id: String!, skip: Int, take: Int): [OrganizationTransaction!]!
+  userOrganizationPaymentMethods(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, organization_id: String!, skip: Int, take: Int): [OrganizationPaymentMethod!]!
+  userOrganizationProject(organization_id: String!, organization_project_id: String!): OrganizationProject!
+  userOrganizationProjectChange(organization_id: String!, organization_project_change_id: String!, organization_project_id: String!): OrganizationProjectChange!
+  userOrganizationProjectChangeRequest(organization_id: String!, organization_project_change_request_id: String!, organization_project_id: String!): OrganizationProjectChangeRequest!
+  userOrganizationProjectChangeRequests(accepted: Boolean!, after: ConnectionCursor, before: ConnectionCursor, canceled: Boolean!, expired: Boolean!, first: Int, last: Int, organization_id: String!, organization_project_id: String!, rejected: Boolean!, skip: Int, take: Int): [OrganizationProjectChangeRequest!]!
+  userOrganizationProjectChanges(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, organization_id: String!, organization_project_id: String!, skip: Int, take: Int): [OrganizationProjectChange!]!
+  userOrganizationProjects(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, organization_id: String!, skip: Int, take: Int): [OrganizationProject!]!
+  userOrganizationReceivingMethod(organization_id: String!, organization_receiving_method_id: String!): OrganizationReceivingMethod!
+  userOrganizationReceivingMethodTransaction(organization_id: String!, organization_receiving_method_id: String!, organization_transaction_id: String!): OrganizationTransaction!
+  userOrganizationReceivingMethodTransactions(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, organization_id: String!, organization_receiving_method_id: String!, skip: Int, take: Int): [OrganizationTransaction!]!
+  userOrganizationReceivingMethods(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, organization_id: String!, skip: Int, take: Int): [OrganizationReceivingMethod!]!
+  userOrganizationReminderSetting(organization_id: String!, organization_reminder_setting_id: String!): OrganizationReminderSetting!
+  userOrganizationReminderSettings(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, organization_customer_id: String, organization_id: String!, organization_invoice_id: String, organization_project_id: String, skip: Int, take: Int): [OrganizationReminderSetting!]!
+  userOrganizationUserInvite(organization_invite_id: String!): OrganizationInvite!
+  userOrganizationUserInvites(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, skip: Int, take: Int): [OrganizationInvite!]!
+  userOrganizationVendor(organization_id: String!, organization_vendor_id: String!): OrganizationVendor!
+  userOrganizationVendorContact(organization_id: String!, organization_vendor_contact_id: String!, organization_vendor_id: String!): OrganizationVendorContact!
+  userOrganizationVendorContacts(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, name: String, organization_id: String!, organization_vendor_id: String!, skip: Int, sorting: [SortingFieldSchema!], take: Int): OrganizationVendorContactPaginationConnection!
+  userOrganizationVendors(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, name: String, organization_id: String!, skip: Int, sorting: [SortingFieldSchema!], take: Int): OrganizationVendorPaginationConnection!
+  userOrganizations(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, skip: Int, take: Int): [Organization!]!
 }
 
 enum RECEIVING_METHOD {
