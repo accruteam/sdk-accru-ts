@@ -2,8 +2,6 @@
 
 DIR=$(realpath $(dirname $0))/../
 
-echo $DIR
-exit 0
 cleanup() {
   yarn --cwd "$DIR/dist" unlink
 
