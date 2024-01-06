@@ -81,7 +81,15 @@ executeInProject() {
     return
   fi
 
-  (cd "$PROJECT_PATH" && nvm use && "$@")
+  (
+    cd "$PROJECT_PATH"
+    NODE_VERSION=$(cat "$PROJECT_PATH/.nvmrc")
+    nvm install "$NODE_VERSION"
+    nvm use "$NODE_VERSION"
+    echo "Using node $(node -v)"
+    echo "Executing: $@"
+    eval "$@"
+  )
 }
 
 cleanup() {
@@ -89,7 +97,7 @@ cleanup() {
 
   if [ -n "$PROJECT_PATH" ]; then
     echo "Removing $PACKAGE_NAME from $PROJECT_PATH..."
-    executeInProject yalc remove $PACKAGE_NAME && yarn
+    executeInProject "yalc remove $PACKAGE_NAME && yarn"
 
     echo "Unregistering $PACKAGE_NAME"
     yalc installations clean $PACKAGE_NAME
@@ -116,7 +124,7 @@ done
 
 if [ -n "$PROJECT_PATH" ]; then
   echo "Adding $PACKAGE_NAME to $PROJECT_PATH..."
-  executeInProject yalc add $PACKAGE_NAME && yarn
+  executeInProject "yalc add $PACKAGE_NAME && yarn"
 
   if ! grep -q "yalc.lock" "$PROJECT_PATH/.gitignore"; then
     echo "Adding yalc.lock to .gitignore..."
