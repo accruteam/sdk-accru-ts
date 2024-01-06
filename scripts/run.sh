@@ -104,7 +104,7 @@ cleanup() {
   if [ -n "$PROJECT_PATH" ]; then
     echo "Removing $PACKAGE_NAME from $PROJECT_PATH..."
     executeInProject yalc remove $PACKAGE_NAME
-    executeInProject yarn
+    executeInProject yarn --no-node-version-check --ignore-engines
 
     echo "Unregistering $PACKAGE_NAME"
     yalc installations clean $PACKAGE_NAME
@@ -132,7 +132,7 @@ done
 if [ -n "$PROJECT_PATH" ]; then
   echo "Adding $PACKAGE_NAME to $PROJECT_PATH..."
   executeInProject yalc add $PACKAGE_NAME
-  executeInProject yarn
+  executeInProject yarn --no-node-version-check --ignore-engines
 
   if ! grep -q "yalc.lock" "$PROJECT_PATH/.gitignore"; then
     echo "Adding yalc.lock to .gitignore..."
