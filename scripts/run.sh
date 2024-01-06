@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [ -n "$PREFIX" ] && [ "$(uname)" == "Darwin" ]; then
+  unset PREFIX
+fi
+
 DIR=$(cd "$(dirname "$0")/.." && pwd)
 
 if ! [ -x "$(command -v node)" ]; then
@@ -81,14 +85,16 @@ executeInProject() {
     return
   fi
 
+  local EXEC_ARGS="$@"
+  echo "Executing '$EXEC_ARGS' in $PROJECT_PATH..."
+
   (
-    cd "$PROJECT_PATH"
     NODE_VERSION=$(cat "$PROJECT_PATH/.nvmrc")
-    nvm install "$NODE_VERSION"
-    nvm use "$NODE_VERSION"
-    echo "Using node $(node -v)"
-    echo "Executing: $@"
-    eval "$@"
+    cd $PROJECT_PATH
+    nvm use $NODE_VERSION --silent
+    NEW_PATH=$(echo "$PATH" | sed -e "s/\\/tmp\\/yarn\d*-[^\:]*://g")
+    export PATH="$NEW_PATH"
+    $EXEC_ARGS
   )
 }
 
@@ -97,7 +103,8 @@ cleanup() {
 
   if [ -n "$PROJECT_PATH" ]; then
     echo "Removing $PACKAGE_NAME from $PROJECT_PATH..."
-    executeInProject "yalc remove $PACKAGE_NAME && yarn"
+    executeInProject yalc remove $PACKAGE_NAME
+    executeInProject yarn
 
     echo "Unregistering $PACKAGE_NAME"
     yalc installations clean $PACKAGE_NAME
@@ -124,7 +131,8 @@ done
 
 if [ -n "$PROJECT_PATH" ]; then
   echo "Adding $PACKAGE_NAME to $PROJECT_PATH..."
-  executeInProject "yalc add $PACKAGE_NAME && yarn"
+  executeInProject yalc add $PACKAGE_NAME
+  executeInProject yarn
 
   if ! grep -q "yalc.lock" "$PROJECT_PATH/.gitignore"; then
     echo "Adding yalc.lock to .gitignore..."
