@@ -3,14 +3,14 @@
     "target": "es6",
     "module": "commonjs",
     "outDir": "./dist",
-    "rootDir": "./",
-    "baseUrl": "./",
+    "rootDir": "./src",
+    "baseUrl": "./src",
     "paths": {
-      "@api/*": ["src/api/*"],
-      "@gql/*": ["src/api/gql/*"],
-      "@gql": ["src/api/gql"],
-      "@services/*": ["src/services/*"],
-      "@utils/*": ["src/utils/*"]
+      "@api/*": ["api/*"],
+      "@gql/*": ["api/gql/*"],
+      "@gql": ["api/gql"],
+      "@services/*": ["services/*"],
+      "@utils/*": ["utils/*"]
     },
     "strict": true,
     "allowJs": true,
@@ -20,5 +20,6 @@
     "declaration": true,
     "declarationDir": "./dist/types"
   },
-  "exclude": ["node_modules", "./dist"]
+  "include": ["./src/**/*"],
+  "exclude": ["node_modules", "dist", "scripts", "tests"]
 }
