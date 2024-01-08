@@ -1,15 +1,15 @@
-import { DocumentNode, gql } from '@apollo/client';
+import { gql } from '@gql';
 
-const USER_CLOSE_SESSION_MUTATION = gql`
+export const USER_CLOSE_SESSION_MUTATION = gql(`
   mutation UserSessionsClose {
     userSessionsClose {
       id
     }
   }
-`;
+`);
 
-const USER_QUERY = gql`
-  query {
+export const USER_QUERY = gql(`
+  query User {
     user {
       id
       email
@@ -33,15 +33,15 @@ const USER_QUERY = gql`
       }
     }
   }
-`;
+`);
 
-const INTUIT_AUTH_PROVIDER_GET_OAUTH_REQUEST_MUTATION = gql`
-  mutation {
+export const INTUIT_AUTH_PROVIDER_GET_OAUTH_REQUEST_MUTATION = gql(`
+  mutation UserAuthProviderGetOAuthUrl {
     userAuthProviderGetOAuthUrl(auth_provider_code: INTUIT)
   }
-`;
+`);
 
-const INTUIT_GET_CUSTOM_TOKEN_MUTATION = gql`
+export const INTUIT_GET_CUSTOM_TOKEN_MUTATION = gql(`
   mutation UserAuthProviderGetOAuthToken(
     $authProviderCode: AUTH_PROVIDER!
     $authorizationToken: String!
@@ -51,9 +51,9 @@ const INTUIT_GET_CUSTOM_TOKEN_MUTATION = gql`
       authorization_token: $authorizationToken
     )
   }
-`;
+`);
 
-const USER_ORGANIZATION_USER_INVITE_QUERY = gql`
+export const USER_ORGANIZATION_USER_INVITE_QUERY = gql(`
   query UnauthorizedUserOrganizationUserInvite(
     $code: String!
     $email: String!
@@ -71,21 +71,21 @@ const USER_ORGANIZATION_USER_INVITE_QUERY = gql`
       organization_id
     }
   }
-`;
+`);
 
-const EMAIL_SIGNUP_MUTATION = gql`
+export const EMAIL_SIGNUP_MUTATION = gql(`
   mutation UserSignUpWithEmailStart($data: UserSignUpWithEmailStartSchema!) {
     userSignUpWithEmailStart(data: $data)
   }
-`;
+`);
 
-const SIGNUP_CODE_VERIFICATION_MUTATION = gql`
+export const SIGNUP_CODE_VERIFICATION_MUTATION = gql(`
   mutation UserSignUpWithEmailVerify($data: UserSignUpWithEmailVerifySchema!) {
     userSignUpWithEmailVerify(data: $data)
   }
-`;
+`);
 
-const ACCEPT_ORG_INVITE_MUTATE = gql`
+export const ACCEPT_ORG_INVITE_MUTATE = gql(`
   mutation UserOrganizationUserInviteAccept(
     $code: String!
     $organizationInviteId: String!
@@ -99,12 +99,12 @@ const ACCEPT_ORG_INVITE_MUTATE = gql`
       role
     }
   }
-`;
+`);
 
-const EMAIL_VERIFICATION_MUTATION = gql`
+export const EMAIL_VERIFICATION_MUTATION = gql(`
   mutation UserSignUpWithEmailFinishSchema(
     $data: UserSignUpWithEmailFinishSchema!
   ) {
     userSignUpWithEmailFinish(data: $data)
   }
-`;
+`);

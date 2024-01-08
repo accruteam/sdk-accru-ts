@@ -1,7 +1,7 @@
-import { DocumentNode, gql } from '@apollo/client';
+import { gql } from '@gql';
 
-export const INVOICE_QUERY_FRAGMENT: DocumentNode = gql`
-  fragment OrganizationInvoiceFields on OrganizationInvoice {
+export const INVOICE_QUERY_FRAGMENT = gql(`
+  fragment OrganizationInvoiceFragment on OrganizationInvoice {
     id
     unique_code
     number
@@ -30,37 +30,37 @@ export const INVOICE_QUERY_FRAGMENT: DocumentNode = gql`
 
     organization_id
     organization {
-        name
+      name
     }
     organization_customer_id
     organization_customer {
-        name
-        email
+      name
+      email
     }
 
     organization_acct_provider_conn_invoices {
-        id
-        code
-        payload
-        last_sync_at
-        last_sync_success
-        last_sync_id
+      id
+      code
+      payload
+      last_sync_at
+      last_sync_success
+      last_sync_id
 
-        organization_invoice_id
-        
-        organization_acct_provider_conn_id
-        organization_acct_provider_conn {
-            acct_provider_code
-        }
+      organization_invoice_id
+
+      organization_acct_provider_conn_id
+      organization_acct_provider_conn {
+        acct_provider_code
+      }
     }
 
     file_id
     file {
-        public_url
+      public_url
     }
-    
+
     has_sync_errors
-    
+
     status
     is_overdue
     paid_amount
@@ -70,24 +70,24 @@ export const INVOICE_QUERY_FRAGMENT: DocumentNode = gql`
     email_sent_at
 
     transaction_links {
+      id
+      amount
+      item_type
+      item_id
+
+      created_at
+      updated_at
+
+      organization_transaction_id
+      organization_transaction {
         id
-        amount
-        item_type
-        item_id
-
-        created_at
-        updated_at
-
-        organization_transaction_id
-        organization_transaction {
-            id
-        }
+      }
     }
   }
-`;
+`);
 
-export const INVOICES_GET_STATEMENT_QUERY = gql`
-  query GetOrganizationInvoiceStatement(
+export const INVOICES_GET_STATEMENT_QUERY = gql(`
+  query UserOrganizationInvoiceStatement(
     $organizationId: String!
     $organizationCustomerId: String
     $currency: CURRENCY
@@ -144,7 +144,7 @@ export const INVOICES_GET_STATEMENT_QUERY = gql`
         edges {
           cursor
           node {
-            ...OrganizationInvoiceFields
+            ...OrganizationInvoiceFragment
           }
         }
         pageInfo {
@@ -163,12 +163,10 @@ export const INVOICES_GET_STATEMENT_QUERY = gql`
       status
     }
   }
+`);
 
-  ${INVOICE_QUERY_FRAGMENT}
-`;
-
-export const INVOICE_GET_QUERY = gql`
-  query GetOrganizationInvoice(
+export const INVOICE_GET_QUERY = gql(`
+  query UserOrganizationInvoice(
     $organizationId: String!
     $organizationInvoiceId: String!
   ) {
@@ -176,15 +174,13 @@ export const INVOICE_GET_QUERY = gql`
       organization_id: $organizationId
       organization_invoice_id: $organizationInvoiceId
     ) {
-      ...OrganizationInvoiceFields
+      ...OrganizationInvoiceFragment
     }
   }
+`);
 
-  ${INVOICE_QUERY_FRAGMENT}
-`;
-
-export const SEND_INVOICE_EMAIL_MUTATION = gql`
-  mutation SendInvoiceEmail(
+export const SEND_INVOICE_EMAIL_MUTATION = gql(`
+  mutation UserOrganizationCustomerSendInvoiceEmail(
     $organizationId: String!
     $targets: [UserOrganizationCustomerSendInvoiceEmailSchema!]!
   ) {
@@ -193,6 +189,4 @@ export const SEND_INVOICE_EMAIL_MUTATION = gql`
       targets: $targets
     )
   }
-`;
-
-export default { INVOICE_QUERY_FRAGMENT };
+`);

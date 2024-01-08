@@ -1,8 +1,7 @@
-import { DocumentNode, gql } from '@apollo/client';
-import { CUSTOMER_QUERY_FRAGMENT } from '../customers/customers.queries';
+import { gql } from '@gql';
 
-export const CONNECTION_QUERY_FRAGMENT = gql`
-  fragment OrganizationConnectionFields on OrganizationConnection {
+export const CONNECTION_QUERY_FRAGMENT = gql(`
+  fragment OrganizationConnectionFragment on OrganizationConnection {
     id
 
     is_valid
@@ -29,9 +28,9 @@ export const CONNECTION_QUERY_FRAGMENT = gql`
     created_at
     updated_at
   }
-`;
+`);
 
-export const GET_ALL_CONNECTIONS_QUERY = gql`
+export const GET_ALL_CONNECTIONS_QUERY = gql(`
   query UserOrganizationConnections(
     $organizationId: String!
     $status: ORGANIZATION_CONNECTION_STATUS
@@ -44,7 +43,7 @@ export const GET_ALL_CONNECTIONS_QUERY = gql`
       edges {
         cursor
         node {
-          ...OrganizationConnectionFields
+          ...OrganizationConnectionFragment
         }
       }
       pageInfo {
@@ -55,11 +54,9 @@ export const GET_ALL_CONNECTIONS_QUERY = gql`
       }
     }
   }
+`);
 
-  ${CONNECTION_QUERY_FRAGMENT}
-`;
-
-export const GET_CONNECTION_QUERY = gql`
+export const GET_CONNECTION_QUERY = gql(`
   query UserOrganizationConnection(
     $organizationId: String!
     $organizationConnectionId: String!
@@ -68,14 +65,12 @@ export const GET_CONNECTION_QUERY = gql`
       organization_id: $organizationId
       organization_connection_id: $organizationConnectionId
     ) {
-      ...OrganizationConnectionFields
+      ...OrganizationConnectionFragment
     }
   }
+`);
 
-  ${CONNECTION_QUERY_FRAGMENT}
-`;
-
-export const VENDOR_INVITE_CUSTOMER_MUTATION = gql`
+export const VENDOR_INVITE_CUSTOMER_MUTATION = gql(`
   mutation UserOrganizationConnectionInviteCustomer(
     $organizationId: String!
     $organizationCustomerId: String!
@@ -84,14 +79,12 @@ export const VENDOR_INVITE_CUSTOMER_MUTATION = gql`
       organization_id: $organizationId
       organization_customer_id: $organizationCustomerId
     ) {
-      ...OrganizationConnectionFields
+      ...OrganizationConnectionFragment
     }
   }
+`);
 
-  ${CONNECTION_QUERY_FRAGMENT}
-`;
-
-export const CUSTOMER_INVITE_VENDOR_MUTATION = gql`
+export const CUSTOMER_INVITE_VENDOR_MUTATION = gql(`
   mutation UserOrganizationConnectionInviteVendor(
     $organizationId: String!
     $organizationVendorId: String!
@@ -100,14 +93,12 @@ export const CUSTOMER_INVITE_VENDOR_MUTATION = gql`
       organization_id: $organizationId
       organization_vendor_id: $organizationVendorId
     ) {
-      ...OrganizationConnectionFields
+      ...OrganizationConnectionFragment
     }
   }
+`);
 
-  ${CONNECTION_QUERY_FRAGMENT}
-`;
-
-export const ACCEPT_CONNECTION_MUTATION = gql`
+export const ACCEPT_CONNECTION_MUTATION = gql(`
   mutation UserOrganizationConnectionAccept(
     $organizationId: String!
     $organizationConnectionId: String!
@@ -116,14 +107,12 @@ export const ACCEPT_CONNECTION_MUTATION = gql`
       organization_id: $organizationId
       organization_connection_id: $organizationConnectionId
     ) {
-      ...OrganizationConnectionFields
+      ...OrganizationConnectionFragment
     }
   }
+`);
 
-  ${CONNECTION_QUERY_FRAGMENT}
-`;
-
-export const REJECT_CONNECTION_MUTATION = gql`
+export const REJECT_CONNECTION_MUTATION = gql(`
   mutation UserOrganizationConnectionReject(
     $organizationId: String!
     $organizationConnectionId: String!
@@ -132,14 +121,12 @@ export const REJECT_CONNECTION_MUTATION = gql`
       organization_id: $organizationId
       organization_connection_id: $organizationConnectionId
     ) {
-      ...OrganizationConnectionFields
+      ...OrganizationConnectionFragment
     }
   }
+`);
 
-  ${CONNECTION_QUERY_FRAGMENT}
-`;
-
-export const UPDATE_CUSTOMER_CONN_LOCK_MUTATION = gql`
+export const UPDATE_CUSTOMER_CONN_LOCK_MUTATION = gql(`
   mutation UserOrganizationCustomerConnLock(
     $organizationId: String!
     $organizationCustomerId: String!
@@ -148,14 +135,12 @@ export const UPDATE_CUSTOMER_CONN_LOCK_MUTATION = gql`
       organization_id: $organizationId
       organization_customer_id: $organizationCustomerId
     ) {
-      ...OrganizationCustomerFields
+      ...OrganizationCustomerFragment
     }
   }
+`);
 
-  ${CUSTOMER_QUERY_FRAGMENT}
-`;
-
-export const UPDATE_CUSTOMER_CONN_UNLOCK_MUTATION = gql`
+export const UPDATE_CUSTOMER_CONN_UNLOCK_MUTATION = gql(`
   mutation UserOrganizationCustomerConnUnlock(
     $organizationId: String!
     $organizationCustomerId: String!
@@ -164,9 +149,35 @@ export const UPDATE_CUSTOMER_CONN_UNLOCK_MUTATION = gql`
       organization_id: $organizationId
       organization_customer_id: $organizationCustomerId
     ) {
-      ...OrganizationCustomerFields
+      ...OrganizationCustomerFragment
     }
   }
+`);
 
-  ${CUSTOMER_QUERY_FRAGMENT}
-`;
+export const UPDATE_VENDOR_CONN_LOCK_MUTATION = gql(`
+  mutation UserOrganizationVendorConnLock(
+    $organizationId: String!
+    $organizationVendorId: String!
+  ) {
+    userOrganizationVendorConnLock(
+      organization_id: $organizationId
+      organization_vendor_id: $organizationVendorId
+    ) {
+      ...OrganizationVendorFragment
+    }
+  }
+`);
+
+export const UPDATE_VENDOR_CONN_UNLOCK_MUTATION = gql(`
+  mutation UserOrganizationVendorConnUnlock(
+    $organizationId: String!
+    $organizationVendorId: String!
+  ) {
+    userOrganizationVendorConnUnlock(
+      organization_id: $organizationId
+      organization_vendor_id: $organizationVendorId
+    ) {
+      ...OrganizationVendorFragment
+    }
+  }
+`);

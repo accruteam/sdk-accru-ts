@@ -1,34 +1,55 @@
 {
   "name": "accru-client",
-  "version": "0.0.10",
-  "description": "Client SDK for Accru API",
-  "main": "index.js",
-  "repository": "TBH",
   "author": "Accru Co.",
+  "description": "Client SDK for Accru API",
   "license": "MIT",
+  "version": "0.0.10",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/accruteam/sdk-accru-ts"
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "watch": "tsc -w",
-    "postwatch": "cp package.json dist/package.json && cd dist && yarn link",
-    "start": "concurrently \"npm:watch\" \"npm:postwatch\"",
-    "build": "tsc",
-    "postbuild": "node postBuild.js",
+    "build": "tsup",
+    "watch": "tsup --watch",
+    "start": "./scripts/run.sh",
+    "test": "vitest",
+    "lint": "run-p -c lint:*",
+    "lint:eslint": "eslint 'src/**/*.{ts,tsx}' --fix",
+    "lint:tsc": "tsc --noEmit",
     "deploy": "yarn build && cd dist && npm publish --access public",
-    "sandbox": "yarn link accru-client && nodemon src/tests/sandbox.js",
+    "codegen": "graphql-codegen",
+    "codegen:watch": "graphql-codegen -w",
+    "sandbox": "yarn link accru-client && node ./tests/sandbox.js && yarn unlink accru-client",
     "service": "node scripts/newService.js"
   },
   "dependencies": {
     "@apollo/client": "^3.8.8",
-    "apollo-link": "^1.2.14",
-    "dotenv": "^16.3.1",
-    "graphql": "^16.8.1"
+    "graphql": "^16.8.1",
+    "react": "^18.2.0"
   },
   "devDependencies": {
-    "concurrently": "^8.2.2",
-    "nodemon": "^3.0.2",
-    "react": "^18.2.0",
-    "typescript": "^5.3.3"
-  },
-  "engines": {
-    "node": "18.x"
+    "@graphql-codegen/cli": "^5.0.0",
+    "@graphql-codegen/client-preset": "^4.1.0",
+    "@graphql-codegen/schema-ast": "^4.0.0",
+    "@graphql-typed-document-node/core": "^3.2.0",
+    "@typescript-eslint/eslint-plugin": "^6.17.0",
+    "@typescript-eslint/parser": "^6.17.0",
+    "eslint": "^8.56.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-import-resolver-typescript": "^3.6.1",
+    "eslint-plugin-import": "npm:eslint-plugin-i@latest",
+    "eslint-plugin-prettier": "^5.1.2",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^3.1.1",
+    "tsup": "^8.0.1",
+    "typescript": "^5.3.3",
+    "vite-tsconfig-paths": "^4.2.3",
+    "vitest": "^1.1.1"
   }
 }

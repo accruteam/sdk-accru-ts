@@ -1,7 +1,7 @@
-import { ApolloClient } from '@apollo/client';
+import { type ApolloClient } from '@apollo/client';
 
-export default class Contacts {
-  constructor(private apolloClient: ApolloClient<unknown>) {}
+export default class AccountingProviders {
+  constructor(private readonly apolloClient: ApolloClient<unknown>) {}
 
   public getOne = async (): Promise<any> => {};
 

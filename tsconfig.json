@@ -4,6 +4,14 @@
     "module": "commonjs",
     "outDir": "./dist",
     "rootDir": "./src",
+    "baseUrl": "./src",
+    "paths": {
+      "@api/*": ["api/*"],
+      "@gql/*": ["api/gql/*"],
+      "@gql": ["api/gql"],
+      "@services/*": ["services/*"],
+      "@utils/*": ["utils/*"]
+    },
     "strict": true,
     "allowJs": true,
     "checkJs": false,
@@ -12,6 +20,6 @@
     "declaration": true,
     "declarationDir": "./dist/types"
   },
-  "include": ["src/**/*"],
-  "exclude": ["src/tests", "scripts"]
+  "include": ["./src/**/*"],
+  "exclude": ["node_modules", "dist", "scripts", "tests"]
 }

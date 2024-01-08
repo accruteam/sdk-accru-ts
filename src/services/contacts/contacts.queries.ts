@@ -1,6 +1,6 @@
-import { DocumentNode, gql } from '@apollo/client';
+import { gql } from '@gql';
 
-export const GET_CONTACTS_QUERY = gql`
+export const GET_CONTACTS_QUERY = gql(`
   query userOrganizationVendorContacts(
     $organizationVendorId: String!
     $organizationId: String!
@@ -9,16 +9,28 @@ export const GET_CONTACTS_QUERY = gql`
       organization_vendor_id: $organizationVendorId
       organization_id: $organizationId
     ) {
-      email
-      id
-      is_default
-      name
-      phone_number
+      totalCount
+      edges {
+        cursor
+        node {
+          email
+          id
+          is_default
+          name
+          phone_number
+        }
+      }
+      pageInfo {
+        startCursor
+        endCursor
+        hasPreviousPage
+        hasNextPage
+      }
     }
   }
-`;
+`);
 
-export const GET_CUSTOMERS_CONTACTS_QUERY = gql`
+export const GET_CUSTOMERS_CONTACTS_QUERY = gql(`
   query UserOrganizationCustomerContacts(
     $organizationCustomerId: String!
     $organizationId: String!
@@ -27,20 +39,32 @@ export const GET_CUSTOMERS_CONTACTS_QUERY = gql`
       organization_customer_id: $organizationCustomerId
       organization_id: $organizationId
     ) {
-      id
-      name
-      email
-      phone_number
-      is_default
-      send_invoice_reminders
-      created_at
-      updated_at
-      organization_customer_id
+      totalCount
+      edges {
+        cursor
+        node {
+          id
+          name
+          email
+          phone_number
+          is_default
+          send_invoice_reminders
+          created_at
+          updated_at
+          organization_customer_id
+        }
+      }
+      pageInfo {
+        startCursor
+        endCursor
+        hasPreviousPage
+        hasNextPage
+      }
     }
   }
-`;
+`);
 
-export const CREATE_CONTACT_QUERY = gql`
+export const CREATE_CONTACT_QUERY = gql(`
   mutation userOrganizationVendorContactCreate(
     $organizationId: String!
     $organizationVendorId: String!
@@ -59,9 +83,9 @@ export const CREATE_CONTACT_QUERY = gql`
       organization_vendor_id
     }
   }
-`;
+`);
 
-export const CREATE_CUSTOMER_CONTACT_QUERY = gql`
+export const CREATE_CUSTOMER_CONTACT_QUERY = gql(`
   mutation UserOrganizationCustomerContactCreate(
     $data: UserOrganizationCustomerContactCreateSchema!
     $organizationCustomerId: String!
@@ -83,9 +107,9 @@ export const CREATE_CUSTOMER_CONTACT_QUERY = gql`
       organization_customer_id
     }
   }
-`;
+`);
 
-export const UPDATE_CONTACT_QUERY = gql`
+export const UPDATE_CONTACT_QUERY = gql(`
   mutation UserOrganizationVendorContactUpdate(
     $data: UserOrganizationVendorContactUpdateSchema!
     $organizationVendorContactId: String!
@@ -105,9 +129,9 @@ export const UPDATE_CONTACT_QUERY = gql`
       phone_number
     }
   }
-`;
+`);
 
-export const UPDATE_CUSTOMER_CONTACT_QUERY = gql`
+export const UPDATE_CUSTOMER_CONTACT_QUERY = gql(`
   mutation UserOrganizationCustomerContactUpdate(
     $data: UserOrganizationCustomerContactUpdateSchema!
     $organizationCustomerContactId: String!
@@ -131,9 +155,9 @@ export const UPDATE_CUSTOMER_CONTACT_QUERY = gql`
       organization_customer_id
     }
   }
-`;
+`);
 
-export const DELETE_CONTACT_QUERY = gql`
+export const DELETE_CONTACT_QUERY = gql(`
   mutation UserOrganizationVendorContactDelete(
     $organizationVendorContactId: String!
     $organizationVendorId: String!
@@ -152,9 +176,9 @@ export const DELETE_CONTACT_QUERY = gql`
       is_default
     }
   }
-`;
+`);
 
-export const DELETE_CUSTOMER_CONTACT_MUTATION = gql`
+export const DELETE_CUSTOMER_CONTACT_MUTATION = gql(`
   mutation UserOrganizationCustomerContactDelete(
     $organizationCustomerContactId: String!
     $organizationCustomerId: String!
@@ -176,4 +200,4 @@ export const DELETE_CUSTOMER_CONTACT_MUTATION = gql`
       organization_customer_id
     }
   }
-`;
+`);
