@@ -145,4 +145,10 @@ if [ -n "$PROJECT_PATH" ]; then
   fi
 fi
 
+while [ ! -f "$DIR/dist/index.d.ts" ]; do
+  sleep 1
+done
+
+(cd $DIR && yalc push)
+
 wait
