@@ -123,11 +123,13 @@ cleanup() {
 
 trap cleanup SIGINT SIGTERM
 
-yarn --cwd "$DIR/" tsup --watch --onSuccess "yalc publish" &
+yarn --cwd "$DIR/" tsup --watch --onSuccess "yalc push" &
 
 while [ ! -d "$DIR/dist" ]; do
   sleep 1
 done
+
+(cd $DIR && yalc publish)
 
 if [ -n "$PROJECT_PATH" ]; then
   echo "Adding $PACKAGE_NAME to $PROJECT_PATH..."
@@ -142,7 +144,5 @@ if [ -n "$PROJECT_PATH" ]; then
     echo "yalc.lock" >> "$PROJECT_PATH/.gitignore"
   fi
 fi
-
-(cd $DIR && yalc push)
 
 wait
