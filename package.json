@@ -24,7 +24,8 @@
     "deploy": "yarn build && cd dist && npm publish --access public",
     "codegen": "graphql-codegen",
     "codegen:watch": "graphql-codegen -w",
-    "sandbox": "yarn link accru-client && node ./tests/sandbox.js && yarn unlink accru-client"
+    "sandbox": "yarn link accru-client && node ./tests/sandbox.js && yarn unlink accru-client",
+    "service": "node scripts/newService.js"
   },
   "dependencies": {
     "@apollo/client": "^3.8.8",

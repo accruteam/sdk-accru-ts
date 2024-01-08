@@ -96,10 +96,10 @@ function createTypesFile() {
 }
 
 const init = async () => {
-  // const questions = setQuestions();
-  // const responses = await inquirer.prompt(questions);
+  const questions = setQuestions();
+  const responses = await inquirer.prompt(questions);
 
-  // setDirectoryName(responses.serviceName);
+  setDirectoryName(responses.serviceName);
   setDirectoryName('auth');
 
   if (checkIfDirectoryExists()) {
