@@ -207,7 +207,9 @@ type Organization {
   business_address_number: String
   business_address_state: String
   business_address_zip_code: String
+  business_industry: String
   business_name: String
+  business_number_of_employees: Int
   business_tax_code: String
   business_tax_code_type: String
   created_at: DateTime!
@@ -755,6 +757,17 @@ type OrganizationReminderSetting {
   updated_at: DateTime!
 }
 
+type OrganizationReminderSettingPaginationConnection {
+  edges: [OrganizationReminderSettingPaginationEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type OrganizationReminderSettingPaginationEdge {
+  cursor: ConnectionCursor!
+  node: OrganizationReminderSetting!
+}
+
 type OrganizationTransaction {
   amount: Int!
   archived_at: DateTime
@@ -930,7 +943,7 @@ type Query {
   userOrganizationReceivingMethodTransactions(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, organization_id: String!, organization_receiving_method_id: String!, skip: Int, take: Int): [OrganizationTransaction!]!
   userOrganizationReceivingMethods(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, organization_id: String!, skip: Int, take: Int): [OrganizationReceivingMethod!]!
   userOrganizationReminderSetting(organization_id: String!, organization_reminder_setting_id: String!): OrganizationReminderSetting!
-  userOrganizationReminderSettings(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, organization_customer_id: String, organization_id: String!, organization_invoice_id: String, organization_project_id: String, skip: Int, take: Int): [OrganizationReminderSetting!]!
+  userOrganizationReminderSettings(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, organization_customer_id: String, organization_id: String!, organization_invoice_id: String, organization_project_id: String, skip: Int, sorting: [SortingFieldSchema!], take: Int): OrganizationReminderSettingPaginationConnection!
   userOrganizationUserInvite(organization_invite_id: String!): OrganizationInvite!
   userOrganizationUserInvites(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, skip: Int, take: Int): [OrganizationInvite!]!
   userOrganizationVendor(organization_id: String!, organization_vendor_id: String!): OrganizationVendor!
@@ -1083,7 +1096,9 @@ input UserOrganizationCreateSchema {
   business_address_number: String
   business_address_state: String
   business_address_zip_code: String
+  business_industry: String
   business_name: String
+  business_number_of_employees: Int
   business_tax_code: String
   business_tax_code_type: String
   email: String!
@@ -1234,7 +1249,9 @@ input UserOrganizationUpdateSchema {
   business_address_number: String
   business_address_state: String
   business_address_zip_code: String
+  business_industry: String
   business_name: String
+  business_number_of_employees: Int
   business_tax_code: String
   business_tax_code_type: String
   language: String
