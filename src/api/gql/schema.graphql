@@ -85,7 +85,7 @@ type Mutation {
   userOrganizationAcctProviderConnUpdate(acct_provider_code: ACCT_PROVIDER!, data: UserOrganizationAcctProviderConnUpdateSchema!, organization_id: String!): OrganizationAcctProviderConn!
   userOrganizationAcctProviderConnect(acct_provider_code: ACCT_PROVIDER!, automatic_pull_enabled: Boolean!, automatic_push_enabled: Boolean!, organization_id: String!, url: String!): OrganizationAcctProviderConn!
   userOrganizationAcctProviderGetOAuthUrl(acct_provider_code: ACCT_PROVIDER!, organization_id: String!): String!
-  userOrganizationAcctProviderSynchronize(acct_provider_code: ACCT_PROVIDER!, organization_id: String!, pull: Boolean!, push: Boolean!): Organization!
+  userOrganizationAcctProviderSynchronize(acct_provider_code: ACCT_PROVIDER!, organization_id: String!, pull: Boolean!, push: Boolean!): DateTime!
   userOrganizationBillConnLock(organization_bill_id: String!, organization_id: String!): OrganizationBill!
   userOrganizationBillConnSync(organization_bill_id: String!, organization_id: String!): OrganizationBill!
   userOrganizationBillConnUnlock(organization_bill_id: String!, organization_id: String!): OrganizationBill!
@@ -285,6 +285,17 @@ type OrganizationAcctProviderConnInvoice {
   updated_at: DateTime!
 }
 
+type OrganizationAcctProviderConnPaginationConnection {
+  edges: [OrganizationAcctProviderConnPaginationEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type OrganizationAcctProviderConnPaginationEdge {
+  cursor: ConnectionCursor!
+  node: OrganizationAcctProviderConn!
+}
+
 type OrganizationAcctProviderConnSynchronization {
   created_at: DateTime!
   errors: [String!]!
@@ -318,6 +329,17 @@ type OrganizationAcctProviderConnSynchronization {
   sync_cluster_code: String!
   trigger_code: String!
   updated_at: DateTime!
+}
+
+type OrganizationAcctProviderConnSynchronizationPaginationConnection {
+  edges: [OrganizationAcctProviderConnSynchronizationPaginationEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type OrganizationAcctProviderConnSynchronizationPaginationEdge {
+  cursor: ConnectionCursor!
+  node: OrganizationAcctProviderConnSynchronization!
 }
 
 type OrganizationAcctProviderConnTransaction {
@@ -910,8 +932,8 @@ type Query {
   userOrganization(organization_id: String!): Organization!
   userOrganizationAcctProvider(organization_acct_provider_conn_id: String!, organization_id: String!): OrganizationAcctProviderConn!
   userOrganizationAcctProviderSynchronization(organization_acct_provider_conn_synchronization_id: String!, organization_id: String!): OrganizationAcctProviderConnSynchronization!
-  userOrganizationAcctProviderSynchronizations(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, organization_acct_provider_conn_id: String, organization_id: String!, skip: Int, sorting: [SortingFieldSchema!], take: Int): [OrganizationAcctProviderConnSynchronization!]!
-  userOrganizationAcctProviders(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, organization_id: String!, skip: Int, take: Int): [OrganizationAcctProviderConn!]!
+  userOrganizationAcctProviderSynchronizations(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, organization_acct_provider_conn_id: String, organization_id: String!, skip: Int, sorting: [SortingFieldSchema!], take: Int): OrganizationAcctProviderConnSynchronizationPaginationConnection!
+  userOrganizationAcctProviders(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, organization_id: String!, skip: Int, sorting: [SortingFieldSchema!], take: Int): OrganizationAcctProviderConnPaginationConnection!
   userOrganizationBill(organization_bill_id: String!, organization_id: String!): OrganizationBill!
   userOrganizationBillStatement(after: ConnectionCursor, before: ConnectionCursor, currency: CURRENCY, end_date: DateTime, first: Int, is_overdue: Boolean, last: Int, organization_id: String!, organization_vendor_id: String, skip: Int, sorting: [SortingFieldSchema!], start_date: DateTime, status: BILL_STATUS, take: Int): OrganizationBillStatement!
   userOrganizationBills(after: ConnectionCursor, before: ConnectionCursor, first: Int, is_overdue: Boolean, last: Int, number: String, organization_id: String!, organization_project_id: String, organization_vendor_id: String, skip: Int, sorting: [SortingFieldSchema!], status: BILL_STATUS, take: Int, unique_code: String): OrganizationBillPaginationConnection!

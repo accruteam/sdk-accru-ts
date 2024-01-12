@@ -10,7 +10,6 @@ import Customers from '@services/customers';
 import Invoices from '@services/invoices';
 import Reminders from '@services/reminders';
 import Statements from '@services/statements';
-import Sync from '@services/sync';
 import Users from '@services/users';
 import Vendors from '@services/vendors';
 
@@ -28,7 +27,6 @@ export class AccruClient {
   public readonly invoices: Invoices;
   public readonly reminders: Reminders;
   public readonly statements: Statements;
-  public readonly sync: Sync;
   public readonly users: Users;
   public readonly vendors: Vendors;
 
@@ -42,7 +40,6 @@ export class AccruClient {
     this.invoices = new Invoices(this.apolloClient);
     this.reminders = new Reminders(this.apolloClient);
     this.statements = new Statements(this.apolloClient);
-    this.sync = new Sync(this.apolloClient);
     this.users = new Users(this.apolloClient);
     this.vendors = new Vendors(this.apolloClient);
   }
