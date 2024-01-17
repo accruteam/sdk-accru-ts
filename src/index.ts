@@ -12,6 +12,7 @@ import Reminders from '@services/reminders';
 import Statements from '@services/statements';
 import Users from '@services/users';
 import Vendors from '@services/vendors';
+import Organizations from '@services/organizations';
 
 export * from '@gql';
 export * from '@gql/graphql';
@@ -25,6 +26,7 @@ export class AccruClient {
   public readonly connections: Connections;
   public readonly customers: Customers;
   public readonly invoices: Invoices;
+  public readonly organizations: Organizations;
   public readonly reminders: Reminders;
   public readonly statements: Statements;
   public readonly users: Users;
@@ -38,6 +40,7 @@ export class AccruClient {
     this.connections = new Connections(this.apolloClient);
     this.customers = new Customers(this.apolloClient);
     this.invoices = new Invoices(this.apolloClient);
+    this.organizations = new Organizations(this.apolloClient);
     this.reminders = new Reminders(this.apolloClient);
     this.statements = new Statements(this.apolloClient);
     this.users = new Users(this.apolloClient);

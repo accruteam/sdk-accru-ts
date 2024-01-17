@@ -138,8 +138,9 @@ type Mutation {
   userOrganizationProjectUpdate(data: UserOrganizationProjectUpdateSchema!, organization_id: String!, organization_project_id: String!): OrganizationProject!
   userOrganizationReceivingMethodDelete(organization_id: String!, organization_receiving_method_id: String!): OrganizationReceivingMethod!
   userOrganizationReceivingMethodUpdate(data: UserOrganizationReceivingMethodUpdateSchema!, organization_id: String!, organization_receiving_method_id: String!): OrganizationReceivingMethod!
-  userOrganizationReminderSettingCreate(data: UserOrganizationReminderSettingCreateSchema!, organization_id: String!): OrganizationReminderSetting!
+  userOrganizationReminderSettingCreate(data: UserOrganizationReminderSettingSchema!, organization_id: String!): OrganizationReminderSetting!
   userOrganizationReminderSettingDelete(organization_id: String!, organization_reminder_setting_id: String!): OrganizationReminderSetting!
+  userOrganizationReminderSettingUpdate(data: UserOrganizationReminderSettingSchema!, organization_id: String!, organization_reminder_setting_id: String!): OrganizationReminderSetting!
   userOrganizationSendGenericInviteMail(email: String!, organization_id: String!): DateTime!
   userOrganizationUniqueCodeUpdate(organization_id: String!): Organization!
   userOrganizationUniqueNameUpdate(organization_id: String!): Organization!
@@ -223,6 +224,10 @@ type Organization {
   name: String!
   phone_number: String
   primary_contact_name: String
+  setting_allow_invoice_due_snooze_reminders: Boolean
+  setting_allow_invoice_overdue_snooze_reminders: Boolean
+  setting_send_invoice_due_reminders: Boolean
+  setting_send_invoice_overdue_reminders: Boolean
   timezone: String
   unique_code: String!
   unique_name: String!
@@ -965,7 +970,7 @@ type Query {
   userOrganizationReceivingMethodTransactions(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, organization_id: String!, organization_receiving_method_id: String!, skip: Int, take: Int): [OrganizationTransaction!]!
   userOrganizationReceivingMethods(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, organization_id: String!, skip: Int, take: Int): [OrganizationReceivingMethod!]!
   userOrganizationReminderSetting(organization_id: String!, organization_reminder_setting_id: String!): OrganizationReminderSetting!
-  userOrganizationReminderSettings(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, organization_customer_id: String, organization_id: String!, organization_invoice_id: String, organization_project_id: String, skip: Int, sorting: [SortingFieldSchema!], take: Int): OrganizationReminderSettingPaginationConnection!
+  userOrganizationReminderSettings(after: ConnectionCursor, before: ConnectionCursor, due_date_mode: REMINDER_DUE_DATE_MODE, first: Int, last: Int, organization_customer_id: String, organization_id: String!, organization_invoice_id: String, organization_project_id: String, skip: Int, sorting: [SortingFieldSchema!], take: Int): OrganizationReminderSettingPaginationConnection!
   userOrganizationUserInvite(organization_invite_id: String!): OrganizationInvite!
   userOrganizationUserInvites(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, skip: Int, take: Int): [OrganizationInvite!]!
   userOrganizationVendor(organization_id: String!, organization_vendor_id: String!): OrganizationVendor!
@@ -1128,6 +1133,10 @@ input UserOrganizationCreateSchema {
   name: String!
   phone_number: String
   primary_contact_name: String
+  setting_allow_invoice_due_snooze_reminders: Boolean
+  setting_allow_invoice_overdue_snooze_reminders: Boolean
+  setting_send_invoice_due_reminders: Boolean
+  setting_send_invoice_overdue_reminders: Boolean
   timezone: String
 }
 
@@ -1245,7 +1254,7 @@ input UserOrganizationReceivingMethodUpdateSchema {
   is_enabled: Boolean!
 }
 
-input UserOrganizationReminderSettingCreateSchema {
+input UserOrganizationReminderSettingSchema {
   days_amount: Int!
   due_date_mode: REMINDER_DUE_DATE_MODE!
   organization_customer_id: String
@@ -1277,9 +1286,13 @@ input UserOrganizationUpdateSchema {
   business_tax_code: String
   business_tax_code_type: String
   language: String
-  name: String!
+  name: String
   phone_number: String
   primary_contact_name: String
+  setting_allow_invoice_due_snooze_reminders: Boolean
+  setting_allow_invoice_overdue_snooze_reminders: Boolean
+  setting_send_invoice_due_reminders: Boolean
+  setting_send_invoice_overdue_reminders: Boolean
   timezone: String
 }
 

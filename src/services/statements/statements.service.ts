@@ -29,7 +29,7 @@ export default class Statements {
 
     return {
       ...data.userCustomerOrganizationInvoiceStatement,
-      data: processResponseAsList(
+      ...processResponseAsList(
         data.userCustomerOrganizationInvoiceStatement.data,
       ),
     };

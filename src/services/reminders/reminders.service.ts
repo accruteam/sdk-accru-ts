@@ -8,6 +8,8 @@ import {
   UserOrganizationReminderSettingCreateMutationVariables,
   UserOrganizationReminderSettingDeleteMutation,
   UserOrganizationReminderSettingDeleteMutationVariables,
+  UserOrganizationReminderSettingUpdateMutation,
+  UserOrganizationReminderSettingUpdateMutationVariables,
 } from '@api/gql/graphql';
 import {
   ListResponse,
@@ -19,6 +21,7 @@ import {
   DELETE_REMINDER_SETTING_MUTATION,
   GET_ALL_REMINDER_SETTINGS_QUERY,
   GET_REMINDER_SETTING_MUTATION,
+  UPDATE_REMINDER_SETTING_MUTATION,
 } from './reminders.queries';
 
 export default class ReminderSettings {
@@ -47,18 +50,28 @@ export default class ReminderSettings {
   public create = async (
     variables: UserOrganizationReminderSettingCreateMutationVariables,
   ): Promise<Res<UserOrganizationReminderSettingCreateMutation>> => {
-    const { data } = await this.apolloClient.query({
-      query: CREATE_REMINDER_SETTING_MUTATION,
+    const { data } = await this.apolloClient.mutate({
+      mutation: CREATE_REMINDER_SETTING_MUTATION,
       variables,
     });
     return data!.userOrganizationReminderSettingCreate;
   };
 
+  public update = async (
+    variables: UserOrganizationReminderSettingUpdateMutationVariables,
+  ): Promise<Res<UserOrganizationReminderSettingUpdateMutation>> => {
+    const { data } = await this.apolloClient.mutate({
+      mutation: UPDATE_REMINDER_SETTING_MUTATION,
+      variables,
+    });
+    return data!.userOrganizationReminderSettingUpdate;
+  };
+
   public del = async (
     variables: UserOrganizationReminderSettingDeleteMutationVariables,
   ): Promise<Res<UserOrganizationReminderSettingDeleteMutation>> => {
-    const { data } = await this.apolloClient.query({
-      query: DELETE_REMINDER_SETTING_MUTATION,
+    const { data } = await this.apolloClient.mutate({
+      mutation: DELETE_REMINDER_SETTING_MUTATION,
       variables,
     });
     return data!.userOrganizationReminderSettingDelete;

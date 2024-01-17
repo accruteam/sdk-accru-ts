@@ -34,7 +34,7 @@ export default class Invoices {
 
     return {
       ...data.userOrganizationInvoiceStatement,
-      data: processResponseAsList(data.userOrganizationInvoiceStatement.data),
+      ...processResponseAsList(data.userOrganizationInvoiceStatement.data),
     };
   };
 
