@@ -22,24 +22,24 @@ export type Scalars = {
   JSON: { input: any; output: any; }
 };
 
-export enum Acct_Provider {
-  Quickbooks = 'QUICKBOOKS'
+export enum ACCT_PROVIDER {
+  QUICKBOOKS = 'QUICKBOOKS'
 }
 
-export enum Auth_Provider {
-  Firebase = 'FIREBASE',
-  Intuit = 'INTUIT'
+export enum AUTH_PROVIDER {
+  FIREBASE = 'FIREBASE',
+  INTUIT = 'INTUIT'
 }
 
-export enum Bill_Status {
-  Open = 'OPEN',
-  Paid = 'PAID'
+export enum BILL_STATUS {
+  OPEN = 'OPEN',
+  PAID = 'PAID'
 }
 
-export enum Currency {
-  Brl = 'BRL',
-  Eur = 'EUR',
-  Usd = 'USD'
+export enum CURRENCY {
+  BRL = 'BRL',
+  EUR = 'EUR',
+  USD = 'USD'
 }
 
 export type File = {
@@ -52,28 +52,28 @@ export type File = {
   extension: Scalars['String']['output'];
   filename: Scalars['String']['output'];
   id: Scalars['ID']['output'];
-  mime_type: Mime_Type;
+  mime_type: MIME_TYPE;
   payload: Scalars['JSON']['output'];
   public_url?: Maybe<Scalars['String']['output']>;
   public_url_expires_at?: Maybe<Scalars['DateTime']['output']>;
   recipient_id?: Maybe<Scalars['String']['output']>;
-  recipient_type: Recipient_Type;
+  recipient_type: RECIPIENT_TYPE;
   size: Scalars['Int']['output'];
-  storage_provider_code: Storage_Provider;
+  storage_provider_code: STORAGE_PROVIDER;
   type: Scalars['String']['output'];
   updated_at: Scalars['DateTime']['output'];
 };
 
-export enum Invoice_Status {
-  Open = 'OPEN',
-  Paid = 'PAID'
+export enum INVOICE_STATUS {
+  OPEN = 'OPEN',
+  PAID = 'PAID'
 }
 
-export enum Mime_Type {
-  Jpeg = 'JPEG',
-  Other = 'OTHER',
-  Pdf = 'PDF',
-  Png = 'PNG'
+export enum MIME_TYPE {
+  JPEG = 'JPEG',
+  OTHER = 'OTHER',
+  PDF = 'PDF',
+  PNG = 'PNG'
 }
 
 export type Mutation = {
@@ -153,6 +153,7 @@ export type Mutation = {
   userOrganizationReceivingMethodUpdate: OrganizationReceivingMethod;
   userOrganizationReminderSettingCreate: OrganizationReminderSetting;
   userOrganizationReminderSettingDelete: OrganizationReminderSetting;
+  userOrganizationReminderSettingUpdate: OrganizationReminderSetting;
   userOrganizationSendGenericInviteMail: Scalars['DateTime']['output'];
   userOrganizationUniqueCodeUpdate: Organization;
   userOrganizationUniqueNameUpdate: Organization;
@@ -183,36 +184,36 @@ export type Mutation = {
 };
 
 
-export type MutationUnconnectedUserCustomerOrganizationInvoiceStatementVerifyArgs = {
+export type MutationunconnectedUserCustomerOrganizationInvoiceStatementVerifyArgs = {
   email: Scalars['String']['input'];
   unique_code: Scalars['String']['input'];
 };
 
 
-export type MutationUserAuthProviderDisconnectArgs = {
-  auth_provider_code: Auth_Provider;
+export type MutationuserAuthProviderDisconnectArgs = {
+  auth_provider_code: AUTH_PROVIDER;
 };
 
 
-export type MutationUserAuthProviderGetOAuthTokenArgs = {
-  auth_provider_code: Auth_Provider;
+export type MutationuserAuthProviderGetOAuthTokenArgs = {
+  auth_provider_code: AUTH_PROVIDER;
   authorization_token: Scalars['String']['input'];
 };
 
 
-export type MutationUserAuthProviderGetOAuthUrlArgs = {
-  auth_provider_code: Auth_Provider;
+export type MutationuserAuthProviderGetOAuthUrlArgs = {
+  auth_provider_code: AUTH_PROVIDER;
 };
 
 
-export type MutationUserCustomerOrganizationInvoiceCreateSyncBillArgs = {
+export type MutationuserCustomerOrganizationInvoiceCreateSyncBillArgs = {
   organization_id: Scalars['String']['input'];
   organization_invoice_id: Scalars['String']['input'];
   organization_vendor_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserCustomerOrganizationProjectChangeRequestAcceptArgs = {
+export type MutationuserCustomerOrganizationProjectChangeRequestAcceptArgs = {
   allow_bypass: Scalars['Boolean']['input'];
   organization_id: Scalars['String']['input'];
   organization_project_change_request_id: Scalars['String']['input'];
@@ -221,7 +222,7 @@ export type MutationUserCustomerOrganizationProjectChangeRequestAcceptArgs = {
 };
 
 
-export type MutationUserCustomerOrganizationProjectChangeRequestCancelArgs = {
+export type MutationuserCustomerOrganizationProjectChangeRequestCancelArgs = {
   allow_bypass: Scalars['Boolean']['input'];
   organization_id: Scalars['String']['input'];
   organization_project_change_request_id: Scalars['String']['input'];
@@ -230,7 +231,7 @@ export type MutationUserCustomerOrganizationProjectChangeRequestCancelArgs = {
 };
 
 
-export type MutationUserCustomerOrganizationProjectChangeRequestCreateArgs = {
+export type MutationuserCustomerOrganizationProjectChangeRequestCreateArgs = {
   data: UserOrganizationProjectChangeRequestCreateSchema;
   organization_id: Scalars['String']['input'];
   organization_project_id: Scalars['String']['input'];
@@ -238,7 +239,7 @@ export type MutationUserCustomerOrganizationProjectChangeRequestCreateArgs = {
 };
 
 
-export type MutationUserCustomerOrganizationProjectChangeRequestRejectArgs = {
+export type MutationuserCustomerOrganizationProjectChangeRequestRejectArgs = {
   allow_bypass: Scalars['Boolean']['input'];
   organization_id: Scalars['String']['input'];
   organization_project_change_request_id: Scalars['String']['input'];
@@ -247,57 +248,57 @@ export type MutationUserCustomerOrganizationProjectChangeRequestRejectArgs = {
 };
 
 
-export type MutationUserEmailVerifyOrChangeFinishArgs = {
+export type MutationuserEmailVerifyOrChangeFinishArgs = {
   data: UserEmailVerifyOrChangeFinishSchema;
 };
 
 
-export type MutationUserEmailVerifyOrChangeStartArgs = {
+export type MutationuserEmailVerifyOrChangeStartArgs = {
   data: UserEmailVerifyOrChangeStartSchema;
 };
 
 
-export type MutationUserOrganizationAcctProviderConnConfigurationPullOptionsGetArgs = {
-  acct_provider_code: Acct_Provider;
+export type MutationuserOrganizationAcctProviderConnConfigurationPullOptionsGetArgs = {
+  acct_provider_code: ACCT_PROVIDER;
   organization_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationAcctProviderConnConfigurationPullOptionsSetArgs = {
-  acct_provider_code: Acct_Provider;
-  organization_id: Scalars['String']['input'];
-  payload: Scalars['JSON']['input'];
-};
-
-
-export type MutationUserOrganizationAcctProviderConnConfigurationPushOptionsGetArgs = {
-  acct_provider_code: Acct_Provider;
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type MutationUserOrganizationAcctProviderConnConfigurationPushOptionsSetArgs = {
-  acct_provider_code: Acct_Provider;
+export type MutationuserOrganizationAcctProviderConnConfigurationPullOptionsSetArgs = {
+  acct_provider_code: ACCT_PROVIDER;
   organization_id: Scalars['String']['input'];
   payload: Scalars['JSON']['input'];
 };
 
 
-export type MutationUserOrganizationAcctProviderConnDisconnectArgs = {
-  acct_provider_code: Acct_Provider;
+export type MutationuserOrganizationAcctProviderConnConfigurationPushOptionsGetArgs = {
+  acct_provider_code: ACCT_PROVIDER;
   organization_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationAcctProviderConnUpdateArgs = {
-  acct_provider_code: Acct_Provider;
+export type MutationuserOrganizationAcctProviderConnConfigurationPushOptionsSetArgs = {
+  acct_provider_code: ACCT_PROVIDER;
+  organization_id: Scalars['String']['input'];
+  payload: Scalars['JSON']['input'];
+};
+
+
+export type MutationuserOrganizationAcctProviderConnDisconnectArgs = {
+  acct_provider_code: ACCT_PROVIDER;
+  organization_id: Scalars['String']['input'];
+};
+
+
+export type MutationuserOrganizationAcctProviderConnUpdateArgs = {
+  acct_provider_code: ACCT_PROVIDER;
   data: UserOrganizationAcctProviderConnUpdateSchema;
   organization_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationAcctProviderConnectArgs = {
-  acct_provider_code: Acct_Provider;
+export type MutationuserOrganizationAcctProviderConnectArgs = {
+  acct_provider_code: ACCT_PROVIDER;
   automatic_pull_enabled: Scalars['Boolean']['input'];
   automatic_push_enabled: Scalars['Boolean']['input'];
   organization_id: Scalars['String']['input'];
@@ -305,152 +306,152 @@ export type MutationUserOrganizationAcctProviderConnectArgs = {
 };
 
 
-export type MutationUserOrganizationAcctProviderGetOAuthUrlArgs = {
-  acct_provider_code: Acct_Provider;
+export type MutationuserOrganizationAcctProviderGetOAuthUrlArgs = {
+  acct_provider_code: ACCT_PROVIDER;
   organization_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationAcctProviderSynchronizeArgs = {
-  acct_provider_code: Acct_Provider;
+export type MutationuserOrganizationAcctProviderSynchronizeArgs = {
+  acct_provider_code: ACCT_PROVIDER;
   organization_id: Scalars['String']['input'];
   pull: Scalars['Boolean']['input'];
   push: Scalars['Boolean']['input'];
 };
 
 
-export type MutationUserOrganizationBillConnLockArgs = {
+export type MutationuserOrganizationBillConnLockArgs = {
   organization_bill_id: Scalars['String']['input'];
   organization_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationBillConnSyncArgs = {
+export type MutationuserOrganizationBillConnSyncArgs = {
   organization_bill_id: Scalars['String']['input'];
   organization_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationBillConnUnlockArgs = {
+export type MutationuserOrganizationBillConnUnlockArgs = {
   organization_bill_id: Scalars['String']['input'];
   organization_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationBillCreateArgs = {
+export type MutationuserOrganizationBillCreateArgs = {
   data: UserOrganizationBillSchema;
   organization_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationBillDeleteArgs = {
+export type MutationuserOrganizationBillDeleteArgs = {
   organization_bill_ids: Array<Scalars['String']['input']>;
   organization_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationBillFileDeleteArgs = {
+export type MutationuserOrganizationBillFileDeleteArgs = {
   organization_bill_id: Scalars['String']['input'];
   organization_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationBillManualPaymentCreateArgs = {
+export type MutationuserOrganizationBillManualPaymentCreateArgs = {
   data: UserOrganizationBillManualPaymentCreateSchema;
   organization_bill_id: Scalars['String']['input'];
   organization_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationBillManualPaymentDeleteArgs = {
+export type MutationuserOrganizationBillManualPaymentDeleteArgs = {
   organization_bill_id: Scalars['String']['input'];
   organization_id: Scalars['String']['input'];
   organization_transaction_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationBillUpdateArgs = {
+export type MutationuserOrganizationBillUpdateArgs = {
   data: UserOrganizationBillSchema;
   organization_bill_id: Scalars['String']['input'];
   organization_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationCollaboratorDeleteArgs = {
+export type MutationuserOrganizationCollaboratorDeleteArgs = {
   organization_id: Scalars['String']['input'];
   organization_user_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationCollaboratorUpdateArgs = {
+export type MutationuserOrganizationCollaboratorUpdateArgs = {
   data: UserOrganizationCollaboratorUpdateSchema;
   organization_id: Scalars['String']['input'];
   organization_user_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationConnectionAcceptArgs = {
+export type MutationuserOrganizationConnectionAcceptArgs = {
   organization_connection_id: Scalars['String']['input'];
   organization_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationConnectionInviteCustomerArgs = {
+export type MutationuserOrganizationConnectionInviteCustomerArgs = {
   organization_customer_id: Scalars['String']['input'];
   organization_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationConnectionInviteVendorArgs = {
+export type MutationuserOrganizationConnectionInviteVendorArgs = {
   organization_id: Scalars['String']['input'];
   organization_vendor_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationConnectionRejectArgs = {
+export type MutationuserOrganizationConnectionRejectArgs = {
   organization_connection_id: Scalars['String']['input'];
   organization_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationCreateArgs = {
+export type MutationuserOrganizationCreateArgs = {
   data: UserOrganizationCreateSchema;
 };
 
 
-export type MutationUserOrganizationCustomerConnLockArgs = {
+export type MutationuserOrganizationCustomerConnLockArgs = {
   organization_customer_id: Scalars['String']['input'];
   organization_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationCustomerConnSyncArgs = {
+export type MutationuserOrganizationCustomerConnSyncArgs = {
   organization_customer_id: Scalars['String']['input'];
   organization_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationCustomerConnUnlockArgs = {
+export type MutationuserOrganizationCustomerConnUnlockArgs = {
   organization_customer_id: Scalars['String']['input'];
   organization_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationCustomerContactCreateArgs = {
+export type MutationuserOrganizationCustomerContactCreateArgs = {
   data: UserOrganizationCustomerContactCreateSchema;
   organization_customer_id: Scalars['String']['input'];
   organization_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationCustomerContactDeleteArgs = {
+export type MutationuserOrganizationCustomerContactDeleteArgs = {
   organization_customer_contact_id: Scalars['String']['input'];
   organization_customer_id: Scalars['String']['input'];
   organization_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationCustomerContactUpdateArgs = {
+export type MutationuserOrganizationCustomerContactUpdateArgs = {
   data: UserOrganizationCustomerContactUpdateSchema;
   organization_customer_contact_id: Scalars['String']['input'];
   organization_customer_id: Scalars['String']['input'];
@@ -458,136 +459,136 @@ export type MutationUserOrganizationCustomerContactUpdateArgs = {
 };
 
 
-export type MutationUserOrganizationCustomerCreateArgs = {
+export type MutationuserOrganizationCustomerCreateArgs = {
   data: UserOrganizationCustomerSchema;
   organization_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationCustomerSendInvoiceEmailArgs = {
+export type MutationuserOrganizationCustomerSendInvoiceEmailArgs = {
   organization_id: Scalars['String']['input'];
   targets: Array<UserOrganizationCustomerSendInvoiceEmailSchema>;
 };
 
 
-export type MutationUserOrganizationCustomerSendStatementEmailArgs = {
+export type MutationuserOrganizationCustomerSendStatementEmailArgs = {
   organization_id: Scalars['String']['input'];
   targets: Array<UserOrganizationCustomerSendInvoiceStatementEmailSchema>;
 };
 
 
-export type MutationUserOrganizationCustomerUniqueCodeUpdateArgs = {
+export type MutationuserOrganizationCustomerUniqueCodeUpdateArgs = {
   organization_customer_id: Scalars['String']['input'];
   organization_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationCustomerUpdateArgs = {
+export type MutationuserOrganizationCustomerUpdateArgs = {
   data: UserOrganizationCustomerSchema;
   organization_customer_id: Scalars['String']['input'];
   organization_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationDeleteArgs = {
+export type MutationuserOrganizationDeleteArgs = {
   organization_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationEmailVerifyOrChangeFinishArgs = {
+export type MutationuserOrganizationEmailVerifyOrChangeFinishArgs = {
   data: UserOrganizationEmailVerifyOrChangeFinishSchema;
   organization_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationEmailVerifyOrChangeStartArgs = {
+export type MutationuserOrganizationEmailVerifyOrChangeStartArgs = {
   data: UserOrganizationEmailVerifyOrChangeStartSchema;
   organization_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationInviteCollaboratorCancelArgs = {
+export type MutationuserOrganizationInviteCollaboratorCancelArgs = {
   organization_id: Scalars['String']['input'];
   organization_invite_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationInviteCollaboratorCreateArgs = {
+export type MutationuserOrganizationInviteCollaboratorCreateArgs = {
   data: UserOrganizationInviteCollaboratorCreateSchema;
   organization_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationInviteRejectArgs = {
+export type MutationuserOrganizationInviteRejectArgs = {
   code: Scalars['String']['input'];
   organization_id: Scalars['String']['input'];
   organization_invite_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationInvoiceCreateArgs = {
+export type MutationuserOrganizationInvoiceCreateArgs = {
   data: UserOrganizationInvoiceSchema;
   organization_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationInvoiceDeleteArgs = {
+export type MutationuserOrganizationInvoiceDeleteArgs = {
   organization_id: Scalars['String']['input'];
   organization_invoice_ids: Array<Scalars['String']['input']>;
 };
 
 
-export type MutationUserOrganizationInvoiceFileDeleteArgs = {
+export type MutationuserOrganizationInvoiceFileDeleteArgs = {
   organization_id: Scalars['String']['input'];
   organization_invoice_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationInvoiceManualPaymentCreateArgs = {
+export type MutationuserOrganizationInvoiceManualPaymentCreateArgs = {
   data: UserOrganizationInvoiceManualPaymentCreateSchema;
   organization_id: Scalars['String']['input'];
   organization_invoice_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationInvoiceManualPaymentDeleteArgs = {
+export type MutationuserOrganizationInvoiceManualPaymentDeleteArgs = {
   organization_id: Scalars['String']['input'];
   organization_invoice_id: Scalars['String']['input'];
   organization_transaction_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationInvoiceUpdateArgs = {
+export type MutationuserOrganizationInvoiceUpdateArgs = {
   data: UserOrganizationInvoiceSchema;
   organization_id: Scalars['String']['input'];
   organization_invoice_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationLeaveArgs = {
+export type MutationuserOrganizationLeaveArgs = {
   organization_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationLogoPictureRemoveArgs = {
+export type MutationuserOrganizationLogoPictureRemoveArgs = {
   organization_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationPaymentMethodDeleteArgs = {
+export type MutationuserOrganizationPaymentMethodDeleteArgs = {
   organization_id: Scalars['String']['input'];
   organization_payment_method_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationPaymentMethodUpdateArgs = {
+export type MutationuserOrganizationPaymentMethodUpdateArgs = {
   data: UserOrganizationPaymentMethodUpdateSchema;
   organization_id: Scalars['String']['input'];
   organization_payment_method_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationProjectChangeRequestAcceptArgs = {
+export type MutationuserOrganizationProjectChangeRequestAcceptArgs = {
   allow_bypass: Scalars['Boolean']['input'];
   organization_id: Scalars['String']['input'];
   organization_project_change_request_id: Scalars['String']['input'];
@@ -595,7 +596,7 @@ export type MutationUserOrganizationProjectChangeRequestAcceptArgs = {
 };
 
 
-export type MutationUserOrganizationProjectChangeRequestCancelArgs = {
+export type MutationuserOrganizationProjectChangeRequestCancelArgs = {
   allow_bypass: Scalars['Boolean']['input'];
   organization_id: Scalars['String']['input'];
   organization_project_change_request_id: Scalars['String']['input'];
@@ -603,14 +604,14 @@ export type MutationUserOrganizationProjectChangeRequestCancelArgs = {
 };
 
 
-export type MutationUserOrganizationProjectChangeRequestCreateArgs = {
+export type MutationuserOrganizationProjectChangeRequestCreateArgs = {
   data: UserOrganizationProjectChangeRequestCreateSchema;
   organization_id: Scalars['String']['input'];
   organization_project_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationProjectChangeRequestRejectArgs = {
+export type MutationuserOrganizationProjectChangeRequestRejectArgs = {
   allow_bypass: Scalars['Boolean']['input'];
   organization_id: Scalars['String']['input'];
   organization_project_change_request_id: Scalars['String']['input'];
@@ -618,112 +619,119 @@ export type MutationUserOrganizationProjectChangeRequestRejectArgs = {
 };
 
 
-export type MutationUserOrganizationProjectCreateArgs = {
+export type MutationuserOrganizationProjectCreateArgs = {
   data: UserOrganizationProjectCreateSchema;
   organization_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationProjectDeleteArgs = {
+export type MutationuserOrganizationProjectDeleteArgs = {
   organization_id: Scalars['String']['input'];
   organization_project_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationProjectUpdateArgs = {
+export type MutationuserOrganizationProjectUpdateArgs = {
   data: UserOrganizationProjectUpdateSchema;
   organization_id: Scalars['String']['input'];
   organization_project_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationReceivingMethodDeleteArgs = {
+export type MutationuserOrganizationReceivingMethodDeleteArgs = {
   organization_id: Scalars['String']['input'];
   organization_receiving_method_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationReceivingMethodUpdateArgs = {
+export type MutationuserOrganizationReceivingMethodUpdateArgs = {
   data: UserOrganizationReceivingMethodUpdateSchema;
   organization_id: Scalars['String']['input'];
   organization_receiving_method_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationReminderSettingCreateArgs = {
-  data: UserOrganizationReminderSettingCreateSchema;
+export type MutationuserOrganizationReminderSettingCreateArgs = {
+  data: UserOrganizationReminderSettingSchema;
   organization_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationReminderSettingDeleteArgs = {
+export type MutationuserOrganizationReminderSettingDeleteArgs = {
   organization_id: Scalars['String']['input'];
   organization_reminder_setting_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationSendGenericInviteMailArgs = {
+export type MutationuserOrganizationReminderSettingUpdateArgs = {
+  data: UserOrganizationReminderSettingSchema;
+  organization_id: Scalars['String']['input'];
+  organization_reminder_setting_id: Scalars['String']['input'];
+};
+
+
+export type MutationuserOrganizationSendGenericInviteMailArgs = {
   email: Scalars['String']['input'];
   organization_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationUniqueCodeUpdateArgs = {
+export type MutationuserOrganizationUniqueCodeUpdateArgs = {
   organization_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationUniqueNameUpdateArgs = {
+export type MutationuserOrganizationUniqueNameUpdateArgs = {
   organization_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationUpdateArgs = {
+export type MutationuserOrganizationUpdateArgs = {
   data: UserOrganizationUpdateSchema;
   organization_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationUserInviteAcceptArgs = {
+export type MutationuserOrganizationUserInviteAcceptArgs = {
   code: Scalars['String']['input'];
   organization_id: Scalars['String']['input'];
   organization_invite_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationVendorConnLockArgs = {
+export type MutationuserOrganizationVendorConnLockArgs = {
   organization_id: Scalars['String']['input'];
   organization_vendor_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationVendorConnSyncArgs = {
+export type MutationuserOrganizationVendorConnSyncArgs = {
   organization_id: Scalars['String']['input'];
   organization_vendor_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationVendorConnUnlockArgs = {
+export type MutationuserOrganizationVendorConnUnlockArgs = {
   organization_id: Scalars['String']['input'];
   organization_vendor_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationVendorContactCreateArgs = {
+export type MutationuserOrganizationVendorContactCreateArgs = {
   data: UserOrganizationVendorContactCreateSchema;
   organization_id: Scalars['String']['input'];
   organization_vendor_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationVendorContactDeleteArgs = {
+export type MutationuserOrganizationVendorContactDeleteArgs = {
   organization_id: Scalars['String']['input'];
   organization_vendor_contact_id: Scalars['String']['input'];
   organization_vendor_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationVendorContactUpdateArgs = {
+export type MutationuserOrganizationVendorContactUpdateArgs = {
   data: UserOrganizationVendorContactUpdateSchema;
   organization_id: Scalars['String']['input'];
   organization_vendor_contact_id: Scalars['String']['input'];
@@ -731,90 +739,90 @@ export type MutationUserOrganizationVendorContactUpdateArgs = {
 };
 
 
-export type MutationUserOrganizationVendorCreateArgs = {
+export type MutationuserOrganizationVendorCreateArgs = {
   data: UserOrganizationVendorSchema;
   organization_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationVendorUniqueCodeUpdateArgs = {
+export type MutationuserOrganizationVendorUniqueCodeUpdateArgs = {
   organization_id: Scalars['String']['input'];
   organization_vendor_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserOrganizationVendorUpdateArgs = {
+export type MutationuserOrganizationVendorUpdateArgs = {
   data: UserOrganizationVendorSchema;
   organization_id: Scalars['String']['input'];
   organization_vendor_id: Scalars['String']['input'];
 };
 
 
-export type MutationUserPasswordChangeFinishArgs = {
+export type MutationuserPasswordChangeFinishArgs = {
   data: UserPasswordChangeFinishSchema;
 };
 
 
-export type MutationUserPasswordChangeStartArgs = {
+export type MutationuserPasswordChangeStartArgs = {
   data: UserPasswordChangeStartSchema;
 };
 
 
-export type MutationUserPasswordResetFinishArgs = {
+export type MutationuserPasswordResetFinishArgs = {
   data: UserPasswordResetFinishSchema;
 };
 
 
-export type MutationUserPasswordResetStartArgs = {
+export type MutationuserPasswordResetStartArgs = {
   data: UserPasswordResetStartSchema;
 };
 
 
-export type MutationUserPhoneNumberVerifyOrChangeFinishArgs = {
+export type MutationuserPhoneNumberVerifyOrChangeFinishArgs = {
   data: UserPhoneNumberVerifyOrChangeFinishSchema;
 };
 
 
-export type MutationUserPhoneNumberVerifyOrChangeStartArgs = {
+export type MutationuserPhoneNumberVerifyOrChangeStartArgs = {
   data: UserPhoneNumberVerifyOrChangeStartSchema;
 };
 
 
-export type MutationUserSignUpWithEmailFinishArgs = {
+export type MutationuserSignUpWithEmailFinishArgs = {
   data: UserSignUpWithEmailFinishSchema;
 };
 
 
-export type MutationUserSignUpWithEmailStartArgs = {
+export type MutationuserSignUpWithEmailStartArgs = {
   data: UserSignUpWithEmailStartSchema;
 };
 
 
-export type MutationUserSignUpWithEmailVerifyArgs = {
+export type MutationuserSignUpWithEmailVerifyArgs = {
   data: UserSignUpWithEmailVerifySchema;
 };
 
 
-export type MutationUserUpdateDataArgs = {
+export type MutationuserUpdateDataArgs = {
   data: UserUpdateDataSchema;
 };
 
-export enum Organization_Connection_Status {
-  Accepted = 'ACCEPTED',
-  Invited = 'INVITED',
-  Rejected = 'REJECTED'
+export enum ORGANIZATION_CONNECTION_STATUS {
+  ACCEPTED = 'ACCEPTED',
+  INVITED = 'INVITED',
+  REJECTED = 'REJECTED'
 }
 
-export enum Organization_Invite_Side {
-  Customer = 'CUSTOMER',
-  Organization = 'ORGANIZATION'
+export enum ORGANIZATION_INVITE_SIDE {
+  CUSTOMER = 'CUSTOMER',
+  ORGANIZATION = 'ORGANIZATION'
 }
 
-export enum Organization_User_Role {
-  Admin = 'ADMIN',
-  Editor = 'EDITOR',
-  Owner = 'OWNER',
-  Viewer = 'VIEWER'
+export enum ORGANIZATION_USER_ROLE {
+  ADMIN = 'ADMIN',
+  EDITOR = 'EDITOR',
+  OWNER = 'OWNER',
+  VIEWER = 'VIEWER'
 }
 
 export type Organization = {
@@ -854,6 +862,10 @@ export type Organization = {
   name: Scalars['String']['output'];
   phone_number?: Maybe<Scalars['String']['output']>;
   primary_contact_name?: Maybe<Scalars['String']['output']>;
+  setting_allow_invoice_due_snooze_reminders?: Maybe<Scalars['Boolean']['output']>;
+  setting_allow_invoice_overdue_snooze_reminders?: Maybe<Scalars['Boolean']['output']>;
+  setting_send_invoice_due_reminders?: Maybe<Scalars['Boolean']['output']>;
+  setting_send_invoice_overdue_reminders?: Maybe<Scalars['Boolean']['output']>;
   timezone?: Maybe<Scalars['String']['output']>;
   unique_code: Scalars['String']['output'];
   unique_name: Scalars['String']['output'];
@@ -862,7 +874,7 @@ export type Organization = {
 
 export type OrganizationAcctProviderConn = {
   __typename?: 'OrganizationAcctProviderConn';
-  acct_provider_code: Acct_Provider;
+  acct_provider_code: ACCT_PROVIDER;
   automatic_pull_enabled: Scalars['Boolean']['output'];
   automatic_push_enabled: Scalars['Boolean']['output'];
   code: Scalars['String']['output'];
@@ -1022,7 +1034,7 @@ export type OrganizationBill = {
   conn_linked_invoice_id?: Maybe<Scalars['String']['output']>;
   conn_locked_data_at?: Maybe<Scalars['DateTime']['output']>;
   created_at: Scalars['DateTime']['output'];
-  currency_code: Currency;
+  currency_code: CURRENCY;
   description: Scalars['String']['output'];
   discount_amount: Scalars['Int']['output'];
   due_date: Scalars['DateTime']['output'];
@@ -1043,7 +1055,7 @@ export type OrganizationBill = {
   paid_amount?: Maybe<Scalars['Int']['output']>;
   paid_at?: Maybe<Scalars['DateTime']['output']>;
   payload?: Maybe<Scalars['JSON']['output']>;
-  status?: Maybe<Bill_Status>;
+  status?: Maybe<BILL_STATUS>;
   tax_amount: Scalars['Int']['output'];
   total_amount: Scalars['Int']['output'];
   transaction_links?: Maybe<Array<OrganizationTransactionLink>>;
@@ -1062,7 +1074,7 @@ export type OrganizationBill = {
 };
 
 
-export type OrganizationBillHistoryArgs = {
+export type OrganizationBillhistoryArgs = {
   after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
   before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -1110,7 +1122,7 @@ export type OrganizationBillPaginationEdge = {
 export type OrganizationBillStatement = {
   __typename?: 'OrganizationBillStatement';
   balance: Scalars['Int']['output'];
-  currency?: Maybe<Currency>;
+  currency?: Maybe<CURRENCY>;
   customer_organization: Organization;
   customer_organization_id: Scalars['String']['output'];
   customer_organization_vendor?: Maybe<OrganizationVendor>;
@@ -1120,7 +1132,7 @@ export type OrganizationBillStatement = {
   overdue_amount: Scalars['Int']['output'];
   paid_amount: Scalars['Int']['output'];
   start_date?: Maybe<Scalars['DateTime']['output']>;
-  status?: Maybe<Bill_Status>;
+  status?: Maybe<BILL_STATUS>;
   total_amount: Scalars['Int']['output'];
   vendor_organization?: Maybe<Organization>;
   vendor_organization_id?: Maybe<Scalars['String']['output']>;
@@ -1129,7 +1141,7 @@ export type OrganizationBillStatement = {
 export type OrganizationConnection = {
   __typename?: 'OrganizationConnection';
   created_at: Scalars['DateTime']['output'];
-  customer_conn_status?: Maybe<Organization_Connection_Status>;
+  customer_conn_status?: Maybe<ORGANIZATION_CONNECTION_STATUS>;
   customer_conn_status_at?: Maybe<Scalars['DateTime']['output']>;
   customer_organization_email?: Maybe<Scalars['String']['output']>;
   customer_organization_id?: Maybe<Scalars['String']['output']>;
@@ -1141,7 +1153,7 @@ export type OrganizationConnection = {
   is_connected: Scalars['Boolean']['output'];
   is_valid: Scalars['Boolean']['output'];
   updated_at: Scalars['DateTime']['output'];
-  vendor_conn_status?: Maybe<Organization_Connection_Status>;
+  vendor_conn_status?: Maybe<ORGANIZATION_CONNECTION_STATUS>;
   vendor_conn_status_at?: Maybe<Scalars['DateTime']['output']>;
   vendor_organization_email?: Maybe<Scalars['String']['output']>;
   vendor_organization_id?: Maybe<Scalars['String']['output']>;
@@ -1198,10 +1210,10 @@ export type OrganizationCustomer = {
 };
 
 
-export type OrganizationCustomerInvoice_StatementArgs = {
+export type OrganizationCustomerinvoice_statementArgs = {
   after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
   before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  currency?: InputMaybe<Currency>;
+  currency?: InputMaybe<CURRENCY>;
   end_date?: InputMaybe<Scalars['DateTime']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   is_overdue?: InputMaybe<Scalars['Boolean']['input']>;
@@ -1209,7 +1221,7 @@ export type OrganizationCustomerInvoice_StatementArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   sorting?: InputMaybe<Array<SortingFieldSchema>>;
   start_date?: InputMaybe<Scalars['DateTime']['input']>;
-  status?: InputMaybe<Invoice_Status>;
+  status?: InputMaybe<INVOICE_STATUS>;
   take?: InputMaybe<Scalars['Int']['input']>;
 };
 
@@ -1267,7 +1279,7 @@ export type OrganizationInvite = {
   organization_id: Scalars['String']['output'];
   payload?: Maybe<Scalars['JSON']['output']>;
   rejected_at?: Maybe<Scalars['DateTime']['output']>;
-  role: Organization_User_Role;
+  role: ORGANIZATION_USER_ROLE;
   updated_at: Scalars['DateTime']['output'];
 };
 
@@ -1278,7 +1290,7 @@ export type OrganizationInvoice = {
   /** The open amount for this invoice. Balance 0 represents invoice fully paid. */
   balance?: Maybe<Scalars['Int']['output']>;
   created_at: Scalars['DateTime']['output'];
-  currency_code: Currency;
+  currency_code: CURRENCY;
   customer_address_city?: Maybe<Scalars['String']['output']>;
   customer_address_country_code_iso_3?: Maybe<Scalars['String']['output']>;
   customer_address_lat?: Maybe<Scalars['Float']['output']>;
@@ -1311,7 +1323,7 @@ export type OrganizationInvoice = {
   paid_amount?: Maybe<Scalars['Int']['output']>;
   paid_at?: Maybe<Scalars['DateTime']['output']>;
   payload?: Maybe<Scalars['JSON']['output']>;
-  status?: Maybe<Invoice_Status>;
+  status?: Maybe<INVOICE_STATUS>;
   tax_amount: Scalars['Int']['output'];
   total_amount: Scalars['Int']['output'];
   transaction_links?: Maybe<Array<OrganizationTransactionLink>>;
@@ -1320,7 +1332,7 @@ export type OrganizationInvoice = {
 };
 
 
-export type OrganizationInvoiceHistoryArgs = {
+export type OrganizationInvoicehistoryArgs = {
   after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
   before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -1368,7 +1380,7 @@ export type OrganizationInvoicePaginationEdge = {
 export type OrganizationInvoiceStatement = {
   __typename?: 'OrganizationInvoiceStatement';
   balance: Scalars['Int']['output'];
-  currency?: Maybe<Currency>;
+  currency?: Maybe<CURRENCY>;
   customer_organization?: Maybe<Organization>;
   customer_organization_id?: Maybe<Scalars['String']['output']>;
   data: OrganizationInvoicePaginationConnection;
@@ -1376,7 +1388,7 @@ export type OrganizationInvoiceStatement = {
   overdue_amount: Scalars['Int']['output'];
   paid_amount: Scalars['Int']['output'];
   start_date?: Maybe<Scalars['DateTime']['output']>;
-  status?: Maybe<Invoice_Status>;
+  status?: Maybe<INVOICE_STATUS>;
   total_amount: Scalars['Int']['output'];
   vendor_organization: Organization;
   vendor_organization_customer?: Maybe<OrganizationCustomer>;
@@ -1392,7 +1404,7 @@ export type OrganizationPaymentMethod = {
   is_default: Scalars['Boolean']['output'];
   is_enabled: Scalars['Boolean']['output'];
   organization_id: Scalars['String']['output'];
-  payment_provider_code: Payment_Method;
+  payment_provider_code: PAYMENT_METHOD;
   updated_at: Scalars['DateTime']['output'];
 };
 
@@ -1400,7 +1412,7 @@ export type OrganizationProject = {
   __typename?: 'OrganizationProject';
   archived_at?: Maybe<Scalars['DateTime']['output']>;
   budget_amount: Scalars['Float']['output'];
-  budget_currency_code: Currency;
+  budget_currency_code: CURRENCY;
   canceled_at?: Maybe<Scalars['DateTime']['output']>;
   completed_at?: Maybe<Scalars['DateTime']['output']>;
   contract_url?: Maybe<Scalars['String']['output']>;
@@ -1440,12 +1452,12 @@ export type OrganizationProjectChangeRequest = {
   created_at: Scalars['DateTime']['output'];
   created_by_user?: Maybe<User>;
   created_by_user_id?: Maybe<Scalars['String']['output']>;
-  created_side: Organization_Invite_Side;
+  created_side: ORGANIZATION_INVITE_SIDE;
   ends_at: Scalars['DateTime']['output'];
   expires_at: Scalars['DateTime']['output'];
   finished_by_user?: Maybe<User>;
   finished_by_user_id?: Maybe<Scalars['String']['output']>;
-  finished_side?: Maybe<Organization_Invite_Side>;
+  finished_side?: Maybe<ORGANIZATION_INVITE_SIDE>;
   id: Scalars['ID']['output'];
   name: Scalars['String']['output'];
   organization_project: OrganizationProject;
@@ -1464,7 +1476,7 @@ export type OrganizationReceivingMethod = {
   is_default: Scalars['Boolean']['output'];
   is_enabled: Scalars['Boolean']['output'];
   organization_id: Scalars['String']['output'];
-  receiving_provider_code: Receiving_Method;
+  receiving_provider_code: RECEIVING_METHOD;
   updated_at: Scalars['DateTime']['output'];
 };
 
@@ -1472,14 +1484,14 @@ export type OrganizationReminderSetting = {
   __typename?: 'OrganizationReminderSetting';
   created_at: Scalars['DateTime']['output'];
   days_amount: Scalars['Int']['output'];
-  due_date_mode: Reminder_Due_Date_Mode;
+  due_date_mode: REMINDER_DUE_DATE_MODE;
   id: Scalars['ID']['output'];
   organization_customer_id?: Maybe<Scalars['String']['output']>;
   organization_id: Scalars['String']['output'];
   organization_invoice_id?: Maybe<Scalars['String']['output']>;
   organization_project_id?: Maybe<Scalars['String']['output']>;
   payload?: Maybe<Scalars['JSON']['output']>;
-  repeat_mode?: Maybe<Reminder_Repeat_Mode>;
+  repeat_mode?: Maybe<REMINDER_REPEAT_MODE>;
   repeat_value?: Maybe<Scalars['Int']['output']>;
   selected_hour: Scalars['Int']['output'];
   updated_at: Scalars['DateTime']['output'];
@@ -1503,14 +1515,14 @@ export type OrganizationTransaction = {
   amount: Scalars['Int']['output'];
   archived_at?: Maybe<Scalars['DateTime']['output']>;
   created_at: Scalars['DateTime']['output'];
-  currency_code: Currency;
+  currency_code: CURRENCY;
   failed_at?: Maybe<Scalars['DateTime']['output']>;
   id: Scalars['ID']['output'];
   links: Array<OrganizationTransactionLink>;
   method_id?: Maybe<Scalars['String']['output']>;
-  method_type: Transaction_Method;
+  method_type: TRANSACTION_METHOD;
   organization_acct_provider_conn_transactions: Array<OrganizationAcctProviderConnTransaction>;
-  provider_code: Transaction_Provider;
+  provider_code: TRANSACTION_PROVIDER;
   provider_transaction_code: Scalars['String']['output'];
   recipient_organization_id?: Maybe<Scalars['String']['output']>;
   reverted_at?: Maybe<Scalars['DateTime']['output']>;
@@ -1526,7 +1538,7 @@ export type OrganizationTransactionLink = {
   created_at: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
   item_id: Scalars['String']['output'];
-  item_type: Transaction_Item_Type;
+  item_type: TRANSACTION_ITEM_TYPE;
   organization_transaction: OrganizationTransaction;
   organization_transaction_id: Scalars['String']['output'];
   updated_at: Scalars['DateTime']['output'];
@@ -1540,7 +1552,7 @@ export type OrganizationUser = {
   organization: Organization;
   organization_id: Scalars['String']['output'];
   payload?: Maybe<Scalars['JSON']['output']>;
-  role: Organization_User_Role;
+  role: ORGANIZATION_USER_ROLE;
   send_invoice_reminders: Scalars['Boolean']['output'];
   updated_at: Scalars['DateTime']['output'];
   user?: Maybe<User>;
@@ -1581,10 +1593,10 @@ export type OrganizationVendor = {
 };
 
 
-export type OrganizationVendorBill_StatementArgs = {
+export type OrganizationVendorbill_statementArgs = {
   after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
   before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  currency?: InputMaybe<Currency>;
+  currency?: InputMaybe<CURRENCY>;
   end_date?: InputMaybe<Scalars['DateTime']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   is_overdue?: InputMaybe<Scalars['Boolean']['input']>;
@@ -1592,7 +1604,7 @@ export type OrganizationVendorBill_StatementArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   sorting?: InputMaybe<Array<SortingFieldSchema>>;
   start_date?: InputMaybe<Scalars['DateTime']['input']>;
-  status?: InputMaybe<Bill_Status>;
+  status?: InputMaybe<BILL_STATUS>;
   take?: InputMaybe<Scalars['Int']['input']>;
 };
 
@@ -1634,9 +1646,9 @@ export type OrganizationVendorPaginationEdge = {
   node: OrganizationVendor;
 };
 
-export enum Payment_Method {
-  Manual = 'MANUAL',
-  Quickbooks = 'QUICKBOOKS'
+export enum PAYMENT_METHOD {
+  MANUAL = 'MANUAL',
+  QUICKBOOKS = 'QUICKBOOKS'
 }
 
 export type PageInfo = {
@@ -1711,7 +1723,7 @@ export type Query = {
 };
 
 
-export type QueryUnauthorizedUserOrganizationUserInviteArgs = {
+export type QueryunauthorizedUserOrganizationUserInviteArgs = {
   code: Scalars['String']['input'];
   email: Scalars['String']['input'];
   organization_id: Scalars['String']['input'];
@@ -1719,10 +1731,10 @@ export type QueryUnauthorizedUserOrganizationUserInviteArgs = {
 };
 
 
-export type QueryUnconnectedUserCustomerOrganizationInvoiceStatementArgs = {
+export type QueryunconnectedUserCustomerOrganizationInvoiceStatementArgs = {
   after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
   before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  currency?: InputMaybe<Currency>;
+  currency?: InputMaybe<CURRENCY>;
   email: Scalars['String']['input'];
   end_date?: InputMaybe<Scalars['DateTime']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -1732,30 +1744,30 @@ export type QueryUnconnectedUserCustomerOrganizationInvoiceStatementArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   sorting?: InputMaybe<Array<SortingFieldSchema>>;
   start_date?: InputMaybe<Scalars['DateTime']['input']>;
-  status?: InputMaybe<Invoice_Status>;
+  status?: InputMaybe<INVOICE_STATUS>;
   take?: InputMaybe<Scalars['Int']['input']>;
   token: Scalars['String']['input'];
   unique_code: Scalars['String']['input'];
 };
 
 
-export type QueryUserCustomerOrganizationArgs = {
+export type QueryuserCustomerOrganizationArgs = {
   organization_id: Scalars['String']['input'];
   organization_vendor_id: Scalars['String']['input'];
 };
 
 
-export type QueryUserCustomerOrganizationInvoiceArgs = {
+export type QueryuserCustomerOrganizationInvoiceArgs = {
   organization_id: Scalars['String']['input'];
   organization_invoice_id: Scalars['String']['input'];
   organization_vendor_id: Scalars['String']['input'];
 };
 
 
-export type QueryUserCustomerOrganizationInvoiceStatementArgs = {
+export type QueryuserCustomerOrganizationInvoiceStatementArgs = {
   after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
   before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  currency?: InputMaybe<Currency>;
+  currency?: InputMaybe<CURRENCY>;
   end_date?: InputMaybe<Scalars['DateTime']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   is_overdue?: InputMaybe<Scalars['Boolean']['input']>;
@@ -1765,12 +1777,12 @@ export type QueryUserCustomerOrganizationInvoiceStatementArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   sorting?: InputMaybe<Array<SortingFieldSchema>>;
   start_date?: InputMaybe<Scalars['DateTime']['input']>;
-  status?: InputMaybe<Invoice_Status>;
+  status?: InputMaybe<INVOICE_STATUS>;
   take?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
-export type QueryUserCustomerOrganizationInvoicesArgs = {
+export type QueryuserCustomerOrganizationInvoicesArgs = {
   after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
   before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -1783,14 +1795,14 @@ export type QueryUserCustomerOrganizationInvoicesArgs = {
 };
 
 
-export type QueryUserCustomerOrganizationProjectArgs = {
+export type QueryuserCustomerOrganizationProjectArgs = {
   organization_id: Scalars['String']['input'];
   organization_project_id: Scalars['String']['input'];
   organization_vendor_id: Scalars['String']['input'];
 };
 
 
-export type QueryUserCustomerOrganizationProjectChangeArgs = {
+export type QueryuserCustomerOrganizationProjectChangeArgs = {
   organization_id: Scalars['String']['input'];
   organization_project_change_id: Scalars['String']['input'];
   organization_project_id: Scalars['String']['input'];
@@ -1798,7 +1810,7 @@ export type QueryUserCustomerOrganizationProjectChangeArgs = {
 };
 
 
-export type QueryUserCustomerOrganizationProjectChangeRequestArgs = {
+export type QueryuserCustomerOrganizationProjectChangeRequestArgs = {
   organization_id: Scalars['String']['input'];
   organization_project_change_request_id: Scalars['String']['input'];
   organization_project_id: Scalars['String']['input'];
@@ -1806,7 +1818,7 @@ export type QueryUserCustomerOrganizationProjectChangeRequestArgs = {
 };
 
 
-export type QueryUserCustomerOrganizationProjectChangeRequestsArgs = {
+export type QueryuserCustomerOrganizationProjectChangeRequestsArgs = {
   accepted: Scalars['Boolean']['input'];
   after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
   before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
@@ -1823,7 +1835,7 @@ export type QueryUserCustomerOrganizationProjectChangeRequestsArgs = {
 };
 
 
-export type QueryUserCustomerOrganizationProjectChangesArgs = {
+export type QueryuserCustomerOrganizationProjectChangesArgs = {
   after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
   before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -1836,7 +1848,7 @@ export type QueryUserCustomerOrganizationProjectChangesArgs = {
 };
 
 
-export type QueryUserCustomerOrganizationProjectsArgs = {
+export type QueryuserCustomerOrganizationProjectsArgs = {
   after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
   before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -1848,29 +1860,29 @@ export type QueryUserCustomerOrganizationProjectsArgs = {
 };
 
 
-export type QueryUserCustomerOrganizationsArgs = {
+export type QueryuserCustomerOrganizationsArgs = {
   organization_id: Scalars['String']['input'];
 };
 
 
-export type QueryUserOrganizationArgs = {
+export type QueryuserOrganizationArgs = {
   organization_id: Scalars['String']['input'];
 };
 
 
-export type QueryUserOrganizationAcctProviderArgs = {
+export type QueryuserOrganizationAcctProviderArgs = {
   organization_acct_provider_conn_id: Scalars['String']['input'];
   organization_id: Scalars['String']['input'];
 };
 
 
-export type QueryUserOrganizationAcctProviderSynchronizationArgs = {
+export type QueryuserOrganizationAcctProviderSynchronizationArgs = {
   organization_acct_provider_conn_synchronization_id: Scalars['String']['input'];
   organization_id: Scalars['String']['input'];
 };
 
 
-export type QueryUserOrganizationAcctProviderSynchronizationsArgs = {
+export type QueryuserOrganizationAcctProviderSynchronizationsArgs = {
   after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
   before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -1883,7 +1895,7 @@ export type QueryUserOrganizationAcctProviderSynchronizationsArgs = {
 };
 
 
-export type QueryUserOrganizationAcctProvidersArgs = {
+export type QueryuserOrganizationAcctProvidersArgs = {
   after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
   before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -1895,16 +1907,16 @@ export type QueryUserOrganizationAcctProvidersArgs = {
 };
 
 
-export type QueryUserOrganizationBillArgs = {
+export type QueryuserOrganizationBillArgs = {
   organization_bill_id: Scalars['String']['input'];
   organization_id: Scalars['String']['input'];
 };
 
 
-export type QueryUserOrganizationBillStatementArgs = {
+export type QueryuserOrganizationBillStatementArgs = {
   after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
   before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  currency?: InputMaybe<Currency>;
+  currency?: InputMaybe<CURRENCY>;
   end_date?: InputMaybe<Scalars['DateTime']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   is_overdue?: InputMaybe<Scalars['Boolean']['input']>;
@@ -1914,12 +1926,12 @@ export type QueryUserOrganizationBillStatementArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   sorting?: InputMaybe<Array<SortingFieldSchema>>;
   start_date?: InputMaybe<Scalars['DateTime']['input']>;
-  status?: InputMaybe<Bill_Status>;
+  status?: InputMaybe<BILL_STATUS>;
   take?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
-export type QueryUserOrganizationBillsArgs = {
+export type QueryuserOrganizationBillsArgs = {
   after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
   before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -1931,49 +1943,49 @@ export type QueryUserOrganizationBillsArgs = {
   organization_vendor_id?: InputMaybe<Scalars['String']['input']>;
   skip?: InputMaybe<Scalars['Int']['input']>;
   sorting?: InputMaybe<Array<SortingFieldSchema>>;
-  status?: InputMaybe<Bill_Status>;
+  status?: InputMaybe<BILL_STATUS>;
   take?: InputMaybe<Scalars['Int']['input']>;
   unique_code?: InputMaybe<Scalars['String']['input']>;
 };
 
 
-export type QueryUserOrganizationCollaboratorArgs = {
+export type QueryuserOrganizationCollaboratorArgs = {
   organization_id: Scalars['String']['input'];
   organization_user_id: Scalars['String']['input'];
 };
 
 
-export type QueryUserOrganizationCollaboratorsArgs = {
+export type QueryuserOrganizationCollaboratorsArgs = {
   organization_id: Scalars['String']['input'];
 };
 
 
-export type QueryUserOrganizationConnectionArgs = {
+export type QueryuserOrganizationConnectionArgs = {
   organization_connection_id: Scalars['String']['input'];
   organization_id: Scalars['String']['input'];
 };
 
 
-export type QueryUserOrganizationConnectionsArgs = {
+export type QueryuserOrganizationConnectionsArgs = {
   organization_id: Scalars['String']['input'];
-  status?: InputMaybe<Organization_Connection_Status>;
+  status?: InputMaybe<ORGANIZATION_CONNECTION_STATUS>;
 };
 
 
-export type QueryUserOrganizationCustomerArgs = {
+export type QueryuserOrganizationCustomerArgs = {
   organization_customer_id: Scalars['String']['input'];
   organization_id: Scalars['String']['input'];
 };
 
 
-export type QueryUserOrganizationCustomerContactArgs = {
+export type QueryuserOrganizationCustomerContactArgs = {
   organization_customer_contact_id: Scalars['String']['input'];
   organization_customer_id: Scalars['String']['input'];
   organization_id: Scalars['String']['input'];
 };
 
 
-export type QueryUserOrganizationCustomerContactsArgs = {
+export type QueryuserOrganizationCustomerContactsArgs = {
   after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
   before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -1987,7 +1999,7 @@ export type QueryUserOrganizationCustomerContactsArgs = {
 };
 
 
-export type QueryUserOrganizationCustomersArgs = {
+export type QueryuserOrganizationCustomersArgs = {
   after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
   before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -2000,13 +2012,13 @@ export type QueryUserOrganizationCustomersArgs = {
 };
 
 
-export type QueryUserOrganizationInviteCollaboratorArgs = {
+export type QueryuserOrganizationInviteCollaboratorArgs = {
   organization_id: Scalars['String']['input'];
   organization_invite_id: Scalars['String']['input'];
 };
 
 
-export type QueryUserOrganizationInviteCollaboratorsArgs = {
+export type QueryuserOrganizationInviteCollaboratorsArgs = {
   after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
   before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -2017,16 +2029,16 @@ export type QueryUserOrganizationInviteCollaboratorsArgs = {
 };
 
 
-export type QueryUserOrganizationInvoiceArgs = {
+export type QueryuserOrganizationInvoiceArgs = {
   organization_id: Scalars['String']['input'];
   organization_invoice_id: Scalars['String']['input'];
 };
 
 
-export type QueryUserOrganizationInvoiceStatementArgs = {
+export type QueryuserOrganizationInvoiceStatementArgs = {
   after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
   before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  currency?: InputMaybe<Currency>;
+  currency?: InputMaybe<CURRENCY>;
   end_date?: InputMaybe<Scalars['DateTime']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   is_overdue?: InputMaybe<Scalars['Boolean']['input']>;
@@ -2036,12 +2048,12 @@ export type QueryUserOrganizationInvoiceStatementArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   sorting?: InputMaybe<Array<SortingFieldSchema>>;
   start_date?: InputMaybe<Scalars['DateTime']['input']>;
-  status?: InputMaybe<Invoice_Status>;
+  status?: InputMaybe<INVOICE_STATUS>;
   take?: InputMaybe<Scalars['Int']['input']>;
 };
 
 
-export type QueryUserOrganizationInvoicesArgs = {
+export type QueryuserOrganizationInvoicesArgs = {
   after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
   before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -2053,26 +2065,26 @@ export type QueryUserOrganizationInvoicesArgs = {
   organization_project_id?: InputMaybe<Scalars['String']['input']>;
   skip?: InputMaybe<Scalars['Int']['input']>;
   sorting?: InputMaybe<Array<SortingFieldSchema>>;
-  status?: InputMaybe<Invoice_Status>;
+  status?: InputMaybe<INVOICE_STATUS>;
   take?: InputMaybe<Scalars['Int']['input']>;
   unique_code?: InputMaybe<Scalars['String']['input']>;
 };
 
 
-export type QueryUserOrganizationPaymentMethodArgs = {
+export type QueryuserOrganizationPaymentMethodArgs = {
   organization_id: Scalars['String']['input'];
   organization_payment_method_id: Scalars['String']['input'];
 };
 
 
-export type QueryUserOrganizationPaymentMethodTransactionArgs = {
+export type QueryuserOrganizationPaymentMethodTransactionArgs = {
   organization_id: Scalars['String']['input'];
   organization_payment_method_id: Scalars['String']['input'];
   organization_transaction_id: Scalars['String']['input'];
 };
 
 
-export type QueryUserOrganizationPaymentMethodTransactionsArgs = {
+export type QueryuserOrganizationPaymentMethodTransactionsArgs = {
   after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
   before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -2084,7 +2096,7 @@ export type QueryUserOrganizationPaymentMethodTransactionsArgs = {
 };
 
 
-export type QueryUserOrganizationPaymentMethodsArgs = {
+export type QueryuserOrganizationPaymentMethodsArgs = {
   after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
   before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -2095,27 +2107,27 @@ export type QueryUserOrganizationPaymentMethodsArgs = {
 };
 
 
-export type QueryUserOrganizationProjectArgs = {
+export type QueryuserOrganizationProjectArgs = {
   organization_id: Scalars['String']['input'];
   organization_project_id: Scalars['String']['input'];
 };
 
 
-export type QueryUserOrganizationProjectChangeArgs = {
+export type QueryuserOrganizationProjectChangeArgs = {
   organization_id: Scalars['String']['input'];
   organization_project_change_id: Scalars['String']['input'];
   organization_project_id: Scalars['String']['input'];
 };
 
 
-export type QueryUserOrganizationProjectChangeRequestArgs = {
+export type QueryuserOrganizationProjectChangeRequestArgs = {
   organization_id: Scalars['String']['input'];
   organization_project_change_request_id: Scalars['String']['input'];
   organization_project_id: Scalars['String']['input'];
 };
 
 
-export type QueryUserOrganizationProjectChangeRequestsArgs = {
+export type QueryuserOrganizationProjectChangeRequestsArgs = {
   accepted: Scalars['Boolean']['input'];
   after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
   before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
@@ -2131,7 +2143,7 @@ export type QueryUserOrganizationProjectChangeRequestsArgs = {
 };
 
 
-export type QueryUserOrganizationProjectChangesArgs = {
+export type QueryuserOrganizationProjectChangesArgs = {
   after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
   before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -2143,7 +2155,7 @@ export type QueryUserOrganizationProjectChangesArgs = {
 };
 
 
-export type QueryUserOrganizationProjectsArgs = {
+export type QueryuserOrganizationProjectsArgs = {
   after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
   before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -2154,20 +2166,20 @@ export type QueryUserOrganizationProjectsArgs = {
 };
 
 
-export type QueryUserOrganizationReceivingMethodArgs = {
+export type QueryuserOrganizationReceivingMethodArgs = {
   organization_id: Scalars['String']['input'];
   organization_receiving_method_id: Scalars['String']['input'];
 };
 
 
-export type QueryUserOrganizationReceivingMethodTransactionArgs = {
+export type QueryuserOrganizationReceivingMethodTransactionArgs = {
   organization_id: Scalars['String']['input'];
   organization_receiving_method_id: Scalars['String']['input'];
   organization_transaction_id: Scalars['String']['input'];
 };
 
 
-export type QueryUserOrganizationReceivingMethodTransactionsArgs = {
+export type QueryuserOrganizationReceivingMethodTransactionsArgs = {
   after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
   before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -2179,7 +2191,7 @@ export type QueryUserOrganizationReceivingMethodTransactionsArgs = {
 };
 
 
-export type QueryUserOrganizationReceivingMethodsArgs = {
+export type QueryuserOrganizationReceivingMethodsArgs = {
   after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
   before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -2190,15 +2202,16 @@ export type QueryUserOrganizationReceivingMethodsArgs = {
 };
 
 
-export type QueryUserOrganizationReminderSettingArgs = {
+export type QueryuserOrganizationReminderSettingArgs = {
   organization_id: Scalars['String']['input'];
   organization_reminder_setting_id: Scalars['String']['input'];
 };
 
 
-export type QueryUserOrganizationReminderSettingsArgs = {
+export type QueryuserOrganizationReminderSettingsArgs = {
   after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
   before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
+  due_date_mode?: InputMaybe<REMINDER_DUE_DATE_MODE>;
   first?: InputMaybe<Scalars['Int']['input']>;
   last?: InputMaybe<Scalars['Int']['input']>;
   organization_customer_id?: InputMaybe<Scalars['String']['input']>;
@@ -2211,12 +2224,12 @@ export type QueryUserOrganizationReminderSettingsArgs = {
 };
 
 
-export type QueryUserOrganizationUserInviteArgs = {
+export type QueryuserOrganizationUserInviteArgs = {
   organization_invite_id: Scalars['String']['input'];
 };
 
 
-export type QueryUserOrganizationUserInvitesArgs = {
+export type QueryuserOrganizationUserInvitesArgs = {
   after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
   before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -2226,20 +2239,20 @@ export type QueryUserOrganizationUserInvitesArgs = {
 };
 
 
-export type QueryUserOrganizationVendorArgs = {
+export type QueryuserOrganizationVendorArgs = {
   organization_id: Scalars['String']['input'];
   organization_vendor_id: Scalars['String']['input'];
 };
 
 
-export type QueryUserOrganizationVendorContactArgs = {
+export type QueryuserOrganizationVendorContactArgs = {
   organization_id: Scalars['String']['input'];
   organization_vendor_contact_id: Scalars['String']['input'];
   organization_vendor_id: Scalars['String']['input'];
 };
 
 
-export type QueryUserOrganizationVendorContactsArgs = {
+export type QueryuserOrganizationVendorContactsArgs = {
   after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
   before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -2253,7 +2266,7 @@ export type QueryUserOrganizationVendorContactsArgs = {
 };
 
 
-export type QueryUserOrganizationVendorsArgs = {
+export type QueryuserOrganizationVendorsArgs = {
   after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
   before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -2266,7 +2279,7 @@ export type QueryUserOrganizationVendorsArgs = {
 };
 
 
-export type QueryUserOrganizationsArgs = {
+export type QueryuserOrganizationsArgs = {
   after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
   before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -2275,33 +2288,33 @@ export type QueryUserOrganizationsArgs = {
   take?: InputMaybe<Scalars['Int']['input']>;
 };
 
-export enum Receiving_Method {
-  Manual = 'MANUAL'
+export enum RECEIVING_METHOD {
+  MANUAL = 'MANUAL'
 }
 
-export enum Recipient_Type {
-  Organization = 'ORGANIZATION',
-  User = 'USER'
+export enum RECIPIENT_TYPE {
+  ORGANIZATION = 'ORGANIZATION',
+  USER = 'USER'
 }
 
-export enum Reminder_Due_Date_Mode {
-  After = 'AFTER',
-  Before = 'BEFORE'
+export enum REMINDER_DUE_DATE_MODE {
+  AFTER = 'AFTER',
+  BEFORE = 'BEFORE'
 }
 
-export enum Reminder_Repeat_Mode {
-  Daily = 'DAILY',
-  Monthly = 'MONTHLY',
-  Weekly = 'WEEKLY'
+export enum REMINDER_REPEAT_MODE {
+  DAILY = 'DAILY',
+  MONTHLY = 'MONTHLY',
+  WEEKLY = 'WEEKLY'
 }
 
-export enum Sort_Order {
-  Asc = 'ASC',
-  Desc = 'DESC'
+export enum SORT_ORDER {
+  ASC = 'ASC',
+  DESC = 'DESC'
 }
 
-export enum Storage_Provider {
-  GoogleCloudStorage = 'GOOGLE_CLOUD_STORAGE'
+export enum STORAGE_PROVIDER {
+  GOOGLE_CLOUD_STORAGE = 'GOOGLE_CLOUD_STORAGE'
 }
 
 export type Session = {
@@ -2313,23 +2326,23 @@ export type Session = {
 
 export type SortingFieldSchema = {
   field: Scalars['String']['input'];
-  order: Sort_Order;
+  order: SORT_ORDER;
 };
 
-export enum Transaction_Item_Type {
-  Bill = 'BILL',
-  Invoice = 'INVOICE',
-  Other = 'OTHER'
+export enum TRANSACTION_ITEM_TYPE {
+  BILL = 'BILL',
+  INVOICE = 'INVOICE',
+  OTHER = 'OTHER'
 }
 
-export enum Transaction_Method {
-  Payment = 'PAYMENT',
-  Receiving = 'RECEIVING'
+export enum TRANSACTION_METHOD {
+  PAYMENT = 'PAYMENT',
+  RECEIVING = 'RECEIVING'
 }
 
-export enum Transaction_Provider {
-  Manual = 'MANUAL',
-  Quickbooks = 'QUICKBOOKS'
+export enum TRANSACTION_PROVIDER {
+  MANUAL = 'MANUAL',
+  QUICKBOOKS = 'QUICKBOOKS'
 }
 
 export type UnauthorizedUserOrganizationUserInviteResponse = {
@@ -2360,7 +2373,7 @@ export type User = {
 
 export type UserAuthProviderConn = {
   __typename?: 'UserAuthProviderConn';
-  auth_provider_code: Auth_Provider;
+  auth_provider_code: AUTH_PROVIDER;
   code: Scalars['String']['output'];
   created_at: Scalars['DateTime']['output'];
   disconnected_at?: Maybe<Scalars['DateTime']['output']>;
@@ -2386,13 +2399,13 @@ export type UserOrganizationAcctProviderConnUpdateSchema = {
 
 export type UserOrganizationBillManualPaymentCreateSchema = {
   amount: Scalars['Float']['input'];
-  currency_code: Currency;
+  currency_code: CURRENCY;
 };
 
 export type UserOrganizationBillSchema = {
   amount: Scalars['Float']['input'];
   bill_date: Scalars['DateTime']['input'];
-  currency_code: Currency;
+  currency_code: CURRENCY;
   description: Scalars['String']['input'];
   discount_amount: Scalars['Float']['input'];
   due_date: Scalars['DateTime']['input'];
@@ -2403,7 +2416,7 @@ export type UserOrganizationBillSchema = {
 };
 
 export type UserOrganizationCollaboratorUpdateSchema = {
-  role: Organization_User_Role;
+  role: ORGANIZATION_USER_ROLE;
   send_invoice_reminders: Scalars['Boolean']['input'];
 };
 
@@ -2432,6 +2445,10 @@ export type UserOrganizationCreateSchema = {
   name: Scalars['String']['input'];
   phone_number?: InputMaybe<Scalars['String']['input']>;
   primary_contact_name?: InputMaybe<Scalars['String']['input']>;
+  setting_allow_invoice_due_snooze_reminders?: InputMaybe<Scalars['Boolean']['input']>;
+  setting_allow_invoice_overdue_snooze_reminders?: InputMaybe<Scalars['Boolean']['input']>;
+  setting_send_invoice_due_reminders?: InputMaybe<Scalars['Boolean']['input']>;
+  setting_send_invoice_overdue_reminders?: InputMaybe<Scalars['Boolean']['input']>;
   timezone?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -2492,17 +2509,17 @@ export type UserOrganizationEmailVerifyOrChangeStartSchema = {
 
 export type UserOrganizationInviteCollaboratorCreateSchema = {
   email: Scalars['String']['input'];
-  role: Organization_User_Role;
+  role: ORGANIZATION_USER_ROLE;
 };
 
 export type UserOrganizationInvoiceManualPaymentCreateSchema = {
   amount: Scalars['Float']['input'];
-  currency_code: Currency;
+  currency_code: CURRENCY;
 };
 
 export type UserOrganizationInvoiceSchema = {
   amount: Scalars['Float']['input'];
-  currency_code: Currency;
+  currency_code: CURRENCY;
   description: Scalars['String']['input'];
   discount_amount: Scalars['Float']['input'];
   due_date: Scalars['DateTime']['input'];
@@ -2528,7 +2545,7 @@ export type UserOrganizationProjectChangeRequestCreateSchema = {
 
 export type UserOrganizationProjectCreateSchema = {
   budget_amount: Scalars['Float']['input'];
-  budget_currency_code: Currency;
+  budget_currency_code: CURRENCY;
   contract_url?: InputMaybe<Scalars['String']['input']>;
   description: Scalars['String']['input'];
   ends_at: Scalars['DateTime']['input'];
@@ -2549,13 +2566,13 @@ export type UserOrganizationReceivingMethodUpdateSchema = {
   is_enabled: Scalars['Boolean']['input'];
 };
 
-export type UserOrganizationReminderSettingCreateSchema = {
+export type UserOrganizationReminderSettingSchema = {
   days_amount: Scalars['Int']['input'];
-  due_date_mode: Reminder_Due_Date_Mode;
+  due_date_mode: REMINDER_DUE_DATE_MODE;
   organization_customer_id?: InputMaybe<Scalars['String']['input']>;
   organization_invoice_id?: InputMaybe<Scalars['String']['input']>;
   organization_project_id?: InputMaybe<Scalars['String']['input']>;
-  repeat_mode?: InputMaybe<Reminder_Repeat_Mode>;
+  repeat_mode?: InputMaybe<REMINDER_REPEAT_MODE>;
   repeat_value?: InputMaybe<Scalars['Int']['input']>;
   selected_hour: Scalars['Int']['input'];
 };
@@ -2581,9 +2598,13 @@ export type UserOrganizationUpdateSchema = {
   business_tax_code?: InputMaybe<Scalars['String']['input']>;
   business_tax_code_type?: InputMaybe<Scalars['String']['input']>;
   language?: InputMaybe<Scalars['String']['input']>;
-  name: Scalars['String']['input'];
+  name?: InputMaybe<Scalars['String']['input']>;
   phone_number?: InputMaybe<Scalars['String']['input']>;
   primary_contact_name?: InputMaybe<Scalars['String']['input']>;
+  setting_allow_invoice_due_snooze_reminders?: InputMaybe<Scalars['Boolean']['input']>;
+  setting_allow_invoice_overdue_snooze_reminders?: InputMaybe<Scalars['Boolean']['input']>;
+  setting_send_invoice_due_reminders?: InputMaybe<Scalars['Boolean']['input']>;
+  setting_send_invoice_overdue_reminders?: InputMaybe<Scalars['Boolean']['input']>;
   timezone?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -2687,13 +2708,13 @@ export type UserUpdateDataSchema = {
   timezone: Scalars['String']['input'];
 };
 
-export type OrganizationAcctProviderConnFragmentFragment = { __typename?: 'OrganizationAcctProviderConn', id: string, acct_provider_code: Acct_Provider, code: string, payload?: any | null, conn_expires_at: any, automatic_pull_enabled: boolean, automatic_push_enabled: boolean, disconnected_at?: any | null, created_at: any, updated_at: any, organization_id: string };
+export type OrganizationAcctProviderConnFragmentFragment = { __typename?: 'OrganizationAcctProviderConn', id: string, acct_provider_code: ACCT_PROVIDER, code: string, payload?: any | null, conn_expires_at: any, automatic_pull_enabled: boolean, automatic_push_enabled: boolean, disconnected_at?: any | null, created_at: any, updated_at: any, organization_id: string };
 
 export type OrganizationAcctProviderConnSynchronizationFragmentFragment = { __typename?: 'OrganizationAcctProviderConnSynchronization', id: string, trigger_code: string, pull: boolean, push: boolean, errors: Array<string>, started_at: any, finished_at?: any | null, failed_at?: any | null, succeeded_at?: any | null, local_read_success_count: number, local_create_success_count: number, local_update_success_count: number, local_delete_success_count: number, local_read_failure_count: number, local_create_failure_count: number, local_update_failure_count: number, local_delete_failure_count: number, remote_read_success_count: number, remote_create_success_count: number, remote_update_success_count: number, remote_delete_success_count: number, remote_read_failure_count: number, remote_create_failure_count: number, remote_update_failure_count: number, remote_delete_failure_count: number, sync_cluster_code: string, status_description: string, created_at: any, updated_at: any, organization_id: string, organization_acct_provider_conn_id: string };
 
 export type UserOrganizationAcctProviderConnConfigurationPullOptionsGetMutationVariables = Exact<{
   organizationId: Scalars['String']['input'];
-  accountProvider: Acct_Provider;
+  accountProvider: ACCT_PROVIDER;
 }>;
 
 
@@ -2701,16 +2722,16 @@ export type UserOrganizationAcctProviderConnConfigurationPullOptionsGetMutation 
 
 export type UserOrganizationAcctProviderConnConfigurationPullOptionsSetMutationVariables = Exact<{
   organizationId: Scalars['String']['input'];
-  accountProvider: Acct_Provider;
+  accountProvider: ACCT_PROVIDER;
   payload: Scalars['JSON']['input'];
 }>;
 
 
-export type UserOrganizationAcctProviderConnConfigurationPullOptionsSetMutation = { __typename?: 'Mutation', userOrganizationAcctProviderConnConfigurationPullOptionsSet: { __typename?: 'OrganizationAcctProviderConn', id: string, acct_provider_code: Acct_Provider, code: string, payload?: any | null, conn_expires_at: any, automatic_pull_enabled: boolean, automatic_push_enabled: boolean, disconnected_at?: any | null, created_at: any, updated_at: any, organization_id: string } };
+export type UserOrganizationAcctProviderConnConfigurationPullOptionsSetMutation = { __typename?: 'Mutation', userOrganizationAcctProviderConnConfigurationPullOptionsSet: { __typename?: 'OrganizationAcctProviderConn', id: string, acct_provider_code: ACCT_PROVIDER, code: string, payload?: any | null, conn_expires_at: any, automatic_pull_enabled: boolean, automatic_push_enabled: boolean, disconnected_at?: any | null, created_at: any, updated_at: any, organization_id: string } };
 
 export type UserOrganizationAcctProviderConnConfigurationPushOptionsGetMutationVariables = Exact<{
   organizationId: Scalars['String']['input'];
-  accountProvider: Acct_Provider;
+  accountProvider: ACCT_PROVIDER;
 }>;
 
 
@@ -2718,44 +2739,44 @@ export type UserOrganizationAcctProviderConnConfigurationPushOptionsGetMutation 
 
 export type UserOrganizationAcctProviderConnConfigurationPushOptionsSetMutationVariables = Exact<{
   organizationId: Scalars['String']['input'];
-  accountProvider: Acct_Provider;
+  accountProvider: ACCT_PROVIDER;
   payload: Scalars['JSON']['input'];
 }>;
 
 
-export type UserOrganizationAcctProviderConnConfigurationPushOptionsSetMutation = { __typename?: 'Mutation', userOrganizationAcctProviderConnConfigurationPushOptionsSet: { __typename?: 'OrganizationAcctProviderConn', id: string, acct_provider_code: Acct_Provider, code: string, payload?: any | null, conn_expires_at: any, automatic_pull_enabled: boolean, automatic_push_enabled: boolean, disconnected_at?: any | null, created_at: any, updated_at: any, organization_id: string } };
+export type UserOrganizationAcctProviderConnConfigurationPushOptionsSetMutation = { __typename?: 'Mutation', userOrganizationAcctProviderConnConfigurationPushOptionsSet: { __typename?: 'OrganizationAcctProviderConn', id: string, acct_provider_code: ACCT_PROVIDER, code: string, payload?: any | null, conn_expires_at: any, automatic_pull_enabled: boolean, automatic_push_enabled: boolean, disconnected_at?: any | null, created_at: any, updated_at: any, organization_id: string } };
 
 export type UserOrganizationAcctProviderConnDisconnectMutationVariables = Exact<{
   organizationId: Scalars['String']['input'];
-  accountProvider: Acct_Provider;
+  accountProvider: ACCT_PROVIDER;
 }>;
 
 
-export type UserOrganizationAcctProviderConnDisconnectMutation = { __typename?: 'Mutation', userOrganizationAcctProviderConnDisconnect: { __typename?: 'OrganizationAcctProviderConn', id: string, acct_provider_code: Acct_Provider, code: string, payload?: any | null, conn_expires_at: any, automatic_pull_enabled: boolean, automatic_push_enabled: boolean, disconnected_at?: any | null, created_at: any, updated_at: any, organization_id: string } };
+export type UserOrganizationAcctProviderConnDisconnectMutation = { __typename?: 'Mutation', userOrganizationAcctProviderConnDisconnect: { __typename?: 'OrganizationAcctProviderConn', id: string, acct_provider_code: ACCT_PROVIDER, code: string, payload?: any | null, conn_expires_at: any, automatic_pull_enabled: boolean, automatic_push_enabled: boolean, disconnected_at?: any | null, created_at: any, updated_at: any, organization_id: string } };
 
 export type UserOrganizationAcctProviderConnUpdateMutationVariables = Exact<{
   organizationId: Scalars['String']['input'];
-  accountProvider: Acct_Provider;
+  accountProvider: ACCT_PROVIDER;
   data: UserOrganizationAcctProviderConnUpdateSchema;
 }>;
 
 
-export type UserOrganizationAcctProviderConnUpdateMutation = { __typename?: 'Mutation', userOrganizationAcctProviderConnUpdate: { __typename?: 'OrganizationAcctProviderConn', id: string, acct_provider_code: Acct_Provider, code: string, payload?: any | null, conn_expires_at: any, automatic_pull_enabled: boolean, automatic_push_enabled: boolean, disconnected_at?: any | null, created_at: any, updated_at: any, organization_id: string } };
+export type UserOrganizationAcctProviderConnUpdateMutation = { __typename?: 'Mutation', userOrganizationAcctProviderConnUpdate: { __typename?: 'OrganizationAcctProviderConn', id: string, acct_provider_code: ACCT_PROVIDER, code: string, payload?: any | null, conn_expires_at: any, automatic_pull_enabled: boolean, automatic_push_enabled: boolean, disconnected_at?: any | null, created_at: any, updated_at: any, organization_id: string } };
 
 export type UserOrganizationAcctProviderConnectMutationVariables = Exact<{
   organizationId: Scalars['String']['input'];
-  accountProvider: Acct_Provider;
+  accountProvider: ACCT_PROVIDER;
   url: Scalars['String']['input'];
   automaticPull: Scalars['Boolean']['input'];
   automaticPush: Scalars['Boolean']['input'];
 }>;
 
 
-export type UserOrganizationAcctProviderConnectMutation = { __typename?: 'Mutation', userOrganizationAcctProviderConnect: { __typename?: 'OrganizationAcctProviderConn', id: string, acct_provider_code: Acct_Provider, code: string, payload?: any | null, conn_expires_at: any, automatic_pull_enabled: boolean, automatic_push_enabled: boolean, disconnected_at?: any | null, created_at: any, updated_at: any, organization_id: string } };
+export type UserOrganizationAcctProviderConnectMutation = { __typename?: 'Mutation', userOrganizationAcctProviderConnect: { __typename?: 'OrganizationAcctProviderConn', id: string, acct_provider_code: ACCT_PROVIDER, code: string, payload?: any | null, conn_expires_at: any, automatic_pull_enabled: boolean, automatic_push_enabled: boolean, disconnected_at?: any | null, created_at: any, updated_at: any, organization_id: string } };
 
 export type UserOrganizationAcctProviderGetOAuthUrlMutationVariables = Exact<{
   organizationId: Scalars['String']['input'];
-  accountProvider: Acct_Provider;
+  accountProvider: ACCT_PROVIDER;
 }>;
 
 
@@ -2763,7 +2784,7 @@ export type UserOrganizationAcctProviderGetOAuthUrlMutation = { __typename?: 'Mu
 
 export type UserOrganizationAcctProviderSynchronizeMutationVariables = Exact<{
   organizationId: Scalars['String']['input'];
-  accountProvider: Acct_Provider;
+  accountProvider: ACCT_PROVIDER;
   pull: Scalars['Boolean']['input'];
   push: Scalars['Boolean']['input'];
 }>;
@@ -2783,7 +2804,7 @@ export type UserOrganizationAcctProvidersQueryVariables = Exact<{
 }>;
 
 
-export type UserOrganizationAcctProvidersQuery = { __typename?: 'Query', userOrganizationAcctProviders: { __typename?: 'OrganizationAcctProviderConnPaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationAcctProviderConnPaginationEdge', cursor: any, node: { __typename?: 'OrganizationAcctProviderConn', id: string, acct_provider_code: Acct_Provider, code: string, payload?: any | null, conn_expires_at: any, automatic_pull_enabled: boolean, automatic_push_enabled: boolean, disconnected_at?: any | null, created_at: any, updated_at: any, organization_id: string } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } };
+export type UserOrganizationAcctProvidersQuery = { __typename?: 'Query', userOrganizationAcctProviders: { __typename?: 'OrganizationAcctProviderConnPaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationAcctProviderConnPaginationEdge', cursor: any, node: { __typename?: 'OrganizationAcctProviderConn', id: string, acct_provider_code: ACCT_PROVIDER, code: string, payload?: any | null, conn_expires_at: any, automatic_pull_enabled: boolean, automatic_push_enabled: boolean, disconnected_at?: any | null, created_at: any, updated_at: any, organization_id: string } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } };
 
 export type UserOrganizationAcctProviderQueryVariables = Exact<{
   organizationId: Scalars['String']['input'];
@@ -2791,7 +2812,7 @@ export type UserOrganizationAcctProviderQueryVariables = Exact<{
 }>;
 
 
-export type UserOrganizationAcctProviderQuery = { __typename?: 'Query', userOrganizationAcctProvider: { __typename?: 'OrganizationAcctProviderConn', id: string, acct_provider_code: Acct_Provider, code: string, payload?: any | null, conn_expires_at: any, automatic_pull_enabled: boolean, automatic_push_enabled: boolean, disconnected_at?: any | null, created_at: any, updated_at: any, organization_id: string } };
+export type UserOrganizationAcctProviderQuery = { __typename?: 'Query', userOrganizationAcctProvider: { __typename?: 'OrganizationAcctProviderConn', id: string, acct_provider_code: ACCT_PROVIDER, code: string, payload?: any | null, conn_expires_at: any, automatic_pull_enabled: boolean, automatic_push_enabled: boolean, disconnected_at?: any | null, created_at: any, updated_at: any, organization_id: string } };
 
 export type UserOrganizationAcctProviderSynchronizationsQueryVariables = Exact<{
   organizationId: Scalars['String']['input'];
@@ -2832,7 +2853,7 @@ export type UserAuthProviderGetOAuthUrlMutationVariables = Exact<{ [key: string]
 export type UserAuthProviderGetOAuthUrlMutation = { __typename?: 'Mutation', userAuthProviderGetOAuthUrl: string };
 
 export type UserAuthProviderGetOAuthTokenMutationVariables = Exact<{
-  authProviderCode: Auth_Provider;
+  authProviderCode: AUTH_PROVIDER;
   authorizationToken: Scalars['String']['input'];
 }>;
 
@@ -2870,7 +2891,7 @@ export type UserOrganizationUserInviteAcceptMutationVariables = Exact<{
 }>;
 
 
-export type UserOrganizationUserInviteAcceptMutation = { __typename?: 'Mutation', userOrganizationUserInviteAccept: { __typename?: 'OrganizationUser', role: Organization_User_Role } };
+export type UserOrganizationUserInviteAcceptMutation = { __typename?: 'Mutation', userOrganizationUserInviteAccept: { __typename?: 'OrganizationUser', role: ORGANIZATION_USER_ROLE } };
 
 export type UserSignUpWithEmailFinishSchemaMutationVariables = Exact<{
   data: UserSignUpWithEmailFinishSchema;
@@ -2879,15 +2900,15 @@ export type UserSignUpWithEmailFinishSchemaMutationVariables = Exact<{
 
 export type UserSignUpWithEmailFinishSchemaMutation = { __typename?: 'Mutation', userSignUpWithEmailFinish: string };
 
-export type OrganizationBillFragmentFragment = { __typename?: 'OrganizationBill', id: string, unique_code: string, number: string, currency_code: Currency, description: string, payload?: any | null, amount: number, tax_amount: number, discount_amount: number, total_amount: number, bill_date: any, due_date: any, vendor_email: string, vendor_address_line_1?: string | null, vendor_address_number?: string | null, vendor_address_line_2?: string | null, vendor_address_city?: string | null, vendor_address_state?: string | null, vendor_address_zip_code?: string | null, vendor_address_country_code_iso_3?: string | null, vendor_address_lat?: number | null, vendor_address_lng?: number | null, archived_at?: any | null, created_at: any, updated_at: any, conn_linked_invoice_id?: string | null, conn_locked_data_at?: any | null, organization_id: string, organization_vendor_id: string, file_id?: string | null, has_sync_errors?: boolean | null, status?: Bill_Status | null, is_overdue?: boolean | null, paid_amount?: number | null, paid_at?: any | null, balance?: number | null, organization: { __typename?: 'Organization', name: string }, organization_vendor: { __typename?: 'OrganizationVendor', name: string, email: string }, organization_acct_provider_conn_bills: Array<{ __typename?: 'OrganizationAcctProviderConnBill', id: string, code: string, payload?: any | null, last_sync_at?: any | null, last_sync_success?: boolean | null, last_sync_id?: string | null, organization_bill_id: string, organization_acct_provider_conn_id: string, organization_acct_provider_conn: { __typename?: 'OrganizationAcctProviderConn', acct_provider_code: Acct_Provider } }>, file?: { __typename?: 'File', public_url?: string | null } | null, transaction_links?: Array<{ __typename?: 'OrganizationTransactionLink', id: string, amount: number, item_type: Transaction_Item_Type, item_id: string, created_at: any, updated_at: any, organization_transaction_id: string, organization_transaction: { __typename?: 'OrganizationTransaction', id: string } }> | null };
+export type OrganizationBillFragmentFragment = { __typename?: 'OrganizationBill', id: string, unique_code: string, number: string, currency_code: CURRENCY, description: string, payload?: any | null, amount: number, tax_amount: number, discount_amount: number, total_amount: number, bill_date: any, due_date: any, vendor_email: string, vendor_address_line_1?: string | null, vendor_address_number?: string | null, vendor_address_line_2?: string | null, vendor_address_city?: string | null, vendor_address_state?: string | null, vendor_address_zip_code?: string | null, vendor_address_country_code_iso_3?: string | null, vendor_address_lat?: number | null, vendor_address_lng?: number | null, archived_at?: any | null, created_at: any, updated_at: any, conn_linked_invoice_id?: string | null, conn_locked_data_at?: any | null, organization_id: string, organization_vendor_id: string, file_id?: string | null, has_sync_errors?: boolean | null, status?: BILL_STATUS | null, is_overdue?: boolean | null, paid_amount?: number | null, paid_at?: any | null, balance?: number | null, organization: { __typename?: 'Organization', name: string }, organization_vendor: { __typename?: 'OrganizationVendor', name: string, email: string }, organization_acct_provider_conn_bills: Array<{ __typename?: 'OrganizationAcctProviderConnBill', id: string, code: string, payload?: any | null, last_sync_at?: any | null, last_sync_success?: boolean | null, last_sync_id?: string | null, organization_bill_id: string, organization_acct_provider_conn_id: string, organization_acct_provider_conn: { __typename?: 'OrganizationAcctProviderConn', acct_provider_code: ACCT_PROVIDER } }>, file?: { __typename?: 'File', public_url?: string | null } | null, transaction_links?: Array<{ __typename?: 'OrganizationTransactionLink', id: string, amount: number, item_type: TRANSACTION_ITEM_TYPE, item_id: string, created_at: any, updated_at: any, organization_transaction_id: string, organization_transaction: { __typename?: 'OrganizationTransaction', id: string } }> | null };
 
 export type UserOrganizationBillStatementQueryVariables = Exact<{
   organizationId: Scalars['String']['input'];
   organizationVendorId?: InputMaybe<Scalars['String']['input']>;
-  currency?: InputMaybe<Currency>;
+  currency?: InputMaybe<CURRENCY>;
   startDate?: InputMaybe<Scalars['DateTime']['input']>;
   endDate?: InputMaybe<Scalars['DateTime']['input']>;
-  status?: InputMaybe<Bill_Status>;
+  status?: InputMaybe<BILL_STATUS>;
   isOverdue?: InputMaybe<Scalars['Boolean']['input']>;
   after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -2899,7 +2920,7 @@ export type UserOrganizationBillStatementQueryVariables = Exact<{
 }>;
 
 
-export type UserOrganizationBillStatementQuery = { __typename?: 'Query', userOrganizationBillStatement: { __typename?: 'OrganizationBillStatement', vendor_organization_id?: string | null, customer_organization_vendor_id?: string | null, customer_organization_id: string, total_amount: number, paid_amount: number, overdue_amount: number, start_date?: any | null, end_date?: any | null, currency?: Currency | null, status?: Bill_Status | null, vendor_organization?: { __typename?: 'Organization', id: string, name: string } | null, customer_organization_vendor?: { __typename?: 'OrganizationVendor', id: string, name: string } | null, customer_organization: { __typename?: 'Organization', id: string, name: string }, data: { __typename?: 'OrganizationBillPaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationBillPaginationEdge', cursor: any, node: { __typename?: 'OrganizationBill', id: string, unique_code: string, number: string, currency_code: Currency, description: string, payload?: any | null, amount: number, tax_amount: number, discount_amount: number, total_amount: number, bill_date: any, due_date: any, vendor_email: string, vendor_address_line_1?: string | null, vendor_address_number?: string | null, vendor_address_line_2?: string | null, vendor_address_city?: string | null, vendor_address_state?: string | null, vendor_address_zip_code?: string | null, vendor_address_country_code_iso_3?: string | null, vendor_address_lat?: number | null, vendor_address_lng?: number | null, archived_at?: any | null, created_at: any, updated_at: any, conn_linked_invoice_id?: string | null, conn_locked_data_at?: any | null, organization_id: string, organization_vendor_id: string, file_id?: string | null, has_sync_errors?: boolean | null, status?: Bill_Status | null, is_overdue?: boolean | null, paid_amount?: number | null, paid_at?: any | null, balance?: number | null, organization: { __typename?: 'Organization', name: string }, organization_vendor: { __typename?: 'OrganizationVendor', name: string, email: string }, organization_acct_provider_conn_bills: Array<{ __typename?: 'OrganizationAcctProviderConnBill', id: string, code: string, payload?: any | null, last_sync_at?: any | null, last_sync_success?: boolean | null, last_sync_id?: string | null, organization_bill_id: string, organization_acct_provider_conn_id: string, organization_acct_provider_conn: { __typename?: 'OrganizationAcctProviderConn', acct_provider_code: Acct_Provider } }>, file?: { __typename?: 'File', public_url?: string | null } | null, transaction_links?: Array<{ __typename?: 'OrganizationTransactionLink', id: string, amount: number, item_type: Transaction_Item_Type, item_id: string, created_at: any, updated_at: any, organization_transaction_id: string, organization_transaction: { __typename?: 'OrganizationTransaction', id: string } }> | null } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } };
+export type UserOrganizationBillStatementQuery = { __typename?: 'Query', userOrganizationBillStatement: { __typename?: 'OrganizationBillStatement', vendor_organization_id?: string | null, customer_organization_vendor_id?: string | null, customer_organization_id: string, total_amount: number, paid_amount: number, overdue_amount: number, start_date?: any | null, end_date?: any | null, currency?: CURRENCY | null, status?: BILL_STATUS | null, vendor_organization?: { __typename?: 'Organization', id: string, name: string } | null, customer_organization_vendor?: { __typename?: 'OrganizationVendor', id: string, name: string } | null, customer_organization: { __typename?: 'Organization', id: string, name: string }, data: { __typename?: 'OrganizationBillPaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationBillPaginationEdge', cursor: any, node: { __typename?: 'OrganizationBill', id: string, unique_code: string, number: string, currency_code: CURRENCY, description: string, payload?: any | null, amount: number, tax_amount: number, discount_amount: number, total_amount: number, bill_date: any, due_date: any, vendor_email: string, vendor_address_line_1?: string | null, vendor_address_number?: string | null, vendor_address_line_2?: string | null, vendor_address_city?: string | null, vendor_address_state?: string | null, vendor_address_zip_code?: string | null, vendor_address_country_code_iso_3?: string | null, vendor_address_lat?: number | null, vendor_address_lng?: number | null, archived_at?: any | null, created_at: any, updated_at: any, conn_linked_invoice_id?: string | null, conn_locked_data_at?: any | null, organization_id: string, organization_vendor_id: string, file_id?: string | null, has_sync_errors?: boolean | null, status?: BILL_STATUS | null, is_overdue?: boolean | null, paid_amount?: number | null, paid_at?: any | null, balance?: number | null, organization: { __typename?: 'Organization', name: string }, organization_vendor: { __typename?: 'OrganizationVendor', name: string, email: string }, organization_acct_provider_conn_bills: Array<{ __typename?: 'OrganizationAcctProviderConnBill', id: string, code: string, payload?: any | null, last_sync_at?: any | null, last_sync_success?: boolean | null, last_sync_id?: string | null, organization_bill_id: string, organization_acct_provider_conn_id: string, organization_acct_provider_conn: { __typename?: 'OrganizationAcctProviderConn', acct_provider_code: ACCT_PROVIDER } }>, file?: { __typename?: 'File', public_url?: string | null } | null, transaction_links?: Array<{ __typename?: 'OrganizationTransactionLink', id: string, amount: number, item_type: TRANSACTION_ITEM_TYPE, item_id: string, created_at: any, updated_at: any, organization_transaction_id: string, organization_transaction: { __typename?: 'OrganizationTransaction', id: string } }> | null } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } };
 
 export type UserOrganizationBillQueryVariables = Exact<{
   organizationId: Scalars['String']['input'];
@@ -2907,7 +2928,7 @@ export type UserOrganizationBillQueryVariables = Exact<{
 }>;
 
 
-export type UserOrganizationBillQuery = { __typename?: 'Query', userOrganizationBill: { __typename?: 'OrganizationBill', id: string, unique_code: string, number: string, currency_code: Currency, description: string, payload?: any | null, amount: number, tax_amount: number, discount_amount: number, total_amount: number, bill_date: any, due_date: any, vendor_email: string, vendor_address_line_1?: string | null, vendor_address_number?: string | null, vendor_address_line_2?: string | null, vendor_address_city?: string | null, vendor_address_state?: string | null, vendor_address_zip_code?: string | null, vendor_address_country_code_iso_3?: string | null, vendor_address_lat?: number | null, vendor_address_lng?: number | null, archived_at?: any | null, created_at: any, updated_at: any, conn_linked_invoice_id?: string | null, conn_locked_data_at?: any | null, organization_id: string, organization_vendor_id: string, file_id?: string | null, has_sync_errors?: boolean | null, status?: Bill_Status | null, is_overdue?: boolean | null, paid_amount?: number | null, paid_at?: any | null, balance?: number | null, organization: { __typename?: 'Organization', name: string }, organization_vendor: { __typename?: 'OrganizationVendor', name: string, email: string }, organization_acct_provider_conn_bills: Array<{ __typename?: 'OrganizationAcctProviderConnBill', id: string, code: string, payload?: any | null, last_sync_at?: any | null, last_sync_success?: boolean | null, last_sync_id?: string | null, organization_bill_id: string, organization_acct_provider_conn_id: string, organization_acct_provider_conn: { __typename?: 'OrganizationAcctProviderConn', acct_provider_code: Acct_Provider } }>, file?: { __typename?: 'File', public_url?: string | null } | null, transaction_links?: Array<{ __typename?: 'OrganizationTransactionLink', id: string, amount: number, item_type: Transaction_Item_Type, item_id: string, created_at: any, updated_at: any, organization_transaction_id: string, organization_transaction: { __typename?: 'OrganizationTransaction', id: string } }> | null } };
+export type UserOrganizationBillQuery = { __typename?: 'Query', userOrganizationBill: { __typename?: 'OrganizationBill', id: string, unique_code: string, number: string, currency_code: CURRENCY, description: string, payload?: any | null, amount: number, tax_amount: number, discount_amount: number, total_amount: number, bill_date: any, due_date: any, vendor_email: string, vendor_address_line_1?: string | null, vendor_address_number?: string | null, vendor_address_line_2?: string | null, vendor_address_city?: string | null, vendor_address_state?: string | null, vendor_address_zip_code?: string | null, vendor_address_country_code_iso_3?: string | null, vendor_address_lat?: number | null, vendor_address_lng?: number | null, archived_at?: any | null, created_at: any, updated_at: any, conn_linked_invoice_id?: string | null, conn_locked_data_at?: any | null, organization_id: string, organization_vendor_id: string, file_id?: string | null, has_sync_errors?: boolean | null, status?: BILL_STATUS | null, is_overdue?: boolean | null, paid_amount?: number | null, paid_at?: any | null, balance?: number | null, organization: { __typename?: 'Organization', name: string }, organization_vendor: { __typename?: 'OrganizationVendor', name: string, email: string }, organization_acct_provider_conn_bills: Array<{ __typename?: 'OrganizationAcctProviderConnBill', id: string, code: string, payload?: any | null, last_sync_at?: any | null, last_sync_success?: boolean | null, last_sync_id?: string | null, organization_bill_id: string, organization_acct_provider_conn_id: string, organization_acct_provider_conn: { __typename?: 'OrganizationAcctProviderConn', acct_provider_code: ACCT_PROVIDER } }>, file?: { __typename?: 'File', public_url?: string | null } | null, transaction_links?: Array<{ __typename?: 'OrganizationTransactionLink', id: string, amount: number, item_type: TRANSACTION_ITEM_TYPE, item_id: string, created_at: any, updated_at: any, organization_transaction_id: string, organization_transaction: { __typename?: 'OrganizationTransaction', id: string } }> | null } };
 
 export type UserOrganizationBillCreateMutationVariables = Exact<{
   organizationId: Scalars['String']['input'];
@@ -2915,17 +2936,17 @@ export type UserOrganizationBillCreateMutationVariables = Exact<{
 }>;
 
 
-export type UserOrganizationBillCreateMutation = { __typename?: 'Mutation', userOrganizationBillCreate: { __typename?: 'OrganizationBill', id: string, unique_code: string, number: string, currency_code: Currency, description: string, payload?: any | null, amount: number, tax_amount: number, discount_amount: number, total_amount: number, bill_date: any, due_date: any, vendor_email: string, vendor_address_line_1?: string | null, vendor_address_number?: string | null, vendor_address_line_2?: string | null, vendor_address_city?: string | null, vendor_address_state?: string | null, vendor_address_zip_code?: string | null, vendor_address_country_code_iso_3?: string | null, vendor_address_lat?: number | null, vendor_address_lng?: number | null, archived_at?: any | null, created_at: any, updated_at: any, conn_linked_invoice_id?: string | null, conn_locked_data_at?: any | null, organization_id: string, organization_vendor_id: string, file_id?: string | null, has_sync_errors?: boolean | null, status?: Bill_Status | null, is_overdue?: boolean | null, paid_amount?: number | null, paid_at?: any | null, balance?: number | null, organization: { __typename?: 'Organization', name: string }, organization_vendor: { __typename?: 'OrganizationVendor', name: string, email: string }, organization_acct_provider_conn_bills: Array<{ __typename?: 'OrganizationAcctProviderConnBill', id: string, code: string, payload?: any | null, last_sync_at?: any | null, last_sync_success?: boolean | null, last_sync_id?: string | null, organization_bill_id: string, organization_acct_provider_conn_id: string, organization_acct_provider_conn: { __typename?: 'OrganizationAcctProviderConn', acct_provider_code: Acct_Provider } }>, file?: { __typename?: 'File', public_url?: string | null } | null, transaction_links?: Array<{ __typename?: 'OrganizationTransactionLink', id: string, amount: number, item_type: Transaction_Item_Type, item_id: string, created_at: any, updated_at: any, organization_transaction_id: string, organization_transaction: { __typename?: 'OrganizationTransaction', id: string } }> | null } };
+export type UserOrganizationBillCreateMutation = { __typename?: 'Mutation', userOrganizationBillCreate: { __typename?: 'OrganizationBill', id: string, unique_code: string, number: string, currency_code: CURRENCY, description: string, payload?: any | null, amount: number, tax_amount: number, discount_amount: number, total_amount: number, bill_date: any, due_date: any, vendor_email: string, vendor_address_line_1?: string | null, vendor_address_number?: string | null, vendor_address_line_2?: string | null, vendor_address_city?: string | null, vendor_address_state?: string | null, vendor_address_zip_code?: string | null, vendor_address_country_code_iso_3?: string | null, vendor_address_lat?: number | null, vendor_address_lng?: number | null, archived_at?: any | null, created_at: any, updated_at: any, conn_linked_invoice_id?: string | null, conn_locked_data_at?: any | null, organization_id: string, organization_vendor_id: string, file_id?: string | null, has_sync_errors?: boolean | null, status?: BILL_STATUS | null, is_overdue?: boolean | null, paid_amount?: number | null, paid_at?: any | null, balance?: number | null, organization: { __typename?: 'Organization', name: string }, organization_vendor: { __typename?: 'OrganizationVendor', name: string, email: string }, organization_acct_provider_conn_bills: Array<{ __typename?: 'OrganizationAcctProviderConnBill', id: string, code: string, payload?: any | null, last_sync_at?: any | null, last_sync_success?: boolean | null, last_sync_id?: string | null, organization_bill_id: string, organization_acct_provider_conn_id: string, organization_acct_provider_conn: { __typename?: 'OrganizationAcctProviderConn', acct_provider_code: ACCT_PROVIDER } }>, file?: { __typename?: 'File', public_url?: string | null } | null, transaction_links?: Array<{ __typename?: 'OrganizationTransactionLink', id: string, amount: number, item_type: TRANSACTION_ITEM_TYPE, item_id: string, created_at: any, updated_at: any, organization_transaction_id: string, organization_transaction: { __typename?: 'OrganizationTransaction', id: string } }> | null } };
 
-export type OrganizationConnectionFragmentFragment = { __typename?: 'OrganizationConnection', id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status?: Organization_Connection_Status | null, vendor_conn_status_at?: any | null, vendor_organization_id?: string | null, vendor_organization_name?: string | null, vendor_organization_email?: string | null, vendor_target_customer_id?: string | null, vendor_target_customer_name?: string | null, vendor_target_customer_email?: string | null, customer_conn_status?: Organization_Connection_Status | null, customer_conn_status_at?: any | null, customer_organization_id?: string | null, customer_organization_name?: string | null, customer_organization_email?: string | null, customer_target_vendor_id?: string | null, customer_target_vendor_name?: string | null, customer_target_vendor_email?: string | null, created_at: any, updated_at: any };
+export type OrganizationConnectionFragmentFragment = { __typename?: 'OrganizationConnection', id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, vendor_conn_status_at?: any | null, vendor_organization_id?: string | null, vendor_organization_name?: string | null, vendor_organization_email?: string | null, vendor_target_customer_id?: string | null, vendor_target_customer_name?: string | null, vendor_target_customer_email?: string | null, customer_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, customer_conn_status_at?: any | null, customer_organization_id?: string | null, customer_organization_name?: string | null, customer_organization_email?: string | null, customer_target_vendor_id?: string | null, customer_target_vendor_name?: string | null, customer_target_vendor_email?: string | null, created_at: any, updated_at: any };
 
 export type UserOrganizationConnectionsQueryVariables = Exact<{
   organizationId: Scalars['String']['input'];
-  status?: InputMaybe<Organization_Connection_Status>;
+  status?: InputMaybe<ORGANIZATION_CONNECTION_STATUS>;
 }>;
 
 
-export type UserOrganizationConnectionsQuery = { __typename?: 'Query', userOrganizationConnections: { __typename?: 'OrganizationConnectionPaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationConnectionPaginationEdge', cursor: any, node: { __typename?: 'OrganizationConnection', id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status?: Organization_Connection_Status | null, vendor_conn_status_at?: any | null, vendor_organization_id?: string | null, vendor_organization_name?: string | null, vendor_organization_email?: string | null, vendor_target_customer_id?: string | null, vendor_target_customer_name?: string | null, vendor_target_customer_email?: string | null, customer_conn_status?: Organization_Connection_Status | null, customer_conn_status_at?: any | null, customer_organization_id?: string | null, customer_organization_name?: string | null, customer_organization_email?: string | null, customer_target_vendor_id?: string | null, customer_target_vendor_name?: string | null, customer_target_vendor_email?: string | null, created_at: any, updated_at: any } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } };
+export type UserOrganizationConnectionsQuery = { __typename?: 'Query', userOrganizationConnections: { __typename?: 'OrganizationConnectionPaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationConnectionPaginationEdge', cursor: any, node: { __typename?: 'OrganizationConnection', id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, vendor_conn_status_at?: any | null, vendor_organization_id?: string | null, vendor_organization_name?: string | null, vendor_organization_email?: string | null, vendor_target_customer_id?: string | null, vendor_target_customer_name?: string | null, vendor_target_customer_email?: string | null, customer_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, customer_conn_status_at?: any | null, customer_organization_id?: string | null, customer_organization_name?: string | null, customer_organization_email?: string | null, customer_target_vendor_id?: string | null, customer_target_vendor_name?: string | null, customer_target_vendor_email?: string | null, created_at: any, updated_at: any } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } };
 
 export type UserOrganizationConnectionQueryVariables = Exact<{
   organizationId: Scalars['String']['input'];
@@ -2933,7 +2954,7 @@ export type UserOrganizationConnectionQueryVariables = Exact<{
 }>;
 
 
-export type UserOrganizationConnectionQuery = { __typename?: 'Query', userOrganizationConnection: { __typename?: 'OrganizationConnection', id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status?: Organization_Connection_Status | null, vendor_conn_status_at?: any | null, vendor_organization_id?: string | null, vendor_organization_name?: string | null, vendor_organization_email?: string | null, vendor_target_customer_id?: string | null, vendor_target_customer_name?: string | null, vendor_target_customer_email?: string | null, customer_conn_status?: Organization_Connection_Status | null, customer_conn_status_at?: any | null, customer_organization_id?: string | null, customer_organization_name?: string | null, customer_organization_email?: string | null, customer_target_vendor_id?: string | null, customer_target_vendor_name?: string | null, customer_target_vendor_email?: string | null, created_at: any, updated_at: any } };
+export type UserOrganizationConnectionQuery = { __typename?: 'Query', userOrganizationConnection: { __typename?: 'OrganizationConnection', id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, vendor_conn_status_at?: any | null, vendor_organization_id?: string | null, vendor_organization_name?: string | null, vendor_organization_email?: string | null, vendor_target_customer_id?: string | null, vendor_target_customer_name?: string | null, vendor_target_customer_email?: string | null, customer_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, customer_conn_status_at?: any | null, customer_organization_id?: string | null, customer_organization_name?: string | null, customer_organization_email?: string | null, customer_target_vendor_id?: string | null, customer_target_vendor_name?: string | null, customer_target_vendor_email?: string | null, created_at: any, updated_at: any } };
 
 export type UserOrganizationConnectionInviteCustomerMutationVariables = Exact<{
   organizationId: Scalars['String']['input'];
@@ -2941,7 +2962,7 @@ export type UserOrganizationConnectionInviteCustomerMutationVariables = Exact<{
 }>;
 
 
-export type UserOrganizationConnectionInviteCustomerMutation = { __typename?: 'Mutation', userOrganizationConnectionInviteCustomer: { __typename?: 'OrganizationConnection', id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status?: Organization_Connection_Status | null, vendor_conn_status_at?: any | null, vendor_organization_id?: string | null, vendor_organization_name?: string | null, vendor_organization_email?: string | null, vendor_target_customer_id?: string | null, vendor_target_customer_name?: string | null, vendor_target_customer_email?: string | null, customer_conn_status?: Organization_Connection_Status | null, customer_conn_status_at?: any | null, customer_organization_id?: string | null, customer_organization_name?: string | null, customer_organization_email?: string | null, customer_target_vendor_id?: string | null, customer_target_vendor_name?: string | null, customer_target_vendor_email?: string | null, created_at: any, updated_at: any } };
+export type UserOrganizationConnectionInviteCustomerMutation = { __typename?: 'Mutation', userOrganizationConnectionInviteCustomer: { __typename?: 'OrganizationConnection', id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, vendor_conn_status_at?: any | null, vendor_organization_id?: string | null, vendor_organization_name?: string | null, vendor_organization_email?: string | null, vendor_target_customer_id?: string | null, vendor_target_customer_name?: string | null, vendor_target_customer_email?: string | null, customer_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, customer_conn_status_at?: any | null, customer_organization_id?: string | null, customer_organization_name?: string | null, customer_organization_email?: string | null, customer_target_vendor_id?: string | null, customer_target_vendor_name?: string | null, customer_target_vendor_email?: string | null, created_at: any, updated_at: any } };
 
 export type UserOrganizationConnectionInviteVendorMutationVariables = Exact<{
   organizationId: Scalars['String']['input'];
@@ -2949,7 +2970,7 @@ export type UserOrganizationConnectionInviteVendorMutationVariables = Exact<{
 }>;
 
 
-export type UserOrganizationConnectionInviteVendorMutation = { __typename?: 'Mutation', userOrganizationConnectionInviteVendor: { __typename?: 'OrganizationConnection', id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status?: Organization_Connection_Status | null, vendor_conn_status_at?: any | null, vendor_organization_id?: string | null, vendor_organization_name?: string | null, vendor_organization_email?: string | null, vendor_target_customer_id?: string | null, vendor_target_customer_name?: string | null, vendor_target_customer_email?: string | null, customer_conn_status?: Organization_Connection_Status | null, customer_conn_status_at?: any | null, customer_organization_id?: string | null, customer_organization_name?: string | null, customer_organization_email?: string | null, customer_target_vendor_id?: string | null, customer_target_vendor_name?: string | null, customer_target_vendor_email?: string | null, created_at: any, updated_at: any } };
+export type UserOrganizationConnectionInviteVendorMutation = { __typename?: 'Mutation', userOrganizationConnectionInviteVendor: { __typename?: 'OrganizationConnection', id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, vendor_conn_status_at?: any | null, vendor_organization_id?: string | null, vendor_organization_name?: string | null, vendor_organization_email?: string | null, vendor_target_customer_id?: string | null, vendor_target_customer_name?: string | null, vendor_target_customer_email?: string | null, customer_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, customer_conn_status_at?: any | null, customer_organization_id?: string | null, customer_organization_name?: string | null, customer_organization_email?: string | null, customer_target_vendor_id?: string | null, customer_target_vendor_name?: string | null, customer_target_vendor_email?: string | null, created_at: any, updated_at: any } };
 
 export type UserOrganizationConnectionAcceptMutationVariables = Exact<{
   organizationId: Scalars['String']['input'];
@@ -2957,7 +2978,7 @@ export type UserOrganizationConnectionAcceptMutationVariables = Exact<{
 }>;
 
 
-export type UserOrganizationConnectionAcceptMutation = { __typename?: 'Mutation', userOrganizationConnectionAccept: { __typename?: 'OrganizationConnection', id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status?: Organization_Connection_Status | null, vendor_conn_status_at?: any | null, vendor_organization_id?: string | null, vendor_organization_name?: string | null, vendor_organization_email?: string | null, vendor_target_customer_id?: string | null, vendor_target_customer_name?: string | null, vendor_target_customer_email?: string | null, customer_conn_status?: Organization_Connection_Status | null, customer_conn_status_at?: any | null, customer_organization_id?: string | null, customer_organization_name?: string | null, customer_organization_email?: string | null, customer_target_vendor_id?: string | null, customer_target_vendor_name?: string | null, customer_target_vendor_email?: string | null, created_at: any, updated_at: any } };
+export type UserOrganizationConnectionAcceptMutation = { __typename?: 'Mutation', userOrganizationConnectionAccept: { __typename?: 'OrganizationConnection', id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, vendor_conn_status_at?: any | null, vendor_organization_id?: string | null, vendor_organization_name?: string | null, vendor_organization_email?: string | null, vendor_target_customer_id?: string | null, vendor_target_customer_name?: string | null, vendor_target_customer_email?: string | null, customer_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, customer_conn_status_at?: any | null, customer_organization_id?: string | null, customer_organization_name?: string | null, customer_organization_email?: string | null, customer_target_vendor_id?: string | null, customer_target_vendor_name?: string | null, customer_target_vendor_email?: string | null, created_at: any, updated_at: any } };
 
 export type UserOrganizationConnectionRejectMutationVariables = Exact<{
   organizationId: Scalars['String']['input'];
@@ -2965,7 +2986,7 @@ export type UserOrganizationConnectionRejectMutationVariables = Exact<{
 }>;
 
 
-export type UserOrganizationConnectionRejectMutation = { __typename?: 'Mutation', userOrganizationConnectionReject: { __typename?: 'OrganizationConnection', id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status?: Organization_Connection_Status | null, vendor_conn_status_at?: any | null, vendor_organization_id?: string | null, vendor_organization_name?: string | null, vendor_organization_email?: string | null, vendor_target_customer_id?: string | null, vendor_target_customer_name?: string | null, vendor_target_customer_email?: string | null, customer_conn_status?: Organization_Connection_Status | null, customer_conn_status_at?: any | null, customer_organization_id?: string | null, customer_organization_name?: string | null, customer_organization_email?: string | null, customer_target_vendor_id?: string | null, customer_target_vendor_name?: string | null, customer_target_vendor_email?: string | null, created_at: any, updated_at: any } };
+export type UserOrganizationConnectionRejectMutation = { __typename?: 'Mutation', userOrganizationConnectionReject: { __typename?: 'OrganizationConnection', id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, vendor_conn_status_at?: any | null, vendor_organization_id?: string | null, vendor_organization_name?: string | null, vendor_organization_email?: string | null, vendor_target_customer_id?: string | null, vendor_target_customer_name?: string | null, vendor_target_customer_email?: string | null, customer_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, customer_conn_status_at?: any | null, customer_organization_id?: string | null, customer_organization_name?: string | null, customer_organization_email?: string | null, customer_target_vendor_id?: string | null, customer_target_vendor_name?: string | null, customer_target_vendor_email?: string | null, created_at: any, updated_at: any } };
 
 export type UserOrganizationCustomerConnLockMutationVariables = Exact<{
   organizationId: Scalars['String']['input'];
@@ -2973,7 +2994,7 @@ export type UserOrganizationCustomerConnLockMutationVariables = Exact<{
 }>;
 
 
-export type UserOrganizationCustomerConnLockMutation = { __typename?: 'Mutation', userOrganizationCustomerConnLock: { __typename?: 'OrganizationCustomer', id: string, is_active: boolean, email: string, name: string, unique_code: string, phone_number?: string | null, tax_code_type?: string | null, tax_code?: string | null, created_at: any, updated_at: any, conn_locked_data_at?: any | null, connection?: { __typename?: 'OrganizationConnection', id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status?: Organization_Connection_Status | null, vendor_conn_status_at?: any | null, vendor_organization_id?: string | null, vendor_organization_name?: string | null, vendor_organization_email?: string | null, vendor_target_customer_id?: string | null, vendor_target_customer_name?: string | null, vendor_target_customer_email?: string | null, customer_conn_status?: Organization_Connection_Status | null, customer_conn_status_at?: any | null, customer_organization_id?: string | null, customer_organization_name?: string | null, customer_organization_email?: string | null, customer_target_vendor_id?: string | null, customer_target_vendor_name?: string | null, customer_target_vendor_email?: string | null, created_at: any, updated_at: any } | null, contacts: Array<{ __typename?: 'OrganizationCustomerContact', id: string, name: string, email: string, phone_number?: string | null, is_default: boolean, send_invoice_reminders: boolean, created_at: any, updated_at: any }>, invoice_statement: { __typename?: 'OrganizationInvoiceStatement', total_amount: number, paid_amount: number, overdue_amount: number, start_date?: any | null, end_date?: any | null, currency?: Currency | null, status?: Invoice_Status | null, data: { __typename?: 'OrganizationInvoicePaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationInvoicePaginationEdge', cursor: any, node: { __typename?: 'OrganizationInvoice', id: string, file_id?: string | null, unique_code: string, number: string, currency_code: Currency, description: string, amount: number, tax_amount: number, discount_amount: number, paid_amount?: number | null, invoice_date: any, due_date: any, customer_email: string, created_at: any, updated_at: any, status?: Invoice_Status | null, file?: { __typename?: 'File', public_url?: string | null } | null } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } } };
+export type UserOrganizationCustomerConnLockMutation = { __typename?: 'Mutation', userOrganizationCustomerConnLock: { __typename?: 'OrganizationCustomer', id: string, is_active: boolean, email: string, name: string, unique_code: string, phone_number?: string | null, tax_code_type?: string | null, tax_code?: string | null, created_at: any, updated_at: any, conn_locked_data_at?: any | null, connection?: { __typename?: 'OrganizationConnection', id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, vendor_conn_status_at?: any | null, vendor_organization_id?: string | null, vendor_organization_name?: string | null, vendor_organization_email?: string | null, vendor_target_customer_id?: string | null, vendor_target_customer_name?: string | null, vendor_target_customer_email?: string | null, customer_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, customer_conn_status_at?: any | null, customer_organization_id?: string | null, customer_organization_name?: string | null, customer_organization_email?: string | null, customer_target_vendor_id?: string | null, customer_target_vendor_name?: string | null, customer_target_vendor_email?: string | null, created_at: any, updated_at: any } | null, contacts: Array<{ __typename?: 'OrganizationCustomerContact', id: string, name: string, email: string, phone_number?: string | null, is_default: boolean, send_invoice_reminders: boolean, created_at: any, updated_at: any }>, invoice_statement: { __typename?: 'OrganizationInvoiceStatement', total_amount: number, paid_amount: number, overdue_amount: number, start_date?: any | null, end_date?: any | null, currency?: CURRENCY | null, status?: INVOICE_STATUS | null, data: { __typename?: 'OrganizationInvoicePaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationInvoicePaginationEdge', cursor: any, node: { __typename?: 'OrganizationInvoice', id: string, file_id?: string | null, unique_code: string, number: string, currency_code: CURRENCY, description: string, amount: number, tax_amount: number, discount_amount: number, paid_amount?: number | null, invoice_date: any, due_date: any, customer_email: string, created_at: any, updated_at: any, status?: INVOICE_STATUS | null, file?: { __typename?: 'File', public_url?: string | null } | null } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } } };
 
 export type UserOrganizationCustomerConnUnlockMutationVariables = Exact<{
   organizationId: Scalars['String']['input'];
@@ -2981,7 +3002,7 @@ export type UserOrganizationCustomerConnUnlockMutationVariables = Exact<{
 }>;
 
 
-export type UserOrganizationCustomerConnUnlockMutation = { __typename?: 'Mutation', userOrganizationCustomerConnUnlock: { __typename?: 'OrganizationCustomer', id: string, is_active: boolean, email: string, name: string, unique_code: string, phone_number?: string | null, tax_code_type?: string | null, tax_code?: string | null, created_at: any, updated_at: any, conn_locked_data_at?: any | null, connection?: { __typename?: 'OrganizationConnection', id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status?: Organization_Connection_Status | null, vendor_conn_status_at?: any | null, vendor_organization_id?: string | null, vendor_organization_name?: string | null, vendor_organization_email?: string | null, vendor_target_customer_id?: string | null, vendor_target_customer_name?: string | null, vendor_target_customer_email?: string | null, customer_conn_status?: Organization_Connection_Status | null, customer_conn_status_at?: any | null, customer_organization_id?: string | null, customer_organization_name?: string | null, customer_organization_email?: string | null, customer_target_vendor_id?: string | null, customer_target_vendor_name?: string | null, customer_target_vendor_email?: string | null, created_at: any, updated_at: any } | null, contacts: Array<{ __typename?: 'OrganizationCustomerContact', id: string, name: string, email: string, phone_number?: string | null, is_default: boolean, send_invoice_reminders: boolean, created_at: any, updated_at: any }>, invoice_statement: { __typename?: 'OrganizationInvoiceStatement', total_amount: number, paid_amount: number, overdue_amount: number, start_date?: any | null, end_date?: any | null, currency?: Currency | null, status?: Invoice_Status | null, data: { __typename?: 'OrganizationInvoicePaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationInvoicePaginationEdge', cursor: any, node: { __typename?: 'OrganizationInvoice', id: string, file_id?: string | null, unique_code: string, number: string, currency_code: Currency, description: string, amount: number, tax_amount: number, discount_amount: number, paid_amount?: number | null, invoice_date: any, due_date: any, customer_email: string, created_at: any, updated_at: any, status?: Invoice_Status | null, file?: { __typename?: 'File', public_url?: string | null } | null } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } } };
+export type UserOrganizationCustomerConnUnlockMutation = { __typename?: 'Mutation', userOrganizationCustomerConnUnlock: { __typename?: 'OrganizationCustomer', id: string, is_active: boolean, email: string, name: string, unique_code: string, phone_number?: string | null, tax_code_type?: string | null, tax_code?: string | null, created_at: any, updated_at: any, conn_locked_data_at?: any | null, connection?: { __typename?: 'OrganizationConnection', id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, vendor_conn_status_at?: any | null, vendor_organization_id?: string | null, vendor_organization_name?: string | null, vendor_organization_email?: string | null, vendor_target_customer_id?: string | null, vendor_target_customer_name?: string | null, vendor_target_customer_email?: string | null, customer_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, customer_conn_status_at?: any | null, customer_organization_id?: string | null, customer_organization_name?: string | null, customer_organization_email?: string | null, customer_target_vendor_id?: string | null, customer_target_vendor_name?: string | null, customer_target_vendor_email?: string | null, created_at: any, updated_at: any } | null, contacts: Array<{ __typename?: 'OrganizationCustomerContact', id: string, name: string, email: string, phone_number?: string | null, is_default: boolean, send_invoice_reminders: boolean, created_at: any, updated_at: any }>, invoice_statement: { __typename?: 'OrganizationInvoiceStatement', total_amount: number, paid_amount: number, overdue_amount: number, start_date?: any | null, end_date?: any | null, currency?: CURRENCY | null, status?: INVOICE_STATUS | null, data: { __typename?: 'OrganizationInvoicePaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationInvoicePaginationEdge', cursor: any, node: { __typename?: 'OrganizationInvoice', id: string, file_id?: string | null, unique_code: string, number: string, currency_code: CURRENCY, description: string, amount: number, tax_amount: number, discount_amount: number, paid_amount?: number | null, invoice_date: any, due_date: any, customer_email: string, created_at: any, updated_at: any, status?: INVOICE_STATUS | null, file?: { __typename?: 'File', public_url?: string | null } | null } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } } };
 
 export type UserOrganizationVendorConnLockMutationVariables = Exact<{
   organizationId: Scalars['String']['input'];
@@ -2989,7 +3010,7 @@ export type UserOrganizationVendorConnLockMutationVariables = Exact<{
 }>;
 
 
-export type UserOrganizationVendorConnLockMutation = { __typename?: 'Mutation', userOrganizationVendorConnLock: { __typename?: 'OrganizationVendor', id: string, is_active: boolean, email: string, name: string, unique_code: string, phone_number?: string | null, tax_code_type?: string | null, tax_code?: string | null, created_at: any, updated_at: any, conn_locked_data_at?: any | null, connection?: { __typename?: 'OrganizationConnection', id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status?: Organization_Connection_Status | null, vendor_conn_status_at?: any | null, vendor_organization_id?: string | null, vendor_organization_name?: string | null, vendor_organization_email?: string | null, vendor_target_customer_id?: string | null, vendor_target_customer_name?: string | null, vendor_target_customer_email?: string | null, customer_conn_status?: Organization_Connection_Status | null, customer_conn_status_at?: any | null, customer_organization_id?: string | null, customer_organization_name?: string | null, customer_organization_email?: string | null, customer_target_vendor_id?: string | null, customer_target_vendor_name?: string | null, customer_target_vendor_email?: string | null, created_at: any, updated_at: any } | null, contacts: Array<{ __typename?: 'OrganizationVendorContact', id: string, name: string, email: string, phone_number?: string | null, is_default: boolean, created_at: any, updated_at: any }>, bill_statement: { __typename?: 'OrganizationBillStatement', total_amount: number, paid_amount: number, overdue_amount: number, start_date?: any | null, end_date?: any | null, currency?: Currency | null, status?: Bill_Status | null, data: { __typename?: 'OrganizationBillPaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationBillPaginationEdge', cursor: any, node: { __typename?: 'OrganizationBill', id: string, file_id?: string | null, unique_code: string, number: string, currency_code: Currency, description: string, amount: number, tax_amount: number, discount_amount: number, total_amount: number, paid_amount?: number | null, bill_date: any, due_date: any, vendor_email: string, created_at: any, updated_at: any, status?: Bill_Status | null, file?: { __typename?: 'File', public_url?: string | null } | null } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } } };
+export type UserOrganizationVendorConnLockMutation = { __typename?: 'Mutation', userOrganizationVendorConnLock: { __typename?: 'OrganizationVendor', id: string, is_active: boolean, email: string, name: string, unique_code: string, phone_number?: string | null, tax_code_type?: string | null, tax_code?: string | null, created_at: any, updated_at: any, conn_locked_data_at?: any | null, connection?: { __typename?: 'OrganizationConnection', id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, vendor_conn_status_at?: any | null, vendor_organization_id?: string | null, vendor_organization_name?: string | null, vendor_organization_email?: string | null, vendor_target_customer_id?: string | null, vendor_target_customer_name?: string | null, vendor_target_customer_email?: string | null, customer_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, customer_conn_status_at?: any | null, customer_organization_id?: string | null, customer_organization_name?: string | null, customer_organization_email?: string | null, customer_target_vendor_id?: string | null, customer_target_vendor_name?: string | null, customer_target_vendor_email?: string | null, created_at: any, updated_at: any } | null, contacts: Array<{ __typename?: 'OrganizationVendorContact', id: string, name: string, email: string, phone_number?: string | null, is_default: boolean, created_at: any, updated_at: any }>, bill_statement: { __typename?: 'OrganizationBillStatement', total_amount: number, paid_amount: number, overdue_amount: number, start_date?: any | null, end_date?: any | null, currency?: CURRENCY | null, status?: BILL_STATUS | null, data: { __typename?: 'OrganizationBillPaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationBillPaginationEdge', cursor: any, node: { __typename?: 'OrganizationBill', id: string, file_id?: string | null, unique_code: string, number: string, currency_code: CURRENCY, description: string, amount: number, tax_amount: number, discount_amount: number, total_amount: number, paid_amount?: number | null, bill_date: any, due_date: any, vendor_email: string, created_at: any, updated_at: any, status?: BILL_STATUS | null, file?: { __typename?: 'File', public_url?: string | null } | null } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } } };
 
 export type UserOrganizationVendorConnUnlockMutationVariables = Exact<{
   organizationId: Scalars['String']['input'];
@@ -2997,15 +3018,15 @@ export type UserOrganizationVendorConnUnlockMutationVariables = Exact<{
 }>;
 
 
-export type UserOrganizationVendorConnUnlockMutation = { __typename?: 'Mutation', userOrganizationVendorConnUnlock: { __typename?: 'OrganizationVendor', id: string, is_active: boolean, email: string, name: string, unique_code: string, phone_number?: string | null, tax_code_type?: string | null, tax_code?: string | null, created_at: any, updated_at: any, conn_locked_data_at?: any | null, connection?: { __typename?: 'OrganizationConnection', id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status?: Organization_Connection_Status | null, vendor_conn_status_at?: any | null, vendor_organization_id?: string | null, vendor_organization_name?: string | null, vendor_organization_email?: string | null, vendor_target_customer_id?: string | null, vendor_target_customer_name?: string | null, vendor_target_customer_email?: string | null, customer_conn_status?: Organization_Connection_Status | null, customer_conn_status_at?: any | null, customer_organization_id?: string | null, customer_organization_name?: string | null, customer_organization_email?: string | null, customer_target_vendor_id?: string | null, customer_target_vendor_name?: string | null, customer_target_vendor_email?: string | null, created_at: any, updated_at: any } | null, contacts: Array<{ __typename?: 'OrganizationVendorContact', id: string, name: string, email: string, phone_number?: string | null, is_default: boolean, created_at: any, updated_at: any }>, bill_statement: { __typename?: 'OrganizationBillStatement', total_amount: number, paid_amount: number, overdue_amount: number, start_date?: any | null, end_date?: any | null, currency?: Currency | null, status?: Bill_Status | null, data: { __typename?: 'OrganizationBillPaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationBillPaginationEdge', cursor: any, node: { __typename?: 'OrganizationBill', id: string, file_id?: string | null, unique_code: string, number: string, currency_code: Currency, description: string, amount: number, tax_amount: number, discount_amount: number, total_amount: number, paid_amount?: number | null, bill_date: any, due_date: any, vendor_email: string, created_at: any, updated_at: any, status?: Bill_Status | null, file?: { __typename?: 'File', public_url?: string | null } | null } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } } };
+export type UserOrganizationVendorConnUnlockMutation = { __typename?: 'Mutation', userOrganizationVendorConnUnlock: { __typename?: 'OrganizationVendor', id: string, is_active: boolean, email: string, name: string, unique_code: string, phone_number?: string | null, tax_code_type?: string | null, tax_code?: string | null, created_at: any, updated_at: any, conn_locked_data_at?: any | null, connection?: { __typename?: 'OrganizationConnection', id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, vendor_conn_status_at?: any | null, vendor_organization_id?: string | null, vendor_organization_name?: string | null, vendor_organization_email?: string | null, vendor_target_customer_id?: string | null, vendor_target_customer_name?: string | null, vendor_target_customer_email?: string | null, customer_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, customer_conn_status_at?: any | null, customer_organization_id?: string | null, customer_organization_name?: string | null, customer_organization_email?: string | null, customer_target_vendor_id?: string | null, customer_target_vendor_name?: string | null, customer_target_vendor_email?: string | null, created_at: any, updated_at: any } | null, contacts: Array<{ __typename?: 'OrganizationVendorContact', id: string, name: string, email: string, phone_number?: string | null, is_default: boolean, created_at: any, updated_at: any }>, bill_statement: { __typename?: 'OrganizationBillStatement', total_amount: number, paid_amount: number, overdue_amount: number, start_date?: any | null, end_date?: any | null, currency?: CURRENCY | null, status?: BILL_STATUS | null, data: { __typename?: 'OrganizationBillPaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationBillPaginationEdge', cursor: any, node: { __typename?: 'OrganizationBill', id: string, file_id?: string | null, unique_code: string, number: string, currency_code: CURRENCY, description: string, amount: number, tax_amount: number, discount_amount: number, total_amount: number, paid_amount?: number | null, bill_date: any, due_date: any, vendor_email: string, created_at: any, updated_at: any, status?: BILL_STATUS | null, file?: { __typename?: 'File', public_url?: string | null } | null } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } } };
 
-export type UserOrganizationVendorContactsQueryVariables = Exact<{
+export type userOrganizationVendorContactsQueryVariables = Exact<{
   organizationVendorId: Scalars['String']['input'];
   organizationId: Scalars['String']['input'];
 }>;
 
 
-export type UserOrganizationVendorContactsQuery = { __typename?: 'Query', userOrganizationVendorContacts: { __typename?: 'OrganizationVendorContactPaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationVendorContactPaginationEdge', cursor: any, node: { __typename?: 'OrganizationVendorContact', email: string, id: string, is_default: boolean, name: string, phone_number?: string | null } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } };
+export type userOrganizationVendorContactsQuery = { __typename?: 'Query', userOrganizationVendorContacts: { __typename?: 'OrganizationVendorContactPaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationVendorContactPaginationEdge', cursor: any, node: { __typename?: 'OrganizationVendorContact', email: string, id: string, is_default: boolean, name: string, phone_number?: string | null } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } };
 
 export type UserOrganizationCustomerContactsQueryVariables = Exact<{
   organizationCustomerId: Scalars['String']['input'];
@@ -3015,14 +3036,14 @@ export type UserOrganizationCustomerContactsQueryVariables = Exact<{
 
 export type UserOrganizationCustomerContactsQuery = { __typename?: 'Query', userOrganizationCustomerContacts: { __typename?: 'OrganizationCustomerContactPaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationCustomerContactPaginationEdge', cursor: any, node: { __typename?: 'OrganizationCustomerContact', id: string, name: string, email: string, phone_number?: string | null, is_default: boolean, send_invoice_reminders: boolean, created_at: any, updated_at: any, organization_customer_id: string } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } };
 
-export type UserOrganizationVendorContactCreateMutationVariables = Exact<{
+export type userOrganizationVendorContactCreateMutationVariables = Exact<{
   organizationId: Scalars['String']['input'];
   organizationVendorId: Scalars['String']['input'];
   data: UserOrganizationVendorContactCreateSchema;
 }>;
 
 
-export type UserOrganizationVendorContactCreateMutation = { __typename?: 'Mutation', userOrganizationVendorContactCreate: { __typename?: 'OrganizationVendorContact', id: string, name: string, email: string, phone_number?: string | null, is_default: boolean, organization_vendor_id: string } };
+export type userOrganizationVendorContactCreateMutation = { __typename?: 'Mutation', userOrganizationVendorContactCreate: { __typename?: 'OrganizationVendorContact', id: string, name: string, email: string, phone_number?: string | null, is_default: boolean, organization_vendor_id: string } };
 
 export type UserOrganizationCustomerContactCreateMutationVariables = Exact<{
   data: UserOrganizationCustomerContactCreateSchema;
@@ -3071,7 +3092,7 @@ export type UserOrganizationCustomerContactDeleteMutationVariables = Exact<{
 
 export type UserOrganizationCustomerContactDeleteMutation = { __typename?: 'Mutation', userOrganizationCustomerContactDelete: { __typename?: 'OrganizationCustomerContact', id: string, name: string, email: string, phone_number?: string | null, is_default: boolean, send_invoice_reminders: boolean, created_at: any, updated_at: any, organization_customer_id: string } };
 
-export type OrganizationCustomerFragmentFragment = { __typename?: 'OrganizationCustomer', id: string, is_active: boolean, email: string, name: string, unique_code: string, phone_number?: string | null, tax_code_type?: string | null, tax_code?: string | null, created_at: any, updated_at: any, conn_locked_data_at?: any | null, connection?: { __typename?: 'OrganizationConnection', id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status?: Organization_Connection_Status | null, vendor_conn_status_at?: any | null, vendor_organization_id?: string | null, vendor_organization_name?: string | null, vendor_organization_email?: string | null, vendor_target_customer_id?: string | null, vendor_target_customer_name?: string | null, vendor_target_customer_email?: string | null, customer_conn_status?: Organization_Connection_Status | null, customer_conn_status_at?: any | null, customer_organization_id?: string | null, customer_organization_name?: string | null, customer_organization_email?: string | null, customer_target_vendor_id?: string | null, customer_target_vendor_name?: string | null, customer_target_vendor_email?: string | null, created_at: any, updated_at: any } | null, contacts: Array<{ __typename?: 'OrganizationCustomerContact', id: string, name: string, email: string, phone_number?: string | null, is_default: boolean, send_invoice_reminders: boolean, created_at: any, updated_at: any }>, invoice_statement: { __typename?: 'OrganizationInvoiceStatement', total_amount: number, paid_amount: number, overdue_amount: number, start_date?: any | null, end_date?: any | null, currency?: Currency | null, status?: Invoice_Status | null, data: { __typename?: 'OrganizationInvoicePaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationInvoicePaginationEdge', cursor: any, node: { __typename?: 'OrganizationInvoice', id: string, file_id?: string | null, unique_code: string, number: string, currency_code: Currency, description: string, amount: number, tax_amount: number, discount_amount: number, paid_amount?: number | null, invoice_date: any, due_date: any, customer_email: string, created_at: any, updated_at: any, status?: Invoice_Status | null, file?: { __typename?: 'File', public_url?: string | null } | null } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } };
+export type OrganizationCustomerFragmentFragment = { __typename?: 'OrganizationCustomer', id: string, is_active: boolean, email: string, name: string, unique_code: string, phone_number?: string | null, tax_code_type?: string | null, tax_code?: string | null, created_at: any, updated_at: any, conn_locked_data_at?: any | null, connection?: { __typename?: 'OrganizationConnection', id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, vendor_conn_status_at?: any | null, vendor_organization_id?: string | null, vendor_organization_name?: string | null, vendor_organization_email?: string | null, vendor_target_customer_id?: string | null, vendor_target_customer_name?: string | null, vendor_target_customer_email?: string | null, customer_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, customer_conn_status_at?: any | null, customer_organization_id?: string | null, customer_organization_name?: string | null, customer_organization_email?: string | null, customer_target_vendor_id?: string | null, customer_target_vendor_name?: string | null, customer_target_vendor_email?: string | null, created_at: any, updated_at: any } | null, contacts: Array<{ __typename?: 'OrganizationCustomerContact', id: string, name: string, email: string, phone_number?: string | null, is_default: boolean, send_invoice_reminders: boolean, created_at: any, updated_at: any }>, invoice_statement: { __typename?: 'OrganizationInvoiceStatement', total_amount: number, paid_amount: number, overdue_amount: number, start_date?: any | null, end_date?: any | null, currency?: CURRENCY | null, status?: INVOICE_STATUS | null, data: { __typename?: 'OrganizationInvoicePaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationInvoicePaginationEdge', cursor: any, node: { __typename?: 'OrganizationInvoice', id: string, file_id?: string | null, unique_code: string, number: string, currency_code: CURRENCY, description: string, amount: number, tax_amount: number, discount_amount: number, paid_amount?: number | null, invoice_date: any, due_date: any, customer_email: string, created_at: any, updated_at: any, status?: INVOICE_STATUS | null, file?: { __typename?: 'File', public_url?: string | null } | null } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } };
 
 export type UserOrganizationCustomersQueryVariables = Exact<{
   organizationId: Scalars['String']['input'];
@@ -3086,7 +3107,7 @@ export type UserOrganizationCustomersQueryVariables = Exact<{
 }>;
 
 
-export type UserOrganizationCustomersQuery = { __typename?: 'Query', userOrganizationCustomers: { __typename?: 'OrganizationCustomerPaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationCustomerPaginationEdge', cursor: any, node: { __typename?: 'OrganizationCustomer', id: string, is_active: boolean, email: string, name: string, unique_code: string, phone_number?: string | null, tax_code_type?: string | null, tax_code?: string | null, created_at: any, updated_at: any, conn_locked_data_at?: any | null, connection?: { __typename?: 'OrganizationConnection', id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status?: Organization_Connection_Status | null, vendor_conn_status_at?: any | null, vendor_organization_id?: string | null, vendor_organization_name?: string | null, vendor_organization_email?: string | null, vendor_target_customer_id?: string | null, vendor_target_customer_name?: string | null, vendor_target_customer_email?: string | null, customer_conn_status?: Organization_Connection_Status | null, customer_conn_status_at?: any | null, customer_organization_id?: string | null, customer_organization_name?: string | null, customer_organization_email?: string | null, customer_target_vendor_id?: string | null, customer_target_vendor_name?: string | null, customer_target_vendor_email?: string | null, created_at: any, updated_at: any } | null, contacts: Array<{ __typename?: 'OrganizationCustomerContact', id: string, name: string, email: string, phone_number?: string | null, is_default: boolean, send_invoice_reminders: boolean, created_at: any, updated_at: any }>, invoice_statement: { __typename?: 'OrganizationInvoiceStatement', total_amount: number, paid_amount: number, overdue_amount: number, start_date?: any | null, end_date?: any | null, currency?: Currency | null, status?: Invoice_Status | null, data: { __typename?: 'OrganizationInvoicePaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationInvoicePaginationEdge', cursor: any, node: { __typename?: 'OrganizationInvoice', id: string, file_id?: string | null, unique_code: string, number: string, currency_code: Currency, description: string, amount: number, tax_amount: number, discount_amount: number, paid_amount?: number | null, invoice_date: any, due_date: any, customer_email: string, created_at: any, updated_at: any, status?: Invoice_Status | null, file?: { __typename?: 'File', public_url?: string | null } | null } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } };
+export type UserOrganizationCustomersQuery = { __typename?: 'Query', userOrganizationCustomers: { __typename?: 'OrganizationCustomerPaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationCustomerPaginationEdge', cursor: any, node: { __typename?: 'OrganizationCustomer', id: string, is_active: boolean, email: string, name: string, unique_code: string, phone_number?: string | null, tax_code_type?: string | null, tax_code?: string | null, created_at: any, updated_at: any, conn_locked_data_at?: any | null, connection?: { __typename?: 'OrganizationConnection', id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, vendor_conn_status_at?: any | null, vendor_organization_id?: string | null, vendor_organization_name?: string | null, vendor_organization_email?: string | null, vendor_target_customer_id?: string | null, vendor_target_customer_name?: string | null, vendor_target_customer_email?: string | null, customer_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, customer_conn_status_at?: any | null, customer_organization_id?: string | null, customer_organization_name?: string | null, customer_organization_email?: string | null, customer_target_vendor_id?: string | null, customer_target_vendor_name?: string | null, customer_target_vendor_email?: string | null, created_at: any, updated_at: any } | null, contacts: Array<{ __typename?: 'OrganizationCustomerContact', id: string, name: string, email: string, phone_number?: string | null, is_default: boolean, send_invoice_reminders: boolean, created_at: any, updated_at: any }>, invoice_statement: { __typename?: 'OrganizationInvoiceStatement', total_amount: number, paid_amount: number, overdue_amount: number, start_date?: any | null, end_date?: any | null, currency?: CURRENCY | null, status?: INVOICE_STATUS | null, data: { __typename?: 'OrganizationInvoicePaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationInvoicePaginationEdge', cursor: any, node: { __typename?: 'OrganizationInvoice', id: string, file_id?: string | null, unique_code: string, number: string, currency_code: CURRENCY, description: string, amount: number, tax_amount: number, discount_amount: number, paid_amount?: number | null, invoice_date: any, due_date: any, customer_email: string, created_at: any, updated_at: any, status?: INVOICE_STATUS | null, file?: { __typename?: 'File', public_url?: string | null } | null } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } };
 
 export type UserOrganizationCustomerQueryVariables = Exact<{
   organizationCustomerId: Scalars['String']['input'];
@@ -3094,7 +3115,7 @@ export type UserOrganizationCustomerQueryVariables = Exact<{
 }>;
 
 
-export type UserOrganizationCustomerQuery = { __typename?: 'Query', userOrganizationCustomer: { __typename?: 'OrganizationCustomer', id: string, is_active: boolean, email: string, name: string, unique_code: string, phone_number?: string | null, tax_code_type?: string | null, tax_code?: string | null, created_at: any, updated_at: any, conn_locked_data_at?: any | null, connection?: { __typename?: 'OrganizationConnection', id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status?: Organization_Connection_Status | null, vendor_conn_status_at?: any | null, vendor_organization_id?: string | null, vendor_organization_name?: string | null, vendor_organization_email?: string | null, vendor_target_customer_id?: string | null, vendor_target_customer_name?: string | null, vendor_target_customer_email?: string | null, customer_conn_status?: Organization_Connection_Status | null, customer_conn_status_at?: any | null, customer_organization_id?: string | null, customer_organization_name?: string | null, customer_organization_email?: string | null, customer_target_vendor_id?: string | null, customer_target_vendor_name?: string | null, customer_target_vendor_email?: string | null, created_at: any, updated_at: any } | null, contacts: Array<{ __typename?: 'OrganizationCustomerContact', id: string, name: string, email: string, phone_number?: string | null, is_default: boolean, send_invoice_reminders: boolean, created_at: any, updated_at: any }>, invoice_statement: { __typename?: 'OrganizationInvoiceStatement', total_amount: number, paid_amount: number, overdue_amount: number, start_date?: any | null, end_date?: any | null, currency?: Currency | null, status?: Invoice_Status | null, data: { __typename?: 'OrganizationInvoicePaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationInvoicePaginationEdge', cursor: any, node: { __typename?: 'OrganizationInvoice', id: string, file_id?: string | null, unique_code: string, number: string, currency_code: Currency, description: string, amount: number, tax_amount: number, discount_amount: number, paid_amount?: number | null, invoice_date: any, due_date: any, customer_email: string, created_at: any, updated_at: any, status?: Invoice_Status | null, file?: { __typename?: 'File', public_url?: string | null } | null } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } } };
+export type UserOrganizationCustomerQuery = { __typename?: 'Query', userOrganizationCustomer: { __typename?: 'OrganizationCustomer', id: string, is_active: boolean, email: string, name: string, unique_code: string, phone_number?: string | null, tax_code_type?: string | null, tax_code?: string | null, created_at: any, updated_at: any, conn_locked_data_at?: any | null, connection?: { __typename?: 'OrganizationConnection', id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, vendor_conn_status_at?: any | null, vendor_organization_id?: string | null, vendor_organization_name?: string | null, vendor_organization_email?: string | null, vendor_target_customer_id?: string | null, vendor_target_customer_name?: string | null, vendor_target_customer_email?: string | null, customer_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, customer_conn_status_at?: any | null, customer_organization_id?: string | null, customer_organization_name?: string | null, customer_organization_email?: string | null, customer_target_vendor_id?: string | null, customer_target_vendor_name?: string | null, customer_target_vendor_email?: string | null, created_at: any, updated_at: any } | null, contacts: Array<{ __typename?: 'OrganizationCustomerContact', id: string, name: string, email: string, phone_number?: string | null, is_default: boolean, send_invoice_reminders: boolean, created_at: any, updated_at: any }>, invoice_statement: { __typename?: 'OrganizationInvoiceStatement', total_amount: number, paid_amount: number, overdue_amount: number, start_date?: any | null, end_date?: any | null, currency?: CURRENCY | null, status?: INVOICE_STATUS | null, data: { __typename?: 'OrganizationInvoicePaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationInvoicePaginationEdge', cursor: any, node: { __typename?: 'OrganizationInvoice', id: string, file_id?: string | null, unique_code: string, number: string, currency_code: CURRENCY, description: string, amount: number, tax_amount: number, discount_amount: number, paid_amount?: number | null, invoice_date: any, due_date: any, customer_email: string, created_at: any, updated_at: any, status?: INVOICE_STATUS | null, file?: { __typename?: 'File', public_url?: string | null } | null } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } } };
 
 export type UserOrganizationCustomerUpdateMutationVariables = Exact<{
   organizationId: Scalars['String']['input'];
@@ -3103,7 +3124,7 @@ export type UserOrganizationCustomerUpdateMutationVariables = Exact<{
 }>;
 
 
-export type UserOrganizationCustomerUpdateMutation = { __typename?: 'Mutation', userOrganizationCustomerUpdate: { __typename?: 'OrganizationCustomer', id: string, is_active: boolean, email: string, name: string, unique_code: string, phone_number?: string | null, tax_code_type?: string | null, tax_code?: string | null, created_at: any, updated_at: any, conn_locked_data_at?: any | null, connection?: { __typename?: 'OrganizationConnection', id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status?: Organization_Connection_Status | null, vendor_conn_status_at?: any | null, vendor_organization_id?: string | null, vendor_organization_name?: string | null, vendor_organization_email?: string | null, vendor_target_customer_id?: string | null, vendor_target_customer_name?: string | null, vendor_target_customer_email?: string | null, customer_conn_status?: Organization_Connection_Status | null, customer_conn_status_at?: any | null, customer_organization_id?: string | null, customer_organization_name?: string | null, customer_organization_email?: string | null, customer_target_vendor_id?: string | null, customer_target_vendor_name?: string | null, customer_target_vendor_email?: string | null, created_at: any, updated_at: any } | null, contacts: Array<{ __typename?: 'OrganizationCustomerContact', id: string, name: string, email: string, phone_number?: string | null, is_default: boolean, send_invoice_reminders: boolean, created_at: any, updated_at: any }>, invoice_statement: { __typename?: 'OrganizationInvoiceStatement', total_amount: number, paid_amount: number, overdue_amount: number, start_date?: any | null, end_date?: any | null, currency?: Currency | null, status?: Invoice_Status | null, data: { __typename?: 'OrganizationInvoicePaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationInvoicePaginationEdge', cursor: any, node: { __typename?: 'OrganizationInvoice', id: string, file_id?: string | null, unique_code: string, number: string, currency_code: Currency, description: string, amount: number, tax_amount: number, discount_amount: number, paid_amount?: number | null, invoice_date: any, due_date: any, customer_email: string, created_at: any, updated_at: any, status?: Invoice_Status | null, file?: { __typename?: 'File', public_url?: string | null } | null } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } } };
+export type UserOrganizationCustomerUpdateMutation = { __typename?: 'Mutation', userOrganizationCustomerUpdate: { __typename?: 'OrganizationCustomer', id: string, is_active: boolean, email: string, name: string, unique_code: string, phone_number?: string | null, tax_code_type?: string | null, tax_code?: string | null, created_at: any, updated_at: any, conn_locked_data_at?: any | null, connection?: { __typename?: 'OrganizationConnection', id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, vendor_conn_status_at?: any | null, vendor_organization_id?: string | null, vendor_organization_name?: string | null, vendor_organization_email?: string | null, vendor_target_customer_id?: string | null, vendor_target_customer_name?: string | null, vendor_target_customer_email?: string | null, customer_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, customer_conn_status_at?: any | null, customer_organization_id?: string | null, customer_organization_name?: string | null, customer_organization_email?: string | null, customer_target_vendor_id?: string | null, customer_target_vendor_name?: string | null, customer_target_vendor_email?: string | null, created_at: any, updated_at: any } | null, contacts: Array<{ __typename?: 'OrganizationCustomerContact', id: string, name: string, email: string, phone_number?: string | null, is_default: boolean, send_invoice_reminders: boolean, created_at: any, updated_at: any }>, invoice_statement: { __typename?: 'OrganizationInvoiceStatement', total_amount: number, paid_amount: number, overdue_amount: number, start_date?: any | null, end_date?: any | null, currency?: CURRENCY | null, status?: INVOICE_STATUS | null, data: { __typename?: 'OrganizationInvoicePaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationInvoicePaginationEdge', cursor: any, node: { __typename?: 'OrganizationInvoice', id: string, file_id?: string | null, unique_code: string, number: string, currency_code: CURRENCY, description: string, amount: number, tax_amount: number, discount_amount: number, paid_amount?: number | null, invoice_date: any, due_date: any, customer_email: string, created_at: any, updated_at: any, status?: INVOICE_STATUS | null, file?: { __typename?: 'File', public_url?: string | null } | null } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } } };
 
 export type UserOrganizationCustomerCreateMutationVariables = Exact<{
   organizationId: Scalars['String']['input'];
@@ -3111,17 +3132,17 @@ export type UserOrganizationCustomerCreateMutationVariables = Exact<{
 }>;
 
 
-export type UserOrganizationCustomerCreateMutation = { __typename?: 'Mutation', userOrganizationCustomerCreate: { __typename?: 'OrganizationCustomer', id: string, is_active: boolean, email: string, name: string, unique_code: string, phone_number?: string | null, tax_code_type?: string | null, tax_code?: string | null, created_at: any, updated_at: any, conn_locked_data_at?: any | null, connection?: { __typename?: 'OrganizationConnection', id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status?: Organization_Connection_Status | null, vendor_conn_status_at?: any | null, vendor_organization_id?: string | null, vendor_organization_name?: string | null, vendor_organization_email?: string | null, vendor_target_customer_id?: string | null, vendor_target_customer_name?: string | null, vendor_target_customer_email?: string | null, customer_conn_status?: Organization_Connection_Status | null, customer_conn_status_at?: any | null, customer_organization_id?: string | null, customer_organization_name?: string | null, customer_organization_email?: string | null, customer_target_vendor_id?: string | null, customer_target_vendor_name?: string | null, customer_target_vendor_email?: string | null, created_at: any, updated_at: any } | null, contacts: Array<{ __typename?: 'OrganizationCustomerContact', id: string, name: string, email: string, phone_number?: string | null, is_default: boolean, send_invoice_reminders: boolean, created_at: any, updated_at: any }>, invoice_statement: { __typename?: 'OrganizationInvoiceStatement', total_amount: number, paid_amount: number, overdue_amount: number, start_date?: any | null, end_date?: any | null, currency?: Currency | null, status?: Invoice_Status | null, data: { __typename?: 'OrganizationInvoicePaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationInvoicePaginationEdge', cursor: any, node: { __typename?: 'OrganizationInvoice', id: string, file_id?: string | null, unique_code: string, number: string, currency_code: Currency, description: string, amount: number, tax_amount: number, discount_amount: number, paid_amount?: number | null, invoice_date: any, due_date: any, customer_email: string, created_at: any, updated_at: any, status?: Invoice_Status | null, file?: { __typename?: 'File', public_url?: string | null } | null } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } } };
+export type UserOrganizationCustomerCreateMutation = { __typename?: 'Mutation', userOrganizationCustomerCreate: { __typename?: 'OrganizationCustomer', id: string, is_active: boolean, email: string, name: string, unique_code: string, phone_number?: string | null, tax_code_type?: string | null, tax_code?: string | null, created_at: any, updated_at: any, conn_locked_data_at?: any | null, connection?: { __typename?: 'OrganizationConnection', id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, vendor_conn_status_at?: any | null, vendor_organization_id?: string | null, vendor_organization_name?: string | null, vendor_organization_email?: string | null, vendor_target_customer_id?: string | null, vendor_target_customer_name?: string | null, vendor_target_customer_email?: string | null, customer_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, customer_conn_status_at?: any | null, customer_organization_id?: string | null, customer_organization_name?: string | null, customer_organization_email?: string | null, customer_target_vendor_id?: string | null, customer_target_vendor_name?: string | null, customer_target_vendor_email?: string | null, created_at: any, updated_at: any } | null, contacts: Array<{ __typename?: 'OrganizationCustomerContact', id: string, name: string, email: string, phone_number?: string | null, is_default: boolean, send_invoice_reminders: boolean, created_at: any, updated_at: any }>, invoice_statement: { __typename?: 'OrganizationInvoiceStatement', total_amount: number, paid_amount: number, overdue_amount: number, start_date?: any | null, end_date?: any | null, currency?: CURRENCY | null, status?: INVOICE_STATUS | null, data: { __typename?: 'OrganizationInvoicePaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationInvoicePaginationEdge', cursor: any, node: { __typename?: 'OrganizationInvoice', id: string, file_id?: string | null, unique_code: string, number: string, currency_code: CURRENCY, description: string, amount: number, tax_amount: number, discount_amount: number, paid_amount?: number | null, invoice_date: any, due_date: any, customer_email: string, created_at: any, updated_at: any, status?: INVOICE_STATUS | null, file?: { __typename?: 'File', public_url?: string | null } | null } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } } };
 
-export type OrganizationInvoiceFragmentFragment = { __typename?: 'OrganizationInvoice', id: string, unique_code: string, number: string, currency_code: Currency, description: string, payload?: any | null, amount: number, tax_amount: number, discount_amount: number, total_amount: number, invoice_date: any, due_date: any, customer_email: string, customer_address_line_1?: string | null, customer_address_number?: string | null, customer_address_line_2?: string | null, customer_address_city?: string | null, customer_address_state?: string | null, customer_address_zip_code?: string | null, customer_address_country_code_iso_3?: string | null, customer_address_lat?: number | null, customer_address_lng?: number | null, archived_at?: any | null, created_at: any, updated_at: any, organization_id: string, organization_customer_id: string, file_id?: string | null, has_sync_errors?: boolean | null, status?: Invoice_Status | null, is_overdue?: boolean | null, paid_amount?: number | null, paid_at?: any | null, balance?: number | null, email_sent_at?: any | null, organization: { __typename?: 'Organization', name: string }, organization_customer: { __typename?: 'OrganizationCustomer', name: string, email: string }, organization_acct_provider_conn_invoices: Array<{ __typename?: 'OrganizationAcctProviderConnInvoice', id: string, code: string, payload?: any | null, last_sync_at?: any | null, last_sync_success?: boolean | null, last_sync_id?: string | null, organization_invoice_id: string, organization_acct_provider_conn_id: string, organization_acct_provider_conn: { __typename?: 'OrganizationAcctProviderConn', acct_provider_code: Acct_Provider } }>, file?: { __typename?: 'File', public_url?: string | null } | null, transaction_links?: Array<{ __typename?: 'OrganizationTransactionLink', id: string, amount: number, item_type: Transaction_Item_Type, item_id: string, created_at: any, updated_at: any, organization_transaction_id: string, organization_transaction: { __typename?: 'OrganizationTransaction', id: string } }> | null };
+export type OrganizationInvoiceFragmentFragment = { __typename?: 'OrganizationInvoice', id: string, unique_code: string, number: string, currency_code: CURRENCY, description: string, payload?: any | null, amount: number, tax_amount: number, discount_amount: number, total_amount: number, invoice_date: any, due_date: any, customer_email: string, customer_address_line_1?: string | null, customer_address_number?: string | null, customer_address_line_2?: string | null, customer_address_city?: string | null, customer_address_state?: string | null, customer_address_zip_code?: string | null, customer_address_country_code_iso_3?: string | null, customer_address_lat?: number | null, customer_address_lng?: number | null, archived_at?: any | null, created_at: any, updated_at: any, organization_id: string, organization_customer_id: string, file_id?: string | null, has_sync_errors?: boolean | null, status?: INVOICE_STATUS | null, is_overdue?: boolean | null, paid_amount?: number | null, paid_at?: any | null, balance?: number | null, email_sent_at?: any | null, organization: { __typename?: 'Organization', name: string }, organization_customer: { __typename?: 'OrganizationCustomer', name: string, email: string }, organization_acct_provider_conn_invoices: Array<{ __typename?: 'OrganizationAcctProviderConnInvoice', id: string, code: string, payload?: any | null, last_sync_at?: any | null, last_sync_success?: boolean | null, last_sync_id?: string | null, organization_invoice_id: string, organization_acct_provider_conn_id: string, organization_acct_provider_conn: { __typename?: 'OrganizationAcctProviderConn', acct_provider_code: ACCT_PROVIDER } }>, file?: { __typename?: 'File', public_url?: string | null } | null, transaction_links?: Array<{ __typename?: 'OrganizationTransactionLink', id: string, amount: number, item_type: TRANSACTION_ITEM_TYPE, item_id: string, created_at: any, updated_at: any, organization_transaction_id: string, organization_transaction: { __typename?: 'OrganizationTransaction', id: string } }> | null };
 
 export type UserOrganizationInvoiceStatementQueryVariables = Exact<{
   organizationId: Scalars['String']['input'];
   organizationCustomerId?: InputMaybe<Scalars['String']['input']>;
-  currency?: InputMaybe<Currency>;
+  currency?: InputMaybe<CURRENCY>;
   startDate?: InputMaybe<Scalars['DateTime']['input']>;
   endDate?: InputMaybe<Scalars['DateTime']['input']>;
-  status?: InputMaybe<Invoice_Status>;
+  status?: InputMaybe<INVOICE_STATUS>;
   isOverdue?: InputMaybe<Scalars['Boolean']['input']>;
   after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -3133,7 +3154,7 @@ export type UserOrganizationInvoiceStatementQueryVariables = Exact<{
 }>;
 
 
-export type UserOrganizationInvoiceStatementQuery = { __typename?: 'Query', userOrganizationInvoiceStatement: { __typename?: 'OrganizationInvoiceStatement', vendor_organization_id: string, vendor_organization_customer_id?: string | null, customer_organization_id?: string | null, total_amount: number, paid_amount: number, overdue_amount: number, start_date?: any | null, end_date?: any | null, currency?: Currency | null, status?: Invoice_Status | null, vendor_organization: { __typename?: 'Organization', id: string, name: string }, vendor_organization_customer?: { __typename?: 'OrganizationCustomer', id: string, name: string } | null, customer_organization?: { __typename?: 'Organization', id: string, name: string } | null, data: { __typename?: 'OrganizationInvoicePaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationInvoicePaginationEdge', cursor: any, node: { __typename?: 'OrganizationInvoice', id: string, unique_code: string, number: string, currency_code: Currency, description: string, payload?: any | null, amount: number, tax_amount: number, discount_amount: number, total_amount: number, invoice_date: any, due_date: any, customer_email: string, customer_address_line_1?: string | null, customer_address_number?: string | null, customer_address_line_2?: string | null, customer_address_city?: string | null, customer_address_state?: string | null, customer_address_zip_code?: string | null, customer_address_country_code_iso_3?: string | null, customer_address_lat?: number | null, customer_address_lng?: number | null, archived_at?: any | null, created_at: any, updated_at: any, organization_id: string, organization_customer_id: string, file_id?: string | null, has_sync_errors?: boolean | null, status?: Invoice_Status | null, is_overdue?: boolean | null, paid_amount?: number | null, paid_at?: any | null, balance?: number | null, email_sent_at?: any | null, organization: { __typename?: 'Organization', name: string }, organization_customer: { __typename?: 'OrganizationCustomer', name: string, email: string }, organization_acct_provider_conn_invoices: Array<{ __typename?: 'OrganizationAcctProviderConnInvoice', id: string, code: string, payload?: any | null, last_sync_at?: any | null, last_sync_success?: boolean | null, last_sync_id?: string | null, organization_invoice_id: string, organization_acct_provider_conn_id: string, organization_acct_provider_conn: { __typename?: 'OrganizationAcctProviderConn', acct_provider_code: Acct_Provider } }>, file?: { __typename?: 'File', public_url?: string | null } | null, transaction_links?: Array<{ __typename?: 'OrganizationTransactionLink', id: string, amount: number, item_type: Transaction_Item_Type, item_id: string, created_at: any, updated_at: any, organization_transaction_id: string, organization_transaction: { __typename?: 'OrganizationTransaction', id: string } }> | null } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } };
+export type UserOrganizationInvoiceStatementQuery = { __typename?: 'Query', userOrganizationInvoiceStatement: { __typename?: 'OrganizationInvoiceStatement', vendor_organization_id: string, vendor_organization_customer_id?: string | null, customer_organization_id?: string | null, total_amount: number, paid_amount: number, overdue_amount: number, start_date?: any | null, end_date?: any | null, currency?: CURRENCY | null, status?: INVOICE_STATUS | null, vendor_organization: { __typename?: 'Organization', id: string, name: string }, vendor_organization_customer?: { __typename?: 'OrganizationCustomer', id: string, name: string } | null, customer_organization?: { __typename?: 'Organization', id: string, name: string } | null, data: { __typename?: 'OrganizationInvoicePaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationInvoicePaginationEdge', cursor: any, node: { __typename?: 'OrganizationInvoice', id: string, unique_code: string, number: string, currency_code: CURRENCY, description: string, payload?: any | null, amount: number, tax_amount: number, discount_amount: number, total_amount: number, invoice_date: any, due_date: any, customer_email: string, customer_address_line_1?: string | null, customer_address_number?: string | null, customer_address_line_2?: string | null, customer_address_city?: string | null, customer_address_state?: string | null, customer_address_zip_code?: string | null, customer_address_country_code_iso_3?: string | null, customer_address_lat?: number | null, customer_address_lng?: number | null, archived_at?: any | null, created_at: any, updated_at: any, organization_id: string, organization_customer_id: string, file_id?: string | null, has_sync_errors?: boolean | null, status?: INVOICE_STATUS | null, is_overdue?: boolean | null, paid_amount?: number | null, paid_at?: any | null, balance?: number | null, email_sent_at?: any | null, organization: { __typename?: 'Organization', name: string }, organization_customer: { __typename?: 'OrganizationCustomer', name: string, email: string }, organization_acct_provider_conn_invoices: Array<{ __typename?: 'OrganizationAcctProviderConnInvoice', id: string, code: string, payload?: any | null, last_sync_at?: any | null, last_sync_success?: boolean | null, last_sync_id?: string | null, organization_invoice_id: string, organization_acct_provider_conn_id: string, organization_acct_provider_conn: { __typename?: 'OrganizationAcctProviderConn', acct_provider_code: ACCT_PROVIDER } }>, file?: { __typename?: 'File', public_url?: string | null } | null, transaction_links?: Array<{ __typename?: 'OrganizationTransactionLink', id: string, amount: number, item_type: TRANSACTION_ITEM_TYPE, item_id: string, created_at: any, updated_at: any, organization_transaction_id: string, organization_transaction: { __typename?: 'OrganizationTransaction', id: string } }> | null } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } };
 
 export type UserOrganizationInvoiceQueryVariables = Exact<{
   organizationId: Scalars['String']['input'];
@@ -3141,7 +3162,7 @@ export type UserOrganizationInvoiceQueryVariables = Exact<{
 }>;
 
 
-export type UserOrganizationInvoiceQuery = { __typename?: 'Query', userOrganizationInvoice: { __typename?: 'OrganizationInvoice', id: string, unique_code: string, number: string, currency_code: Currency, description: string, payload?: any | null, amount: number, tax_amount: number, discount_amount: number, total_amount: number, invoice_date: any, due_date: any, customer_email: string, customer_address_line_1?: string | null, customer_address_number?: string | null, customer_address_line_2?: string | null, customer_address_city?: string | null, customer_address_state?: string | null, customer_address_zip_code?: string | null, customer_address_country_code_iso_3?: string | null, customer_address_lat?: number | null, customer_address_lng?: number | null, archived_at?: any | null, created_at: any, updated_at: any, organization_id: string, organization_customer_id: string, file_id?: string | null, has_sync_errors?: boolean | null, status?: Invoice_Status | null, is_overdue?: boolean | null, paid_amount?: number | null, paid_at?: any | null, balance?: number | null, email_sent_at?: any | null, organization: { __typename?: 'Organization', name: string }, organization_customer: { __typename?: 'OrganizationCustomer', name: string, email: string }, organization_acct_provider_conn_invoices: Array<{ __typename?: 'OrganizationAcctProviderConnInvoice', id: string, code: string, payload?: any | null, last_sync_at?: any | null, last_sync_success?: boolean | null, last_sync_id?: string | null, organization_invoice_id: string, organization_acct_provider_conn_id: string, organization_acct_provider_conn: { __typename?: 'OrganizationAcctProviderConn', acct_provider_code: Acct_Provider } }>, file?: { __typename?: 'File', public_url?: string | null } | null, transaction_links?: Array<{ __typename?: 'OrganizationTransactionLink', id: string, amount: number, item_type: Transaction_Item_Type, item_id: string, created_at: any, updated_at: any, organization_transaction_id: string, organization_transaction: { __typename?: 'OrganizationTransaction', id: string } }> | null } };
+export type UserOrganizationInvoiceQuery = { __typename?: 'Query', userOrganizationInvoice: { __typename?: 'OrganizationInvoice', id: string, unique_code: string, number: string, currency_code: CURRENCY, description: string, payload?: any | null, amount: number, tax_amount: number, discount_amount: number, total_amount: number, invoice_date: any, due_date: any, customer_email: string, customer_address_line_1?: string | null, customer_address_number?: string | null, customer_address_line_2?: string | null, customer_address_city?: string | null, customer_address_state?: string | null, customer_address_zip_code?: string | null, customer_address_country_code_iso_3?: string | null, customer_address_lat?: number | null, customer_address_lng?: number | null, archived_at?: any | null, created_at: any, updated_at: any, organization_id: string, organization_customer_id: string, file_id?: string | null, has_sync_errors?: boolean | null, status?: INVOICE_STATUS | null, is_overdue?: boolean | null, paid_amount?: number | null, paid_at?: any | null, balance?: number | null, email_sent_at?: any | null, organization: { __typename?: 'Organization', name: string }, organization_customer: { __typename?: 'OrganizationCustomer', name: string, email: string }, organization_acct_provider_conn_invoices: Array<{ __typename?: 'OrganizationAcctProviderConnInvoice', id: string, code: string, payload?: any | null, last_sync_at?: any | null, last_sync_success?: boolean | null, last_sync_id?: string | null, organization_invoice_id: string, organization_acct_provider_conn_id: string, organization_acct_provider_conn: { __typename?: 'OrganizationAcctProviderConn', acct_provider_code: ACCT_PROVIDER } }>, file?: { __typename?: 'File', public_url?: string | null } | null, transaction_links?: Array<{ __typename?: 'OrganizationTransactionLink', id: string, amount: number, item_type: TRANSACTION_ITEM_TYPE, item_id: string, created_at: any, updated_at: any, organization_transaction_id: string, organization_transaction: { __typename?: 'OrganizationTransaction', id: string } }> | null } };
 
 export type UserOrganizationCustomerSendInvoiceEmailMutationVariables = Exact<{
   organizationId: Scalars['String']['input'];
@@ -3151,13 +3172,31 @@ export type UserOrganizationCustomerSendInvoiceEmailMutationVariables = Exact<{
 
 export type UserOrganizationCustomerSendInvoiceEmailMutation = { __typename?: 'Mutation', userOrganizationCustomerSendInvoiceEmail: any };
 
-export type OrganizationReminderSettingFragmentFragment = { __typename?: 'OrganizationReminderSetting', id: string, due_date_mode: Reminder_Due_Date_Mode, days_amount: number, repeat_mode?: Reminder_Repeat_Mode | null, repeat_value?: number | null, selected_hour: number, created_at: any, updated_at: any, organization_id: string, organization_customer_id?: string | null, organization_project_id?: string | null, organization_invoice_id?: string | null };
+export type OrganizationFragmentFragment = { __typename?: 'Organization', id: string, name: string, email: string, unique_name: string, unique_code: string, phone_number?: string | null, address_line_1?: string | null, address_number?: string | null, address_line_2?: string | null, address_city?: string | null, address_state?: string | null, address_zip_code?: string | null, address_country_code_iso_3?: string | null, address_lat?: number | null, address_lng?: number | null, primary_contact_name?: string | null, business_name?: string | null, business_industry?: string | null, business_number_of_employees?: number | null, business_address_line_1?: string | null, business_address_number?: string | null, business_address_line_2?: string | null, business_address_city?: string | null, business_address_state?: string | null, business_address_zip_code?: string | null, business_address_country_code_iso_3?: string | null, business_address_lat?: number | null, business_address_lng?: number | null, business_tax_code_type?: string | null, business_tax_code?: string | null, timezone?: string | null, language?: string | null, archived_at?: any | null, created_at: any, updated_at: any, logo_picture_file_id?: string | null, current_email_verification_id?: string | null, current_phone_number_verification_id?: string | null, logo_picture_file?: { __typename?: 'File', public_url?: string | null } | null };
+
+export type UserOrganizationBaseSettingsQueryVariables = Exact<{
+  organizationId: Scalars['String']['input'];
+}>;
+
+
+export type UserOrganizationBaseSettingsQuery = { __typename?: 'Query', userOrganization: { __typename?: 'Organization', setting_send_invoice_due_reminders?: boolean | null, setting_send_invoice_overdue_reminders?: boolean | null, setting_allow_invoice_due_snooze_reminders?: boolean | null, setting_allow_invoice_overdue_snooze_reminders?: boolean | null } };
+
+export type UserOrganizationUpdateMutationVariables = Exact<{
+  organizationId: Scalars['String']['input'];
+  data: UserOrganizationUpdateSchema;
+}>;
+
+
+export type UserOrganizationUpdateMutation = { __typename?: 'Mutation', userOrganizationUpdate: { __typename?: 'Organization', id: string, name: string, email: string, unique_name: string, unique_code: string, phone_number?: string | null, address_line_1?: string | null, address_number?: string | null, address_line_2?: string | null, address_city?: string | null, address_state?: string | null, address_zip_code?: string | null, address_country_code_iso_3?: string | null, address_lat?: number | null, address_lng?: number | null, primary_contact_name?: string | null, business_name?: string | null, business_industry?: string | null, business_number_of_employees?: number | null, business_address_line_1?: string | null, business_address_number?: string | null, business_address_line_2?: string | null, business_address_city?: string | null, business_address_state?: string | null, business_address_zip_code?: string | null, business_address_country_code_iso_3?: string | null, business_address_lat?: number | null, business_address_lng?: number | null, business_tax_code_type?: string | null, business_tax_code?: string | null, timezone?: string | null, language?: string | null, archived_at?: any | null, created_at: any, updated_at: any, logo_picture_file_id?: string | null, current_email_verification_id?: string | null, current_phone_number_verification_id?: string | null, logo_picture_file?: { __typename?: 'File', public_url?: string | null } | null } };
+
+export type OrganizationReminderSettingFragmentFragment = { __typename?: 'OrganizationReminderSetting', id: string, due_date_mode: REMINDER_DUE_DATE_MODE, days_amount: number, repeat_mode?: REMINDER_REPEAT_MODE | null, repeat_value?: number | null, selected_hour: number, created_at: any, updated_at: any, organization_id: string, organization_customer_id?: string | null, organization_project_id?: string | null, organization_invoice_id?: string | null };
 
 export type UserOrganizationReminderSettingsQueryVariables = Exact<{
   organizationId: Scalars['String']['input'];
   organizationCustomerId?: InputMaybe<Scalars['String']['input']>;
   organizationProjectId?: InputMaybe<Scalars['String']['input']>;
   organizationInvoiceId?: InputMaybe<Scalars['String']['input']>;
+  dueDateMode?: InputMaybe<REMINDER_DUE_DATE_MODE>;
   after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
@@ -3168,7 +3207,7 @@ export type UserOrganizationReminderSettingsQueryVariables = Exact<{
 }>;
 
 
-export type UserOrganizationReminderSettingsQuery = { __typename?: 'Query', userOrganizationReminderSettings: { __typename?: 'OrganizationReminderSettingPaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationReminderSettingPaginationEdge', cursor: any, node: { __typename?: 'OrganizationReminderSetting', id: string, due_date_mode: Reminder_Due_Date_Mode, days_amount: number, repeat_mode?: Reminder_Repeat_Mode | null, repeat_value?: number | null, selected_hour: number, created_at: any, updated_at: any, organization_id: string, organization_customer_id?: string | null, organization_project_id?: string | null, organization_invoice_id?: string | null } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } };
+export type UserOrganizationReminderSettingsQuery = { __typename?: 'Query', userOrganizationReminderSettings: { __typename?: 'OrganizationReminderSettingPaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationReminderSettingPaginationEdge', cursor: any, node: { __typename?: 'OrganizationReminderSetting', id: string, due_date_mode: REMINDER_DUE_DATE_MODE, days_amount: number, repeat_mode?: REMINDER_REPEAT_MODE | null, repeat_value?: number | null, selected_hour: number, created_at: any, updated_at: any, organization_id: string, organization_customer_id?: string | null, organization_project_id?: string | null, organization_invoice_id?: string | null } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } };
 
 export type UserOrganizationReminderSettingQueryVariables = Exact<{
   organizationId: Scalars['String']['input'];
@@ -3176,15 +3215,24 @@ export type UserOrganizationReminderSettingQueryVariables = Exact<{
 }>;
 
 
-export type UserOrganizationReminderSettingQuery = { __typename?: 'Query', userOrganizationReminderSetting: { __typename?: 'OrganizationReminderSetting', id: string, due_date_mode: Reminder_Due_Date_Mode, days_amount: number, repeat_mode?: Reminder_Repeat_Mode | null, repeat_value?: number | null, selected_hour: number, created_at: any, updated_at: any, organization_id: string, organization_customer_id?: string | null, organization_project_id?: string | null, organization_invoice_id?: string | null } };
+export type UserOrganizationReminderSettingQuery = { __typename?: 'Query', userOrganizationReminderSetting: { __typename?: 'OrganizationReminderSetting', id: string, due_date_mode: REMINDER_DUE_DATE_MODE, days_amount: number, repeat_mode?: REMINDER_REPEAT_MODE | null, repeat_value?: number | null, selected_hour: number, created_at: any, updated_at: any, organization_id: string, organization_customer_id?: string | null, organization_project_id?: string | null, organization_invoice_id?: string | null } };
 
 export type UserOrganizationReminderSettingCreateMutationVariables = Exact<{
   organizationId: Scalars['String']['input'];
-  data: UserOrganizationReminderSettingCreateSchema;
+  data: UserOrganizationReminderSettingSchema;
 }>;
 
 
-export type UserOrganizationReminderSettingCreateMutation = { __typename?: 'Mutation', userOrganizationReminderSettingCreate: { __typename?: 'OrganizationReminderSetting', id: string, due_date_mode: Reminder_Due_Date_Mode, days_amount: number, repeat_mode?: Reminder_Repeat_Mode | null, repeat_value?: number | null, selected_hour: number, created_at: any, updated_at: any, organization_id: string, organization_customer_id?: string | null, organization_project_id?: string | null, organization_invoice_id?: string | null } };
+export type UserOrganizationReminderSettingCreateMutation = { __typename?: 'Mutation', userOrganizationReminderSettingCreate: { __typename?: 'OrganizationReminderSetting', id: string, due_date_mode: REMINDER_DUE_DATE_MODE, days_amount: number, repeat_mode?: REMINDER_REPEAT_MODE | null, repeat_value?: number | null, selected_hour: number, created_at: any, updated_at: any, organization_id: string, organization_customer_id?: string | null, organization_project_id?: string | null, organization_invoice_id?: string | null } };
+
+export type UserOrganizationReminderSettingUpdateMutationVariables = Exact<{
+  organizationId: Scalars['String']['input'];
+  organizationReminderSettingId: Scalars['String']['input'];
+  data: UserOrganizationReminderSettingSchema;
+}>;
+
+
+export type UserOrganizationReminderSettingUpdateMutation = { __typename?: 'Mutation', userOrganizationReminderSettingUpdate: { __typename?: 'OrganizationReminderSetting', id: string, due_date_mode: REMINDER_DUE_DATE_MODE, days_amount: number, repeat_mode?: REMINDER_REPEAT_MODE | null, repeat_value?: number | null, selected_hour: number, created_at: any, updated_at: any, organization_id: string, organization_customer_id?: string | null, organization_project_id?: string | null, organization_invoice_id?: string | null } };
 
 export type UserOrganizationReminderSettingDeleteMutationVariables = Exact<{
   organizationId: Scalars['String']['input'];
@@ -3192,15 +3240,15 @@ export type UserOrganizationReminderSettingDeleteMutationVariables = Exact<{
 }>;
 
 
-export type UserOrganizationReminderSettingDeleteMutation = { __typename?: 'Mutation', userOrganizationReminderSettingDelete: { __typename?: 'OrganizationReminderSetting', id: string, due_date_mode: Reminder_Due_Date_Mode, days_amount: number, repeat_mode?: Reminder_Repeat_Mode | null, repeat_value?: number | null, selected_hour: number, created_at: any, updated_at: any, organization_id: string, organization_customer_id?: string | null, organization_project_id?: string | null, organization_invoice_id?: string | null } };
+export type UserOrganizationReminderSettingDeleteMutation = { __typename?: 'Mutation', userOrganizationReminderSettingDelete: { __typename?: 'OrganizationReminderSetting', id: string, due_date_mode: REMINDER_DUE_DATE_MODE, days_amount: number, repeat_mode?: REMINDER_REPEAT_MODE | null, repeat_value?: number | null, selected_hour: number, created_at: any, updated_at: any, organization_id: string, organization_customer_id?: string | null, organization_project_id?: string | null, organization_invoice_id?: string | null } };
 
 export type UserCustomerOrganizationInvoiceStatementQueryVariables = Exact<{
   organizationId: Scalars['String']['input'];
   organizationVendorId: Scalars['String']['input'];
-  currency?: InputMaybe<Currency>;
+  currency?: InputMaybe<CURRENCY>;
   startDate?: InputMaybe<Scalars['DateTime']['input']>;
   endDate?: InputMaybe<Scalars['DateTime']['input']>;
-  status?: InputMaybe<Invoice_Status>;
+  status?: InputMaybe<INVOICE_STATUS>;
   isOverdue?: InputMaybe<Scalars['Boolean']['input']>;
   after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
@@ -3212,9 +3260,9 @@ export type UserCustomerOrganizationInvoiceStatementQueryVariables = Exact<{
 }>;
 
 
-export type UserCustomerOrganizationInvoiceStatementQuery = { __typename?: 'Query', userCustomerOrganizationInvoiceStatement: { __typename?: 'OrganizationInvoiceStatement', vendor_organization_id: string, vendor_organization_customer_id?: string | null, customer_organization_id?: string | null, total_amount: number, paid_amount: number, overdue_amount: number, balance: number, start_date?: any | null, end_date?: any | null, currency?: Currency | null, status?: Invoice_Status | null, vendor_organization: { __typename?: 'Organization', id: string, name: string }, vendor_organization_customer?: { __typename?: 'OrganizationCustomer', id: string, name: string } | null, customer_organization?: { __typename?: 'Organization', id: string, name: string } | null, data: { __typename?: 'OrganizationInvoicePaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationInvoicePaginationEdge', cursor: any, node: { __typename?: 'OrganizationInvoice', id: string, unique_code: string, number: string, currency_code: Currency, description: string, payload?: any | null, amount: number, tax_amount: number, discount_amount: number, total_amount: number, invoice_date: any, due_date: any, customer_email: string, customer_address_line_1?: string | null, customer_address_number?: string | null, customer_address_line_2?: string | null, customer_address_city?: string | null, customer_address_state?: string | null, customer_address_zip_code?: string | null, customer_address_country_code_iso_3?: string | null, customer_address_lat?: number | null, customer_address_lng?: number | null, archived_at?: any | null, created_at: any, updated_at: any, organization_id: string, organization_customer_id: string, file_id?: string | null, has_sync_errors?: boolean | null, status?: Invoice_Status | null, is_overdue?: boolean | null, paid_amount?: number | null, paid_at?: any | null, balance?: number | null, email_sent_at?: any | null, organization: { __typename?: 'Organization', name: string }, organization_customer: { __typename?: 'OrganizationCustomer', name: string, email: string }, organization_acct_provider_conn_invoices: Array<{ __typename?: 'OrganizationAcctProviderConnInvoice', id: string, code: string, payload?: any | null, last_sync_at?: any | null, last_sync_success?: boolean | null, last_sync_id?: string | null, organization_invoice_id: string, organization_acct_provider_conn_id: string, organization_acct_provider_conn: { __typename?: 'OrganizationAcctProviderConn', acct_provider_code: Acct_Provider } }>, file?: { __typename?: 'File', public_url?: string | null } | null, transaction_links?: Array<{ __typename?: 'OrganizationTransactionLink', id: string, amount: number, item_type: Transaction_Item_Type, item_id: string, created_at: any, updated_at: any, organization_transaction_id: string, organization_transaction: { __typename?: 'OrganizationTransaction', id: string } }> | null } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } };
+export type UserCustomerOrganizationInvoiceStatementQuery = { __typename?: 'Query', userCustomerOrganizationInvoiceStatement: { __typename?: 'OrganizationInvoiceStatement', vendor_organization_id: string, vendor_organization_customer_id?: string | null, customer_organization_id?: string | null, total_amount: number, paid_amount: number, overdue_amount: number, balance: number, start_date?: any | null, end_date?: any | null, currency?: CURRENCY | null, status?: INVOICE_STATUS | null, vendor_organization: { __typename?: 'Organization', id: string, name: string }, vendor_organization_customer?: { __typename?: 'OrganizationCustomer', id: string, name: string } | null, customer_organization?: { __typename?: 'Organization', id: string, name: string } | null, data: { __typename?: 'OrganizationInvoicePaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationInvoicePaginationEdge', cursor: any, node: { __typename?: 'OrganizationInvoice', id: string, unique_code: string, number: string, currency_code: CURRENCY, description: string, payload?: any | null, amount: number, tax_amount: number, discount_amount: number, total_amount: number, invoice_date: any, due_date: any, customer_email: string, customer_address_line_1?: string | null, customer_address_number?: string | null, customer_address_line_2?: string | null, customer_address_city?: string | null, customer_address_state?: string | null, customer_address_zip_code?: string | null, customer_address_country_code_iso_3?: string | null, customer_address_lat?: number | null, customer_address_lng?: number | null, archived_at?: any | null, created_at: any, updated_at: any, organization_id: string, organization_customer_id: string, file_id?: string | null, has_sync_errors?: boolean | null, status?: INVOICE_STATUS | null, is_overdue?: boolean | null, paid_amount?: number | null, paid_at?: any | null, balance?: number | null, email_sent_at?: any | null, organization: { __typename?: 'Organization', name: string }, organization_customer: { __typename?: 'OrganizationCustomer', name: string, email: string }, organization_acct_provider_conn_invoices: Array<{ __typename?: 'OrganizationAcctProviderConnInvoice', id: string, code: string, payload?: any | null, last_sync_at?: any | null, last_sync_success?: boolean | null, last_sync_id?: string | null, organization_invoice_id: string, organization_acct_provider_conn_id: string, organization_acct_provider_conn: { __typename?: 'OrganizationAcctProviderConn', acct_provider_code: ACCT_PROVIDER } }>, file?: { __typename?: 'File', public_url?: string | null } | null, transaction_links?: Array<{ __typename?: 'OrganizationTransactionLink', id: string, amount: number, item_type: TRANSACTION_ITEM_TYPE, item_id: string, created_at: any, updated_at: any, organization_transaction_id: string, organization_transaction: { __typename?: 'OrganizationTransaction', id: string } }> | null } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } };
 
-export type OrganizationVendorFragmentFragment = { __typename?: 'OrganizationVendor', id: string, is_active: boolean, email: string, name: string, unique_code: string, phone_number?: string | null, tax_code_type?: string | null, tax_code?: string | null, created_at: any, updated_at: any, conn_locked_data_at?: any | null, connection?: { __typename?: 'OrganizationConnection', id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status?: Organization_Connection_Status | null, vendor_conn_status_at?: any | null, vendor_organization_id?: string | null, vendor_organization_name?: string | null, vendor_organization_email?: string | null, vendor_target_customer_id?: string | null, vendor_target_customer_name?: string | null, vendor_target_customer_email?: string | null, customer_conn_status?: Organization_Connection_Status | null, customer_conn_status_at?: any | null, customer_organization_id?: string | null, customer_organization_name?: string | null, customer_organization_email?: string | null, customer_target_vendor_id?: string | null, customer_target_vendor_name?: string | null, customer_target_vendor_email?: string | null, created_at: any, updated_at: any } | null, contacts: Array<{ __typename?: 'OrganizationVendorContact', id: string, name: string, email: string, phone_number?: string | null, is_default: boolean, created_at: any, updated_at: any }>, bill_statement: { __typename?: 'OrganizationBillStatement', total_amount: number, paid_amount: number, overdue_amount: number, start_date?: any | null, end_date?: any | null, currency?: Currency | null, status?: Bill_Status | null, data: { __typename?: 'OrganizationBillPaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationBillPaginationEdge', cursor: any, node: { __typename?: 'OrganizationBill', id: string, file_id?: string | null, unique_code: string, number: string, currency_code: Currency, description: string, amount: number, tax_amount: number, discount_amount: number, total_amount: number, paid_amount?: number | null, bill_date: any, due_date: any, vendor_email: string, created_at: any, updated_at: any, status?: Bill_Status | null, file?: { __typename?: 'File', public_url?: string | null } | null } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } };
+export type OrganizationVendorFragmentFragment = { __typename?: 'OrganizationVendor', id: string, is_active: boolean, email: string, name: string, unique_code: string, phone_number?: string | null, tax_code_type?: string | null, tax_code?: string | null, created_at: any, updated_at: any, conn_locked_data_at?: any | null, connection?: { __typename?: 'OrganizationConnection', id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, vendor_conn_status_at?: any | null, vendor_organization_id?: string | null, vendor_organization_name?: string | null, vendor_organization_email?: string | null, vendor_target_customer_id?: string | null, vendor_target_customer_name?: string | null, vendor_target_customer_email?: string | null, customer_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, customer_conn_status_at?: any | null, customer_organization_id?: string | null, customer_organization_name?: string | null, customer_organization_email?: string | null, customer_target_vendor_id?: string | null, customer_target_vendor_name?: string | null, customer_target_vendor_email?: string | null, created_at: any, updated_at: any } | null, contacts: Array<{ __typename?: 'OrganizationVendorContact', id: string, name: string, email: string, phone_number?: string | null, is_default: boolean, created_at: any, updated_at: any }>, bill_statement: { __typename?: 'OrganizationBillStatement', total_amount: number, paid_amount: number, overdue_amount: number, start_date?: any | null, end_date?: any | null, currency?: CURRENCY | null, status?: BILL_STATUS | null, data: { __typename?: 'OrganizationBillPaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationBillPaginationEdge', cursor: any, node: { __typename?: 'OrganizationBill', id: string, file_id?: string | null, unique_code: string, number: string, currency_code: CURRENCY, description: string, amount: number, tax_amount: number, discount_amount: number, total_amount: number, paid_amount?: number | null, bill_date: any, due_date: any, vendor_email: string, created_at: any, updated_at: any, status?: BILL_STATUS | null, file?: { __typename?: 'File', public_url?: string | null } | null } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } };
 
 export type UserOrganizationVendorsQueryVariables = Exact<{
   organizationId: Scalars['String']['input'];
@@ -3229,7 +3277,7 @@ export type UserOrganizationVendorsQueryVariables = Exact<{
 }>;
 
 
-export type UserOrganizationVendorsQuery = { __typename?: 'Query', userOrganizationVendors: { __typename?: 'OrganizationVendorPaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationVendorPaginationEdge', cursor: any, node: { __typename?: 'OrganizationVendor', id: string, is_active: boolean, email: string, name: string, unique_code: string, phone_number?: string | null, tax_code_type?: string | null, tax_code?: string | null, created_at: any, updated_at: any, conn_locked_data_at?: any | null, connection?: { __typename?: 'OrganizationConnection', id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status?: Organization_Connection_Status | null, vendor_conn_status_at?: any | null, vendor_organization_id?: string | null, vendor_organization_name?: string | null, vendor_organization_email?: string | null, vendor_target_customer_id?: string | null, vendor_target_customer_name?: string | null, vendor_target_customer_email?: string | null, customer_conn_status?: Organization_Connection_Status | null, customer_conn_status_at?: any | null, customer_organization_id?: string | null, customer_organization_name?: string | null, customer_organization_email?: string | null, customer_target_vendor_id?: string | null, customer_target_vendor_name?: string | null, customer_target_vendor_email?: string | null, created_at: any, updated_at: any } | null, contacts: Array<{ __typename?: 'OrganizationVendorContact', id: string, name: string, email: string, phone_number?: string | null, is_default: boolean, created_at: any, updated_at: any }>, bill_statement: { __typename?: 'OrganizationBillStatement', total_amount: number, paid_amount: number, overdue_amount: number, start_date?: any | null, end_date?: any | null, currency?: Currency | null, status?: Bill_Status | null, data: { __typename?: 'OrganizationBillPaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationBillPaginationEdge', cursor: any, node: { __typename?: 'OrganizationBill', id: string, file_id?: string | null, unique_code: string, number: string, currency_code: Currency, description: string, amount: number, tax_amount: number, discount_amount: number, total_amount: number, paid_amount?: number | null, bill_date: any, due_date: any, vendor_email: string, created_at: any, updated_at: any, status?: Bill_Status | null, file?: { __typename?: 'File', public_url?: string | null } | null } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } };
+export type UserOrganizationVendorsQuery = { __typename?: 'Query', userOrganizationVendors: { __typename?: 'OrganizationVendorPaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationVendorPaginationEdge', cursor: any, node: { __typename?: 'OrganizationVendor', id: string, is_active: boolean, email: string, name: string, unique_code: string, phone_number?: string | null, tax_code_type?: string | null, tax_code?: string | null, created_at: any, updated_at: any, conn_locked_data_at?: any | null, connection?: { __typename?: 'OrganizationConnection', id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, vendor_conn_status_at?: any | null, vendor_organization_id?: string | null, vendor_organization_name?: string | null, vendor_organization_email?: string | null, vendor_target_customer_id?: string | null, vendor_target_customer_name?: string | null, vendor_target_customer_email?: string | null, customer_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, customer_conn_status_at?: any | null, customer_organization_id?: string | null, customer_organization_name?: string | null, customer_organization_email?: string | null, customer_target_vendor_id?: string | null, customer_target_vendor_name?: string | null, customer_target_vendor_email?: string | null, created_at: any, updated_at: any } | null, contacts: Array<{ __typename?: 'OrganizationVendorContact', id: string, name: string, email: string, phone_number?: string | null, is_default: boolean, created_at: any, updated_at: any }>, bill_statement: { __typename?: 'OrganizationBillStatement', total_amount: number, paid_amount: number, overdue_amount: number, start_date?: any | null, end_date?: any | null, currency?: CURRENCY | null, status?: BILL_STATUS | null, data: { __typename?: 'OrganizationBillPaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationBillPaginationEdge', cursor: any, node: { __typename?: 'OrganizationBill', id: string, file_id?: string | null, unique_code: string, number: string, currency_code: CURRENCY, description: string, amount: number, tax_amount: number, discount_amount: number, total_amount: number, paid_amount?: number | null, bill_date: any, due_date: any, vendor_email: string, created_at: any, updated_at: any, status?: BILL_STATUS | null, file?: { __typename?: 'File', public_url?: string | null } | null } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } };
 
 export type UserOrganizationVendorQueryVariables = Exact<{
   organizationVendorId: Scalars['String']['input'];
@@ -3237,7 +3285,7 @@ export type UserOrganizationVendorQueryVariables = Exact<{
 }>;
 
 
-export type UserOrganizationVendorQuery = { __typename?: 'Query', userOrganizationVendor: { __typename?: 'OrganizationVendor', id: string, is_active: boolean, email: string, name: string, unique_code: string, phone_number?: string | null, tax_code_type?: string | null, tax_code?: string | null, created_at: any, updated_at: any, conn_locked_data_at?: any | null, connection?: { __typename?: 'OrganizationConnection', id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status?: Organization_Connection_Status | null, vendor_conn_status_at?: any | null, vendor_organization_id?: string | null, vendor_organization_name?: string | null, vendor_organization_email?: string | null, vendor_target_customer_id?: string | null, vendor_target_customer_name?: string | null, vendor_target_customer_email?: string | null, customer_conn_status?: Organization_Connection_Status | null, customer_conn_status_at?: any | null, customer_organization_id?: string | null, customer_organization_name?: string | null, customer_organization_email?: string | null, customer_target_vendor_id?: string | null, customer_target_vendor_name?: string | null, customer_target_vendor_email?: string | null, created_at: any, updated_at: any } | null, contacts: Array<{ __typename?: 'OrganizationVendorContact', id: string, name: string, email: string, phone_number?: string | null, is_default: boolean, created_at: any, updated_at: any }>, bill_statement: { __typename?: 'OrganizationBillStatement', total_amount: number, paid_amount: number, overdue_amount: number, start_date?: any | null, end_date?: any | null, currency?: Currency | null, status?: Bill_Status | null, data: { __typename?: 'OrganizationBillPaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationBillPaginationEdge', cursor: any, node: { __typename?: 'OrganizationBill', id: string, file_id?: string | null, unique_code: string, number: string, currency_code: Currency, description: string, amount: number, tax_amount: number, discount_amount: number, total_amount: number, paid_amount?: number | null, bill_date: any, due_date: any, vendor_email: string, created_at: any, updated_at: any, status?: Bill_Status | null, file?: { __typename?: 'File', public_url?: string | null } | null } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } } };
+export type UserOrganizationVendorQuery = { __typename?: 'Query', userOrganizationVendor: { __typename?: 'OrganizationVendor', id: string, is_active: boolean, email: string, name: string, unique_code: string, phone_number?: string | null, tax_code_type?: string | null, tax_code?: string | null, created_at: any, updated_at: any, conn_locked_data_at?: any | null, connection?: { __typename?: 'OrganizationConnection', id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, vendor_conn_status_at?: any | null, vendor_organization_id?: string | null, vendor_organization_name?: string | null, vendor_organization_email?: string | null, vendor_target_customer_id?: string | null, vendor_target_customer_name?: string | null, vendor_target_customer_email?: string | null, customer_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, customer_conn_status_at?: any | null, customer_organization_id?: string | null, customer_organization_name?: string | null, customer_organization_email?: string | null, customer_target_vendor_id?: string | null, customer_target_vendor_name?: string | null, customer_target_vendor_email?: string | null, created_at: any, updated_at: any } | null, contacts: Array<{ __typename?: 'OrganizationVendorContact', id: string, name: string, email: string, phone_number?: string | null, is_default: boolean, created_at: any, updated_at: any }>, bill_statement: { __typename?: 'OrganizationBillStatement', total_amount: number, paid_amount: number, overdue_amount: number, start_date?: any | null, end_date?: any | null, currency?: CURRENCY | null, status?: BILL_STATUS | null, data: { __typename?: 'OrganizationBillPaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationBillPaginationEdge', cursor: any, node: { __typename?: 'OrganizationBill', id: string, file_id?: string | null, unique_code: string, number: string, currency_code: CURRENCY, description: string, amount: number, tax_amount: number, discount_amount: number, total_amount: number, paid_amount?: number | null, bill_date: any, due_date: any, vendor_email: string, created_at: any, updated_at: any, status?: BILL_STATUS | null, file?: { __typename?: 'File', public_url?: string | null } | null } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } } };
 
 export type UserOrganizationVendorUpdateMutationVariables = Exact<{
   organizationId: Scalars['String']['input'];
@@ -3246,7 +3294,7 @@ export type UserOrganizationVendorUpdateMutationVariables = Exact<{
 }>;
 
 
-export type UserOrganizationVendorUpdateMutation = { __typename?: 'Mutation', userOrganizationVendorUpdate: { __typename?: 'OrganizationVendor', id: string, is_active: boolean, email: string, name: string, unique_code: string, phone_number?: string | null, tax_code_type?: string | null, tax_code?: string | null, created_at: any, updated_at: any, conn_locked_data_at?: any | null, connection?: { __typename?: 'OrganizationConnection', id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status?: Organization_Connection_Status | null, vendor_conn_status_at?: any | null, vendor_organization_id?: string | null, vendor_organization_name?: string | null, vendor_organization_email?: string | null, vendor_target_customer_id?: string | null, vendor_target_customer_name?: string | null, vendor_target_customer_email?: string | null, customer_conn_status?: Organization_Connection_Status | null, customer_conn_status_at?: any | null, customer_organization_id?: string | null, customer_organization_name?: string | null, customer_organization_email?: string | null, customer_target_vendor_id?: string | null, customer_target_vendor_name?: string | null, customer_target_vendor_email?: string | null, created_at: any, updated_at: any } | null, contacts: Array<{ __typename?: 'OrganizationVendorContact', id: string, name: string, email: string, phone_number?: string | null, is_default: boolean, created_at: any, updated_at: any }>, bill_statement: { __typename?: 'OrganizationBillStatement', total_amount: number, paid_amount: number, overdue_amount: number, start_date?: any | null, end_date?: any | null, currency?: Currency | null, status?: Bill_Status | null, data: { __typename?: 'OrganizationBillPaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationBillPaginationEdge', cursor: any, node: { __typename?: 'OrganizationBill', id: string, file_id?: string | null, unique_code: string, number: string, currency_code: Currency, description: string, amount: number, tax_amount: number, discount_amount: number, total_amount: number, paid_amount?: number | null, bill_date: any, due_date: any, vendor_email: string, created_at: any, updated_at: any, status?: Bill_Status | null, file?: { __typename?: 'File', public_url?: string | null } | null } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } } };
+export type UserOrganizationVendorUpdateMutation = { __typename?: 'Mutation', userOrganizationVendorUpdate: { __typename?: 'OrganizationVendor', id: string, is_active: boolean, email: string, name: string, unique_code: string, phone_number?: string | null, tax_code_type?: string | null, tax_code?: string | null, created_at: any, updated_at: any, conn_locked_data_at?: any | null, connection?: { __typename?: 'OrganizationConnection', id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, vendor_conn_status_at?: any | null, vendor_organization_id?: string | null, vendor_organization_name?: string | null, vendor_organization_email?: string | null, vendor_target_customer_id?: string | null, vendor_target_customer_name?: string | null, vendor_target_customer_email?: string | null, customer_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, customer_conn_status_at?: any | null, customer_organization_id?: string | null, customer_organization_name?: string | null, customer_organization_email?: string | null, customer_target_vendor_id?: string | null, customer_target_vendor_name?: string | null, customer_target_vendor_email?: string | null, created_at: any, updated_at: any } | null, contacts: Array<{ __typename?: 'OrganizationVendorContact', id: string, name: string, email: string, phone_number?: string | null, is_default: boolean, created_at: any, updated_at: any }>, bill_statement: { __typename?: 'OrganizationBillStatement', total_amount: number, paid_amount: number, overdue_amount: number, start_date?: any | null, end_date?: any | null, currency?: CURRENCY | null, status?: BILL_STATUS | null, data: { __typename?: 'OrganizationBillPaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationBillPaginationEdge', cursor: any, node: { __typename?: 'OrganizationBill', id: string, file_id?: string | null, unique_code: string, number: string, currency_code: CURRENCY, description: string, amount: number, tax_amount: number, discount_amount: number, total_amount: number, paid_amount?: number | null, bill_date: any, due_date: any, vendor_email: string, created_at: any, updated_at: any, status?: BILL_STATUS | null, file?: { __typename?: 'File', public_url?: string | null } | null } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } } };
 
 export type UserOrganizationVendorCreateMutationVariables = Exact<{
   organizationId: Scalars['String']['input'];
@@ -3254,7 +3302,7 @@ export type UserOrganizationVendorCreateMutationVariables = Exact<{
 }>;
 
 
-export type UserOrganizationVendorCreateMutation = { __typename?: 'Mutation', userOrganizationVendorCreate: { __typename?: 'OrganizationVendor', id: string, is_active: boolean, email: string, name: string, unique_code: string, phone_number?: string | null, tax_code_type?: string | null, tax_code?: string | null, created_at: any, updated_at: any, conn_locked_data_at?: any | null, connection?: { __typename?: 'OrganizationConnection', id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status?: Organization_Connection_Status | null, vendor_conn_status_at?: any | null, vendor_organization_id?: string | null, vendor_organization_name?: string | null, vendor_organization_email?: string | null, vendor_target_customer_id?: string | null, vendor_target_customer_name?: string | null, vendor_target_customer_email?: string | null, customer_conn_status?: Organization_Connection_Status | null, customer_conn_status_at?: any | null, customer_organization_id?: string | null, customer_organization_name?: string | null, customer_organization_email?: string | null, customer_target_vendor_id?: string | null, customer_target_vendor_name?: string | null, customer_target_vendor_email?: string | null, created_at: any, updated_at: any } | null, contacts: Array<{ __typename?: 'OrganizationVendorContact', id: string, name: string, email: string, phone_number?: string | null, is_default: boolean, created_at: any, updated_at: any }>, bill_statement: { __typename?: 'OrganizationBillStatement', total_amount: number, paid_amount: number, overdue_amount: number, start_date?: any | null, end_date?: any | null, currency?: Currency | null, status?: Bill_Status | null, data: { __typename?: 'OrganizationBillPaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationBillPaginationEdge', cursor: any, node: { __typename?: 'OrganizationBill', id: string, file_id?: string | null, unique_code: string, number: string, currency_code: Currency, description: string, amount: number, tax_amount: number, discount_amount: number, total_amount: number, paid_amount?: number | null, bill_date: any, due_date: any, vendor_email: string, created_at: any, updated_at: any, status?: Bill_Status | null, file?: { __typename?: 'File', public_url?: string | null } | null } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } } };
+export type UserOrganizationVendorCreateMutation = { __typename?: 'Mutation', userOrganizationVendorCreate: { __typename?: 'OrganizationVendor', id: string, is_active: boolean, email: string, name: string, unique_code: string, phone_number?: string | null, tax_code_type?: string | null, tax_code?: string | null, created_at: any, updated_at: any, conn_locked_data_at?: any | null, connection?: { __typename?: 'OrganizationConnection', id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, vendor_conn_status_at?: any | null, vendor_organization_id?: string | null, vendor_organization_name?: string | null, vendor_organization_email?: string | null, vendor_target_customer_id?: string | null, vendor_target_customer_name?: string | null, vendor_target_customer_email?: string | null, customer_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, customer_conn_status_at?: any | null, customer_organization_id?: string | null, customer_organization_name?: string | null, customer_organization_email?: string | null, customer_target_vendor_id?: string | null, customer_target_vendor_name?: string | null, customer_target_vendor_email?: string | null, created_at: any, updated_at: any } | null, contacts: Array<{ __typename?: 'OrganizationVendorContact', id: string, name: string, email: string, phone_number?: string | null, is_default: boolean, created_at: any, updated_at: any }>, bill_statement: { __typename?: 'OrganizationBillStatement', total_amount: number, paid_amount: number, overdue_amount: number, start_date?: any | null, end_date?: any | null, currency?: CURRENCY | null, status?: BILL_STATUS | null, data: { __typename?: 'OrganizationBillPaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationBillPaginationEdge', cursor: any, node: { __typename?: 'OrganizationBill', id: string, file_id?: string | null, unique_code: string, number: string, currency_code: CURRENCY, description: string, amount: number, tax_amount: number, discount_amount: number, total_amount: number, paid_amount?: number | null, bill_date: any, due_date: any, vendor_email: string, created_at: any, updated_at: any, status?: BILL_STATUS | null, file?: { __typename?: 'File', public_url?: string | null } | null } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } } };
 
 export const OrganizationAcctProviderConnFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"OrganizationAcctProviderConnFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"OrganizationAcctProviderConn"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"acct_provider_code"}},{"kind":"Field","name":{"kind":"Name","value":"code"}},{"kind":"Field","name":{"kind":"Name","value":"payload"}},{"kind":"Field","name":{"kind":"Name","value":"conn_expires_at"}},{"kind":"Field","name":{"kind":"Name","value":"automatic_pull_enabled"}},{"kind":"Field","name":{"kind":"Name","value":"automatic_push_enabled"}},{"kind":"Field","name":{"kind":"Name","value":"disconnected_at"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}},{"kind":"Field","name":{"kind":"Name","value":"organization_id"}}]}}]} as unknown as DocumentNode<OrganizationAcctProviderConnFragmentFragment, unknown>;
 export const OrganizationAcctProviderConnSynchronizationFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"OrganizationAcctProviderConnSynchronizationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"OrganizationAcctProviderConnSynchronization"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"trigger_code"}},{"kind":"Field","name":{"kind":"Name","value":"pull"}},{"kind":"Field","name":{"kind":"Name","value":"push"}},{"kind":"Field","name":{"kind":"Name","value":"errors"}},{"kind":"Field","name":{"kind":"Name","value":"started_at"}},{"kind":"Field","name":{"kind":"Name","value":"finished_at"}},{"kind":"Field","name":{"kind":"Name","value":"failed_at"}},{"kind":"Field","name":{"kind":"Name","value":"succeeded_at"}},{"kind":"Field","name":{"kind":"Name","value":"local_read_success_count"}},{"kind":"Field","name":{"kind":"Name","value":"local_create_success_count"}},{"kind":"Field","name":{"kind":"Name","value":"local_update_success_count"}},{"kind":"Field","name":{"kind":"Name","value":"local_delete_success_count"}},{"kind":"Field","name":{"kind":"Name","value":"local_read_failure_count"}},{"kind":"Field","name":{"kind":"Name","value":"local_create_failure_count"}},{"kind":"Field","name":{"kind":"Name","value":"local_update_failure_count"}},{"kind":"Field","name":{"kind":"Name","value":"local_delete_failure_count"}},{"kind":"Field","name":{"kind":"Name","value":"remote_read_success_count"}},{"kind":"Field","name":{"kind":"Name","value":"remote_create_success_count"}},{"kind":"Field","name":{"kind":"Name","value":"remote_update_success_count"}},{"kind":"Field","name":{"kind":"Name","value":"remote_delete_success_count"}},{"kind":"Field","name":{"kind":"Name","value":"remote_read_failure_count"}},{"kind":"Field","name":{"kind":"Name","value":"remote_create_failure_count"}},{"kind":"Field","name":{"kind":"Name","value":"remote_update_failure_count"}},{"kind":"Field","name":{"kind":"Name","value":"remote_delete_failure_count"}},{"kind":"Field","name":{"kind":"Name","value":"sync_cluster_code"}},{"kind":"Field","name":{"kind":"Name","value":"status_description"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}},{"kind":"Field","name":{"kind":"Name","value":"organization_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization_acct_provider_conn_id"}}]}}]} as unknown as DocumentNode<OrganizationAcctProviderConnSynchronizationFragmentFragment, unknown>;
@@ -3262,6 +3310,7 @@ export const OrganizationBillFragmentFragmentDoc = {"kind":"Document","definitio
 export const OrganizationConnectionFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"OrganizationConnectionFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"OrganizationConnection"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"is_valid"}},{"kind":"Field","name":{"kind":"Name","value":"is_connected"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_conn_status"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_conn_status_at"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_organization_id"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_organization_name"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_organization_email"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_target_customer_id"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_target_customer_name"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_target_customer_email"}},{"kind":"Field","name":{"kind":"Name","value":"customer_conn_status"}},{"kind":"Field","name":{"kind":"Name","value":"customer_conn_status_at"}},{"kind":"Field","name":{"kind":"Name","value":"customer_organization_id"}},{"kind":"Field","name":{"kind":"Name","value":"customer_organization_name"}},{"kind":"Field","name":{"kind":"Name","value":"customer_organization_email"}},{"kind":"Field","name":{"kind":"Name","value":"customer_target_vendor_id"}},{"kind":"Field","name":{"kind":"Name","value":"customer_target_vendor_name"}},{"kind":"Field","name":{"kind":"Name","value":"customer_target_vendor_email"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}}]}}]} as unknown as DocumentNode<OrganizationConnectionFragmentFragment, unknown>;
 export const OrganizationCustomerFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"OrganizationCustomerFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"OrganizationCustomer"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"is_active"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"unique_code"}},{"kind":"Field","name":{"kind":"Name","value":"phone_number"}},{"kind":"Field","name":{"kind":"Name","value":"tax_code_type"}},{"kind":"Field","name":{"kind":"Name","value":"tax_code"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}},{"kind":"Field","name":{"kind":"Name","value":"conn_locked_data_at"}},{"kind":"Field","name":{"kind":"Name","value":"connection"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"OrganizationConnectionFragment"}}]}},{"kind":"Field","name":{"kind":"Name","value":"contacts"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone_number"}},{"kind":"Field","name":{"kind":"Name","value":"is_default"}},{"kind":"Field","name":{"kind":"Name","value":"send_invoice_reminders"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}}]}},{"kind":"Field","name":{"kind":"Name","value":"invoice_statement"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"totalCount"}},{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"cursor"}},{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"file_id"}},{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"public_url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"unique_code"}},{"kind":"Field","name":{"kind":"Name","value":"number"}},{"kind":"Field","name":{"kind":"Name","value":"currency_code"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"amount"}},{"kind":"Field","name":{"kind":"Name","value":"tax_amount"}},{"kind":"Field","name":{"kind":"Name","value":"discount_amount"}},{"kind":"Field","name":{"kind":"Name","value":"paid_amount"}},{"kind":"Field","name":{"kind":"Name","value":"invoice_date"}},{"kind":"Field","name":{"kind":"Name","value":"due_date"}},{"kind":"Field","name":{"kind":"Name","value":"customer_email"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}},{"kind":"Field","name":{"kind":"Name","value":"status"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"startCursor"}},{"kind":"Field","name":{"kind":"Name","value":"endCursor"}},{"kind":"Field","name":{"kind":"Name","value":"hasPreviousPage"}},{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"total_amount"}},{"kind":"Field","name":{"kind":"Name","value":"paid_amount"}},{"kind":"Field","name":{"kind":"Name","value":"overdue_amount"}},{"kind":"Field","name":{"kind":"Name","value":"start_date"}},{"kind":"Field","name":{"kind":"Name","value":"end_date"}},{"kind":"Field","name":{"kind":"Name","value":"currency"}},{"kind":"Field","name":{"kind":"Name","value":"status"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"OrganizationConnectionFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"OrganizationConnection"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"is_valid"}},{"kind":"Field","name":{"kind":"Name","value":"is_connected"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_conn_status"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_conn_status_at"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_organization_id"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_organization_name"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_organization_email"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_target_customer_id"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_target_customer_name"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_target_customer_email"}},{"kind":"Field","name":{"kind":"Name","value":"customer_conn_status"}},{"kind":"Field","name":{"kind":"Name","value":"customer_conn_status_at"}},{"kind":"Field","name":{"kind":"Name","value":"customer_organization_id"}},{"kind":"Field","name":{"kind":"Name","value":"customer_organization_name"}},{"kind":"Field","name":{"kind":"Name","value":"customer_organization_email"}},{"kind":"Field","name":{"kind":"Name","value":"customer_target_vendor_id"}},{"kind":"Field","name":{"kind":"Name","value":"customer_target_vendor_name"}},{"kind":"Field","name":{"kind":"Name","value":"customer_target_vendor_email"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}}]}}]} as unknown as DocumentNode<OrganizationCustomerFragmentFragment, unknown>;
 export const OrganizationInvoiceFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"OrganizationInvoiceFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"OrganizationInvoice"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"unique_code"}},{"kind":"Field","name":{"kind":"Name","value":"number"}},{"kind":"Field","name":{"kind":"Name","value":"currency_code"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"payload"}},{"kind":"Field","name":{"kind":"Name","value":"amount"}},{"kind":"Field","name":{"kind":"Name","value":"tax_amount"}},{"kind":"Field","name":{"kind":"Name","value":"discount_amount"}},{"kind":"Field","name":{"kind":"Name","value":"total_amount"}},{"kind":"Field","name":{"kind":"Name","value":"invoice_date"}},{"kind":"Field","name":{"kind":"Name","value":"due_date"}},{"kind":"Field","name":{"kind":"Name","value":"customer_email"}},{"kind":"Field","name":{"kind":"Name","value":"customer_address_line_1"}},{"kind":"Field","name":{"kind":"Name","value":"customer_address_number"}},{"kind":"Field","name":{"kind":"Name","value":"customer_address_line_2"}},{"kind":"Field","name":{"kind":"Name","value":"customer_address_city"}},{"kind":"Field","name":{"kind":"Name","value":"customer_address_state"}},{"kind":"Field","name":{"kind":"Name","value":"customer_address_zip_code"}},{"kind":"Field","name":{"kind":"Name","value":"customer_address_country_code_iso_3"}},{"kind":"Field","name":{"kind":"Name","value":"customer_address_lat"}},{"kind":"Field","name":{"kind":"Name","value":"customer_address_lng"}},{"kind":"Field","name":{"kind":"Name","value":"archived_at"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}},{"kind":"Field","name":{"kind":"Name","value":"organization_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"organization_customer_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization_customer"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}}]}},{"kind":"Field","name":{"kind":"Name","value":"organization_acct_provider_conn_invoices"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"code"}},{"kind":"Field","name":{"kind":"Name","value":"payload"}},{"kind":"Field","name":{"kind":"Name","value":"last_sync_at"}},{"kind":"Field","name":{"kind":"Name","value":"last_sync_success"}},{"kind":"Field","name":{"kind":"Name","value":"last_sync_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization_invoice_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization_acct_provider_conn_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization_acct_provider_conn"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"acct_provider_code"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"file_id"}},{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"public_url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"has_sync_errors"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"is_overdue"}},{"kind":"Field","name":{"kind":"Name","value":"paid_amount"}},{"kind":"Field","name":{"kind":"Name","value":"paid_at"}},{"kind":"Field","name":{"kind":"Name","value":"balance"}},{"kind":"Field","name":{"kind":"Name","value":"email_sent_at"}},{"kind":"Field","name":{"kind":"Name","value":"transaction_links"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"amount"}},{"kind":"Field","name":{"kind":"Name","value":"item_type"}},{"kind":"Field","name":{"kind":"Name","value":"item_id"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}},{"kind":"Field","name":{"kind":"Name","value":"organization_transaction_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization_transaction"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]}}]} as unknown as DocumentNode<OrganizationInvoiceFragmentFragment, unknown>;
+export const OrganizationFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"OrganizationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Organization"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"unique_name"}},{"kind":"Field","name":{"kind":"Name","value":"unique_code"}},{"kind":"Field","name":{"kind":"Name","value":"phone_number"}},{"kind":"Field","name":{"kind":"Name","value":"address_line_1"}},{"kind":"Field","name":{"kind":"Name","value":"address_number"}},{"kind":"Field","name":{"kind":"Name","value":"address_line_2"}},{"kind":"Field","name":{"kind":"Name","value":"address_city"}},{"kind":"Field","name":{"kind":"Name","value":"address_state"}},{"kind":"Field","name":{"kind":"Name","value":"address_zip_code"}},{"kind":"Field","name":{"kind":"Name","value":"address_country_code_iso_3"}},{"kind":"Field","name":{"kind":"Name","value":"address_lat"}},{"kind":"Field","name":{"kind":"Name","value":"address_lng"}},{"kind":"Field","name":{"kind":"Name","value":"primary_contact_name"}},{"kind":"Field","name":{"kind":"Name","value":"business_name"}},{"kind":"Field","name":{"kind":"Name","value":"business_industry"}},{"kind":"Field","name":{"kind":"Name","value":"business_number_of_employees"}},{"kind":"Field","name":{"kind":"Name","value":"business_address_line_1"}},{"kind":"Field","name":{"kind":"Name","value":"business_address_number"}},{"kind":"Field","name":{"kind":"Name","value":"business_address_line_2"}},{"kind":"Field","name":{"kind":"Name","value":"business_address_city"}},{"kind":"Field","name":{"kind":"Name","value":"business_address_state"}},{"kind":"Field","name":{"kind":"Name","value":"business_address_zip_code"}},{"kind":"Field","name":{"kind":"Name","value":"business_address_country_code_iso_3"}},{"kind":"Field","name":{"kind":"Name","value":"business_address_lat"}},{"kind":"Field","name":{"kind":"Name","value":"business_address_lng"}},{"kind":"Field","name":{"kind":"Name","value":"business_tax_code_type"}},{"kind":"Field","name":{"kind":"Name","value":"business_tax_code"}},{"kind":"Field","name":{"kind":"Name","value":"timezone"}},{"kind":"Field","name":{"kind":"Name","value":"language"}},{"kind":"Field","name":{"kind":"Name","value":"archived_at"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}},{"kind":"Field","name":{"kind":"Name","value":"logo_picture_file_id"}},{"kind":"Field","name":{"kind":"Name","value":"logo_picture_file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"public_url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"current_email_verification_id"}},{"kind":"Field","name":{"kind":"Name","value":"current_phone_number_verification_id"}}]}}]} as unknown as DocumentNode<OrganizationFragmentFragment, unknown>;
 export const OrganizationReminderSettingFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"OrganizationReminderSettingFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"OrganizationReminderSetting"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"due_date_mode"}},{"kind":"Field","name":{"kind":"Name","value":"days_amount"}},{"kind":"Field","name":{"kind":"Name","value":"repeat_mode"}},{"kind":"Field","name":{"kind":"Name","value":"repeat_value"}},{"kind":"Field","name":{"kind":"Name","value":"selected_hour"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}},{"kind":"Field","name":{"kind":"Name","value":"organization_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization_customer_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization_project_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization_invoice_id"}}]}}]} as unknown as DocumentNode<OrganizationReminderSettingFragmentFragment, unknown>;
 export const OrganizationVendorFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"OrganizationVendorFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"OrganizationVendor"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"is_active"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"unique_code"}},{"kind":"Field","name":{"kind":"Name","value":"phone_number"}},{"kind":"Field","name":{"kind":"Name","value":"tax_code_type"}},{"kind":"Field","name":{"kind":"Name","value":"tax_code"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}},{"kind":"Field","name":{"kind":"Name","value":"conn_locked_data_at"}},{"kind":"Field","name":{"kind":"Name","value":"connection"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"OrganizationConnectionFragment"}}]}},{"kind":"Field","name":{"kind":"Name","value":"contacts"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone_number"}},{"kind":"Field","name":{"kind":"Name","value":"is_default"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}}]}},{"kind":"Field","name":{"kind":"Name","value":"bill_statement"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"totalCount"}},{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"cursor"}},{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"file_id"}},{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"public_url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"unique_code"}},{"kind":"Field","name":{"kind":"Name","value":"number"}},{"kind":"Field","name":{"kind":"Name","value":"currency_code"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"amount"}},{"kind":"Field","name":{"kind":"Name","value":"tax_amount"}},{"kind":"Field","name":{"kind":"Name","value":"discount_amount"}},{"kind":"Field","name":{"kind":"Name","value":"total_amount"}},{"kind":"Field","name":{"kind":"Name","value":"paid_amount"}},{"kind":"Field","name":{"kind":"Name","value":"bill_date"}},{"kind":"Field","name":{"kind":"Name","value":"due_date"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_email"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}},{"kind":"Field","name":{"kind":"Name","value":"status"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"startCursor"}},{"kind":"Field","name":{"kind":"Name","value":"endCursor"}},{"kind":"Field","name":{"kind":"Name","value":"hasPreviousPage"}},{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"total_amount"}},{"kind":"Field","name":{"kind":"Name","value":"paid_amount"}},{"kind":"Field","name":{"kind":"Name","value":"overdue_amount"}},{"kind":"Field","name":{"kind":"Name","value":"start_date"}},{"kind":"Field","name":{"kind":"Name","value":"end_date"}},{"kind":"Field","name":{"kind":"Name","value":"currency"}},{"kind":"Field","name":{"kind":"Name","value":"status"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"OrganizationConnectionFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"OrganizationConnection"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"is_valid"}},{"kind":"Field","name":{"kind":"Name","value":"is_connected"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_conn_status"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_conn_status_at"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_organization_id"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_organization_name"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_organization_email"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_target_customer_id"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_target_customer_name"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_target_customer_email"}},{"kind":"Field","name":{"kind":"Name","value":"customer_conn_status"}},{"kind":"Field","name":{"kind":"Name","value":"customer_conn_status_at"}},{"kind":"Field","name":{"kind":"Name","value":"customer_organization_id"}},{"kind":"Field","name":{"kind":"Name","value":"customer_organization_name"}},{"kind":"Field","name":{"kind":"Name","value":"customer_organization_email"}},{"kind":"Field","name":{"kind":"Name","value":"customer_target_vendor_id"}},{"kind":"Field","name":{"kind":"Name","value":"customer_target_vendor_name"}},{"kind":"Field","name":{"kind":"Name","value":"customer_target_vendor_email"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}}]}}]} as unknown as DocumentNode<OrganizationVendorFragmentFragment, unknown>;
 export const UserOrganizationAcctProviderConnConfigurationPullOptionsGetDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UserOrganizationAcctProviderConnConfigurationPullOptionsGet"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"accountProvider"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ACCT_PROVIDER"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"userOrganizationAcctProviderConnConfigurationPullOptionsGet"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"organization_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}}},{"kind":"Argument","name":{"kind":"Name","value":"acct_provider_code"},"value":{"kind":"Variable","name":{"kind":"Name","value":"accountProvider"}}}]}]}}]} as unknown as DocumentNode<UserOrganizationAcctProviderConnConfigurationPullOptionsGetMutation, UserOrganizationAcctProviderConnConfigurationPullOptionsGetMutationVariables>;
@@ -3299,9 +3348,9 @@ export const UserOrganizationCustomerConnLockDocument = {"kind":"Document","defi
 export const UserOrganizationCustomerConnUnlockDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UserOrganizationCustomerConnUnlock"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationCustomerId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"userOrganizationCustomerConnUnlock"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"organization_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}}},{"kind":"Argument","name":{"kind":"Name","value":"organization_customer_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationCustomerId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"OrganizationCustomerFragment"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"OrganizationConnectionFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"OrganizationConnection"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"is_valid"}},{"kind":"Field","name":{"kind":"Name","value":"is_connected"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_conn_status"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_conn_status_at"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_organization_id"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_organization_name"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_organization_email"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_target_customer_id"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_target_customer_name"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_target_customer_email"}},{"kind":"Field","name":{"kind":"Name","value":"customer_conn_status"}},{"kind":"Field","name":{"kind":"Name","value":"customer_conn_status_at"}},{"kind":"Field","name":{"kind":"Name","value":"customer_organization_id"}},{"kind":"Field","name":{"kind":"Name","value":"customer_organization_name"}},{"kind":"Field","name":{"kind":"Name","value":"customer_organization_email"}},{"kind":"Field","name":{"kind":"Name","value":"customer_target_vendor_id"}},{"kind":"Field","name":{"kind":"Name","value":"customer_target_vendor_name"}},{"kind":"Field","name":{"kind":"Name","value":"customer_target_vendor_email"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"OrganizationCustomerFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"OrganizationCustomer"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"is_active"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"unique_code"}},{"kind":"Field","name":{"kind":"Name","value":"phone_number"}},{"kind":"Field","name":{"kind":"Name","value":"tax_code_type"}},{"kind":"Field","name":{"kind":"Name","value":"tax_code"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}},{"kind":"Field","name":{"kind":"Name","value":"conn_locked_data_at"}},{"kind":"Field","name":{"kind":"Name","value":"connection"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"OrganizationConnectionFragment"}}]}},{"kind":"Field","name":{"kind":"Name","value":"contacts"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone_number"}},{"kind":"Field","name":{"kind":"Name","value":"is_default"}},{"kind":"Field","name":{"kind":"Name","value":"send_invoice_reminders"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}}]}},{"kind":"Field","name":{"kind":"Name","value":"invoice_statement"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"totalCount"}},{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"cursor"}},{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"file_id"}},{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"public_url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"unique_code"}},{"kind":"Field","name":{"kind":"Name","value":"number"}},{"kind":"Field","name":{"kind":"Name","value":"currency_code"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"amount"}},{"kind":"Field","name":{"kind":"Name","value":"tax_amount"}},{"kind":"Field","name":{"kind":"Name","value":"discount_amount"}},{"kind":"Field","name":{"kind":"Name","value":"paid_amount"}},{"kind":"Field","name":{"kind":"Name","value":"invoice_date"}},{"kind":"Field","name":{"kind":"Name","value":"due_date"}},{"kind":"Field","name":{"kind":"Name","value":"customer_email"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}},{"kind":"Field","name":{"kind":"Name","value":"status"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"startCursor"}},{"kind":"Field","name":{"kind":"Name","value":"endCursor"}},{"kind":"Field","name":{"kind":"Name","value":"hasPreviousPage"}},{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"total_amount"}},{"kind":"Field","name":{"kind":"Name","value":"paid_amount"}},{"kind":"Field","name":{"kind":"Name","value":"overdue_amount"}},{"kind":"Field","name":{"kind":"Name","value":"start_date"}},{"kind":"Field","name":{"kind":"Name","value":"end_date"}},{"kind":"Field","name":{"kind":"Name","value":"currency"}},{"kind":"Field","name":{"kind":"Name","value":"status"}}]}}]}}]} as unknown as DocumentNode<UserOrganizationCustomerConnUnlockMutation, UserOrganizationCustomerConnUnlockMutationVariables>;
 export const UserOrganizationVendorConnLockDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UserOrganizationVendorConnLock"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationVendorId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"userOrganizationVendorConnLock"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"organization_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}}},{"kind":"Argument","name":{"kind":"Name","value":"organization_vendor_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationVendorId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"OrganizationVendorFragment"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"OrganizationConnectionFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"OrganizationConnection"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"is_valid"}},{"kind":"Field","name":{"kind":"Name","value":"is_connected"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_conn_status"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_conn_status_at"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_organization_id"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_organization_name"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_organization_email"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_target_customer_id"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_target_customer_name"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_target_customer_email"}},{"kind":"Field","name":{"kind":"Name","value":"customer_conn_status"}},{"kind":"Field","name":{"kind":"Name","value":"customer_conn_status_at"}},{"kind":"Field","name":{"kind":"Name","value":"customer_organization_id"}},{"kind":"Field","name":{"kind":"Name","value":"customer_organization_name"}},{"kind":"Field","name":{"kind":"Name","value":"customer_organization_email"}},{"kind":"Field","name":{"kind":"Name","value":"customer_target_vendor_id"}},{"kind":"Field","name":{"kind":"Name","value":"customer_target_vendor_name"}},{"kind":"Field","name":{"kind":"Name","value":"customer_target_vendor_email"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"OrganizationVendorFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"OrganizationVendor"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"is_active"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"unique_code"}},{"kind":"Field","name":{"kind":"Name","value":"phone_number"}},{"kind":"Field","name":{"kind":"Name","value":"tax_code_type"}},{"kind":"Field","name":{"kind":"Name","value":"tax_code"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}},{"kind":"Field","name":{"kind":"Name","value":"conn_locked_data_at"}},{"kind":"Field","name":{"kind":"Name","value":"connection"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"OrganizationConnectionFragment"}}]}},{"kind":"Field","name":{"kind":"Name","value":"contacts"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone_number"}},{"kind":"Field","name":{"kind":"Name","value":"is_default"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}}]}},{"kind":"Field","name":{"kind":"Name","value":"bill_statement"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"totalCount"}},{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"cursor"}},{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"file_id"}},{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"public_url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"unique_code"}},{"kind":"Field","name":{"kind":"Name","value":"number"}},{"kind":"Field","name":{"kind":"Name","value":"currency_code"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"amount"}},{"kind":"Field","name":{"kind":"Name","value":"tax_amount"}},{"kind":"Field","name":{"kind":"Name","value":"discount_amount"}},{"kind":"Field","name":{"kind":"Name","value":"total_amount"}},{"kind":"Field","name":{"kind":"Name","value":"paid_amount"}},{"kind":"Field","name":{"kind":"Name","value":"bill_date"}},{"kind":"Field","name":{"kind":"Name","value":"due_date"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_email"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}},{"kind":"Field","name":{"kind":"Name","value":"status"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"startCursor"}},{"kind":"Field","name":{"kind":"Name","value":"endCursor"}},{"kind":"Field","name":{"kind":"Name","value":"hasPreviousPage"}},{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"total_amount"}},{"kind":"Field","name":{"kind":"Name","value":"paid_amount"}},{"kind":"Field","name":{"kind":"Name","value":"overdue_amount"}},{"kind":"Field","name":{"kind":"Name","value":"start_date"}},{"kind":"Field","name":{"kind":"Name","value":"end_date"}},{"kind":"Field","name":{"kind":"Name","value":"currency"}},{"kind":"Field","name":{"kind":"Name","value":"status"}}]}}]}}]} as unknown as DocumentNode<UserOrganizationVendorConnLockMutation, UserOrganizationVendorConnLockMutationVariables>;
 export const UserOrganizationVendorConnUnlockDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UserOrganizationVendorConnUnlock"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationVendorId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"userOrganizationVendorConnUnlock"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"organization_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}}},{"kind":"Argument","name":{"kind":"Name","value":"organization_vendor_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationVendorId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"OrganizationVendorFragment"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"OrganizationConnectionFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"OrganizationConnection"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"is_valid"}},{"kind":"Field","name":{"kind":"Name","value":"is_connected"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_conn_status"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_conn_status_at"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_organization_id"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_organization_name"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_organization_email"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_target_customer_id"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_target_customer_name"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_target_customer_email"}},{"kind":"Field","name":{"kind":"Name","value":"customer_conn_status"}},{"kind":"Field","name":{"kind":"Name","value":"customer_conn_status_at"}},{"kind":"Field","name":{"kind":"Name","value":"customer_organization_id"}},{"kind":"Field","name":{"kind":"Name","value":"customer_organization_name"}},{"kind":"Field","name":{"kind":"Name","value":"customer_organization_email"}},{"kind":"Field","name":{"kind":"Name","value":"customer_target_vendor_id"}},{"kind":"Field","name":{"kind":"Name","value":"customer_target_vendor_name"}},{"kind":"Field","name":{"kind":"Name","value":"customer_target_vendor_email"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"OrganizationVendorFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"OrganizationVendor"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"is_active"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"unique_code"}},{"kind":"Field","name":{"kind":"Name","value":"phone_number"}},{"kind":"Field","name":{"kind":"Name","value":"tax_code_type"}},{"kind":"Field","name":{"kind":"Name","value":"tax_code"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}},{"kind":"Field","name":{"kind":"Name","value":"conn_locked_data_at"}},{"kind":"Field","name":{"kind":"Name","value":"connection"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"OrganizationConnectionFragment"}}]}},{"kind":"Field","name":{"kind":"Name","value":"contacts"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone_number"}},{"kind":"Field","name":{"kind":"Name","value":"is_default"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}}]}},{"kind":"Field","name":{"kind":"Name","value":"bill_statement"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"totalCount"}},{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"cursor"}},{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"file_id"}},{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"public_url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"unique_code"}},{"kind":"Field","name":{"kind":"Name","value":"number"}},{"kind":"Field","name":{"kind":"Name","value":"currency_code"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"amount"}},{"kind":"Field","name":{"kind":"Name","value":"tax_amount"}},{"kind":"Field","name":{"kind":"Name","value":"discount_amount"}},{"kind":"Field","name":{"kind":"Name","value":"total_amount"}},{"kind":"Field","name":{"kind":"Name","value":"paid_amount"}},{"kind":"Field","name":{"kind":"Name","value":"bill_date"}},{"kind":"Field","name":{"kind":"Name","value":"due_date"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_email"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}},{"kind":"Field","name":{"kind":"Name","value":"status"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"startCursor"}},{"kind":"Field","name":{"kind":"Name","value":"endCursor"}},{"kind":"Field","name":{"kind":"Name","value":"hasPreviousPage"}},{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"total_amount"}},{"kind":"Field","name":{"kind":"Name","value":"paid_amount"}},{"kind":"Field","name":{"kind":"Name","value":"overdue_amount"}},{"kind":"Field","name":{"kind":"Name","value":"start_date"}},{"kind":"Field","name":{"kind":"Name","value":"end_date"}},{"kind":"Field","name":{"kind":"Name","value":"currency"}},{"kind":"Field","name":{"kind":"Name","value":"status"}}]}}]}}]} as unknown as DocumentNode<UserOrganizationVendorConnUnlockMutation, UserOrganizationVendorConnUnlockMutationVariables>;
-export const UserOrganizationVendorContactsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"userOrganizationVendorContacts"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationVendorId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"userOrganizationVendorContacts"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"organization_vendor_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationVendorId"}}},{"kind":"Argument","name":{"kind":"Name","value":"organization_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"totalCount"}},{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"cursor"}},{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"is_default"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"phone_number"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"startCursor"}},{"kind":"Field","name":{"kind":"Name","value":"endCursor"}},{"kind":"Field","name":{"kind":"Name","value":"hasPreviousPage"}},{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}}]}}]}}]}}]} as unknown as DocumentNode<UserOrganizationVendorContactsQuery, UserOrganizationVendorContactsQueryVariables>;
+export const userOrganizationVendorContactsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"userOrganizationVendorContacts"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationVendorId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"userOrganizationVendorContacts"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"organization_vendor_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationVendorId"}}},{"kind":"Argument","name":{"kind":"Name","value":"organization_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"totalCount"}},{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"cursor"}},{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"is_default"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"phone_number"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"startCursor"}},{"kind":"Field","name":{"kind":"Name","value":"endCursor"}},{"kind":"Field","name":{"kind":"Name","value":"hasPreviousPage"}},{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}}]}}]}}]}}]} as unknown as DocumentNode<userOrganizationVendorContactsQuery, userOrganizationVendorContactsQueryVariables>;
 export const UserOrganizationCustomerContactsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"UserOrganizationCustomerContacts"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationCustomerId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"userOrganizationCustomerContacts"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"organization_customer_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationCustomerId"}}},{"kind":"Argument","name":{"kind":"Name","value":"organization_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"totalCount"}},{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"cursor"}},{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone_number"}},{"kind":"Field","name":{"kind":"Name","value":"is_default"}},{"kind":"Field","name":{"kind":"Name","value":"send_invoice_reminders"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}},{"kind":"Field","name":{"kind":"Name","value":"organization_customer_id"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"startCursor"}},{"kind":"Field","name":{"kind":"Name","value":"endCursor"}},{"kind":"Field","name":{"kind":"Name","value":"hasPreviousPage"}},{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}}]}}]}}]}}]} as unknown as DocumentNode<UserOrganizationCustomerContactsQuery, UserOrganizationCustomerContactsQueryVariables>;
-export const UserOrganizationVendorContactCreateDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"userOrganizationVendorContactCreate"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationVendorId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UserOrganizationVendorContactCreateSchema"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"userOrganizationVendorContactCreate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"organization_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}}},{"kind":"Argument","name":{"kind":"Name","value":"organization_vendor_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationVendorId"}}},{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone_number"}},{"kind":"Field","name":{"kind":"Name","value":"is_default"}},{"kind":"Field","name":{"kind":"Name","value":"organization_vendor_id"}}]}}]}}]} as unknown as DocumentNode<UserOrganizationVendorContactCreateMutation, UserOrganizationVendorContactCreateMutationVariables>;
+export const userOrganizationVendorContactCreateDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"userOrganizationVendorContactCreate"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationVendorId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UserOrganizationVendorContactCreateSchema"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"userOrganizationVendorContactCreate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"organization_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}}},{"kind":"Argument","name":{"kind":"Name","value":"organization_vendor_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationVendorId"}}},{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone_number"}},{"kind":"Field","name":{"kind":"Name","value":"is_default"}},{"kind":"Field","name":{"kind":"Name","value":"organization_vendor_id"}}]}}]}}]} as unknown as DocumentNode<userOrganizationVendorContactCreateMutation, userOrganizationVendorContactCreateMutationVariables>;
 export const UserOrganizationCustomerContactCreateDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UserOrganizationCustomerContactCreate"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UserOrganizationCustomerContactCreateSchema"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationCustomerId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"userOrganizationCustomerContactCreate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}},{"kind":"Argument","name":{"kind":"Name","value":"organization_customer_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationCustomerId"}}},{"kind":"Argument","name":{"kind":"Name","value":"organization_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone_number"}},{"kind":"Field","name":{"kind":"Name","value":"is_default"}},{"kind":"Field","name":{"kind":"Name","value":"send_invoice_reminders"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}},{"kind":"Field","name":{"kind":"Name","value":"organization_customer_id"}}]}}]}}]} as unknown as DocumentNode<UserOrganizationCustomerContactCreateMutation, UserOrganizationCustomerContactCreateMutationVariables>;
 export const UserOrganizationVendorContactUpdateDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UserOrganizationVendorContactUpdate"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UserOrganizationVendorContactUpdateSchema"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationVendorContactId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationVendorId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"userOrganizationVendorContactUpdate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}},{"kind":"Argument","name":{"kind":"Name","value":"organization_vendor_contact_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationVendorContactId"}}},{"kind":"Argument","name":{"kind":"Name","value":"organization_vendor_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationVendorId"}}},{"kind":"Argument","name":{"kind":"Name","value":"organization_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"is_default"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"phone_number"}}]}}]}}]} as unknown as DocumentNode<UserOrganizationVendorContactUpdateMutation, UserOrganizationVendorContactUpdateMutationVariables>;
 export const UserOrganizationCustomerContactUpdateDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UserOrganizationCustomerContactUpdate"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UserOrganizationCustomerContactUpdateSchema"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationCustomerContactId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationCustomerId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"userOrganizationCustomerContactUpdate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}},{"kind":"Argument","name":{"kind":"Name","value":"organization_customer_contact_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationCustomerContactId"}}},{"kind":"Argument","name":{"kind":"Name","value":"organization_customer_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationCustomerId"}}},{"kind":"Argument","name":{"kind":"Name","value":"organization_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone_number"}},{"kind":"Field","name":{"kind":"Name","value":"is_default"}},{"kind":"Field","name":{"kind":"Name","value":"send_invoice_reminders"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}},{"kind":"Field","name":{"kind":"Name","value":"organization_customer_id"}}]}}]}}]} as unknown as DocumentNode<UserOrganizationCustomerContactUpdateMutation, UserOrganizationCustomerContactUpdateMutationVariables>;
@@ -3314,9 +3363,12 @@ export const UserOrganizationCustomerCreateDocument = {"kind":"Document","defini
 export const UserOrganizationInvoiceStatementDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"UserOrganizationInvoiceStatement"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationCustomerId"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"currency"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"CURRENCY"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"startDate"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"DateTime"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"endDate"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"DateTime"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"status"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"INVOICE_STATUS"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"isOverdue"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Boolean"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"after"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"ConnectionCursor"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"first"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"before"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"ConnectionCursor"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"last"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"skip"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"take"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"sorting"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SortingFieldSchema"}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"userOrganizationInvoiceStatement"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"organization_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}}},{"kind":"Argument","name":{"kind":"Name","value":"organization_customer_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationCustomerId"}}},{"kind":"Argument","name":{"kind":"Name","value":"currency"},"value":{"kind":"Variable","name":{"kind":"Name","value":"currency"}}},{"kind":"Argument","name":{"kind":"Name","value":"start_date"},"value":{"kind":"Variable","name":{"kind":"Name","value":"startDate"}}},{"kind":"Argument","name":{"kind":"Name","value":"end_date"},"value":{"kind":"Variable","name":{"kind":"Name","value":"endDate"}}},{"kind":"Argument","name":{"kind":"Name","value":"status"},"value":{"kind":"Variable","name":{"kind":"Name","value":"status"}}},{"kind":"Argument","name":{"kind":"Name","value":"is_overdue"},"value":{"kind":"Variable","name":{"kind":"Name","value":"isOverdue"}}},{"kind":"Argument","name":{"kind":"Name","value":"after"},"value":{"kind":"Variable","name":{"kind":"Name","value":"after"}}},{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"Variable","name":{"kind":"Name","value":"first"}}},{"kind":"Argument","name":{"kind":"Name","value":"before"},"value":{"kind":"Variable","name":{"kind":"Name","value":"before"}}},{"kind":"Argument","name":{"kind":"Name","value":"last"},"value":{"kind":"Variable","name":{"kind":"Name","value":"last"}}},{"kind":"Argument","name":{"kind":"Name","value":"skip"},"value":{"kind":"Variable","name":{"kind":"Name","value":"skip"}}},{"kind":"Argument","name":{"kind":"Name","value":"take"},"value":{"kind":"Variable","name":{"kind":"Name","value":"take"}}},{"kind":"Argument","name":{"kind":"Name","value":"sorting"},"value":{"kind":"Variable","name":{"kind":"Name","value":"sorting"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vendor_organization_id"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_organization"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"vendor_organization_customer_id"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_organization_customer"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"customer_organization_id"}},{"kind":"Field","name":{"kind":"Name","value":"customer_organization"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"totalCount"}},{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"cursor"}},{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"OrganizationInvoiceFragment"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"startCursor"}},{"kind":"Field","name":{"kind":"Name","value":"endCursor"}},{"kind":"Field","name":{"kind":"Name","value":"hasPreviousPage"}},{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"total_amount"}},{"kind":"Field","name":{"kind":"Name","value":"paid_amount"}},{"kind":"Field","name":{"kind":"Name","value":"overdue_amount"}},{"kind":"Field","name":{"kind":"Name","value":"start_date"}},{"kind":"Field","name":{"kind":"Name","value":"end_date"}},{"kind":"Field","name":{"kind":"Name","value":"currency"}},{"kind":"Field","name":{"kind":"Name","value":"status"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"OrganizationInvoiceFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"OrganizationInvoice"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"unique_code"}},{"kind":"Field","name":{"kind":"Name","value":"number"}},{"kind":"Field","name":{"kind":"Name","value":"currency_code"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"payload"}},{"kind":"Field","name":{"kind":"Name","value":"amount"}},{"kind":"Field","name":{"kind":"Name","value":"tax_amount"}},{"kind":"Field","name":{"kind":"Name","value":"discount_amount"}},{"kind":"Field","name":{"kind":"Name","value":"total_amount"}},{"kind":"Field","name":{"kind":"Name","value":"invoice_date"}},{"kind":"Field","name":{"kind":"Name","value":"due_date"}},{"kind":"Field","name":{"kind":"Name","value":"customer_email"}},{"kind":"Field","name":{"kind":"Name","value":"customer_address_line_1"}},{"kind":"Field","name":{"kind":"Name","value":"customer_address_number"}},{"kind":"Field","name":{"kind":"Name","value":"customer_address_line_2"}},{"kind":"Field","name":{"kind":"Name","value":"customer_address_city"}},{"kind":"Field","name":{"kind":"Name","value":"customer_address_state"}},{"kind":"Field","name":{"kind":"Name","value":"customer_address_zip_code"}},{"kind":"Field","name":{"kind":"Name","value":"customer_address_country_code_iso_3"}},{"kind":"Field","name":{"kind":"Name","value":"customer_address_lat"}},{"kind":"Field","name":{"kind":"Name","value":"customer_address_lng"}},{"kind":"Field","name":{"kind":"Name","value":"archived_at"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}},{"kind":"Field","name":{"kind":"Name","value":"organization_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"organization_customer_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization_customer"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}}]}},{"kind":"Field","name":{"kind":"Name","value":"organization_acct_provider_conn_invoices"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"code"}},{"kind":"Field","name":{"kind":"Name","value":"payload"}},{"kind":"Field","name":{"kind":"Name","value":"last_sync_at"}},{"kind":"Field","name":{"kind":"Name","value":"last_sync_success"}},{"kind":"Field","name":{"kind":"Name","value":"last_sync_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization_invoice_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization_acct_provider_conn_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization_acct_provider_conn"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"acct_provider_code"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"file_id"}},{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"public_url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"has_sync_errors"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"is_overdue"}},{"kind":"Field","name":{"kind":"Name","value":"paid_amount"}},{"kind":"Field","name":{"kind":"Name","value":"paid_at"}},{"kind":"Field","name":{"kind":"Name","value":"balance"}},{"kind":"Field","name":{"kind":"Name","value":"email_sent_at"}},{"kind":"Field","name":{"kind":"Name","value":"transaction_links"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"amount"}},{"kind":"Field","name":{"kind":"Name","value":"item_type"}},{"kind":"Field","name":{"kind":"Name","value":"item_id"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}},{"kind":"Field","name":{"kind":"Name","value":"organization_transaction_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization_transaction"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]}}]} as unknown as DocumentNode<UserOrganizationInvoiceStatementQuery, UserOrganizationInvoiceStatementQueryVariables>;
 export const UserOrganizationInvoiceDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"UserOrganizationInvoice"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationInvoiceId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"userOrganizationInvoice"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"organization_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}}},{"kind":"Argument","name":{"kind":"Name","value":"organization_invoice_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationInvoiceId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"OrganizationInvoiceFragment"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"OrganizationInvoiceFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"OrganizationInvoice"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"unique_code"}},{"kind":"Field","name":{"kind":"Name","value":"number"}},{"kind":"Field","name":{"kind":"Name","value":"currency_code"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"payload"}},{"kind":"Field","name":{"kind":"Name","value":"amount"}},{"kind":"Field","name":{"kind":"Name","value":"tax_amount"}},{"kind":"Field","name":{"kind":"Name","value":"discount_amount"}},{"kind":"Field","name":{"kind":"Name","value":"total_amount"}},{"kind":"Field","name":{"kind":"Name","value":"invoice_date"}},{"kind":"Field","name":{"kind":"Name","value":"due_date"}},{"kind":"Field","name":{"kind":"Name","value":"customer_email"}},{"kind":"Field","name":{"kind":"Name","value":"customer_address_line_1"}},{"kind":"Field","name":{"kind":"Name","value":"customer_address_number"}},{"kind":"Field","name":{"kind":"Name","value":"customer_address_line_2"}},{"kind":"Field","name":{"kind":"Name","value":"customer_address_city"}},{"kind":"Field","name":{"kind":"Name","value":"customer_address_state"}},{"kind":"Field","name":{"kind":"Name","value":"customer_address_zip_code"}},{"kind":"Field","name":{"kind":"Name","value":"customer_address_country_code_iso_3"}},{"kind":"Field","name":{"kind":"Name","value":"customer_address_lat"}},{"kind":"Field","name":{"kind":"Name","value":"customer_address_lng"}},{"kind":"Field","name":{"kind":"Name","value":"archived_at"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}},{"kind":"Field","name":{"kind":"Name","value":"organization_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"organization_customer_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization_customer"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}}]}},{"kind":"Field","name":{"kind":"Name","value":"organization_acct_provider_conn_invoices"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"code"}},{"kind":"Field","name":{"kind":"Name","value":"payload"}},{"kind":"Field","name":{"kind":"Name","value":"last_sync_at"}},{"kind":"Field","name":{"kind":"Name","value":"last_sync_success"}},{"kind":"Field","name":{"kind":"Name","value":"last_sync_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization_invoice_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization_acct_provider_conn_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization_acct_provider_conn"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"acct_provider_code"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"file_id"}},{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"public_url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"has_sync_errors"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"is_overdue"}},{"kind":"Field","name":{"kind":"Name","value":"paid_amount"}},{"kind":"Field","name":{"kind":"Name","value":"paid_at"}},{"kind":"Field","name":{"kind":"Name","value":"balance"}},{"kind":"Field","name":{"kind":"Name","value":"email_sent_at"}},{"kind":"Field","name":{"kind":"Name","value":"transaction_links"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"amount"}},{"kind":"Field","name":{"kind":"Name","value":"item_type"}},{"kind":"Field","name":{"kind":"Name","value":"item_id"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}},{"kind":"Field","name":{"kind":"Name","value":"organization_transaction_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization_transaction"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]}}]} as unknown as DocumentNode<UserOrganizationInvoiceQuery, UserOrganizationInvoiceQueryVariables>;
 export const UserOrganizationCustomerSendInvoiceEmailDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UserOrganizationCustomerSendInvoiceEmail"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"targets"}},"type":{"kind":"NonNullType","type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UserOrganizationCustomerSendInvoiceEmailSchema"}}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"userOrganizationCustomerSendInvoiceEmail"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"organization_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}}},{"kind":"Argument","name":{"kind":"Name","value":"targets"},"value":{"kind":"Variable","name":{"kind":"Name","value":"targets"}}}]}]}}]} as unknown as DocumentNode<UserOrganizationCustomerSendInvoiceEmailMutation, UserOrganizationCustomerSendInvoiceEmailMutationVariables>;
-export const UserOrganizationReminderSettingsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"UserOrganizationReminderSettings"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationCustomerId"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationProjectId"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationInvoiceId"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"after"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"ConnectionCursor"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"first"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"before"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"ConnectionCursor"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"last"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"skip"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"take"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"sorting"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SortingFieldSchema"}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"userOrganizationReminderSettings"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"organization_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}}},{"kind":"Argument","name":{"kind":"Name","value":"organization_customer_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationCustomerId"}}},{"kind":"Argument","name":{"kind":"Name","value":"organization_project_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationProjectId"}}},{"kind":"Argument","name":{"kind":"Name","value":"organization_invoice_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationInvoiceId"}}},{"kind":"Argument","name":{"kind":"Name","value":"after"},"value":{"kind":"Variable","name":{"kind":"Name","value":"after"}}},{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"Variable","name":{"kind":"Name","value":"first"}}},{"kind":"Argument","name":{"kind":"Name","value":"before"},"value":{"kind":"Variable","name":{"kind":"Name","value":"before"}}},{"kind":"Argument","name":{"kind":"Name","value":"last"},"value":{"kind":"Variable","name":{"kind":"Name","value":"last"}}},{"kind":"Argument","name":{"kind":"Name","value":"skip"},"value":{"kind":"Variable","name":{"kind":"Name","value":"skip"}}},{"kind":"Argument","name":{"kind":"Name","value":"take"},"value":{"kind":"Variable","name":{"kind":"Name","value":"take"}}},{"kind":"Argument","name":{"kind":"Name","value":"sorting"},"value":{"kind":"Variable","name":{"kind":"Name","value":"sorting"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"totalCount"}},{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"cursor"}},{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"OrganizationReminderSettingFragment"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"startCursor"}},{"kind":"Field","name":{"kind":"Name","value":"endCursor"}},{"kind":"Field","name":{"kind":"Name","value":"hasPreviousPage"}},{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"OrganizationReminderSettingFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"OrganizationReminderSetting"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"due_date_mode"}},{"kind":"Field","name":{"kind":"Name","value":"days_amount"}},{"kind":"Field","name":{"kind":"Name","value":"repeat_mode"}},{"kind":"Field","name":{"kind":"Name","value":"repeat_value"}},{"kind":"Field","name":{"kind":"Name","value":"selected_hour"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}},{"kind":"Field","name":{"kind":"Name","value":"organization_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization_customer_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization_project_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization_invoice_id"}}]}}]} as unknown as DocumentNode<UserOrganizationReminderSettingsQuery, UserOrganizationReminderSettingsQueryVariables>;
+export const UserOrganizationBaseSettingsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"UserOrganizationBaseSettings"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"userOrganization"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"organization_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"setting_send_invoice_due_reminders"}},{"kind":"Field","name":{"kind":"Name","value":"setting_send_invoice_overdue_reminders"}},{"kind":"Field","name":{"kind":"Name","value":"setting_allow_invoice_due_snooze_reminders"}},{"kind":"Field","name":{"kind":"Name","value":"setting_allow_invoice_overdue_snooze_reminders"}}]}}]}}]} as unknown as DocumentNode<UserOrganizationBaseSettingsQuery, UserOrganizationBaseSettingsQueryVariables>;
+export const UserOrganizationUpdateDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UserOrganizationUpdate"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UserOrganizationUpdateSchema"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"userOrganizationUpdate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"organization_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}}},{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"OrganizationFragment"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"OrganizationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Organization"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"unique_name"}},{"kind":"Field","name":{"kind":"Name","value":"unique_code"}},{"kind":"Field","name":{"kind":"Name","value":"phone_number"}},{"kind":"Field","name":{"kind":"Name","value":"address_line_1"}},{"kind":"Field","name":{"kind":"Name","value":"address_number"}},{"kind":"Field","name":{"kind":"Name","value":"address_line_2"}},{"kind":"Field","name":{"kind":"Name","value":"address_city"}},{"kind":"Field","name":{"kind":"Name","value":"address_state"}},{"kind":"Field","name":{"kind":"Name","value":"address_zip_code"}},{"kind":"Field","name":{"kind":"Name","value":"address_country_code_iso_3"}},{"kind":"Field","name":{"kind":"Name","value":"address_lat"}},{"kind":"Field","name":{"kind":"Name","value":"address_lng"}},{"kind":"Field","name":{"kind":"Name","value":"primary_contact_name"}},{"kind":"Field","name":{"kind":"Name","value":"business_name"}},{"kind":"Field","name":{"kind":"Name","value":"business_industry"}},{"kind":"Field","name":{"kind":"Name","value":"business_number_of_employees"}},{"kind":"Field","name":{"kind":"Name","value":"business_address_line_1"}},{"kind":"Field","name":{"kind":"Name","value":"business_address_number"}},{"kind":"Field","name":{"kind":"Name","value":"business_address_line_2"}},{"kind":"Field","name":{"kind":"Name","value":"business_address_city"}},{"kind":"Field","name":{"kind":"Name","value":"business_address_state"}},{"kind":"Field","name":{"kind":"Name","value":"business_address_zip_code"}},{"kind":"Field","name":{"kind":"Name","value":"business_address_country_code_iso_3"}},{"kind":"Field","name":{"kind":"Name","value":"business_address_lat"}},{"kind":"Field","name":{"kind":"Name","value":"business_address_lng"}},{"kind":"Field","name":{"kind":"Name","value":"business_tax_code_type"}},{"kind":"Field","name":{"kind":"Name","value":"business_tax_code"}},{"kind":"Field","name":{"kind":"Name","value":"timezone"}},{"kind":"Field","name":{"kind":"Name","value":"language"}},{"kind":"Field","name":{"kind":"Name","value":"archived_at"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}},{"kind":"Field","name":{"kind":"Name","value":"logo_picture_file_id"}},{"kind":"Field","name":{"kind":"Name","value":"logo_picture_file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"public_url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"current_email_verification_id"}},{"kind":"Field","name":{"kind":"Name","value":"current_phone_number_verification_id"}}]}}]} as unknown as DocumentNode<UserOrganizationUpdateMutation, UserOrganizationUpdateMutationVariables>;
+export const UserOrganizationReminderSettingsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"UserOrganizationReminderSettings"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationCustomerId"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationProjectId"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationInvoiceId"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"dueDateMode"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"REMINDER_DUE_DATE_MODE"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"after"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"ConnectionCursor"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"first"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"before"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"ConnectionCursor"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"last"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"skip"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"take"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"sorting"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SortingFieldSchema"}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"userOrganizationReminderSettings"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"organization_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}}},{"kind":"Argument","name":{"kind":"Name","value":"organization_customer_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationCustomerId"}}},{"kind":"Argument","name":{"kind":"Name","value":"organization_project_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationProjectId"}}},{"kind":"Argument","name":{"kind":"Name","value":"organization_invoice_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationInvoiceId"}}},{"kind":"Argument","name":{"kind":"Name","value":"due_date_mode"},"value":{"kind":"Variable","name":{"kind":"Name","value":"dueDateMode"}}},{"kind":"Argument","name":{"kind":"Name","value":"after"},"value":{"kind":"Variable","name":{"kind":"Name","value":"after"}}},{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"Variable","name":{"kind":"Name","value":"first"}}},{"kind":"Argument","name":{"kind":"Name","value":"before"},"value":{"kind":"Variable","name":{"kind":"Name","value":"before"}}},{"kind":"Argument","name":{"kind":"Name","value":"last"},"value":{"kind":"Variable","name":{"kind":"Name","value":"last"}}},{"kind":"Argument","name":{"kind":"Name","value":"skip"},"value":{"kind":"Variable","name":{"kind":"Name","value":"skip"}}},{"kind":"Argument","name":{"kind":"Name","value":"take"},"value":{"kind":"Variable","name":{"kind":"Name","value":"take"}}},{"kind":"Argument","name":{"kind":"Name","value":"sorting"},"value":{"kind":"Variable","name":{"kind":"Name","value":"sorting"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"totalCount"}},{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"cursor"}},{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"OrganizationReminderSettingFragment"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"startCursor"}},{"kind":"Field","name":{"kind":"Name","value":"endCursor"}},{"kind":"Field","name":{"kind":"Name","value":"hasPreviousPage"}},{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"OrganizationReminderSettingFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"OrganizationReminderSetting"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"due_date_mode"}},{"kind":"Field","name":{"kind":"Name","value":"days_amount"}},{"kind":"Field","name":{"kind":"Name","value":"repeat_mode"}},{"kind":"Field","name":{"kind":"Name","value":"repeat_value"}},{"kind":"Field","name":{"kind":"Name","value":"selected_hour"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}},{"kind":"Field","name":{"kind":"Name","value":"organization_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization_customer_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization_project_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization_invoice_id"}}]}}]} as unknown as DocumentNode<UserOrganizationReminderSettingsQuery, UserOrganizationReminderSettingsQueryVariables>;
 export const UserOrganizationReminderSettingDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"UserOrganizationReminderSetting"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationReminderSettingId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"userOrganizationReminderSetting"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"organization_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}}},{"kind":"Argument","name":{"kind":"Name","value":"organization_reminder_setting_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationReminderSettingId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"OrganizationReminderSettingFragment"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"OrganizationReminderSettingFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"OrganizationReminderSetting"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"due_date_mode"}},{"kind":"Field","name":{"kind":"Name","value":"days_amount"}},{"kind":"Field","name":{"kind":"Name","value":"repeat_mode"}},{"kind":"Field","name":{"kind":"Name","value":"repeat_value"}},{"kind":"Field","name":{"kind":"Name","value":"selected_hour"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}},{"kind":"Field","name":{"kind":"Name","value":"organization_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization_customer_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization_project_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization_invoice_id"}}]}}]} as unknown as DocumentNode<UserOrganizationReminderSettingQuery, UserOrganizationReminderSettingQueryVariables>;
-export const UserOrganizationReminderSettingCreateDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UserOrganizationReminderSettingCreate"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UserOrganizationReminderSettingCreateSchema"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"userOrganizationReminderSettingCreate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"organization_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}}},{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"OrganizationReminderSettingFragment"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"OrganizationReminderSettingFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"OrganizationReminderSetting"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"due_date_mode"}},{"kind":"Field","name":{"kind":"Name","value":"days_amount"}},{"kind":"Field","name":{"kind":"Name","value":"repeat_mode"}},{"kind":"Field","name":{"kind":"Name","value":"repeat_value"}},{"kind":"Field","name":{"kind":"Name","value":"selected_hour"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}},{"kind":"Field","name":{"kind":"Name","value":"organization_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization_customer_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization_project_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization_invoice_id"}}]}}]} as unknown as DocumentNode<UserOrganizationReminderSettingCreateMutation, UserOrganizationReminderSettingCreateMutationVariables>;
+export const UserOrganizationReminderSettingCreateDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UserOrganizationReminderSettingCreate"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UserOrganizationReminderSettingSchema"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"userOrganizationReminderSettingCreate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"organization_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}}},{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"OrganizationReminderSettingFragment"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"OrganizationReminderSettingFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"OrganizationReminderSetting"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"due_date_mode"}},{"kind":"Field","name":{"kind":"Name","value":"days_amount"}},{"kind":"Field","name":{"kind":"Name","value":"repeat_mode"}},{"kind":"Field","name":{"kind":"Name","value":"repeat_value"}},{"kind":"Field","name":{"kind":"Name","value":"selected_hour"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}},{"kind":"Field","name":{"kind":"Name","value":"organization_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization_customer_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization_project_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization_invoice_id"}}]}}]} as unknown as DocumentNode<UserOrganizationReminderSettingCreateMutation, UserOrganizationReminderSettingCreateMutationVariables>;
+export const UserOrganizationReminderSettingUpdateDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UserOrganizationReminderSettingUpdate"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationReminderSettingId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UserOrganizationReminderSettingSchema"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"userOrganizationReminderSettingUpdate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"organization_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}}},{"kind":"Argument","name":{"kind":"Name","value":"organization_reminder_setting_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationReminderSettingId"}}},{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"OrganizationReminderSettingFragment"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"OrganizationReminderSettingFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"OrganizationReminderSetting"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"due_date_mode"}},{"kind":"Field","name":{"kind":"Name","value":"days_amount"}},{"kind":"Field","name":{"kind":"Name","value":"repeat_mode"}},{"kind":"Field","name":{"kind":"Name","value":"repeat_value"}},{"kind":"Field","name":{"kind":"Name","value":"selected_hour"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}},{"kind":"Field","name":{"kind":"Name","value":"organization_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization_customer_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization_project_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization_invoice_id"}}]}}]} as unknown as DocumentNode<UserOrganizationReminderSettingUpdateMutation, UserOrganizationReminderSettingUpdateMutationVariables>;
 export const UserOrganizationReminderSettingDeleteDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UserOrganizationReminderSettingDelete"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationReminderSettingId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"userOrganizationReminderSettingDelete"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"organization_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}}},{"kind":"Argument","name":{"kind":"Name","value":"organization_reminder_setting_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationReminderSettingId"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"OrganizationReminderSettingFragment"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"OrganizationReminderSettingFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"OrganizationReminderSetting"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"due_date_mode"}},{"kind":"Field","name":{"kind":"Name","value":"days_amount"}},{"kind":"Field","name":{"kind":"Name","value":"repeat_mode"}},{"kind":"Field","name":{"kind":"Name","value":"repeat_value"}},{"kind":"Field","name":{"kind":"Name","value":"selected_hour"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}},{"kind":"Field","name":{"kind":"Name","value":"organization_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization_customer_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization_project_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization_invoice_id"}}]}}]} as unknown as DocumentNode<UserOrganizationReminderSettingDeleteMutation, UserOrganizationReminderSettingDeleteMutationVariables>;
 export const UserCustomerOrganizationInvoiceStatementDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"UserCustomerOrganizationInvoiceStatement"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationVendorId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"currency"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"CURRENCY"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"startDate"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"DateTime"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"endDate"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"DateTime"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"status"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"INVOICE_STATUS"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"isOverdue"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Boolean"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"after"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"ConnectionCursor"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"first"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"before"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"ConnectionCursor"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"last"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"skip"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"take"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"sorting"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SortingFieldSchema"}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"userCustomerOrganizationInvoiceStatement"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"organization_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}}},{"kind":"Argument","name":{"kind":"Name","value":"organization_vendor_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationVendorId"}}},{"kind":"Argument","name":{"kind":"Name","value":"currency"},"value":{"kind":"Variable","name":{"kind":"Name","value":"currency"}}},{"kind":"Argument","name":{"kind":"Name","value":"start_date"},"value":{"kind":"Variable","name":{"kind":"Name","value":"startDate"}}},{"kind":"Argument","name":{"kind":"Name","value":"end_date"},"value":{"kind":"Variable","name":{"kind":"Name","value":"endDate"}}},{"kind":"Argument","name":{"kind":"Name","value":"status"},"value":{"kind":"Variable","name":{"kind":"Name","value":"status"}}},{"kind":"Argument","name":{"kind":"Name","value":"is_overdue"},"value":{"kind":"Variable","name":{"kind":"Name","value":"isOverdue"}}},{"kind":"Argument","name":{"kind":"Name","value":"after"},"value":{"kind":"Variable","name":{"kind":"Name","value":"after"}}},{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"Variable","name":{"kind":"Name","value":"first"}}},{"kind":"Argument","name":{"kind":"Name","value":"before"},"value":{"kind":"Variable","name":{"kind":"Name","value":"before"}}},{"kind":"Argument","name":{"kind":"Name","value":"last"},"value":{"kind":"Variable","name":{"kind":"Name","value":"last"}}},{"kind":"Argument","name":{"kind":"Name","value":"skip"},"value":{"kind":"Variable","name":{"kind":"Name","value":"skip"}}},{"kind":"Argument","name":{"kind":"Name","value":"take"},"value":{"kind":"Variable","name":{"kind":"Name","value":"take"}}},{"kind":"Argument","name":{"kind":"Name","value":"sorting"},"value":{"kind":"Variable","name":{"kind":"Name","value":"sorting"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vendor_organization_id"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_organization"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"vendor_organization_customer_id"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_organization_customer"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"customer_organization_id"}},{"kind":"Field","name":{"kind":"Name","value":"customer_organization"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"totalCount"}},{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"cursor"}},{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"OrganizationInvoiceFragment"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"startCursor"}},{"kind":"Field","name":{"kind":"Name","value":"endCursor"}},{"kind":"Field","name":{"kind":"Name","value":"hasPreviousPage"}},{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"total_amount"}},{"kind":"Field","name":{"kind":"Name","value":"paid_amount"}},{"kind":"Field","name":{"kind":"Name","value":"overdue_amount"}},{"kind":"Field","name":{"kind":"Name","value":"balance"}},{"kind":"Field","name":{"kind":"Name","value":"start_date"}},{"kind":"Field","name":{"kind":"Name","value":"end_date"}},{"kind":"Field","name":{"kind":"Name","value":"currency"}},{"kind":"Field","name":{"kind":"Name","value":"status"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"OrganizationInvoiceFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"OrganizationInvoice"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"unique_code"}},{"kind":"Field","name":{"kind":"Name","value":"number"}},{"kind":"Field","name":{"kind":"Name","value":"currency_code"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"payload"}},{"kind":"Field","name":{"kind":"Name","value":"amount"}},{"kind":"Field","name":{"kind":"Name","value":"tax_amount"}},{"kind":"Field","name":{"kind":"Name","value":"discount_amount"}},{"kind":"Field","name":{"kind":"Name","value":"total_amount"}},{"kind":"Field","name":{"kind":"Name","value":"invoice_date"}},{"kind":"Field","name":{"kind":"Name","value":"due_date"}},{"kind":"Field","name":{"kind":"Name","value":"customer_email"}},{"kind":"Field","name":{"kind":"Name","value":"customer_address_line_1"}},{"kind":"Field","name":{"kind":"Name","value":"customer_address_number"}},{"kind":"Field","name":{"kind":"Name","value":"customer_address_line_2"}},{"kind":"Field","name":{"kind":"Name","value":"customer_address_city"}},{"kind":"Field","name":{"kind":"Name","value":"customer_address_state"}},{"kind":"Field","name":{"kind":"Name","value":"customer_address_zip_code"}},{"kind":"Field","name":{"kind":"Name","value":"customer_address_country_code_iso_3"}},{"kind":"Field","name":{"kind":"Name","value":"customer_address_lat"}},{"kind":"Field","name":{"kind":"Name","value":"customer_address_lng"}},{"kind":"Field","name":{"kind":"Name","value":"archived_at"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}},{"kind":"Field","name":{"kind":"Name","value":"organization_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"organization_customer_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization_customer"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}}]}},{"kind":"Field","name":{"kind":"Name","value":"organization_acct_provider_conn_invoices"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"code"}},{"kind":"Field","name":{"kind":"Name","value":"payload"}},{"kind":"Field","name":{"kind":"Name","value":"last_sync_at"}},{"kind":"Field","name":{"kind":"Name","value":"last_sync_success"}},{"kind":"Field","name":{"kind":"Name","value":"last_sync_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization_invoice_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization_acct_provider_conn_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization_acct_provider_conn"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"acct_provider_code"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"file_id"}},{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"public_url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"has_sync_errors"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"is_overdue"}},{"kind":"Field","name":{"kind":"Name","value":"paid_amount"}},{"kind":"Field","name":{"kind":"Name","value":"paid_at"}},{"kind":"Field","name":{"kind":"Name","value":"balance"}},{"kind":"Field","name":{"kind":"Name","value":"email_sent_at"}},{"kind":"Field","name":{"kind":"Name","value":"transaction_links"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"amount"}},{"kind":"Field","name":{"kind":"Name","value":"item_type"}},{"kind":"Field","name":{"kind":"Name","value":"item_id"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}},{"kind":"Field","name":{"kind":"Name","value":"organization_transaction_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization_transaction"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]}}]} as unknown as DocumentNode<UserCustomerOrganizationInvoiceStatementQuery, UserCustomerOrganizationInvoiceStatementQueryVariables>;
 export const UserOrganizationVendorsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"UserOrganizationVendors"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"name"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"after"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"ConnectionCursor"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"first"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"before"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"ConnectionCursor"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"last"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"skip"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"take"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"sorting"}},"type":{"kind":"ListType","type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"SortingFieldSchema"}}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"userOrganizationVendors"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"organization_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}}},{"kind":"Argument","name":{"kind":"Name","value":"name"},"value":{"kind":"Variable","name":{"kind":"Name","value":"name"}}},{"kind":"Argument","name":{"kind":"Name","value":"after"},"value":{"kind":"Variable","name":{"kind":"Name","value":"after"}}},{"kind":"Argument","name":{"kind":"Name","value":"first"},"value":{"kind":"Variable","name":{"kind":"Name","value":"first"}}},{"kind":"Argument","name":{"kind":"Name","value":"before"},"value":{"kind":"Variable","name":{"kind":"Name","value":"before"}}},{"kind":"Argument","name":{"kind":"Name","value":"last"},"value":{"kind":"Variable","name":{"kind":"Name","value":"last"}}},{"kind":"Argument","name":{"kind":"Name","value":"skip"},"value":{"kind":"Variable","name":{"kind":"Name","value":"skip"}}},{"kind":"Argument","name":{"kind":"Name","value":"take"},"value":{"kind":"Variable","name":{"kind":"Name","value":"take"}}},{"kind":"Argument","name":{"kind":"Name","value":"sorting"},"value":{"kind":"Variable","name":{"kind":"Name","value":"sorting"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"totalCount"}},{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"cursor"}},{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"OrganizationVendorFragment"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"startCursor"}},{"kind":"Field","name":{"kind":"Name","value":"endCursor"}},{"kind":"Field","name":{"kind":"Name","value":"hasPreviousPage"}},{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"OrganizationConnectionFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"OrganizationConnection"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"is_valid"}},{"kind":"Field","name":{"kind":"Name","value":"is_connected"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_conn_status"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_conn_status_at"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_organization_id"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_organization_name"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_organization_email"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_target_customer_id"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_target_customer_name"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_target_customer_email"}},{"kind":"Field","name":{"kind":"Name","value":"customer_conn_status"}},{"kind":"Field","name":{"kind":"Name","value":"customer_conn_status_at"}},{"kind":"Field","name":{"kind":"Name","value":"customer_organization_id"}},{"kind":"Field","name":{"kind":"Name","value":"customer_organization_name"}},{"kind":"Field","name":{"kind":"Name","value":"customer_organization_email"}},{"kind":"Field","name":{"kind":"Name","value":"customer_target_vendor_id"}},{"kind":"Field","name":{"kind":"Name","value":"customer_target_vendor_name"}},{"kind":"Field","name":{"kind":"Name","value":"customer_target_vendor_email"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"OrganizationVendorFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"OrganizationVendor"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"is_active"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"unique_code"}},{"kind":"Field","name":{"kind":"Name","value":"phone_number"}},{"kind":"Field","name":{"kind":"Name","value":"tax_code_type"}},{"kind":"Field","name":{"kind":"Name","value":"tax_code"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}},{"kind":"Field","name":{"kind":"Name","value":"conn_locked_data_at"}},{"kind":"Field","name":{"kind":"Name","value":"connection"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"OrganizationConnectionFragment"}}]}},{"kind":"Field","name":{"kind":"Name","value":"contacts"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone_number"}},{"kind":"Field","name":{"kind":"Name","value":"is_default"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}}]}},{"kind":"Field","name":{"kind":"Name","value":"bill_statement"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"totalCount"}},{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"cursor"}},{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"file_id"}},{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"public_url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"unique_code"}},{"kind":"Field","name":{"kind":"Name","value":"number"}},{"kind":"Field","name":{"kind":"Name","value":"currency_code"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"amount"}},{"kind":"Field","name":{"kind":"Name","value":"tax_amount"}},{"kind":"Field","name":{"kind":"Name","value":"discount_amount"}},{"kind":"Field","name":{"kind":"Name","value":"total_amount"}},{"kind":"Field","name":{"kind":"Name","value":"paid_amount"}},{"kind":"Field","name":{"kind":"Name","value":"bill_date"}},{"kind":"Field","name":{"kind":"Name","value":"due_date"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_email"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}},{"kind":"Field","name":{"kind":"Name","value":"status"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"startCursor"}},{"kind":"Field","name":{"kind":"Name","value":"endCursor"}},{"kind":"Field","name":{"kind":"Name","value":"hasPreviousPage"}},{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"total_amount"}},{"kind":"Field","name":{"kind":"Name","value":"paid_amount"}},{"kind":"Field","name":{"kind":"Name","value":"overdue_amount"}},{"kind":"Field","name":{"kind":"Name","value":"start_date"}},{"kind":"Field","name":{"kind":"Name","value":"end_date"}},{"kind":"Field","name":{"kind":"Name","value":"currency"}},{"kind":"Field","name":{"kind":"Name","value":"status"}}]}}]}}]} as unknown as DocumentNode<UserOrganizationVendorsQuery, UserOrganizationVendorsQueryVariables>;

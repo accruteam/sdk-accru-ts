@@ -24,6 +24,8 @@ export const GET_ALL_REMINDER_SETTINGS_QUERY = gql(`
     $organizationProjectId: String,
     $organizationInvoiceId: String,
 
+    $dueDateMode: REMINDER_DUE_DATE_MODE,
+
     $after: ConnectionCursor,
     $first: Int,
 
@@ -34,39 +36,41 @@ export const GET_ALL_REMINDER_SETTINGS_QUERY = gql(`
     $take: Int,
 
     $sorting: [SortingFieldSchema!]
+  ) {
+    userOrganizationReminderSettings(
+      organization_id: $organizationId
+
+      organization_customer_id: $organizationCustomerId
+      organization_project_id: $organizationProjectId
+      organization_invoice_id: $organizationInvoiceId
+
+      due_date_mode: $dueDateMode
+
+      after: $after
+      first: $first
+
+      before: $before
+      last: $last
+
+      skip: $skip
+      take: $take
+
+      sorting: $sorting
     ) {
-      userOrganizationReminderSettings(
-        organization_id: $organizationId
-
-        organization_customer_id: $organizationCustomerId
-        organization_project_id: $organizationProjectId
-        organization_invoice_id: $organizationInvoiceId
-
-        after: $after
-        first: $first
-
-        before: $before
-        last: $last
-
-        skip: $skip
-        take: $take
-
-        sorting: $sorting
-      ) {
-          totalCount
-          edges {
-            cursor
-            node {
-              ...OrganizationReminderSettingFragment
-            }
-          }
-          pageInfo {
-              startCursor
-              endCursor
-              hasPreviousPage
-              hasNextPage
+        totalCount
+        edges {
+          cursor
+          node {
+            ...OrganizationReminderSettingFragment
           }
         }
+        pageInfo {
+            startCursor
+            endCursor
+            hasPreviousPage
+            hasNextPage
+        }
+      }
     }
 `);
 
@@ -82,9 +86,25 @@ export const GET_REMINDER_SETTING_MUTATION = gql(`
 `);
 
 export const CREATE_REMINDER_SETTING_MUTATION = gql(`
-  mutation UserOrganizationReminderSettingCreate($organizationId: String!, $data: UserOrganizationReminderSettingCreateSchema!) {
+  mutation UserOrganizationReminderSettingCreate($organizationId: String!, $data: UserOrganizationReminderSettingSchema!) {
     userOrganizationReminderSettingCreate(
       organization_id: $organizationId
+      data: $data
+    ) {
+      ...OrganizationReminderSettingFragment
+    }
+  }
+`);
+
+export const UPDATE_REMINDER_SETTING_MUTATION = gql(`
+  mutation UserOrganizationReminderSettingUpdate(
+    $organizationId: String!,
+    $organizationReminderSettingId: String!,
+    $data: UserOrganizationReminderSettingSchema!
+  ) {
+    userOrganizationReminderSettingUpdate(
+      organization_id: $organizationId
+      organization_reminder_setting_id: $organizationReminderSettingId
       data: $data
     ) {
       ...OrganizationReminderSettingFragment

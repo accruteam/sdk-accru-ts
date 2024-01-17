@@ -8,7 +8,7 @@ type IStandardList = {
 };
 
 export type ListResponse<T extends IStandardList> = {
-  data: Array<
+  items: Array<
     T['edges'][number]['node'] & { cursor: T['edges'][number]['cursor'] }
   >;
   edges: T['edges'];
@@ -21,15 +21,14 @@ type IStandardChildrenList = {
   data: IStandardList;
 };
 
-export type ChildrenEdgeListResponse<T extends IStandardChildrenList> = T & {
-  data: ListResponse<T['data']>;
-};
+export type ChildrenEdgeListResponse<T extends IStandardChildrenList> = T &
+  ListResponse<T['data']>;
 
 export const processResponseAsList = <T extends IStandardList>(
   response: T,
 ): ListResponse<T> => {
   return {
-    data: response.edges.map(edge => ({
+    items: response.edges.map(edge => ({
       ...edge.node,
       cursor: edge.cursor,
     })),

@@ -34,7 +34,7 @@ export default class Bills {
 
     return {
       ...data.userOrganizationBillStatement,
-      data: processResponseAsList(data.userOrganizationBillStatement.data),
+      ...processResponseAsList(data.userOrganizationBillStatement.data),
     };
   };
 
