@@ -245,6 +245,7 @@ type OrganizationAcctProviderConn {
   id: ID!
   organization_id: String!
   payload: JSON
+  synchronizations(after: ConnectionCursor, before: ConnectionCursor, failed: Boolean, finished: Boolean, first: Int, last: Int, skip: Int, sorting: [SortingFieldSchema!], succeeded: Boolean, take: Int): OrganizationAcctProviderConnSynchronizationPaginationConnection!
   updated_at: DateTime!
 }
 
@@ -937,7 +938,7 @@ type Query {
   userOrganization(organization_id: String!): Organization!
   userOrganizationAcctProvider(organization_acct_provider_conn_id: String!, organization_id: String!): OrganizationAcctProviderConn!
   userOrganizationAcctProviderSynchronization(organization_acct_provider_conn_synchronization_id: String!, organization_id: String!): OrganizationAcctProviderConnSynchronization!
-  userOrganizationAcctProviderSynchronizations(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, organization_acct_provider_conn_id: String, organization_id: String!, skip: Int, sorting: [SortingFieldSchema!], take: Int): OrganizationAcctProviderConnSynchronizationPaginationConnection!
+  userOrganizationAcctProviderSynchronizations(after: ConnectionCursor, before: ConnectionCursor, failed: Boolean, finished: Boolean, first: Int, last: Int, organization_acct_provider_conn_id: String, organization_id: String!, skip: Int, sorting: [SortingFieldSchema!], succeeded: Boolean, take: Int): OrganizationAcctProviderConnSynchronizationPaginationConnection!
   userOrganizationAcctProviders(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, organization_id: String!, skip: Int, sorting: [SortingFieldSchema!], take: Int): OrganizationAcctProviderConnPaginationConnection!
   userOrganizationBill(organization_bill_id: String!, organization_id: String!): OrganizationBill!
   userOrganizationBillStatement(after: ConnectionCursor, before: ConnectionCursor, currency: CURRENCY, end_date: DateTime, first: Int, is_overdue: Boolean, last: Int, organization_id: String!, organization_vendor_id: String, skip: Int, sorting: [SortingFieldSchema!], start_date: DateTime, status: BILL_STATUS, take: Int): OrganizationBillStatement!

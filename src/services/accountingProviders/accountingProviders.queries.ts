@@ -13,6 +13,14 @@ export const ACCT_PROVIDER_CONN_FRAGMENT = gql(`
     created_at
     updated_at
     organization_id
+
+    synchronizations(skip: 0, take: 1, finished: true) {
+      edges {
+        node {
+          ...OrganizationAcctProviderConnSynchronizationFragment
+        }
+      }
+    }
   }
 `);
 
