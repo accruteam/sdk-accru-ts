@@ -14,6 +14,8 @@ import Users from '@services/users';
 import Vendors from '@services/vendors';
 import Organizations from '@services/organizations';
 
+export { processResponseAsList } from '@utils/processResponseAsList';
+
 export * from '@gql';
 export * from '@gql/graphql';
 
