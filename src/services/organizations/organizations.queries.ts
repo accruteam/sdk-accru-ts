@@ -60,11 +60,25 @@ export const ORGANIZATION_COLLABORATOR_FRAGMENT = gql(`
     user_id
     user {
       id
+      email
+      phone_number
       first_name
       last_name
+      language
+      profile_picture_file_id
       profile_picture_file {
         public_url
       }
+      current_email_verification_id
+      current_phone_number_verification_id
+    }
+  }
+`);
+
+export const GET_ORGANIZATION_QUERY = gql(`
+  query UserOrganization ($organizationId: String!) {
+    userOrganization(organization_id: $organizationId) {
+      ...OrganizationFragment
     }
   }
 `);
@@ -91,29 +105,7 @@ export const GET_ORGANIZATION_COLLABORATORS_QUERY = gql(`
     userOrganizationCollaborators(
       organization_id: $organizationId
     ) {
-      id
-      role
-      send_invoice_reminders
-      payload
-      archived_at
-      created_at
-      updated_at
-      organization_id
-      user_id
-      user {
-        id
-        email
-        phone_number
-        first_name
-        last_name
-        language
-        profile_picture_file_id
-        profile_picture_file {
-          public_url
-        }
-        current_email_verification_id
-        current_phone_number_verification_id
-      }
+      ...OrganizationCollaboratorFragment
     }
   }
 `);
@@ -156,7 +148,7 @@ export const UPDATE_ORGANIZATION_MUTATION = gql(`
   }
 `);
 
-export const UPDATE_ORGANIZATION_LOGO_MUTATION = gql(`
+export const DELETE_ORGANIZATION_LOGO_MUTATION = gql(`
   mutation UserOrganizationLogoPictureRemove($organizationId: String!) {
     userOrganizationLogoPictureRemove(organization_id: $organizationId) {
       logo_picture_file {
