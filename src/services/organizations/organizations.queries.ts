@@ -47,6 +47,42 @@ export const ORGANIZATION_QUERY_FRAGMENT = gql(`
   }
 `);
 
+export const ORGANIZATION_COLLABORATOR_FRAGMENT = gql(`
+  fragment OrganizationCollaboratorFragment on OrganizationUser {
+    id
+    role
+    send_invoice_reminders
+    payload
+    archived_at
+    created_at
+    updated_at
+    organization_id
+    user_id
+    user {
+      id
+      email
+      phone_number
+      first_name
+      last_name
+      language
+      profile_picture_file_id
+      profile_picture_file {
+        public_url
+      }
+      current_email_verification_id
+      current_phone_number_verification_id
+    }
+  }
+`);
+
+export const GET_ORGANIZATION_QUERY = gql(`
+  query UserOrganization ($organizationId: String!) {
+    userOrganization(organization_id: $organizationId) {
+      ...OrganizationFragment
+    }
+  }
+`);
+
 export const GET_ORGANIZATION_BASE_SETTINGS_QUERY = gql(`
   query UserOrganizationBaseSettings(
     $organizationId: String!
@@ -62,6 +98,42 @@ export const GET_ORGANIZATION_BASE_SETTINGS_QUERY = gql(`
   }
 `);
 
+export const GET_ORGANIZATION_COLLABORATORS_QUERY = gql(`
+  query UserOrganizationCollaborators(
+    $organizationId: String!
+  ) {
+    userOrganizationCollaborators(
+      organization_id: $organizationId
+    ) {
+      ...OrganizationCollaboratorFragment
+    }
+  }
+`);
+
+export const INVITE_ORGANIZATION_COLLABORATOR_MUTATION = gql(`
+  mutation UserOrganizationInviteCollaboratorCreate($data: UserOrganizationInviteCollaboratorCreateSchema!, $organizationId: String!) {
+    userOrganizationInviteCollaboratorCreate(data: $data, organization_id: $organizationId) {
+      expires_at
+    }
+  }
+`);
+
+export const UPDATE_ORGANIZATION_COLLABORATOR_MUTATION = gql(`
+  mutation UserOrganizationCollaboratorUpdate($data: UserOrganizationCollaboratorUpdateSchema!, $organizationUserId: String!, $organizationId: String!) {
+    userOrganizationCollaboratorUpdate(data: $data, organization_user_id: $organizationUserId, organization_id: $organizationId) {
+      role
+    } 
+  }
+`);
+
+export const DELETE_ORGANIZATION_COLLABORATOR_MUTATION = gql(`
+  mutation UserOrganizationCollaboratorDelete($organizationUserId: String!, $organizationId: String!) {
+    userOrganizationCollaboratorDelete(organization_user_id: $organizationUserId, organization_id: $organizationId) {
+      id
+    }
+  }
+`);
+
 export const UPDATE_ORGANIZATION_MUTATION = gql(`
   mutation UserOrganizationUpdate(
     $organizationId: String!
@@ -72,6 +144,16 @@ export const UPDATE_ORGANIZATION_MUTATION = gql(`
       data: $data
     ) {
       ...OrganizationFragment
+    }
+  }
+`);
+
+export const DELETE_ORGANIZATION_LOGO_MUTATION = gql(`
+  mutation UserOrganizationLogoPictureRemove($organizationId: String!) {
+    userOrganizationLogoPictureRemove(organization_id: $organizationId) {
+      logo_picture_file {
+        public_url
+      }
     }
   }
 `);
