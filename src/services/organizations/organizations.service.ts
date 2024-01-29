@@ -8,6 +8,8 @@ import {
   UserOrganizationBaseSettingsQueryVariables,
   UserOrganizationCollaboratorDeleteMutation,
   UserOrganizationCollaboratorDeleteMutationVariables,
+  UserOrganizationCollaboratorUpdateMutation,
+  UserOrganizationCollaboratorUpdateMutationVariables,
   UserOrganizationCollaboratorsQuery,
   UserOrganizationCollaboratorsQueryVariables,
   UserOrganizationInviteCollaboratorCreateMutation,
@@ -27,6 +29,7 @@ import {
   GET_ORGANIZATION_COLLABORATORS_QUERY,
   GET_ORGANIZATION_QUERY,
   INVITE_ORGANIZATION_COLLABORATOR_MUTATION,
+  UPDATE_ORGANIZATION_COLLABORATOR_MUTATION,
   UPDATE_ORGANIZATION_MUTATION,
 } from './organizations.queries';
 
@@ -86,33 +89,44 @@ export default class Organizations {
   public inviteCollaborator = async (
     variables: UserOrganizationInviteCollaboratorCreateMutationVariables,
   ): Promise<Res<UserOrganizationInviteCollaboratorCreateMutation>> => {
-    const { data } = await this.apolloClient.query({
-      query: INVITE_ORGANIZATION_COLLABORATOR_MUTATION,
+    const { data } = await this.apolloClient.mutate({
+      mutation: INVITE_ORGANIZATION_COLLABORATOR_MUTATION,
       variables,
     });
 
-    return data.userOrganizationInviteCollaboratorCreate;
+    return data!.userOrganizationInviteCollaboratorCreate;
+  };
+
+  public updateCollaborator = async (
+    variables: UserOrganizationCollaboratorUpdateMutationVariables,
+  ): Promise<Res<UserOrganizationCollaboratorUpdateMutation>> => {
+    const { data } = await this.apolloClient.mutate({
+      mutation: UPDATE_ORGANIZATION_COLLABORATOR_MUTATION,
+      variables,
+    });
+
+    return data!.userOrganizationCollaboratorUpdate;
   };
 
   public deleteCollaborator = async (
     variables: UserOrganizationCollaboratorDeleteMutationVariables,
   ): Promise<Res<UserOrganizationCollaboratorDeleteMutation>> => {
-    const { data } = await this.apolloClient.query({
-      query: DELETE_ORGANIZATION_COLLABORATOR_MUTATION,
+    const { data } = await this.apolloClient.mutate({
+      mutation: DELETE_ORGANIZATION_COLLABORATOR_MUTATION,
       variables,
     });
 
-    return data.userOrganizationCollaboratorDelete;
+    return data!.userOrganizationCollaboratorDelete;
   };
 
   public deleteOrganizationLogo = async (
     variables: UserOrganizationLogoPictureRemoveMutationVariables,
   ): Promise<Res<UserOrganizationLogoPictureRemoveMutation>> => {
-    const { data } = await this.apolloClient.query({
-      query: DELETE_ORGANIZATION_LOGO_MUTATION,
+    const { data } = await this.apolloClient.mutate({
+      mutation: DELETE_ORGANIZATION_LOGO_MUTATION,
       variables,
     });
 
-    return data.userOrganizationLogoPictureRemove;
+    return data!.userOrganizationLogoPictureRemove;
   };
 }
