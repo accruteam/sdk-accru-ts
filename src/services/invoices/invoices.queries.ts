@@ -179,6 +179,32 @@ export const INVOICE_GET_QUERY = gql(`
   }
 `);
 
+export const INVOICE_CREATE_MUTATION = gql(`
+  mutation UserOrganizationInvoiceCreate(
+    $data: UserOrganizationInvoiceSchema!
+    $organizationId: String!
+  ) {
+    userOrganizationInvoiceCreate(
+      data: $data
+      organization_id: $organizationId
+    ) {
+      amount
+      archived_at
+      balance
+      created_at
+      currency_code
+      id
+      is_overdue
+      invoice_date
+      status
+      email_sent_at
+      paid_at
+      paid_amount
+      total_amount
+    }
+  }
+`);
+
 export const SEND_INVOICE_EMAIL_MUTATION = gql(`
   mutation UserOrganizationCustomerSendInvoiceEmail(
     $organizationId: String!

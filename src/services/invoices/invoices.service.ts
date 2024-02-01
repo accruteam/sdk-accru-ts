@@ -2,6 +2,8 @@ import { ApolloClient } from '@apollo/client';
 import {
   UserOrganizationCustomerSendInvoiceEmailMutation,
   UserOrganizationCustomerSendInvoiceEmailMutationVariables,
+  UserOrganizationInvoiceCreateMutation,
+  UserOrganizationInvoiceCreateMutationVariables,
   UserOrganizationInvoiceQuery,
   UserOrganizationInvoiceQueryVariables,
   UserOrganizationInvoiceStatementQuery,
@@ -14,6 +16,7 @@ import {
 import { Res } from '@utils/response.type';
 import {
   INVOICES_GET_STATEMENT_QUERY,
+  INVOICE_CREATE_MUTATION,
   INVOICE_GET_QUERY,
   SEND_INVOICE_EMAIL_MUTATION,
 } from './invoices.queries';
@@ -49,7 +52,16 @@ export default class Invoices {
     return data.userOrganizationInvoice;
   };
 
-  public create = async (): Promise<any> => {};
+  public create = async (
+    variables: UserOrganizationInvoiceCreateMutationVariables,
+  ): Promise<Res<UserOrganizationInvoiceCreateMutation>> => {
+    const { data } = await this.apolloClient.mutate({
+      mutation: INVOICE_CREATE_MUTATION,
+      variables,
+    });
+
+    return data!.userOrganizationInvoiceCreate;
+  };
 
   public update = async (): Promise<any> => {};
 
