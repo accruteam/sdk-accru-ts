@@ -35,24 +35,6 @@ export const USER_QUERY = gql(`
   }
 `);
 
-export const INTUIT_AUTH_PROVIDER_GET_OAUTH_REQUEST_MUTATION = gql(`
-  mutation UserAuthProviderGetOAuthUrl {
-    userAuthProviderGetOAuthUrl(auth_provider_code: INTUIT)
-  }
-`);
-
-export const INTUIT_GET_CUSTOM_TOKEN_MUTATION = gql(`
-  mutation UserAuthProviderGetOAuthToken(
-    $authProviderCode: AUTH_PROVIDER!
-    $authorizationToken: String!
-  ) {
-    userAuthProviderGetOAuthToken(
-      auth_provider_code: $authProviderCode
-      authorization_token: $authorizationToken
-    )
-  }
-`);
-
 export const USER_ORGANIZATION_USER_INVITE_QUERY = gql(`
   query UnauthorizedUserOrganizationUserInvite(
     $code: String!
