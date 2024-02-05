@@ -90,3 +90,27 @@ export const EMAIL_VERIFICATION_MUTATION = gql(`
     userSignUpWithEmailFinish(data: $data)
   }
 `);
+
+export const PASSWORD_RESET_START_MUTATION = gql(`
+  mutation UserPasswordResetStart($data: UserPasswordResetStartSchema!) {
+    userPasswordResetStart(data: $data)
+  }
+`);
+
+export const PASSWORD_RESET_FINISH_MUTATION = gql(`
+  mutation UserPasswordResetFinish($userPasswordResetFinishData2: UserPasswordResetFinishSchema!) {
+    userPasswordResetFinish(data: $userPasswordResetFinishData2)
+  }
+`);
+
+export const INTUIT_LOGIN_START_MUTATION = gql(`
+  mutation UserAuthProviderGetOAuthUrl($authProviderCode: AUTH_PROVIDER!) {
+    userAuthProviderGetOAuthUrl(auth_provider_code: INTUIT)
+  }
+`);
+
+export const INTUIT_LOGIN_FINISH_MUTATION = gql(`
+  mutation UserAuthProviderGetOAuthToken($authProviderCode: AUTH_PROVIDER!, $authorizationToken: String!) {
+    userAuthProviderGetOAuthToken(auth_provider_code: INTUIT, authorization_token: $authorizationToken)
+  }
+`);

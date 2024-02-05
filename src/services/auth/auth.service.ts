@@ -1,8 +1,16 @@
 import {
   UnauthorizedUserOrganizationUserInviteQuery,
   UnauthorizedUserOrganizationUserInviteQueryVariables,
+  UserAuthProviderGetOAuthTokenMutation,
+  UserAuthProviderGetOAuthTokenMutationVariables,
+  UserAuthProviderGetOAuthUrlMutation,
+  UserAuthProviderGetOAuthUrlMutationVariables,
   UserOrganizationUserInviteAcceptMutation,
   UserOrganizationUserInviteAcceptMutationVariables,
+  UserPasswordResetFinishMutation,
+  UserPasswordResetFinishMutationVariables,
+  UserPasswordResetStartMutation,
+  UserPasswordResetStartMutationVariables,
   UserSessionsCloseMutation,
   UserSessionsCloseMutationVariables,
   UserSignUpWithEmailFinishSchemaMutation,
@@ -21,6 +29,10 @@ import {
   EMAIL_VERIFICATION_MUTATION,
   USER_ORGANIZATION_USER_INVITE_QUERY,
   ACCEPT_ORG_INVITE_MUTATE,
+  PASSWORD_RESET_START_MUTATION,
+  PASSWORD_RESET_FINISH_MUTATION,
+  INTUIT_LOGIN_START_MUTATION,
+  INTUIT_LOGIN_FINISH_MUTATION,
 } from './auth.queries';
 
 export default class Auth {
@@ -84,5 +96,45 @@ export default class Auth {
       variables,
     });
     return data!.userSessionsClose;
+  };
+
+  public startResetPassword = async (
+    variables: UserPasswordResetStartMutationVariables,
+  ): Promise<Res<UserPasswordResetStartMutation>> => {
+    const { data } = await this.apolloClient.mutate({
+      mutation: PASSWORD_RESET_START_MUTATION,
+      variables,
+    });
+    return data!.userPasswordResetStart;
+  };
+
+  public finishResetPassword = async (
+    variables: UserPasswordResetFinishMutationVariables,
+  ): Promise<Res<UserPasswordResetFinishMutation>> => {
+    const { data } = await this.apolloClient.mutate({
+      mutation: PASSWORD_RESET_FINISH_MUTATION,
+      variables,
+    });
+    return data!.userPasswordResetFinish;
+  };
+
+  public startIntuitLogin = async (
+    variables: UserAuthProviderGetOAuthUrlMutationVariables,
+  ): Promise<Res<UserAuthProviderGetOAuthUrlMutation>> => {
+    const { data } = await this.apolloClient.mutate({
+      mutation: INTUIT_LOGIN_START_MUTATION,
+      variables,
+    });
+    return data!.userAuthProviderGetOAuthUrl;
+  };
+
+  public finishIntuitLogin = async (
+    variables: UserAuthProviderGetOAuthTokenMutationVariables,
+  ): Promise<Res<UserAuthProviderGetOAuthTokenMutation>> => {
+    const { data } = await this.apolloClient.mutate({
+      mutation: INTUIT_LOGIN_FINISH_MUTATION,
+      variables,
+    });
+    return data!.userAuthProviderGetOAuthToken;
   };
 }
