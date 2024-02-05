@@ -12,6 +12,8 @@ import {
   UserOrganizationCollaboratorUpdateMutationVariables,
   UserOrganizationCollaboratorsQuery,
   UserOrganizationCollaboratorsQueryVariables,
+  UserOrganizationCreateMutation,
+  UserOrganizationCreateMutationVariables,
   UserOrganizationInviteCollaboratorCreateMutation,
   UserOrganizationInviteCollaboratorCreateMutationVariables,
   UserOrganizationLogoPictureRemoveMutation,
@@ -31,6 +33,7 @@ import {
   INVITE_ORGANIZATION_COLLABORATOR_MUTATION,
   UPDATE_ORGANIZATION_COLLABORATOR_MUTATION,
   UPDATE_ORGANIZATION_MUTATION,
+  CREATE_ORGANIZATION_MUTATION,
 } from './organizations.queries';
 
 export default class Organizations {
@@ -47,6 +50,17 @@ export default class Organizations {
     });
 
     return data.userOrganization;
+  };
+
+  public create = async (
+    variables: UserOrganizationCreateMutationVariables,
+  ): Promise<Res<UserOrganizationCreateMutation>> => {
+    const { data } = await this.apolloClient.mutate({
+      mutation: CREATE_ORGANIZATION_MUTATION,
+      variables,
+    });
+
+    return data!.userOrganizationCreate;
   };
 
   public getSettings = async (

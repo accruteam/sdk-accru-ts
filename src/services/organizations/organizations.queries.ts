@@ -98,6 +98,18 @@ export const GET_ORGANIZATION_BASE_SETTINGS_QUERY = gql(`
   }
 `);
 
+export const CREATE_ORGANIZATION_MUTATION = gql(`
+  mutation UserOrganizationCreate($data: UserOrganizationCreateSchema!){
+    userOrganizationCreate(data: $data) {
+      id
+      email
+      name
+      phone_number
+      primary_contact_name
+    }
+  }
+`);
+
 export const GET_ORGANIZATION_COLLABORATORS_QUERY = gql(`
   query UserOrganizationCollaborators(
     $organizationId: String!
