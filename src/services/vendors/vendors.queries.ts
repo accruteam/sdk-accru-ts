@@ -28,7 +28,7 @@ export const VENDOR_QUERY_FRAGMENT = gql(`
       updated_at
     }
 
-    bill_statement {
+    bill_summary {
       data {
         totalCount
         edges {

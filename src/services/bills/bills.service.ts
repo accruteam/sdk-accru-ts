@@ -8,33 +8,33 @@ import {
   UserOrganizationBillCreateMutationVariables,
   UserOrganizationBillQuery,
   UserOrganizationBillQueryVariables,
-  UserOrganizationBillStatementQuery,
-  UserOrganizationBillStatementQueryVariables,
+  UserOrganizationBillSummaryQuery,
+  UserOrganizationBillSummaryQueryVariables,
 } from '@api/gql/graphql';
 import { Res } from '@utils/response.type';
 import {
   BILL_CREATE_MUTATION,
   BILL_GET_QUERY,
-  BILLS_GET_STATEMENT_QUERY,
+  BILLS_GET_SUMMARY_QUERY,
 } from './bills.queries';
 
 export default class Bills {
   constructor(private apolloClient: ApolloClient<unknown>) {}
 
   public get = async (
-    variables: UserOrganizationBillStatementQueryVariables,
+    variables: UserOrganizationBillSummaryQueryVariables,
   ): Promise<
-    ChildrenEdgeListResponse<Res<UserOrganizationBillStatementQuery>>
+    ChildrenEdgeListResponse<Res<UserOrganizationBillSummaryQuery>>
   > => {
     const { data } = await this.apolloClient.query({
-      query: BILLS_GET_STATEMENT_QUERY,
+      query: BILLS_GET_SUMMARY_QUERY,
       fetchPolicy: 'no-cache',
       variables,
     });
 
     return {
-      ...data.userOrganizationBillStatement,
-      ...processResponseAsList(data.userOrganizationBillStatement.data),
+      ...data.userOrganizationBillSummary,
+      ...processResponseAsList(data.userOrganizationBillSummary.data),
     };
   };
 

@@ -6,8 +6,8 @@ import {
   UserOrganizationInvoiceCreateMutationVariables,
   UserOrganizationInvoiceQuery,
   UserOrganizationInvoiceQueryVariables,
-  UserOrganizationInvoiceStatementQuery,
-  UserOrganizationInvoiceStatementQueryVariables,
+  UserOrganizationInvoiceSummaryQuery,
+  UserOrganizationInvoiceSummaryQueryVariables,
 } from '@api/gql/graphql';
 import {
   ChildrenEdgeListResponse,
@@ -15,7 +15,7 @@ import {
 } from '@utils/processResponseAsList';
 import { Res } from '@utils/response.type';
 import {
-  INVOICES_GET_STATEMENT_QUERY,
+  INVOICES_GET_SUMMARY_QUERY,
   INVOICE_CREATE_MUTATION,
   INVOICE_GET_QUERY,
   SEND_INVOICE_EMAIL_MUTATION,
@@ -25,19 +25,19 @@ export default class Invoices {
   constructor(private apolloClient: ApolloClient<unknown>) {}
 
   public get = async (
-    variables: UserOrganizationInvoiceStatementQueryVariables,
+    variables: UserOrganizationInvoiceSummaryQueryVariables,
   ): Promise<
-    ChildrenEdgeListResponse<Res<UserOrganizationInvoiceStatementQuery>>
+    ChildrenEdgeListResponse<Res<UserOrganizationInvoiceSummaryQuery>>
   > => {
     const { data } = await this.apolloClient.query({
-      query: INVOICES_GET_STATEMENT_QUERY,
+      query: INVOICES_GET_SUMMARY_QUERY,
       fetchPolicy: 'no-cache',
       variables,
     });
 
     return {
-      ...data.userOrganizationInvoiceStatement,
-      ...processResponseAsList(data.userOrganizationInvoiceStatement.data),
+      ...data.userOrganizationInvoiceSummary,
+      ...processResponseAsList(data.userOrganizationInvoiceSummary.data),
     };
   };
 
