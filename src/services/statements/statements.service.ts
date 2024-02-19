@@ -1,14 +1,22 @@
 import { ApolloClient } from '@apollo/client';
 import {
-  UserCustomerOrganizationInvoiceStatementQuery,
-  UserCustomerOrganizationInvoiceStatementQueryVariables,
+  UnconnectedUserCustomerOrganizationStatementQuery,
+  UnconnectedUserCustomerOrganizationStatementQueryVariables,
+  UnconnectedUserCustomerOrganizationStatementRequestTokenMutation,
+  UnconnectedUserCustomerOrganizationStatementRequestTokenMutationVariables,
+  UserCustomerOrganizationStatementQuery,
+  UserCustomerOrganizationStatementQueryVariables,
 } from '@api/gql/graphql';
 import {
   ChildrenEdgeListResponse,
   processResponseAsList,
 } from '@utils/processResponseAsList';
 import { Res } from '@utils/response.type';
-import { GET_AS_CUSTOMER_ORGANIZATION_VENDOR_INVOICE_STATEMENT_QUERY } from './statements.queries';
+import {
+  GET_AS_CUSTOMER_ORGANIZATION_STATEMENT_QUERY,
+  GET_AS_UNCONNECTED_CUSTOMER_ORGANIZATION_STATEMENT_QUERY,
+  GET_AS_UNCONNECTED_CUSTOMER_ORGANIZATION_STATEMENT_TOKEN_QUERY,
+} from './statements.queries';
 
 export default class Statements {
   private apolloClient: ApolloClient<unknown>;
@@ -18,28 +26,53 @@ export default class Statements {
   }
 
   public get = async (
-    variables: UserCustomerOrganizationInvoiceStatementQueryVariables,
+    variables: UserCustomerOrganizationStatementQueryVariables,
   ): Promise<
-    ChildrenEdgeListResponse<Res<UserCustomerOrganizationInvoiceStatementQuery>>
+    ChildrenEdgeListResponse<Res<UserCustomerOrganizationStatementQuery>>
   > => {
     const { data } = await this.apolloClient.query({
-      query: GET_AS_CUSTOMER_ORGANIZATION_VENDOR_INVOICE_STATEMENT_QUERY,
+      query: GET_AS_CUSTOMER_ORGANIZATION_STATEMENT_QUERY,
       variables,
     });
 
     return {
-      ...data.userCustomerOrganizationInvoiceStatement,
+      ...data.userCustomerOrganizationStatement,
+      ...processResponseAsList(data.userCustomerOrganizationStatement.data),
+    };
+  };
+
+  public getUnconnectedStatement = async (
+    variables: UnconnectedUserCustomerOrganizationStatementQueryVariables,
+  ): Promise<
+    ChildrenEdgeListResponse<
+      Res<UnconnectedUserCustomerOrganizationStatementQuery>
+    >
+  > => {
+    const { data } = await this.apolloClient.query({
+      query: GET_AS_UNCONNECTED_CUSTOMER_ORGANIZATION_STATEMENT_QUERY,
+      variables,
+    });
+
+    return {
+      ...data.unconnectedUserCustomerOrganizationStatement,
       ...processResponseAsList(
-        data.userCustomerOrganizationInvoiceStatement.data,
+        data.unconnectedUserCustomerOrganizationStatement.data,
       ),
     };
   };
 
-  public getOne = async (): Promise<any> => {};
+  public getUnconnectedStatementToken = async (
+    variables: UnconnectedUserCustomerOrganizationStatementRequestTokenMutationVariables,
+  ): Promise<
+    ChildrenEdgeListResponse<
+      Res<UnconnectedUserCustomerOrganizationStatementRequestTokenMutation>
+    >
+  > => {
+    const { data } = await this.apolloClient.mutate({
+      mutation: GET_AS_UNCONNECTED_CUSTOMER_ORGANIZATION_STATEMENT_TOKEN_QUERY,
+      variables,
+    });
 
-  public create = async (): Promise<any> => {};
-
-  public update = async (): Promise<any> => {};
-
-  public del = async (): Promise<any> => {};
+    return data!.unconnectedUserCustomerOrganizationStatementRequestToken;
+  };
 }

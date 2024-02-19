@@ -29,7 +29,7 @@ export const CUSTOMER_QUERY_FRAGMENT = gql(`
       updated_at
     }
 
-    invoice_statement {
+    invoice_summary {
       data {
         totalCount
         edges {
@@ -124,9 +124,56 @@ export const GET_ALL_CUSTOMERS_QUERY = gql(`
     }
 `);
 
+export const GET_CUSTOMER_STATEMENT_QUERY = gql(`
+  query UserOrganizationCustomerStatement(
+    $organizationId: String!
+    $organizationCustomerId: String!
+    $currency: CURRENCY
+    $startDate: DateTime
+    $endDate: DateTime
+    $isOverdue: Boolean
+    $after: ConnectionCursor
+    $first: Int
+    $before: ConnectionCursor
+    $last: Int
+    $skip: Int
+    $take: Int
+    $sorting: [SortingFieldSchema!]
+  ) {
+    userOrganizationCustomerStatement(
+      organization_id: $organizationId
+      organization_customer_id: $organizationCustomerId
+
+      currency: $currency
+      start_date: $startDate
+      end_date: $endDate
+      is_overdue: $isOverdue
+
+      after: $after
+      first: $first
+
+      before: $before
+      last: $last
+
+      skip: $skip
+      take: $take
+
+      sorting: $sorting
+    ) {
+      ...OrganizationCustomerStatementFragment
+    }
+  }
+`);
+
 export const GET_CUSTOMER_QUERY = gql(`
-  query UserOrganizationCustomer($organizationCustomerId: String!, $organizationId: String!) {
-    userOrganizationCustomer(organization_customer_id: $organizationCustomerId, organization_id: $organizationId) {
+  query UserOrganizationCustomer(
+    $organizationId: String!
+    $organizationCustomerId: String!,
+    ) {
+    userOrganizationCustomer(
+      organization_id: $organizationId
+      organization_customer_id: $organizationCustomerId,
+      ) {
       ...OrganizationCustomerFragment
     }
   }

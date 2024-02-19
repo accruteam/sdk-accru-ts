@@ -87,8 +87,8 @@ export const BILL_QUERY_FRAGMENT = gql(`
   }
 `);
 
-export const BILLS_GET_STATEMENT_QUERY = gql(`
-  query UserOrganizationBillStatement(
+export const BILLS_GET_SUMMARY_QUERY = gql(`
+  query UserOrganizationBillSummary(
     $organizationId: String!
     $organizationVendorId: String
     $currency: CURRENCY
@@ -104,7 +104,7 @@ export const BILLS_GET_STATEMENT_QUERY = gql(`
     $take: Int
     $sorting: [SortingFieldSchema!]
   ) {
-    userOrganizationBillStatement(
+    userOrganizationBillSummary(
       organization_id: $organizationId
       organization_vendor_id: $organizationVendorId
 

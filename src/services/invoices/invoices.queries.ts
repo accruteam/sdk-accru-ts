@@ -86,8 +86,8 @@ export const INVOICE_QUERY_FRAGMENT = gql(`
   }
 `);
 
-export const INVOICES_GET_STATEMENT_QUERY = gql(`
-  query UserOrganizationInvoiceStatement(
+export const INVOICES_GET_SUMMARY_QUERY = gql(`
+  query UserOrganizationInvoiceSummary(
     $organizationId: String!
     $organizationCustomerId: String
     $currency: CURRENCY
@@ -103,7 +103,7 @@ export const INVOICES_GET_STATEMENT_QUERY = gql(`
     $take: Int
     $sorting: [SortingFieldSchema!]
   ) {
-    userOrganizationInvoiceStatement(
+    userOrganizationInvoiceSummary(
       organization_id: $organizationId
       organization_customer_id: $organizationCustomerId
 
