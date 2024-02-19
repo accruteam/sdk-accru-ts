@@ -75,6 +75,10 @@ export default class Customers {
       query: GET_CUSTOMER_STATEMENT_QUERY,
       variables,
     });
-    return data.userOrganizationCustomerStatement;
+
+    return {
+      ...data.userOrganizationCustomerStatement,
+      ...processResponseAsList(data.userOrganizationCustomerStatement.data),
+    };
   };
 }

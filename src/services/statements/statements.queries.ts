@@ -67,9 +67,15 @@ export const CUSTOMER_STATEMENT_FRAGMENT = gql(`
     paid_amount
     overdue_amount
     balance
+
     start_date
     end_date
+
     currency
+
+    one_to_thirty_days_due_amount
+    thirty_one_to_sixty_days_due_amount
+    sixty_plus_days_due_amount
   }
 `);
 

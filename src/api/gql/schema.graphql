@@ -583,9 +583,12 @@ type OrganizationCustomerStatement {
   customer_organization_id: String
   data: OrganizationCustomerStatementLineDataPaginationConnection!
   end_date: DateTime
+  one_to_thirty_days_due_amount: Int
   overdue_amount: Int!
   paid_amount: Int!
+  sixty_plus_days_due_amount: Int
   start_date: DateTime
+  thirty_one_to_sixty_days_due_amount: Int
   total_amount: Int!
   vendor_organization: Organization!
   vendor_organization_customer: OrganizationCustomer!

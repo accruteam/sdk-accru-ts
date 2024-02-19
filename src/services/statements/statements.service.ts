@@ -73,11 +73,6 @@ export default class Statements {
       variables,
     });
 
-    return {
-      ...data!.unconnectedUserCustomerOrganizationStatementRequestToken,
-      ...processResponseAsList(
-        data!.unconnectedUserCustomerOrganizationStatementRequestToken.data,
-      ),
-    };
+    return data!.unconnectedUserCustomerOrganizationStatementRequestToken;
   };
 }
