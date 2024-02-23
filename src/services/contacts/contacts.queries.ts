@@ -64,7 +64,7 @@ export const GET_CUSTOMERS_CONTACTS_QUERY = gql(`
   }
 `);
 
-export const CREATE_CONTACT_QUERY = gql(`
+export const CREATE_CONTACT_MUTATION = gql(`
   mutation userOrganizationVendorContactCreate(
     $organizationId: String!
     $organizationVendorId: String!
@@ -109,7 +109,7 @@ export const CREATE_CUSTOMER_CONTACT_QUERY = gql(`
   }
 `);
 
-export const UPDATE_CONTACT_QUERY = gql(`
+export const UPDATE_CONTACT_MUTATION = gql(`
   mutation UserOrganizationVendorContactUpdate(
     $data: UserOrganizationVendorContactUpdateSchema!
     $organizationVendorContactId: String!
@@ -131,7 +131,7 @@ export const UPDATE_CONTACT_QUERY = gql(`
   }
 `);
 
-export const UPDATE_CUSTOMER_CONTACT_QUERY = gql(`
+export const UPDATE_CUSTOMER_CONTACT_MUTATION = gql(`
   mutation UserOrganizationCustomerContactUpdate(
     $data: UserOrganizationCustomerContactUpdateSchema!
     $organizationCustomerContactId: String!
@@ -157,7 +157,7 @@ export const UPDATE_CUSTOMER_CONTACT_QUERY = gql(`
   }
 `);
 
-export const DELETE_CONTACT_QUERY = gql(`
+export const DELETE_CONTACT_MUTATION = gql(`
   mutation UserOrganizationVendorContactDelete(
     $organizationVendorContactId: String!
     $organizationVendorId: String!

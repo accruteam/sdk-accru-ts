@@ -13,6 +13,7 @@ import Statements from '@services/statements';
 import Users from '@services/users';
 import Vendors from '@services/vendors';
 import Organizations from '@services/organizations';
+import Contacts from '@services/contacts';
 
 export { processResponseAsList } from '@utils/processResponseAsList';
 
@@ -26,6 +27,7 @@ export class AccruClient {
   public readonly auth: Auth;
   public readonly bills: Bills;
   public readonly connections: Connections;
+  public readonly contacts: Contacts;
   public readonly customers: Customers;
   public readonly invoices: Invoices;
   public readonly organizations: Organizations;
@@ -40,6 +42,7 @@ export class AccruClient {
     this.auth = new Auth(this.apolloClient);
     this.bills = new Bills(this.apolloClient);
     this.connections = new Connections(this.apolloClient);
+    this.contacts = new Contacts(this.apolloClient);
     this.customers = new Customers(this.apolloClient);
     this.invoices = new Invoices(this.apolloClient);
     this.organizations = new Organizations(this.apolloClient);
