@@ -170,6 +170,12 @@ type Mutation {
   userUpdateData(data: UserUpdateDataSchema!): User!
 }
 
+enum ORGANIZATION_ACCT_PROVIDER_CONN_STATUS {
+  CONNECTED
+  DISCONNECTED
+  EXPIRED
+}
+
 enum ORGANIZATION_CONNECTION_STATUS {
   ACCEPTED
   INVITED
@@ -245,6 +251,7 @@ type OrganizationAcctProviderConn {
   id: ID!
   organization_id: String!
   payload: JSON
+  status: ORGANIZATION_ACCT_PROVIDER_CONN_STATUS!
   synchronizations(after: ConnectionCursor, before: ConnectionCursor, failed: Boolean, finished: Boolean, first: Int, last: Int, skip: Int, sorting: [SortingFieldSchema!], succeeded: Boolean, take: Int): OrganizationAcctProviderConnSynchronizationPaginationConnection!
   updated_at: DateTime!
 }
@@ -608,6 +615,7 @@ type OrganizationCustomerStatementInvoiceLine {
   organization_customer_id: String!
   organization_invoice_id: String
   paid_amount: Int!
+  payment_options: [OrganizationInvoicePaymentOption!]!
   running_balance: Int!
   type: String!
   updated_at: DateTime!
@@ -638,6 +646,7 @@ type OrganizationCustomerStatementTransactionLine {
   organization_transaction_id: String
   paid_amount: Int!
   running_balance: Int!
+  transaction_links: [OrganizationTransactionLink!]
   transaction_status: String!
   type: String!
   updated_at: DateTime!
@@ -703,6 +712,7 @@ type OrganizationInvoice {
   paid_amount: Int
   paid_at: DateTime
   payload: JSON
+  payment_options: [OrganizationInvoicePaymentOption!]!
   status: INVOICE_STATUS
   tax_amount: Int!
   total_amount: Int!
@@ -739,6 +749,12 @@ type OrganizationInvoicePaginationConnection {
 type OrganizationInvoicePaginationEdge {
   cursor: ConnectionCursor!
   node: OrganizationInvoice!
+}
+
+type OrganizationInvoicePaymentOption {
+  method: PAYMENT_METHOD!
+  payload: JSON
+  url: String
 }
 
 type OrganizationInvoiceSummary {

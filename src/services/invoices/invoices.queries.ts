@@ -69,6 +69,12 @@ export const INVOICE_QUERY_FRAGMENT = gql(`
 
     email_sent_at
 
+    payment_options {
+        method
+        url
+        payload
+    }
+
     transaction_links {
       id
       amount

@@ -26,49 +26,76 @@ describe('VendorsService', () => {
 
   it('should get vendors', async () => {
     const vendors = await client.vendors.get({ organizationId })
-    if(vendors.items.length)
-      expect(vendors).toMatchObject({
-        items: expect.arrayContaining([
-          expect.objectContaining({
-            id: expect.any(String),
-          }),
-        ]),
-      })
+
+    expect(vendors.items.length).toBeGreaterThan(0)
+
+    expect(vendors).toMatchObject({
+      items: expect.arrayContaining([
+        expect.objectContaining({
+          id: expect.any(String),
+        }),
+      ]),
+    })
   })
 
   it('should get customers', async () => {
     const customers = await client.customers.get({ organizationId })
-    if(customers.items.length)
-      expect(customers).toMatchObject({
-        items: expect.arrayContaining([
-          expect.objectContaining({
-            id: expect.any(String),
-          }),
-        ]),
-      })
+
+    expect(customers.items.length).toBeGreaterThan(0)
+
+    expect(customers).toMatchObject({
+      items: expect.arrayContaining([
+        expect.objectContaining({
+          id: expect.any(String),
+        }),
+      ]),
+    })
   })
 
   it('should get invoices', async () => {
     const invoices = await client.invoices.get({ organizationId })
-    if(invoices.items.length)
-      expect(invoices).toMatchObject({
-        items: expect.arrayContaining([
-          expect.objectContaining({
-            id: expect.any(String),
-          }),
-        ]),
-      })
+
+    expect(invoices.items.length).toBeGreaterThan(0)
+
+    expect(invoices).toMatchObject({
+      items: expect.arrayContaining([
+        expect.objectContaining({
+          id: expect.any(String),
+        }),
+      ]),
+    })
   })
 
   it('should get bills', async () => {
     const bills = await client.bills.get({ organizationId })
-    if(bills.items.length)
-      expect(bills).toMatchObject({
-        items: expect.arrayContaining([
-          expect.objectContaining({
-            id: expect.any(String),
-          }),
-        ]),
-      })
+
+    expect(bills.items.length).toBeGreaterThan(0)
+
+    expect(bills).toMatchObject({
+      items: expect.arrayContaining([
+        expect.objectContaining({
+          id: expect.any(String),
+        }),
+      ]),
+    })
+  })
+
+  it('should be able to get customer statement as a vendor', async () => {
+    const customers = await client.customers.get({ organizationId })
+    const customerWithMostInvoices = customers.items.reduce((prev, current) => (prev.invoice_summary.data.edges.length > current.invoice_summary.data.edges.length ? prev : current))
+    if(!customerWithMostInvoices?.id) throw new Error('No customer found')
+
+    const statement =  await client.customers.getStatement({
+      organizationId,
+      organizationCustomerId: customerWithMostInvoices.id
+    })
+
+    expect(statement).toMatchObject({
+      items: expect.arrayContaining([
+        expect.objectContaining({
+          id: expect.any(String),
+        }),
+      ]),
+    })
   })
 })

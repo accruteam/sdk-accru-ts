@@ -37,6 +37,12 @@ export const CUSTOMER_STATEMENT_FRAGMENT = gql(`
             invoice_status
             type
             updated_at
+
+            payment_options {
+                method
+                url
+                payload
+            }
           }
           ... on OrganizationCustomerStatementTransactionLine {
             amount
@@ -53,6 +59,13 @@ export const CUSTOMER_STATEMENT_FRAGMENT = gql(`
             transaction_status
             type
             updated_at
+
+            transaction_links {
+                id
+                item_type
+                item_id
+                amount
+            }
           }
         }
       }
