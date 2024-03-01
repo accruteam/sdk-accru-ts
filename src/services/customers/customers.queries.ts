@@ -47,6 +47,7 @@ export const CUSTOMER_QUERY_FRAGMENT = gql(`
               amount
               tax_amount
               discount_amount
+              total_amount
               paid_amount
               invoice_date
               due_date

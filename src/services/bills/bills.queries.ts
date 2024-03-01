@@ -39,6 +39,7 @@ export const BILL_QUERY_FRAGMENT = gql(`
     organization_vendor {
       name
       email
+      balance
     }
 
     organization_acct_provider_conn_bills {

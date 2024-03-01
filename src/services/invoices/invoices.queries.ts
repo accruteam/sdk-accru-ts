@@ -36,6 +36,7 @@ export const INVOICE_QUERY_FRAGMENT = gql(`
     organization_customer {
       name
       email
+      balance
     }
 
     organization_acct_provider_conn_invoices {
