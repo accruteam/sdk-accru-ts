@@ -66,7 +66,7 @@ enum MIME_TYPE {
 
 type Mutation {
   adminClearCache: DateTime!
-  unconnectedUserCustomerOrganizationStatementLinePdf(acct_provider_code: ACCT_PROVIDER!, email: String!, organization_customer_statement_line_id: Int!, token: String!, unique_code: String!): String!
+  unconnectedUserCustomerOrganizationStatementLinePDF(acct_provider_code: ACCT_PROVIDER!, email: String!, organization_customer_statement_line_id: Int!, token: String!, unique_code: String!): String!
   unconnectedUserCustomerOrganizationStatementRequestToken(email: String!, unique_code: String!): DateTime!
   userAuthProviderDisconnect(auth_provider_code: AUTH_PROVIDER!): UserAuthProviderConn!
   userAuthProviderGetOAuthToken(auth_provider_code: AUTH_PROVIDER!, authorization_token: String!): String!
@@ -76,6 +76,7 @@ type Mutation {
   userCustomerOrganizationProjectChangeRequestCancel(allow_bypass: Boolean!, organization_id: String!, organization_project_change_request_id: String!, organization_project_id: String!, organization_vendor_id: String!): OrganizationProjectChangeRequest!
   userCustomerOrganizationProjectChangeRequestCreate(data: UserOrganizationProjectChangeRequestCreateSchema!, organization_id: String!, organization_project_id: String!, organization_vendor_id: String!): OrganizationProjectChangeRequest!
   userCustomerOrganizationProjectChangeRequestReject(allow_bypass: Boolean!, organization_id: String!, organization_project_change_request_id: String!, organization_project_id: String!, organization_vendor_id: String!): OrganizationProjectChangeRequest!
+  userCustomerOrganizationStatementLineGeneratePDF(acct_provider_code: ACCT_PROVIDER!, organization_customer_statement_line_id: Int!, organization_id: String!, organization_vendor_id: String!): String!
   userEmailVerifyOrChangeFinish(data: UserEmailVerifyOrChangeFinishSchema!): User!
   userEmailVerifyOrChangeStart(data: UserEmailVerifyOrChangeStartSchema!): DateTime!
   userOrganizationAcctProviderConnConfigurationPullOptionsGet(acct_provider_code: ACCT_PROVIDER!, organization_id: String!): JSON!

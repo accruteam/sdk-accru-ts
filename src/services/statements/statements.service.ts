@@ -6,6 +6,8 @@ import {
   UnconnectedUserCustomerOrganizationStatementQueryVariables,
   UnconnectedUserCustomerOrganizationStatementRequestTokenMutation,
   UnconnectedUserCustomerOrganizationStatementRequestTokenMutationVariables,
+  UserCustomerOrganizationStatementLineGeneratePdfMutation,
+  UserCustomerOrganizationStatementLineGeneratePdfMutationVariables,
   UserCustomerOrganizationStatementQuery,
   UserCustomerOrganizationStatementQueryVariables,
 } from '@api/gql/graphql';
@@ -15,6 +17,7 @@ import {
 } from '@utils/processResponseAsList';
 import { Res } from '@utils/response.type';
 import {
+  GET_AS_CUSTOMER_ORGANIZATION_STATEMENT_LINE_PDF,
   GET_AS_CUSTOMER_ORGANIZATION_STATEMENT_QUERY,
   GET_AS_UNCONNECTED_CUSTOMER_ORGANIZATION_STATEMENT_LINE_PDF_MUTATION,
   GET_AS_UNCONNECTED_CUSTOMER_ORGANIZATION_STATEMENT_QUERY,
@@ -42,6 +45,17 @@ export default class Statements {
       ...data.userCustomerOrganizationStatement,
       ...processResponseAsList(data.userCustomerOrganizationStatement.data),
     };
+  };
+
+  public getLinePdf = async (
+    variables: UserCustomerOrganizationStatementLineGeneratePdfMutationVariables,
+  ): Promise<Res<UserCustomerOrganizationStatementLineGeneratePdfMutation>> => {
+    const { data } = await this.apolloClient.mutate({
+      mutation: GET_AS_CUSTOMER_ORGANIZATION_STATEMENT_LINE_PDF,
+      variables,
+    });
+
+    return data!.userCustomerOrganizationStatementLineGeneratePDF;
   };
 
   public getUnconnectedStatement = async (
@@ -90,6 +104,6 @@ export default class Statements {
       variables,
     });
 
-    return data!.unconnectedUserCustomerOrganizationStatementLinePdf;
+    return data!.unconnectedUserCustomerOrganizationStatementLinePDF;
   };
 }

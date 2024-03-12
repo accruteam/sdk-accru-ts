@@ -151,6 +151,24 @@ export const GET_AS_CUSTOMER_ORGANIZATION_STATEMENT_QUERY = gql(`
 }
 `);
 
+export const GET_AS_CUSTOMER_ORGANIZATION_STATEMENT_LINE_PDF = gql(`
+  mutation UserCustomerOrganizationStatementLineGeneratePdf(
+    $organizationId: String!
+    $organizationVendorId: String!
+
+    $organizationCustomerStatementLineId: Int!,
+    $acctProviderCode: ACCT_PROVIDER!
+  ) {
+    userCustomerOrganizationStatementLineGeneratePDF(
+      organization_id: $organizationId
+      organization_vendor_id: $organizationVendorId
+
+      organization_customer_statement_line_id: $organizationCustomerStatementLineId
+      acct_provider_code: $acctProviderCode
+    )
+  }
+`);
+
 export const GET_AS_UNCONNECTED_CUSTOMER_ORGANIZATION_STATEMENT_TOKEN_QUERY =
   gql(`
   mutation UnconnectedUserCustomerOrganizationStatementRequestToken(
@@ -217,7 +235,7 @@ export const GET_AS_UNCONNECTED_CUSTOMER_ORGANIZATION_STATEMENT_LINE_PDF_MUTATIO
     $organizationCustomerStatementLineId: Int!,
     $acctProviderCode: ACCT_PROVIDER!
   ) {
-    unconnectedUserCustomerOrganizationStatementLinePdf(
+    unconnectedUserCustomerOrganizationStatementLinePDF(
       unique_code: $uniqueCode
       email: $email
       token: $token
