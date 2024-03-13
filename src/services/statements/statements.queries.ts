@@ -38,10 +38,19 @@ export const CUSTOMER_STATEMENT_FRAGMENT = gql(`
             type
             updated_at
 
-            payment_options {
+            organization_invoice {
+              payment_options {
                 method
                 url
                 payload
+              }
+
+              organization_acct_provider_conn_invoices {
+                organization_acct_provider_conn {
+                  acct_provider_code
+                  status
+                }
+              }
             }
           }
           ... on OrganizationCustomerStatementTransactionLine {
@@ -60,11 +69,20 @@ export const CUSTOMER_STATEMENT_FRAGMENT = gql(`
             type
             updated_at
 
-            transaction_links {
+            organization_transaction {
+              links {
                 id
+                amount
                 item_type
                 item_id
-                amount
+              }
+
+              organization_acct_provider_conn_transactions {
+                organization_acct_provider_conn {
+                  acct_provider_code
+                  status
+                }
+              }
             }
           }
         }
@@ -133,6 +151,24 @@ export const GET_AS_CUSTOMER_ORGANIZATION_STATEMENT_QUERY = gql(`
 }
 `);
 
+export const GET_AS_CUSTOMER_ORGANIZATION_STATEMENT_LINE_PDF = gql(`
+  mutation UserCustomerOrganizationStatementLineGeneratePdf(
+    $organizationId: String!
+    $organizationVendorId: String!
+
+    $organizationCustomerStatementLineId: Int!,
+    $acctProviderCode: ACCT_PROVIDER!
+  ) {
+    userCustomerOrganizationStatementLineGeneratePDF(
+      organization_id: $organizationId
+      organization_vendor_id: $organizationVendorId
+
+      organization_customer_statement_line_id: $organizationCustomerStatementLineId
+      acct_provider_code: $acctProviderCode
+    )
+  }
+`);
+
 export const GET_AS_UNCONNECTED_CUSTOMER_ORGANIZATION_STATEMENT_TOKEN_QUERY =
   gql(`
   mutation UnconnectedUserCustomerOrganizationStatementRequestToken(
@@ -187,4 +223,25 @@ export const GET_AS_UNCONNECTED_CUSTOMER_ORGANIZATION_STATEMENT_QUERY = gql(`
       ...OrganizationCustomerStatementFragment
   }
 }
+`);
+
+export const GET_AS_UNCONNECTED_CUSTOMER_ORGANIZATION_STATEMENT_LINE_PDF_MUTATION =
+  gql(`
+  mutation UnconnectedUserCustomerOrganizationStatementLinePdf(
+    $uniqueCode: String!
+    $email: String!
+    $token: String!
+
+    $organizationCustomerStatementLineId: Int!,
+    $acctProviderCode: ACCT_PROVIDER!
+  ) {
+    unconnectedUserCustomerOrganizationStatementLinePDF(
+      unique_code: $uniqueCode
+      email: $email
+      token: $token
+
+      organization_customer_statement_line_id: $organizationCustomerStatementLineId
+      acct_provider_code: $acctProviderCode
+    )
+  }
 `);

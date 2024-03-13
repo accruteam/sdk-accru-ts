@@ -66,6 +66,7 @@ enum MIME_TYPE {
 
 type Mutation {
   adminClearCache: DateTime!
+  unconnectedUserCustomerOrganizationStatementLinePDF(acct_provider_code: ACCT_PROVIDER!, email: String!, organization_customer_statement_line_id: Int!, token: String!, unique_code: String!): String!
   unconnectedUserCustomerOrganizationStatementRequestToken(email: String!, unique_code: String!): DateTime!
   userAuthProviderDisconnect(auth_provider_code: AUTH_PROVIDER!): UserAuthProviderConn!
   userAuthProviderGetOAuthToken(auth_provider_code: AUTH_PROVIDER!, authorization_token: String!): String!
@@ -75,6 +76,7 @@ type Mutation {
   userCustomerOrganizationProjectChangeRequestCancel(allow_bypass: Boolean!, organization_id: String!, organization_project_change_request_id: String!, organization_project_id: String!, organization_vendor_id: String!): OrganizationProjectChangeRequest!
   userCustomerOrganizationProjectChangeRequestCreate(data: UserOrganizationProjectChangeRequestCreateSchema!, organization_id: String!, organization_project_id: String!, organization_vendor_id: String!): OrganizationProjectChangeRequest!
   userCustomerOrganizationProjectChangeRequestReject(allow_bypass: Boolean!, organization_id: String!, organization_project_change_request_id: String!, organization_project_id: String!, organization_vendor_id: String!): OrganizationProjectChangeRequest!
+  userCustomerOrganizationStatementLineGeneratePDF(acct_provider_code: ACCT_PROVIDER!, organization_customer_statement_line_id: Int!, organization_id: String!, organization_vendor_id: String!): String!
   userEmailVerifyOrChangeFinish(data: UserEmailVerifyOrChangeFinishSchema!): User!
   userEmailVerifyOrChangeStart(data: UserEmailVerifyOrChangeStartSchema!): DateTime!
   userOrganizationAcctProviderConnConfigurationPullOptionsGet(acct_provider_code: ACCT_PROVIDER!, organization_id: String!): JSON!
@@ -122,6 +124,7 @@ type Mutation {
   userOrganizationInvoiceCreate(data: UserOrganizationInvoiceSchema!, organization_id: String!): OrganizationInvoice!
   userOrganizationInvoiceDelete(organization_id: String!, organization_invoice_ids: [String!]!): [OrganizationInvoice!]!
   userOrganizationInvoiceFileDelete(organization_id: String!, organization_invoice_id: String!): OrganizationInvoice!
+  userOrganizationInvoiceGetAcctProviderPDF(acct_provider_code: ACCT_PROVIDER!, organization_id: String!, organization_invoice_id: String!): String!
   userOrganizationInvoiceManualPaymentCreate(data: UserOrganizationInvoiceManualPaymentCreateSchema!, organization_id: String!, organization_invoice_id: String!): OrganizationInvoice!
   userOrganizationInvoiceManualPaymentDelete(organization_id: String!, organization_invoice_id: String!, organization_transaction_id: String!): OrganizationInvoice!
   userOrganizationInvoiceUpdate(data: UserOrganizationInvoiceSchema!, organization_id: String!, organization_invoice_id: String!): OrganizationInvoice!
@@ -142,6 +145,7 @@ type Mutation {
   userOrganizationReminderSettingDelete(organization_id: String!, organization_reminder_setting_id: String!): OrganizationReminderSetting!
   userOrganizationReminderSettingUpdate(data: UserOrganizationReminderSettingSchema!, organization_id: String!, organization_reminder_setting_id: String!): OrganizationReminderSetting!
   userOrganizationSendGenericInviteMail(email: String!, organization_id: String!): DateTime!
+  userOrganizationTransactionGetAcctProviderPDF(acct_provider_code: ACCT_PROVIDER!, organization_id: String!, organization_transaction_id: String!): String!
   userOrganizationUniqueCodeUpdate(organization_id: String!): Organization!
   userOrganizationUniqueNameUpdate(organization_id: String!): Organization!
   userOrganizationUpdate(data: UserOrganizationUpdateSchema!, organization_id: String!): Organization!
@@ -218,7 +222,7 @@ type Organization {
   business_name: String
   business_number_of_employees: Int
   business_tax_code: String
-  business_tax_code_type: String
+  business_tax_code_type: TAX_TYPE
   created_at: DateTime!
   current_email_verification_id: String
   current_phone_number_verification_id: String
@@ -545,7 +549,7 @@ type OrganizationCustomer {
   phone_number: String
   statement(after: ConnectionCursor, before: ConnectionCursor, currency: CURRENCY, due_end_date: DateTime, due_start_date: DateTime, end_date: DateTime, first: Int, is_overdue: Boolean, last: Int, skip: Int, sorting: [SortingFieldSchema!], start_date: DateTime, take: Int): OrganizationCustomerStatement!
   tax_code: String
-  tax_code_type: String
+  tax_code_type: TAX_TYPE
   timezone: String
   unique_code: String!
   updated_at: DateTime!
@@ -617,11 +621,55 @@ type OrganizationCustomerStatementInvoiceLine {
   id: ID!
   invoice_status: String!
   organization_customer_id: String!
-  organization_invoice_id: String
+  organization_invoice: OrganizationCustomerStatementInvoiceLineData!
+  organization_invoice_id: String!
   paid_amount: Int!
-  payment_options: [OrganizationInvoicePaymentOption!]!
   running_balance: Int!
   type: String!
+  updated_at: DateTime!
+}
+
+type OrganizationCustomerStatementInvoiceLineData {
+  amount: Int!
+  archived_at: DateTime
+
+  """
+  The open amount for this invoice. Balance 0 represents invoice fully paid.
+  """
+  balance: Int
+  created_at: DateTime!
+  currency_code: CURRENCY!
+  customer_address_city: String
+  customer_address_country_code_iso_3: String
+  customer_address_lat: Float
+  customer_address_line_1: String
+  customer_address_line_2: String
+  customer_address_lng: Float
+  customer_address_number: String
+  customer_address_state: String
+  customer_address_zip_code: String
+  customer_email: String!
+  description: String!
+  discount_amount: Int!
+  due_date: DateTime!
+  email_sent_at: DateTime
+  file_id: String
+  id: ID!
+  invoice_date: DateTime!
+  is_overdue: Boolean
+  number: String!
+  organization_acct_provider_conn_invoices: [OrganizationAcctProviderConnInvoice!]!
+  organization_customer_id: String!
+  organization_id: String!
+  organization_project_id: String
+  paid_amount: Int
+  paid_at: DateTime
+  payload: JSON
+  payment_options: [OrganizationInvoicePaymentOption!]!
+  status: INVOICE_STATUS
+  tax_amount: Int!
+  total_amount: Int!
+  unique_code: String!
   updated_at: DateTime!
 }
 
@@ -647,12 +695,38 @@ type OrganizationCustomerStatementTransactionLine {
   due_date: DateTime!
   id: ID!
   organization_customer_id: String!
-  organization_transaction_id: String
+  organization_transaction: OrganizationCustomerStatementTransactionLineData!
+  organization_transaction_id: String!
   paid_amount: Int!
   running_balance: Int!
-  transaction_links: [OrganizationTransactionLink!]
   transaction_status: String!
   type: String!
+  updated_at: DateTime!
+}
+
+type OrganizationCustomerStatementTransactionLineData {
+  amount: Int!
+  archived_at: DateTime
+  created_at: DateTime!
+  currency_code: CURRENCY!
+  due_date: DateTime!
+  failed_at: DateTime
+  id: ID!
+  links: [OrganizationTransactionLink!]!
+  method_id: String
+  method_type: TRANSACTION_METHOD!
+  organization_acct_provider_conn_transactions: [OrganizationAcctProviderConnTransaction!]!
+  provider_code: TRANSACTION_PROVIDER!
+  provider_transaction_code: String!
+  recipient_organization_id: String
+  recipient_organization_target_customer_id: String
+  recipient_organization_target_vendor_id: String
+  reverted_at: DateTime
+  sender_organization_id: String
+  started_at: DateTime
+  status: TRANSACTION_STATUS
+  succeeded_at: DateTime
+  transaction_date: DateTime!
   updated_at: DateTime!
 }
 
@@ -965,7 +1039,7 @@ type OrganizationVendor {
   overdue_amount: Int
   phone_number: String
   tax_code: String
-  tax_code_type: String
+  tax_code_type: TAX_TYPE
   timezone: String
   unique_code: String!
   updated_at: DateTime!
@@ -1082,6 +1156,7 @@ type Query {
 
 enum RECEIVING_METHOD {
   MANUAL
+  QUICKBOOKS
 }
 
 enum RECIPIENT_TYPE {
@@ -1118,6 +1193,14 @@ type Session {
 input SortingFieldSchema {
   field: String!
   order: SORT_ORDER!
+}
+
+enum TAX_TYPE {
+  ATIN
+  EIN
+  ITIN
+  PTIN
+  SSN
 }
 
 enum TRANSACTION_ITEM_TYPE {
@@ -1235,7 +1318,7 @@ input UserOrganizationCreateSchema {
   business_name: String
   business_number_of_employees: Int
   business_tax_code: String
-  business_tax_code_type: String
+  business_tax_code_type: TAX_TYPE
   email: String!
   language: String
   name: String!
@@ -1278,7 +1361,7 @@ input UserOrganizationCustomerSchema {
   name: String!
   phone_number: String
   tax_code: String
-  tax_code_type: String
+  tax_code_type: TAX_TYPE
   timezone: String
 }
 
@@ -1392,7 +1475,7 @@ input UserOrganizationUpdateSchema {
   business_name: String
   business_number_of_employees: Int
   business_tax_code: String
-  business_tax_code_type: String
+  business_tax_code_type: TAX_TYPE
   language: String
   name: String
   phone_number: String
@@ -1432,7 +1515,7 @@ input UserOrganizationVendorSchema {
   name: String!
   phone_number: String
   tax_code: String
-  tax_code_type: String
+  tax_code_type: TAX_TYPE
   timezone: String
 }
 

@@ -223,3 +223,17 @@ export const SEND_INVOICE_EMAIL_MUTATION = gql(`
     )
   }
 `);
+
+export const GET_ACCT_PROVIDER_INVOICE_PDF_MUTATION = gql(`
+  mutation UserOrganizationInvoiceGetAcctProviderPDF(
+    $organizationId: String!
+    $organizationInvoiceId: String!
+    $acctProviderCode: ACCT_PROVIDER!
+  ) {
+    userOrganizationInvoiceGetAcctProviderPDF(
+      organization_id: $organizationId
+      organization_invoice_id: $organizationInvoiceId
+      acct_provider_code: $acctProviderCode
+    )
+  }
+`);

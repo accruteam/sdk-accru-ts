@@ -4,6 +4,8 @@ import {
   UserOrganizationCustomerSendInvoiceEmailMutationVariables,
   UserOrganizationInvoiceCreateMutation,
   UserOrganizationInvoiceCreateMutationVariables,
+  UserOrganizationInvoiceGetAcctProviderPDFMutation,
+  UserOrganizationInvoiceGetAcctProviderPDFMutationVariables,
   UserOrganizationInvoiceQuery,
   UserOrganizationInvoiceQueryVariables,
   UserOrganizationInvoiceSummaryQuery,
@@ -15,6 +17,7 @@ import {
 } from '@utils/processResponseAsList';
 import { Res } from '@utils/response.type';
 import {
+  GET_ACCT_PROVIDER_INVOICE_PDF_MUTATION,
   INVOICES_GET_SUMMARY_QUERY,
   INVOICE_CREATE_MUTATION,
   INVOICE_GET_QUERY,
@@ -50,6 +53,17 @@ export default class Invoices {
     });
 
     return data.userOrganizationInvoice;
+  };
+
+  public getAcctProviderPdf = async (
+    variables: UserOrganizationInvoiceGetAcctProviderPDFMutationVariables,
+  ): Promise<Res<UserOrganizationInvoiceGetAcctProviderPDFMutation>> => {
+    const { data } = await this.apolloClient.mutate({
+      mutation: GET_ACCT_PROVIDER_INVOICE_PDF_MUTATION,
+      variables,
+    });
+
+    return data!.userOrganizationInvoiceGetAcctProviderPDF;
   };
 
   public create = async (
