@@ -16,6 +16,8 @@ import {
   UserOrganizationCreateMutationVariables,
   UserOrganizationInviteCollaboratorCreateMutation,
   UserOrganizationInviteCollaboratorCreateMutationVariables,
+  UserOrganizationInviteCollaboratorsQuery,
+  UserOrganizationInviteCollaboratorsQueryVariables,
   UserOrganizationLogoPictureRemoveMutation,
   UserOrganizationLogoPictureRemoveMutationVariables,
   UserOrganizationQuery,
@@ -34,6 +36,7 @@ import {
   UPDATE_ORGANIZATION_COLLABORATOR_MUTATION,
   UPDATE_ORGANIZATION_MUTATION,
   CREATE_ORGANIZATION_MUTATION,
+  GET_ORGANIZATION_COLLABORATOR_INVITES_QUERY,
 } from './organizations.queries';
 
 export default class Organizations {
@@ -109,6 +112,17 @@ export default class Organizations {
     });
 
     return data!.userOrganizationInviteCollaboratorCreate;
+  };
+
+  public getCollaboratorInvites = async (
+    variables: UserOrganizationInviteCollaboratorsQueryVariables,
+  ): Promise<Res<UserOrganizationInviteCollaboratorsQuery>> => {
+    const { data } = await this.apolloClient.query({
+      query: GET_ORGANIZATION_COLLABORATOR_INVITES_QUERY,
+      variables,
+    });
+
+    return data!.userOrganizationInviteCollaborators;
   };
 
   public updateCollaborator = async (

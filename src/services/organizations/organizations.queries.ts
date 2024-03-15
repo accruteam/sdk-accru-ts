@@ -52,7 +52,6 @@ export const ORGANIZATION_COLLABORATOR_FRAGMENT = gql(`
     id
     role
     send_invoice_reminders
-    payload
     archived_at
     created_at
     updated_at
@@ -126,6 +125,28 @@ export const INVITE_ORGANIZATION_COLLABORATOR_MUTATION = gql(`
   mutation UserOrganizationInviteCollaboratorCreate($data: UserOrganizationInviteCollaboratorCreateSchema!, $organizationId: String!) {
     userOrganizationInviteCollaboratorCreate(data: $data, organization_id: $organizationId) {
       expires_at
+    }
+  }
+`);
+
+export const GET_ORGANIZATION_COLLABORATOR_INVITES_QUERY = gql(`
+  query UserOrganizationInviteCollaborators($organizationId: String!, $skip: Int, $take: Int) {
+    userOrganizationInviteCollaborators(organization_id: $organizationId, skip: $skip, take: $take) {
+      id
+      email
+      role
+      code
+      expires_at
+      accepted_at
+      canceled_at
+      rejected_at
+      created_at
+      updated_at
+      organization_id
+      created_by_user_id
+      created_by_user {
+        email
+      }
     }
   }
 `);
