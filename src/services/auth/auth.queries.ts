@@ -104,13 +104,13 @@ export const PASSWORD_RESET_FINISH_MUTATION = gql(`
 `);
 
 export const INTUIT_LOGIN_START_MUTATION = gql(`
-  mutation UserAuthProviderGetOAuthUrl($authProviderCode: AUTH_PROVIDER!) {
-    userAuthProviderGetOAuthUrl(auth_provider_code: $authProviderCode)
+  mutation UserAuthProviderGetOAuthUrl($authProvider: AUTH_PROVIDER!) {
+    userAuthProviderGetOAuthUrl(auth_provider: $authProvider)
   }
 `);
 
 export const INTUIT_LOGIN_FINISH_MUTATION = gql(`
-  mutation UserAuthProviderGetOAuthToken($authProviderCode: AUTH_PROVIDER!, $authorizationToken: String!) {
-    userAuthProviderGetOAuthToken(auth_provider_code: $authProviderCode, authorization_token: $authorizationToken)
+  mutation UserAuthProviderGetOAuthToken($authProvider: AUTH_PROVIDER!, $authorizationToken: String!) {
+    userAuthProviderGetOAuthToken(auth_provider: $authProvider, authorization_token: $authorizationToken)
   }
 `);

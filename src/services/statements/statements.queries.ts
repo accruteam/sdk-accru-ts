@@ -47,7 +47,7 @@ export const CUSTOMER_STATEMENT_FRAGMENT = gql(`
 
               organization_acct_provider_conn_invoices {
                 organization_acct_provider_conn {
-                  acct_provider_code
+                  acct_provider
                   status
                 }
               }
@@ -62,24 +62,23 @@ export const CUSTOMER_STATEMENT_FRAGMENT = gql(`
             due_date
             id
             organization_customer_id
-            organization_transaction_id
+            organization_invoice_transaction_id
             paid_amount
             running_balance
             transaction_status
             type
             updated_at
 
-            organization_transaction {
+            organization_invoice_transaction {
               links {
                 id
                 amount
-                item_type
-                item_id
+                organization_invoice_id
               }
 
-              organization_acct_provider_conn_transactions {
+              organization_acct_provider_conn_invoice_transactions {
                 organization_acct_provider_conn {
-                  acct_provider_code
+                  acct_provider
                   status
                 }
               }
@@ -157,14 +156,14 @@ export const GET_AS_CUSTOMER_ORGANIZATION_STATEMENT_LINE_PDF = gql(`
     $organizationVendorId: String!
 
     $organizationCustomerStatementLineId: Int!,
-    $acctProviderCode: ACCT_PROVIDER!
+    $acctProvider: ACCT_PROVIDER!
   ) {
     userCustomerOrganizationStatementLineGeneratePDF(
       organization_id: $organizationId
       organization_vendor_id: $organizationVendorId
 
       organization_customer_statement_line_id: $organizationCustomerStatementLineId
-      acct_provider_code: $acctProviderCode
+      acct_provider: $acctProvider
     )
   }
 `);
@@ -233,7 +232,7 @@ export const GET_AS_UNCONNECTED_CUSTOMER_ORGANIZATION_STATEMENT_LINE_PDF_MUTATIO
     $token: String!
 
     $organizationCustomerStatementLineId: Int!,
-    $acctProviderCode: ACCT_PROVIDER!
+    $acctProvider: ACCT_PROVIDER!
   ) {
     unconnectedUserCustomerOrganizationStatementLinePDF(
       unique_code: $uniqueCode
@@ -241,7 +240,7 @@ export const GET_AS_UNCONNECTED_CUSTOMER_ORGANIZATION_STATEMENT_LINE_PDF_MUTATIO
       token: $token
 
       organization_customer_statement_line_id: $organizationCustomerStatementLineId
-      acct_provider_code: $acctProviderCode
+      acct_provider: $acctProvider
     )
   }
 `);
