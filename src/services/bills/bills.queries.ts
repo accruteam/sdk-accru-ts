@@ -54,7 +54,7 @@ export const BILL_QUERY_FRAGMENT = gql(`
 
       organization_acct_provider_conn_id
       organization_acct_provider_conn {
-        acct_provider_code
+        acct_provider
       }
     }
 
@@ -74,14 +74,13 @@ export const BILL_QUERY_FRAGMENT = gql(`
     transaction_links {
       id
       amount
-      item_type
-      item_id
+      organization_bill_id
 
       created_at
       updated_at
 
-      organization_transaction_id
-      organization_transaction {
+      organization_bill_transaction_id
+      organization_bill_transaction {
         id
       }
     }

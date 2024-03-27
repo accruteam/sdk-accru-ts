@@ -3,7 +3,7 @@ import { gql } from '@gql';
 export const ACCT_PROVIDER_CONN_FRAGMENT = gql(`
   fragment OrganizationAcctProviderConnFragment on OrganizationAcctProviderConn {
     id
-    acct_provider_code
+    acct_provider
     code
     payload
     conn_expires_at
@@ -68,7 +68,7 @@ export const GET_ACCT_PROVIDER_PULL_OPTIONS_MUTATION = gql(`
   ) {
     userOrganizationAcctProviderConnConfigurationPullOptionsGet(
       organization_id: $organizationId
-      acct_provider_code: $accountProvider
+      acct_provider: $accountProvider
     )
   }
 `);
@@ -81,7 +81,7 @@ export const SET_ACCT_PROVIDER_PULL_OPTIONS_MUTATION = gql(`
   ) {
     userOrganizationAcctProviderConnConfigurationPullOptionsSet(
       organization_id: $organizationId
-      acct_provider_code: $accountProvider
+      acct_provider: $accountProvider
       payload: $payload
     ) {
       ...OrganizationAcctProviderConnFragment
@@ -96,7 +96,7 @@ export const GET_ACCT_PROVIDER_PUSH_OPTIONS_MUTATION = gql(`
   ) {
     userOrganizationAcctProviderConnConfigurationPushOptionsGet(
       organization_id: $organizationId
-      acct_provider_code: $accountProvider
+      acct_provider: $accountProvider
     )
   }
 `);
@@ -109,7 +109,7 @@ export const SET_ACCT_PROVIDER_PUSH_OPTIONS_MUTATION = gql(`
   ) {
     userOrganizationAcctProviderConnConfigurationPushOptionsSet(
       organization_id: $organizationId
-      acct_provider_code: $accountProvider
+      acct_provider: $accountProvider
       payload: $payload
     ) {
       ...OrganizationAcctProviderConnFragment
@@ -124,7 +124,7 @@ export const DISCONNECT_ACCT_PROVIDER_MUTATION = gql(`
   ) {
     userOrganizationAcctProviderConnDisconnect(
       organization_id: $organizationId
-      acct_provider_code: $accountProvider
+      acct_provider: $accountProvider
     ) {
       ...OrganizationAcctProviderConnFragment
     }
@@ -139,7 +139,7 @@ export const UPDATE_ACCT_PROVIDER_CONN_MUTATION = gql(`
   ) {
     userOrganizationAcctProviderConnUpdate(
       organization_id: $organizationId
-      acct_provider_code: $accountProvider
+      acct_provider: $accountProvider
       data: $data
     ) {
       ...OrganizationAcctProviderConnFragment
@@ -157,7 +157,7 @@ export const CONNECT_ACCT_PROVIDER_MUTATION = gql(`
   ) {
     userOrganizationAcctProviderConnect(
       organization_id: $organizationId
-      acct_provider_code: $accountProvider
+      acct_provider: $accountProvider
       url: $url
       automatic_pull_enabled: $automaticPull
       automatic_push_enabled: $automaticPush
@@ -174,7 +174,7 @@ export const GET_ACCT_PROVIDER_OAUTH_URL_MUTATION = gql(`
   ) {
     userOrganizationAcctProviderGetOAuthUrl(
       organization_id: $organizationId
-      acct_provider_code: $accountProvider
+      acct_provider: $accountProvider
     )
   }
 `);
@@ -188,7 +188,7 @@ export const SYNC_ACCT_PROVIDER_MUTATION = gql(`
   ) {
     userOrganizationAcctProviderSynchronize(
       organization_id: $organizationId
-      acct_provider_code: $accountProvider
+      acct_provider: $accountProvider
       pull: $pull
       push: $push
     )

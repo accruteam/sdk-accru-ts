@@ -51,7 +51,7 @@ export const INVOICE_QUERY_FRAGMENT = gql(`
 
       organization_acct_provider_conn_id
       organization_acct_provider_conn {
-        acct_provider_code
+        acct_provider
       }
     }
 
@@ -79,14 +79,13 @@ export const INVOICE_QUERY_FRAGMENT = gql(`
     transaction_links {
       id
       amount
-      item_type
-      item_id
+      organization_invoice_id
 
       created_at
       updated_at
 
-      organization_transaction_id
-      organization_transaction {
+      organization_invoice_transaction_id
+      organization_invoice_transaction {
         id
       }
     }
@@ -228,12 +227,12 @@ export const GET_ACCT_PROVIDER_INVOICE_PDF_MUTATION = gql(`
   mutation UserOrganizationInvoiceGetAcctProviderPDF(
     $organizationId: String!
     $organizationInvoiceId: String!
-    $acctProviderCode: ACCT_PROVIDER!
+    $acctProvider: ACCT_PROVIDER!
   ) {
     userOrganizationInvoiceGetAcctProviderPDF(
       organization_id: $organizationId
       organization_invoice_id: $organizationInvoiceId
-      acct_provider_code: $acctProviderCode
+      acct_provider: $acctProvider
     )
   }
 `);

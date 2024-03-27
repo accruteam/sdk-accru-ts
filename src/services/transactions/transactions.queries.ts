@@ -1,15 +1,15 @@
 import { gql } from '@gql';
 
 export const GET_TRANSACTION_ACCT_PROVIDER_PDF_MUTATION = gql(`
-  mutation UserOrganizationTransactionGetAcctProviderPdf(
+  mutation UserOrganizationInvoiceTransactionGetAcctProviderPdf(
     $organizationId: String!
-    $organizationTransactionId: String!
-    $acctProviderCode: ACCT_PROVIDER!
+    $organizationInvoiceTransactionId: String!
+    $acctProvider: ACCT_PROVIDER!
   ) {
-    userOrganizationTransactionGetAcctProviderPDF(
+    userOrganizationInvoiceTransactionGetAcctProviderPDF(
       organization_id: $organizationId
-      organization_transaction_id: $organizationTransactionId
-      acct_provider_code: $acctProviderCode
+      organization_invoice_transaction_id: $organizationInvoiceTransactionId
+      acct_provider: $acctProvider
     )
   }
 `);
