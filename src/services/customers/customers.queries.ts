@@ -166,6 +166,26 @@ export const GET_CUSTOMER_STATEMENT_QUERY = gql(`
   }
 `);
 
+export const GET_CUSTOMER_STATEMENT_LINE_QUERY = gql(`
+  query UserOrganizationCustomerStatementLine(
+    $organizationId: String!,
+    $organizationCustomerId: String!,
+    $organizationCustomerStatementLineId: Int,
+    $organizationInvoiceId: String,
+    $organizationInvoiceTransactionId: String,
+  ) {
+    userOrganizationCustomerStatementLine(
+      organization_id: $organizationId
+      organization_customer_id: $organizationCustomerId
+      organization_customer_statement_line_id: $organizationCustomerStatementLineId
+      organization_invoice_id: $organizationInvoiceId
+      organization_invoice_transaction_id: $organizationInvoiceTransactionId
+    ) {
+      ...OrganizationCustomerStatementLineFragment
+    }
+  }
+`);
+
 export const GET_CUSTOMER_QUERY = gql(`
   query UserOrganizationCustomer(
     $organizationId: String!

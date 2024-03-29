@@ -2,12 +2,16 @@ import { ApolloClient } from '@apollo/client';
 import {
   UnconnectedUserCustomerOrganizationStatementLinePdfMutation,
   UnconnectedUserCustomerOrganizationStatementLinePdfMutationVariables,
+  UnconnectedUserCustomerOrganizationStatementLineQuery,
+  UnconnectedUserCustomerOrganizationStatementLineQueryVariables,
   UnconnectedUserCustomerOrganizationStatementQuery,
   UnconnectedUserCustomerOrganizationStatementQueryVariables,
   UnconnectedUserCustomerOrganizationStatementRequestTokenMutation,
   UnconnectedUserCustomerOrganizationStatementRequestTokenMutationVariables,
   UserCustomerOrganizationStatementLineGeneratePdfMutation,
   UserCustomerOrganizationStatementLineGeneratePdfMutationVariables,
+  UserCustomerOrganizationStatementLineQuery,
+  UserCustomerOrganizationStatementLineQueryVariables,
   UserCustomerOrganizationStatementQuery,
   UserCustomerOrganizationStatementQueryVariables,
 } from '@api/gql/graphql';
@@ -18,8 +22,10 @@ import {
 import { Res } from '@utils/response.type';
 import {
   GET_AS_CUSTOMER_ORGANIZATION_STATEMENT_LINE_PDF,
+  GET_AS_CUSTOMER_ORGANIZATION_STATEMENT_LINE_QUERY,
   GET_AS_CUSTOMER_ORGANIZATION_STATEMENT_QUERY,
   GET_AS_UNCONNECTED_CUSTOMER_ORGANIZATION_STATEMENT_LINE_PDF_MUTATION,
+  GET_AS_UNCONNECTED_CUSTOMER_ORGANIZATION_STATEMENT_LINE_QUERY,
   GET_AS_UNCONNECTED_CUSTOMER_ORGANIZATION_STATEMENT_QUERY,
   GET_AS_UNCONNECTED_CUSTOMER_ORGANIZATION_STATEMENT_TOKEN_QUERY,
 } from './statements.queries';
@@ -56,6 +62,17 @@ export default class Statements {
     });
 
     return data!.userCustomerOrganizationStatementLineGeneratePDF;
+  };
+
+  public getStatementLine = async (
+    variables: UserCustomerOrganizationStatementLineQueryVariables,
+  ): Promise<Res<UserCustomerOrganizationStatementLineQuery>> => {
+    const { data } = await this.apolloClient.query({
+      query: GET_AS_CUSTOMER_ORGANIZATION_STATEMENT_LINE_QUERY,
+      variables,
+    });
+
+    return data!.userCustomerOrganizationStatementLine;
   };
 
   public getUnconnectedStatement = async (
@@ -105,5 +122,16 @@ export default class Statements {
     });
 
     return data!.unconnectedUserCustomerOrganizationStatementLinePDF;
+  };
+
+  public getUnconnectedStatementLine = async (
+    variables: UnconnectedUserCustomerOrganizationStatementLineQueryVariables,
+  ): Promise<Res<UnconnectedUserCustomerOrganizationStatementLineQuery>> => {
+    const { data } = await this.apolloClient.query({
+      query: GET_AS_UNCONNECTED_CUSTOMER_ORGANIZATION_STATEMENT_LINE_QUERY,
+      variables,
+    });
+
+    return data!.unconnectedUserCustomerOrganizationStatementLine;
   };
 }

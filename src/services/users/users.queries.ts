@@ -63,7 +63,7 @@ export const UPDATE_USER_EMAIL_START_MUTATION = gql(`
   }
 `);
 
-export const UPDATE_USER_EMAIL_FINISH_MUTATION = gql(` 
+export const UPDATE_USER_EMAIL_FINISH_MUTATION = gql(`
   mutation UserEmailVerifyOrChangeFinish($data: UserEmailVerifyOrChangeFinishSchema!) {
     userEmailVerifyOrChangeFinish(data: $data) {
       email
@@ -101,6 +101,14 @@ export const UPDATE_USER_DELETE_PROFILE_PICTURE_MUTATION = gql(`
   mutation UserProfilePictureRemove {
     userProfilePictureRemove {
         profile_picture_file_id
+    }
+  }
+`);
+
+export const SET_USER_TRACKING_ATTRIBUTES_MUTATION = gql(`
+  mutation UserSetTrackingAttributes($attributes: [UserSetTrackingAttributeSchema!]!) {
+    userSetTrackingAttributes(attributes: $attributes) {
+      email
     }
   }
 `);
