@@ -12,6 +12,7 @@ export const USER_QUERY = gql(`
           name
           email
         }
+        role
       }
       first_name
       last_name
