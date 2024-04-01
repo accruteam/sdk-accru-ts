@@ -181,7 +181,12 @@ export const GET_CUSTOMER_STATEMENT_LINE_QUERY = gql(`
       organization_invoice_id: $organizationInvoiceId
       organization_invoice_transaction_id: $organizationInvoiceTransactionId
     ) {
-      ...OrganizationCustomerStatementLineFragment
+      ... on OrganizationCustomerStatementInvoiceLine {
+        ...OrganizationCustomerStatementInvoiceLineFragment
+      }
+      ... on OrganizationCustomerStatementTransactionLine {
+        ...OrganizationCustomerStatementTransactionLineFragment
+      }
     }
   }
 `);
