@@ -1,5 +1,72 @@
 import { gql } from '@gql';
 
+export const ORGANIZATION_CUSTOMER_STATEMENT_LINE_FRAGMENT = gql(`
+  fragment OrganizationCustomerStatementLineFragment on OrganizationCustomerStatementLineData {
+    ... on OrganizationCustomerStatementInvoiceLine {
+      amount
+      code
+      created_at
+      currency_code
+      date
+      due_date
+      id
+      organization_customer_id
+      organization_invoice_id
+      paid_amount
+      running_balance
+      invoice_status
+      type
+      updated_at
+
+      organization_invoice {
+        payment_options {
+          method
+          url
+          payload
+        }
+
+        organization_acct_provider_conn_invoices {
+          organization_acct_provider_conn {
+            acct_provider
+            status
+          }
+        }
+      }
+    }
+    ... on OrganizationCustomerStatementTransactionLine {
+      amount
+      code
+      created_at
+      currency_code
+      date
+      due_date
+      id
+      organization_customer_id
+      organization_invoice_transaction_id
+      paid_amount
+      running_balance
+      transaction_status
+      type
+      updated_at
+
+      organization_invoice_transaction {
+        links {
+          id
+          amount
+          organization_invoice_id
+        }
+
+        organization_acct_provider_conn_invoice_transactions {
+          organization_acct_provider_conn {
+            acct_provider
+            status
+          }
+        }
+      }
+    }
+  }
+`);
+
 export const CUSTOMER_STATEMENT_FRAGMENT = gql(`
   fragment OrganizationCustomerStatementFragment on OrganizationCustomerStatement {
     vendor_organization_id
@@ -22,68 +89,7 @@ export const CUSTOMER_STATEMENT_FRAGMENT = gql(`
       edges {
         cursor
         node {
-          ... on OrganizationCustomerStatementInvoiceLine {
-            amount
-            code
-            created_at
-            currency_code
-            date
-            due_date
-            id
-            organization_customer_id
-            organization_invoice_id
-            paid_amount
-            running_balance
-            invoice_status
-            type
-            updated_at
-
-            organization_invoice {
-              payment_options {
-                method
-                url
-                payload
-              }
-
-              organization_acct_provider_conn_invoices {
-                organization_acct_provider_conn {
-                  acct_provider
-                  status
-                }
-              }
-            }
-          }
-          ... on OrganizationCustomerStatementTransactionLine {
-            amount
-            code
-            created_at
-            currency_code
-            date
-            due_date
-            id
-            organization_customer_id
-            organization_invoice_transaction_id
-            paid_amount
-            running_balance
-            transaction_status
-            type
-            updated_at
-
-            organization_invoice_transaction {
-              links {
-                id
-                amount
-                organization_invoice_id
-              }
-
-              organization_acct_provider_conn_invoice_transactions {
-                organization_acct_provider_conn {
-                  acct_provider
-                  status
-                }
-              }
-            }
-          }
+          ...OrganizationCustomerStatementLineFragment
         }
       }
       pageInfo {
@@ -242,5 +248,50 @@ export const GET_AS_UNCONNECTED_CUSTOMER_ORGANIZATION_STATEMENT_LINE_PDF_MUTATIO
       organization_customer_statement_line_id: $organizationCustomerStatementLineId
       acct_provider: $acctProvider
     )
+  }
+`);
+
+export const GET_AS_CUSTOMER_ORGANIZATION_STATEMENT_LINE_QUERY = gql(`
+  query UserCustomerOrganizationStatementLine(
+    $organizationCustomerStatementLineId: Int,
+    $organizationId: String!,
+    $organizationInvoiceId: String,
+    $organizationInvoiceTransactionId: String,
+    $organizationVendorId: String!
+  ) {
+    userCustomerOrganizationStatementLine(
+      organization_customer_statement_line_id: $organizationCustomerStatementLineId,
+      organization_id: $organizationId,
+      organization_invoice_id: $organizationInvoiceId,
+      organization_invoice_transaction_id: $organizationInvoiceTransactionId,
+      organization_vendor_id: $organizationVendorId
+    ) {
+      ...OrganizationCustomerStatementLineFragment
+    }
+  }
+`);
+
+export const GET_AS_UNCONNECTED_CUSTOMER_ORGANIZATION_STATEMENT_LINE_QUERY =
+  gql(`
+  query UnconnectedUserCustomerOrganizationStatementLine(
+    $email: String!,
+    $organizationCustomerStatementLineId: Int,
+    $organizationId: String,
+    $organizationInvoiceId: String,
+    $organizationInvoiceTransactionId: String,
+    $token: String!,
+    $uniqueCode: String!
+  ) {
+    unconnectedUserCustomerOrganizationStatementLine(
+      email: $email,
+      organization_customer_statement_line_id: $organizationCustomerStatementLineId,
+      organization_id: $organizationId,
+      organization_invoice_id: $organizationInvoiceId,
+      organization_invoice_transaction_id: $organizationInvoiceTransactionId,
+      token: $token,
+      unique_code: $uniqueCode
+    ) {
+      ...OrganizationCustomerStatementLineFragment
+    }
   }
 `);

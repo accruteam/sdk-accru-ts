@@ -15,6 +15,8 @@ import {
   UserProfilePictureRemoveMutation,
   UserProfilePictureRemoveMutationVariables,
   UserQuery,
+  UserSetTrackingAttributesMutation,
+  UserSetTrackingAttributesMutationVariables,
   UserUpdateDataMutation,
   UserUpdateDataMutationVariables,
 } from '@gql/graphql';
@@ -29,6 +31,7 @@ import {
   UPDATE_USER_PASSWORD_START_MUTATION,
   UPDATE_USER_PASSWORD_FINISH_MUTATION,
   UPDATE_USER_DELETE_PROFILE_PICTURE_MUTATION,
+  SET_USER_TRACKING_ATTRIBUTES_MUTATION,
 } from './users.queries';
 
 export default class UsersService {
@@ -122,5 +125,16 @@ export default class UsersService {
     });
 
     return data!.userProfilePictureRemove;
+  };
+
+  public setTrackingAttributes = async (
+    variables: UserSetTrackingAttributesMutationVariables,
+  ): Promise<Res<UserSetTrackingAttributesMutation>> => {
+    const { data } = await this.apolloClient.mutate({
+      mutation: SET_USER_TRACKING_ATTRIBUTES_MUTATION,
+      variables,
+    });
+
+    return data!.userSetTrackingAttributes;
   };
 }

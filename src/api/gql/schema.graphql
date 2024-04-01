@@ -168,6 +168,7 @@ type Mutation {
   userPhoneNumberVerifyOrChangeStart(data: UserPhoneNumberVerifyOrChangeStartSchema!): DateTime!
   userProfilePictureRemove: User!
   userSessionsClose: UserAuthProviderConn!
+  userSetTrackingAttributes(attributes: [UserSetTrackingAttributeSchema!]!): User!
   userSignUpWithEmailFinish(data: UserSignUpWithEmailFinishSchema!): String!
   userSignUpWithEmailStart(data: UserSignUpWithEmailStartSchema!): DateTime!
   userSignUpWithEmailVerify(data: UserSignUpWithEmailVerifySchema!): DateTime!
@@ -1128,6 +1129,8 @@ type OrganizationVendorPaginationEdge {
 }
 
 enum PAYMENT_METHOD {
+  CHECK
+  CREDIT_CARD
   MANUAL
   QUICKBOOKS
   SYNC
@@ -1149,6 +1152,7 @@ type Query {
   session: Session!
   unauthorizedUserOrganizationUserInvite(code: String!, email: String!, organization_id: String!, organization_invite_id: String!): UnauthorizedUserOrganizationUserInviteResponse!
   unconnectedUserCustomerOrganizationStatement(after: ConnectionCursor, before: ConnectionCursor, currency: CURRENCY, due_end_date: DateTime, due_start_date: DateTime, email: String!, end_date: DateTime, first: Int, is_overdue: Boolean, last: Int, organization_id: String, skip: Int, sorting: [SortingFieldSchema!], start_date: DateTime, take: Int, token: String!, unique_code: String!): OrganizationCustomerStatement!
+  unconnectedUserCustomerOrganizationStatementLine(email: String!, organization_customer_statement_line_id: Int, organization_id: String, organization_invoice_id: String, organization_invoice_transaction_id: String, token: String!, unique_code: String!): OrganizationCustomerStatementLineData!
   user: User!
   userCustomerOrganization(organization_id: String!, organization_vendor_id: String!): OrganizationConnection!
   userCustomerOrganizationInvoice(organization_id: String!, organization_invoice_id: String!, organization_vendor_id: String!): OrganizationInvoice!
@@ -1161,6 +1165,7 @@ type Query {
   userCustomerOrganizationProjectChanges(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, organization_id: String!, organization_project_id: String!, organization_vendor_id: String!, skip: Int, take: Int): [OrganizationProjectChange!]!
   userCustomerOrganizationProjects(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, organization_id: String!, organization_vendor_id: String!, skip: Int, take: Int): [OrganizationProject!]!
   userCustomerOrganizationStatement(after: ConnectionCursor, before: ConnectionCursor, currency: CURRENCY, due_end_date: DateTime, due_start_date: DateTime, end_date: DateTime, first: Int, is_overdue: Boolean, last: Int, organization_id: String!, organization_vendor_id: String!, skip: Int, sorting: [SortingFieldSchema!], start_date: DateTime, take: Int): OrganizationCustomerStatement!
+  userCustomerOrganizationStatementLine(organization_customer_statement_line_id: Int, organization_id: String!, organization_invoice_id: String, organization_invoice_transaction_id: String, organization_vendor_id: String!): OrganizationCustomerStatementLineData!
   userCustomerOrganizations(organization_id: String!): [OrganizationConnection!]!
   userOrganization(organization_id: String!): Organization!
   userOrganizationAcctProvider(organization_acct_provider_conn_id: String!, organization_id: String!): OrganizationAcctProviderConn!
@@ -1180,6 +1185,7 @@ type Query {
   userOrganizationCustomerContact(organization_customer_contact_id: String!, organization_customer_id: String!, organization_id: String!): OrganizationCustomerContact!
   userOrganizationCustomerContacts(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, name: String, organization_customer_id: String!, organization_id: String!, skip: Int, sorting: [SortingFieldSchema!], take: Int): OrganizationCustomerContactPaginationConnection!
   userOrganizationCustomerStatement(after: ConnectionCursor, before: ConnectionCursor, currency: CURRENCY, due_end_date: DateTime, due_start_date: DateTime, end_date: DateTime, first: Int, is_overdue: Boolean, last: Int, organization_customer_id: String!, organization_id: String!, skip: Int, sorting: [SortingFieldSchema!], start_date: DateTime, take: Int): OrganizationCustomerStatement!
+  userOrganizationCustomerStatementLine(organization_customer_id: String!, organization_customer_statement_line_id: Int, organization_id: String!, organization_invoice_id: String, organization_invoice_transaction_id: String): OrganizationCustomerStatementLineData!
   userOrganizationCustomers(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, name: String, organization_id: String!, skip: Int, sorting: [SortingFieldSchema!], take: Int): OrganizationCustomerPaginationConnection!
   userOrganizationInviteCollaborator(organization_id: String!, organization_invite_id: String!): OrganizationInvite!
   userOrganizationInviteCollaborators(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, organization_id: String!, skip: Int, take: Int): [OrganizationInvite!]!
@@ -1613,6 +1619,11 @@ type UserSession {
   updated_at: DateTime!
   user_auth_provider_conn: UserAuthProviderConn!
   user_auth_provider_conn_id: String!
+}
+
+input UserSetTrackingAttributeSchema {
+  key: String!
+  value: String!
 }
 
 input UserSignUpWithEmailFinishSchema {
