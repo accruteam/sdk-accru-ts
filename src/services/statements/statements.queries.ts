@@ -79,6 +79,7 @@ export const CUSTOMER_STATEMENT_FRAGMENT = gql(`
     vendor_organization_customer {
       id
       name
+      email
     }
     customer_organization_id
     customer_organization {
@@ -282,7 +283,7 @@ export const GET_AS_CUSTOMER_ORGANIZATION_STATEMENT_LINE_QUERY = gql(`
   }
 `);
 
-export const GET_AS_UNCONNECTED_CUSTOMER_ORGANIZATION_STATEMENT_LINE_QUERY =
+export const GET_AS_UNCONNECTED_CUSTOMER_ORGANIZATION_STATEMENT_LINE_QUERY = // THIS ONE
   gql(`
   query UnconnectedUserCustomerOrganizationStatementLine(
     $email: String!,
