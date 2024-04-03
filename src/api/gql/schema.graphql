@@ -588,7 +588,7 @@ type OrganizationCustomer {
   created_at: DateTime!
   email: String!
   id: ID!
-  invoice_summary(after: ConnectionCursor, before: ConnectionCursor, currency: CURRENCY, due_end_date: DateTime, due_start_date: DateTime, end_date: DateTime, first: Int, is_overdue: Boolean, last: Int, skip: Int, sorting: [SortingFieldSchema!], start_date: DateTime, status: INVOICE_STATUS, take: Int): OrganizationInvoiceSummary!
+  invoice_summary(after: ConnectionCursor, before: ConnectionCursor, currency: CURRENCY, customer_name: String, due_end_date: DateTime, due_start_date: DateTime, end_date: DateTime, first: Int, is_overdue: Boolean, last: Int, skip: Int, sorting: [SortingFieldSchema!], start_date: DateTime, status: INVOICE_STATUS, take: Int): OrganizationInvoiceSummary!
   is_active: Boolean!
   language: String
   name: String!
@@ -1156,7 +1156,7 @@ type Query {
   user: User!
   userCustomerOrganization(organization_id: String!, organization_vendor_id: String!): OrganizationConnection!
   userCustomerOrganizationInvoice(organization_id: String!, organization_invoice_id: String!, organization_vendor_id: String!): OrganizationInvoice!
-  userCustomerOrganizationInvoiceSummary(after: ConnectionCursor, before: ConnectionCursor, currency: CURRENCY, due_end_date: DateTime, due_start_date: DateTime, end_date: DateTime, first: Int, is_overdue: Boolean, last: Int, organization_id: String!, organization_vendor_id: String!, skip: Int, sorting: [SortingFieldSchema!], start_date: DateTime, status: INVOICE_STATUS, take: Int): OrganizationInvoiceSummary!
+  userCustomerOrganizationInvoiceSummary(after: ConnectionCursor, before: ConnectionCursor, currency: CURRENCY, customer_name: String, due_end_date: DateTime, due_start_date: DateTime, end_date: DateTime, first: Int, is_overdue: Boolean, last: Int, organization_id: String!, organization_vendor_id: String!, skip: Int, sorting: [SortingFieldSchema!], start_date: DateTime, status: INVOICE_STATUS, take: Int): OrganizationInvoiceSummary!
   userCustomerOrganizationInvoices(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, organization_id: String!, organization_vendor_id: String!, skip: Int, sorting: [SortingFieldSchema!], take: Int): OrganizationInvoicePaginationConnection!
   userCustomerOrganizationProject(organization_id: String!, organization_project_id: String!, organization_vendor_id: String!): OrganizationProject!
   userCustomerOrganizationProjectChange(organization_id: String!, organization_project_change_id: String!, organization_project_id: String!, organization_vendor_id: String!): OrganizationProjectChange!
@@ -1190,10 +1190,10 @@ type Query {
   userOrganizationInviteCollaborator(organization_id: String!, organization_invite_id: String!): OrganizationInvite!
   userOrganizationInviteCollaborators(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, organization_id: String!, skip: Int, take: Int): [OrganizationInvite!]!
   userOrganizationInvoice(organization_id: String!, organization_invoice_id: String!): OrganizationInvoice!
-  userOrganizationInvoiceSummary(after: ConnectionCursor, before: ConnectionCursor, currency: CURRENCY, due_end_date: DateTime, due_start_date: DateTime, end_date: DateTime, first: Int, is_overdue: Boolean, last: Int, organization_customer_id: String, organization_id: String!, skip: Int, sorting: [SortingFieldSchema!], start_date: DateTime, status: INVOICE_STATUS, take: Int): OrganizationInvoiceSummary!
+  userOrganizationInvoiceSummary(after: ConnectionCursor, before: ConnectionCursor, currency: CURRENCY, customer_name: String, due_end_date: DateTime, due_start_date: DateTime, end_date: DateTime, first: Int, is_overdue: Boolean, last: Int, organization_customer_id: String, organization_id: String!, skip: Int, sorting: [SortingFieldSchema!], start_date: DateTime, status: INVOICE_STATUS, take: Int): OrganizationInvoiceSummary!
   userOrganizationInvoiceTransaction(organization_id: String!, organization_invoice_transaction_id: String!): OrganizationInvoiceTransaction!
   userOrganizationInvoiceTransactions(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, organization_customer_id: String, organization_id: String!, organization_receiving_method_id: String, skip: Int, take: Int): [OrganizationInvoiceTransaction!]!
-  userOrganizationInvoices(after: ConnectionCursor, before: ConnectionCursor, first: Int, is_overdue: Boolean, last: Int, number: String, organization_customer_id: String, organization_id: String!, organization_project_id: String, skip: Int, sorting: [SortingFieldSchema!], status: INVOICE_STATUS, take: Int, unique_code: String): OrganizationInvoicePaginationConnection!
+  userOrganizationInvoices(after: ConnectionCursor, before: ConnectionCursor, customer_name: String, first: Int, is_overdue: Boolean, last: Int, number: String, organization_customer_id: String, organization_id: String!, organization_project_id: String, skip: Int, sorting: [SortingFieldSchema!], status: INVOICE_STATUS, take: Int, unique_code: String): OrganizationInvoicePaginationConnection!
   userOrganizationPaymentMethod(organization_id: String!, organization_payment_method_id: String!): OrganizationPaymentMethod!
   userOrganizationPaymentMethods(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, organization_id: String!, skip: Int, take: Int): [OrganizationPaymentMethod!]!
   userOrganizationProject(organization_id: String!, organization_project_id: String!): OrganizationProject!

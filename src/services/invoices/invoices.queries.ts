@@ -101,6 +101,7 @@ export const INVOICES_GET_SUMMARY_QUERY = gql(`
     $endDate: DateTime
     $status: INVOICE_STATUS
     $isOverdue: Boolean
+    $customerName: String
     $after: ConnectionCursor
     $first: Int
     $before: ConnectionCursor
@@ -118,6 +119,7 @@ export const INVOICES_GET_SUMMARY_QUERY = gql(`
       end_date: $endDate
       status: $status
       is_overdue: $isOverdue
+      customer_name: $customerName
 
       after: $after
       first: $first
