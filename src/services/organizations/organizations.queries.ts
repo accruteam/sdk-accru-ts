@@ -34,6 +34,7 @@ export const ORGANIZATION_QUERY_FRAGMENT = gql(`
     business_tax_code
     timezone
     language
+    subscription_level
     archived_at
     created_at
     updated_at
@@ -155,7 +156,7 @@ export const UPDATE_ORGANIZATION_COLLABORATOR_MUTATION = gql(`
   mutation UserOrganizationCollaboratorUpdate($data: UserOrganizationCollaboratorUpdateSchema!, $organizationUserId: String!, $organizationId: String!) {
     userOrganizationCollaboratorUpdate(data: $data, organization_user_id: $organizationUserId, organization_id: $organizationId) {
       role
-    } 
+    }
   }
 `);
 
