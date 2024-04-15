@@ -7,6 +7,11 @@ enum AUTH_PROVIDER {
   INTUIT
 }
 
+input AdminOrganizationSubscriptionUpdateSchema {
+  subscription: ORGANIZATION_SUBSCRIPTION
+  subscription_expires_at: DateTime
+}
+
 enum BILL_STATUS {
   OPEN
   PAID
@@ -66,6 +71,7 @@ enum MIME_TYPE {
 
 type Mutation {
   adminClearCache: DateTime!
+  adminOrganizationUpdateSubscription(data: AdminOrganizationSubscriptionUpdateSchema!, organization_id: String!): Organization!
   unconnectedUserCustomerOrganizationStatementLinePDF(acct_provider: ACCT_PROVIDER!, email: String!, organization_customer_statement_line_id: Int!, token: String!, unique_code: String!): String!
   unconnectedUserCustomerOrganizationStatementRequestToken(email: String!, unique_code: String!): DateTime!
   userAuthProviderDisconnect(auth_provider: AUTH_PROVIDER!): UserAuthProviderConn!
@@ -192,6 +198,10 @@ enum ORGANIZATION_INVITE_SIDE {
   ORGANIZATION
 }
 
+enum ORGANIZATION_SUBSCRIPTION {
+  EARLY_ACCESS
+}
+
 enum ORGANIZATION_USER_ROLE {
   ADMIN
   EDITOR
@@ -239,6 +249,11 @@ type Organization {
   setting_allow_invoice_overdue_snooze_reminders: Boolean
   setting_send_invoice_due_reminders: Boolean
   setting_send_invoice_overdue_reminders: Boolean
+  subscription: ORGANIZATION_SUBSCRIPTION
+  subscription_code: String
+  subscription_date: DateTime
+  subscription_expires_at: DateTime
+  subscription_level: Int
   timezone: String
   unique_code: String!
   unique_name: String!
@@ -1149,6 +1164,7 @@ type PageInfo {
 }
 
 type Query {
+  adminOrganizations(after: ConnectionCursor, before: ConnectionCursor, email: String, first: Int, id: String, include_archived: Boolean, last: Int, name: String, skip: Int, sorting: [SortingFieldSchema!], take: Int): [Organization!]!
   session: Session!
   unauthorizedUserOrganizationUserInvite(code: String!, email: String!, organization_id: String!, organization_invite_id: String!): UnauthorizedUserOrganizationUserInviteResponse!
   unconnectedUserCustomerOrganizationStatement(after: ConnectionCursor, before: ConnectionCursor, currency: CURRENCY, due_end_date: DateTime, due_start_date: DateTime, email: String!, end_date: DateTime, first: Int, is_overdue: Boolean, last: Int, organization_id: String, skip: Int, sorting: [SortingFieldSchema!], start_date: DateTime, take: Int, token: String!, unique_code: String!): OrganizationCustomerStatement!
