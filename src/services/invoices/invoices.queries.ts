@@ -238,3 +238,15 @@ export const GET_ACCT_PROVIDER_INVOICE_PDF_MUTATION = gql(`
     )
   }
 `);
+
+export const GET_INVOICE_BALANCE_SNAPSHOT_MUTATION = gql(`
+  mutation UserOrganizationInvoiceGetBalanceSnapshot(
+    $organizationId: String!
+    $organizationInvoiceId: String!
+  ) {
+    userOrganizationInvoiceGetBalanceSnapshot(
+      organization_id: $organizationId
+      organization_invoice_id: $organizationInvoiceId
+    )
+  }
+`);

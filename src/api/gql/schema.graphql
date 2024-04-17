@@ -131,6 +131,7 @@ type Mutation {
   userOrganizationInvoiceDelete(organization_id: String!, organization_invoice_ids: [String!]!): [OrganizationInvoice!]!
   userOrganizationInvoiceFileDelete(organization_id: String!, organization_invoice_id: String!): OrganizationInvoice!
   userOrganizationInvoiceGetAcctProviderPDF(acct_provider: ACCT_PROVIDER!, organization_id: String!, organization_invoice_id: String!): String!
+  userOrganizationInvoiceGetBalanceSnapshot(organization_id: String!, organization_invoice_id: String!): Int!
   userOrganizationInvoiceManualPaymentCreate(data: UserOrganizationInvoiceManualPaymentCreateSchema!, organization_id: String!, organization_invoice_id: String!): OrganizationInvoice!
   userOrganizationInvoiceManualPaymentDelete(organization_id: String!, organization_invoice_id: String!, organization_invoice_transaction_id: String!): OrganizationInvoice!
   userOrganizationInvoiceTransactionGetAcctProviderPDF(acct_provider: ACCT_PROVIDER!, organization_id: String!, organization_invoice_transaction_id: String!): String!
