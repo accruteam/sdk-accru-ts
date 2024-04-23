@@ -8,34 +8,6 @@ export const USER_CLOSE_SESSION_MUTATION = gql(`
   }
 `);
 
-export const USER_QUERY = gql(`
-  query User {
-    user {
-      id
-      email
-      organizations {
-        id
-        organization_id
-        organization {
-          name
-          email
-        }
-        role
-      }
-      first_name
-      last_name
-      language
-      phone_number
-      timezone
-      updated_at
-      created_at
-      profile_picture_file {
-        public_url
-      }
-    }
-  }
-`);
-
 export const USER_ORGANIZATION_USER_INVITE_QUERY = gql(`
   query UnauthorizedUserOrganizationUserInvite(
     $code: String!
