@@ -92,11 +92,3 @@ export const UPDATE_USER_DELETE_PROFILE_PICTURE_MUTATION = gql(`
     }
   }
 `);
-
-export const SET_USER_TRACKING_ATTRIBUTES_MUTATION = gql(`
-  mutation UserSetTrackingAttributes($attributes: [UserSetTrackingAttributeSchema!]!) {
-    userSetTrackingAttributes(attributes: $attributes) {
-      email
-    }
-  }
-`);

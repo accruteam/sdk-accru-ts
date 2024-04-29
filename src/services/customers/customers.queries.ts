@@ -227,3 +227,9 @@ export const CREATE_CUSTOMER_MUTATION = gql(`
     }
   }
 `);
+
+export const SEND_CUSTOMERS_STATEMENT_MUTATION = gql(`
+  mutation UserOrganizationCustomerSendStatementEmail($targets: [UserOrganizationCustomerSendStatementEmailSchema!]!, $organizationId: String!) {
+    userOrganizationCustomerSendStatementEmail(targets: $targets, organization_id: $organizationId)
+  }
+`);

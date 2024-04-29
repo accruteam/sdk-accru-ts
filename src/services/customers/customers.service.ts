@@ -4,6 +4,8 @@ import {
   UserOrganizationCustomerCreateMutationVariables,
   UserOrganizationCustomerQuery,
   UserOrganizationCustomerQueryVariables,
+  UserOrganizationCustomerSendStatementEmailMutation,
+  UserOrganizationCustomerSendStatementEmailMutationVariables,
   UserOrganizationCustomerStatementLineQuery,
   UserOrganizationCustomerStatementLineQueryVariables,
   UserOrganizationCustomerStatementQuery,
@@ -25,6 +27,7 @@ import {
   CREATE_CUSTOMER_MUTATION,
   GET_CUSTOMER_STATEMENT_QUERY,
   GET_CUSTOMER_STATEMENT_LINE_QUERY,
+  SEND_CUSTOMERS_STATEMENT_MUTATION,
 } from './customers.queries';
 
 export default class Customers {
@@ -94,5 +97,16 @@ export default class Customers {
     });
 
     return data!.userOrganizationCustomerStatementLine;
+  };
+
+  public sendStatementEmail = async (
+    variables: UserOrganizationCustomerSendStatementEmailMutationVariables,
+  ): Promise<Res<UserOrganizationCustomerSendStatementEmailMutation>> => {
+    const { data } = await this.apolloClient.mutate({
+      mutation: SEND_CUSTOMERS_STATEMENT_MUTATION,
+      variables,
+    });
+
+    return data!.userOrganizationCustomerSendStatementEmail;
   };
 }

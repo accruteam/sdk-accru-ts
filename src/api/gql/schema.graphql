@@ -175,7 +175,6 @@ type Mutation {
   userPhoneNumberVerifyOrChangeStart(data: UserPhoneNumberVerifyOrChangeStartSchema!): DateTime!
   userProfilePictureRemove: User!
   userSessionsClose: UserAuthProviderConn!
-  userSetTrackingAttributes(attributes: [UserSetTrackingAttributeSchema!]!): User!
   userSignUpWithEmailFinish(data: UserSignUpWithEmailFinishSchema!): String!
   userSignUpWithEmailStart(data: UserSignUpWithEmailStartSchema!): DateTime!
   userSignUpWithEmailVerify(data: UserSignUpWithEmailVerifySchema!): DateTime!
@@ -464,7 +463,7 @@ type OrganizationBill {
   vendor_address_number: String
   vendor_address_state: String
   vendor_address_zip_code: String
-  vendor_email: String!
+  vendor_email: String
 }
 
 type OrganizationBillHistory {
@@ -603,6 +602,7 @@ type OrganizationCustomer {
   contacts: [OrganizationCustomerContact!]!
   created_at: DateTime!
   email: String!
+  has_sync_errors: Boolean
   id: ID!
   invoice_summary(after: ConnectionCursor, before: ConnectionCursor, currency: CURRENCY, customer_name: String, due_end_date: DateTime, due_start_date: DateTime, end_date: DateTime, first: Int, is_overdue: Boolean, last: Int, skip: Int, sorting: [SortingFieldSchema!], start_date: DateTime, status: INVOICE_STATUS, take: Int): OrganizationInvoiceSummary!
   is_active: Boolean!
@@ -714,7 +714,7 @@ type OrganizationCustomerStatementInvoiceLineData {
   customer_address_number: String
   customer_address_state: String
   customer_address_zip_code: String
-  customer_email: String!
+  customer_email: String
   description: String!
   discount_amount: Int!
   due_date: DateTime!
@@ -832,7 +832,7 @@ type OrganizationInvoice {
   customer_address_number: String
   customer_address_state: String
   customer_address_zip_code: String
-  customer_email: String!
+  customer_email: String
   description: String!
   discount_amount: Int!
   due_date: DateTime!
@@ -1094,7 +1094,8 @@ type OrganizationVendor {
   connection: OrganizationConnection
   contacts: [OrganizationVendorContact!]!
   created_at: DateTime!
-  email: String!
+  email: String
+  has_sync_errors: Boolean
   id: ID!
   is_active: Boolean!
   language: String
@@ -1636,11 +1637,6 @@ type UserSession {
   updated_at: DateTime!
   user_auth_provider_conn: UserAuthProviderConn!
   user_auth_provider_conn_id: String!
-}
-
-input UserSetTrackingAttributeSchema {
-  key: String!
-  value: String!
 }
 
 input UserSignUpWithEmailFinishSchema {
