@@ -233,3 +233,9 @@ export const SEND_CUSTOMERS_STATEMENT_MUTATION = gql(`
     userOrganizationCustomerSendStatementEmail(targets: $targets, organization_id: $organizationId)
   }
 `);
+
+export const GET_CUSTOMER_STATEMENT_LINK_MUTATION = gql(`
+  mutation UserOrganizationCustomerGetStatementLink($organizationId: String!, $organizationCustomerId: String!, $expiresAt: DateTime) {
+    userOrganizationCustomerGetStatementLink(organization_id: $organizationId, organization_customer_id: $organizationCustomerId, expires_at: $expiresAt)
+  }
+`);
