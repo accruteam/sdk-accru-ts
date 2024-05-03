@@ -2,6 +2,8 @@ import { ApolloClient } from '@apollo/client';
 import {
   UserOrganizationCustomerCreateMutation,
   UserOrganizationCustomerCreateMutationVariables,
+  UserOrganizationCustomerGetStatementLinkMutation,
+  UserOrganizationCustomerGetStatementLinkMutationVariables,
   UserOrganizationCustomerQuery,
   UserOrganizationCustomerQueryVariables,
   UserOrganizationCustomerSendStatementEmailMutation,
@@ -28,6 +30,7 @@ import {
   GET_CUSTOMER_STATEMENT_QUERY,
   GET_CUSTOMER_STATEMENT_LINE_QUERY,
   SEND_CUSTOMERS_STATEMENT_MUTATION,
+  GET_CUSTOMER_STATEMENT_LINK_MUTATION,
 } from './customers.queries';
 
 export default class Customers {
@@ -108,5 +111,16 @@ export default class Customers {
     });
 
     return data!.userOrganizationCustomerSendStatementEmail;
+  };
+
+  public getStatementLink = async (
+    variables: UserOrganizationCustomerGetStatementLinkMutationVariables,
+  ): Promise<Res<UserOrganizationCustomerGetStatementLinkMutation>> => {
+    const { data } = await this.apolloClient.mutate({
+      mutation: GET_CUSTOMER_STATEMENT_LINK_MUTATION,
+      variables,
+    });
+
+    return data!.userOrganizationCustomerGetStatementLink;
   };
 }

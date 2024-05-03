@@ -117,6 +117,7 @@ type Mutation {
   userOrganizationCustomerContactDelete(organization_customer_contact_id: String!, organization_customer_id: String!, organization_id: String!): OrganizationCustomerContact!
   userOrganizationCustomerContactUpdate(data: UserOrganizationCustomerContactUpdateSchema!, organization_customer_contact_id: String!, organization_customer_id: String!, organization_id: String!): OrganizationCustomerContact!
   userOrganizationCustomerCreate(data: UserOrganizationCustomerSchema!, organization_id: String!): OrganizationCustomer!
+  userOrganizationCustomerGetStatementLink(expires_at: DateTime, organization_customer_id: String!, organization_id: String!): String!
   userOrganizationCustomerSendInvoiceEmail(organization_id: String!, targets: [UserOrganizationCustomerSendInvoiceEmailSchema!]!): JSON!
   userOrganizationCustomerSendStatementEmail(organization_id: String!, targets: [UserOrganizationCustomerSendStatementEmailSchema!]!): JSON!
   userOrganizationCustomerUniqueCodeUpdate(organization_customer_id: String!, organization_id: String!): OrganizationCustomer!
