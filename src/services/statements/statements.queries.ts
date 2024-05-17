@@ -119,6 +119,10 @@ export const CUSTOMER_STATEMENT_FRAGMENT = gql(`
     one_to_thirty_days_due_amount
     thirty_one_to_sixty_days_due_amount
     sixty_plus_days_due_amount
+
+    has_sync_errors
+    last_sync_at
+    latest_acct_provider_balance
   }
 `);
 

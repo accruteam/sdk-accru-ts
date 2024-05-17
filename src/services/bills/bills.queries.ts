@@ -45,6 +45,7 @@ export const BILL_QUERY_FRAGMENT = gql(`
     organization_acct_provider_conn_bills {
       id
       code
+      balance
       payload
       last_sync_at
       last_sync_success
@@ -64,6 +65,8 @@ export const BILL_QUERY_FRAGMENT = gql(`
     }
 
     has_sync_errors
+    last_sync_at
+    latest_acct_provider_balance
 
     status
     is_overdue
