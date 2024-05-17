@@ -13,6 +13,10 @@ export const CUSTOMER_QUERY_FRAGMENT = gql(`
     created_at
     updated_at
 
+    has_sync_errors
+    last_sync_at
+    latest_acct_provider_balance
+
     conn_locked_data_at
     connection {
       ...OrganizationConnectionFragment
