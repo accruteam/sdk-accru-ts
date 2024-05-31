@@ -14,6 +14,8 @@ import {
   UserOrganizationCollaboratorsQueryVariables,
   UserOrganizationCreateMutation,
   UserOrganizationCreateMutationVariables,
+  UserOrganizationInviteCollaboratorCancelMutation,
+  UserOrganizationInviteCollaboratorCancelMutationVariables,
   UserOrganizationInviteCollaboratorCreateMutation,
   UserOrganizationInviteCollaboratorCreateMutationVariables,
   UserOrganizationInviteCollaboratorsQuery,
@@ -37,6 +39,7 @@ import {
   UPDATE_ORGANIZATION_MUTATION,
   CREATE_ORGANIZATION_MUTATION,
   GET_ORGANIZATION_COLLABORATOR_INVITES_QUERY,
+  DELETE_ORGANIZATION_COLLABORATOR_INVITE_MUTATION,
 } from './organizations.queries';
 
 export default class Organizations {
@@ -112,6 +115,17 @@ export default class Organizations {
     });
 
     return data!.userOrganizationInviteCollaboratorCreate;
+  };
+
+  public deleteCollaboratorInvite = async (
+    variables: UserOrganizationInviteCollaboratorCancelMutationVariables,
+  ): Promise<Res<UserOrganizationInviteCollaboratorCancelMutation>> => {
+    const { data } = await this.apolloClient.mutate({
+      mutation: DELETE_ORGANIZATION_COLLABORATOR_INVITE_MUTATION,
+      variables,
+    });
+
+    return data!.userOrganizationInviteCollaboratorCancel;
   };
 
   public getCollaboratorInvites = async (
