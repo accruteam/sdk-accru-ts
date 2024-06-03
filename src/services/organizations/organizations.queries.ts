@@ -130,6 +130,28 @@ export const INVITE_ORGANIZATION_COLLABORATOR_MUTATION = gql(`
   }
 `);
 
+export const DELETE_ORGANIZATION_COLLABORATOR_INVITE_MUTATION = gql(`
+  mutation UserOrganizationInviteCollaboratorCancel($organizationId: String!, $organizationInviteId: String!) {
+    userOrganizationInviteCollaboratorCancel(organization_id: $organizationId, organization_invite_id: $organizationInviteId) {
+      id
+      email
+      role
+      code
+      expires_at
+      accepted_at
+      canceled_at
+      rejected_at
+      created_at
+      updated_at
+      organization_id
+      created_by_user_id
+      created_by_user {
+        email
+      }
+    }
+  }
+`);
+
 export const GET_ORGANIZATION_COLLABORATOR_INVITES_QUERY = gql(`
   query UserOrganizationInviteCollaborators($organizationId: String!, $skip: Int, $take: Int) {
     userOrganizationInviteCollaborators(organization_id: $organizationId, skip: $skip, take: $take) {
