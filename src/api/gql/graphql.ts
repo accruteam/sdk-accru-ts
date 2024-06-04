@@ -83,14 +83,15 @@ export type Mutation = {
   __typename?: 'Mutation';
   adminClearCache: Scalars['DateTime']['output'];
   adminOrganizationAcctProviderSynchronize: Scalars['DateTime']['output'];
-  adminOrganizationAcctProviderSynchronizeAll: Scalars['Float']['output'];
-  adminOrganizationBillProcess: Scalars['Float']['output'];
-  adminOrganizationBillTransactionProcess: Scalars['Float']['output'];
-  adminOrganizationCustomerProcess: Scalars['Float']['output'];
-  adminOrganizationInvoiceProcess: Scalars['Float']['output'];
-  adminOrganizationInvoiceTransactionProcess: Scalars['Float']['output'];
+  adminOrganizationAcctProviderSynchronizeAll: Scalars['Int']['output'];
+  adminOrganizationBillProcess: Scalars['Int']['output'];
+  adminOrganizationBillTransactionProcess: Scalars['Int']['output'];
+  adminOrganizationCustomerProcess: Scalars['Int']['output'];
+  adminOrganizationCustomerStatementRecalculate: Scalars['DateTime']['output'];
+  adminOrganizationInvoiceProcess: Scalars['Int']['output'];
+  adminOrganizationInvoiceTransactionProcess: Scalars['Int']['output'];
   adminOrganizationUpdateSubscription: Organization;
-  adminOrganizationVendorProcess: Scalars['Float']['output'];
+  adminOrganizationVendorProcess: Scalars['Int']['output'];
   unconnectedUserCustomerOrganizationStatementLinePDF: Scalars['String']['output'];
   unconnectedUserCustomerOrganizationStatementRequestToken: Scalars['DateTime']['output'];
   userAuthProviderDisconnect: UserAuthProviderConn;
@@ -234,6 +235,12 @@ export type MutationadminOrganizationBillTransactionProcessArgs = {
 export type MutationadminOrganizationCustomerProcessArgs = {
   organization_customer_id?: InputMaybe<Scalars['String']['input']>;
   organization_id: Scalars['String']['input'];
+};
+
+
+export type MutationadminOrganizationCustomerStatementRecalculateArgs = {
+  organization_customer_id?: InputMaybe<Scalars['String']['input']>;
+  organization_id?: InputMaybe<Scalars['String']['input']>;
 };
 
 
@@ -1139,27 +1146,27 @@ export type OrganizationAcctProviderConnSynchronization = {
   finished_at?: Maybe<Scalars['DateTime']['output']>;
   force_pull?: Maybe<Scalars['Boolean']['output']>;
   id: Scalars['ID']['output'];
-  local_create_failure_count: Scalars['Float']['output'];
-  local_create_success_count: Scalars['Float']['output'];
-  local_delete_failure_count: Scalars['Float']['output'];
-  local_delete_success_count: Scalars['Float']['output'];
-  local_read_failure_count: Scalars['Float']['output'];
-  local_read_success_count: Scalars['Float']['output'];
-  local_update_failure_count: Scalars['Float']['output'];
-  local_update_success_count: Scalars['Float']['output'];
+  local_create_failure_count: Scalars['Int']['output'];
+  local_create_success_count: Scalars['Int']['output'];
+  local_delete_failure_count: Scalars['Int']['output'];
+  local_delete_success_count: Scalars['Int']['output'];
+  local_read_failure_count: Scalars['Int']['output'];
+  local_read_success_count: Scalars['Int']['output'];
+  local_update_failure_count: Scalars['Int']['output'];
+  local_update_success_count: Scalars['Int']['output'];
   organization_acct_provider_conn_id: Scalars['String']['output'];
   organization_id: Scalars['String']['output'];
   payload?: Maybe<Scalars['JSON']['output']>;
   pull: Scalars['Boolean']['output'];
   push: Scalars['Boolean']['output'];
-  remote_create_failure_count: Scalars['Float']['output'];
-  remote_create_success_count: Scalars['Float']['output'];
-  remote_delete_failure_count: Scalars['Float']['output'];
-  remote_delete_success_count: Scalars['Float']['output'];
-  remote_read_failure_count: Scalars['Float']['output'];
-  remote_read_success_count: Scalars['Float']['output'];
-  remote_update_failure_count: Scalars['Float']['output'];
-  remote_update_success_count: Scalars['Float']['output'];
+  remote_create_failure_count: Scalars['Int']['output'];
+  remote_create_success_count: Scalars['Int']['output'];
+  remote_delete_failure_count: Scalars['Int']['output'];
+  remote_delete_success_count: Scalars['Int']['output'];
+  remote_read_failure_count: Scalars['Int']['output'];
+  remote_read_success_count: Scalars['Int']['output'];
+  remote_update_failure_count: Scalars['Int']['output'];
+  remote_update_success_count: Scalars['Int']['output'];
   started_at: Scalars['DateTime']['output'];
   status_description: Scalars['String']['output'];
   succeeded_at?: Maybe<Scalars['DateTime']['output']>;
@@ -1867,7 +1874,7 @@ export type OrganizationPaymentMethod = {
 export type OrganizationProject = {
   __typename?: 'OrganizationProject';
   archived_at?: Maybe<Scalars['DateTime']['output']>;
-  budget_amount: Scalars['Float']['output'];
+  budget_amount: Scalars['Int']['output'];
   budget_currency_code: CURRENCY;
   canceled_at?: Maybe<Scalars['DateTime']['output']>;
   completed_at?: Maybe<Scalars['DateTime']['output']>;
@@ -1886,14 +1893,14 @@ export type OrganizationProject = {
 
 export type OrganizationProjectChange = {
   __typename?: 'OrganizationProjectChange';
-  changed_budget_amount: Scalars['Float']['output'];
+  changed_budget_amount: Scalars['Int']['output'];
   changed_ends_at: Scalars['DateTime']['output'];
   changed_name: Scalars['String']['output'];
   created_at: Scalars['DateTime']['output'];
   id: Scalars['ID']['output'];
   organization_project_change_request: OrganizationProjectChangeRequest;
   organization_project_change_request_id: Scalars['String']['output'];
-  previous_budget_amount: Scalars['Float']['output'];
+  previous_budget_amount: Scalars['Int']['output'];
   previous_ends_at: Scalars['DateTime']['output'];
   previous_name: Scalars['String']['output'];
   updated_at: Scalars['DateTime']['output'];
@@ -1902,7 +1909,7 @@ export type OrganizationProjectChange = {
 export type OrganizationProjectChangeRequest = {
   __typename?: 'OrganizationProjectChangeRequest';
   accepted_at?: Maybe<Scalars['DateTime']['output']>;
-  budget_amount: Scalars['Float']['output'];
+  budget_amount: Scalars['Int']['output'];
   canceled_at?: Maybe<Scalars['DateTime']['output']>;
   contract_url?: Maybe<Scalars['String']['output']>;
   created_at: Scalars['DateTime']['output'];
@@ -2966,21 +2973,21 @@ export type UserOrganizationAcctProviderConnUpdateSchema = {
 };
 
 export type UserOrganizationBillManualPaymentCreateSchema = {
-  amount: Scalars['Float']['input'];
+  amount: Scalars['Int']['input'];
   currency_code: CURRENCY;
 };
 
 export type UserOrganizationBillSchema = {
-  amount: Scalars['Float']['input'];
+  amount: Scalars['Int']['input'];
   bill_date: Scalars['DateTime']['input'];
   currency_code: CURRENCY;
   description: Scalars['String']['input'];
-  discount_amount: Scalars['Float']['input'];
+  discount_amount: Scalars['Int']['input'];
   due_date: Scalars['DateTime']['input'];
   number?: InputMaybe<Scalars['String']['input']>;
   organization_project_id?: InputMaybe<Scalars['String']['input']>;
   organization_vendor_id: Scalars['String']['input'];
-  total_amount: Scalars['Float']['input'];
+  total_amount: Scalars['Int']['input'];
 };
 
 export type UserOrganizationCollaboratorUpdateSchema = {
@@ -2996,18 +3003,6 @@ export type UserOrganizationCreateSchema = {
   address_number?: InputMaybe<Scalars['String']['input']>;
   address_state?: InputMaybe<Scalars['String']['input']>;
   address_zip_code?: InputMaybe<Scalars['String']['input']>;
-  business_address_city?: InputMaybe<Scalars['String']['input']>;
-  business_address_country_code_iso_3?: InputMaybe<Scalars['String']['input']>;
-  business_address_line_1?: InputMaybe<Scalars['String']['input']>;
-  business_address_line_2?: InputMaybe<Scalars['String']['input']>;
-  business_address_number?: InputMaybe<Scalars['String']['input']>;
-  business_address_state?: InputMaybe<Scalars['String']['input']>;
-  business_address_zip_code?: InputMaybe<Scalars['String']['input']>;
-  business_industry?: InputMaybe<Scalars['String']['input']>;
-  business_name?: InputMaybe<Scalars['String']['input']>;
-  business_number_of_employees?: InputMaybe<Scalars['Int']['input']>;
-  business_tax_code?: InputMaybe<Scalars['String']['input']>;
-  business_tax_code_type?: InputMaybe<TAX_TYPE>;
   email: Scalars['String']['input'];
   language?: InputMaybe<Scalars['String']['input']>;
   name: Scalars['String']['input'];
@@ -3081,21 +3076,21 @@ export type UserOrganizationInviteCollaboratorCreateSchema = {
 };
 
 export type UserOrganizationInvoiceManualPaymentCreateSchema = {
-  amount: Scalars['Float']['input'];
+  amount: Scalars['Int']['input'];
   currency_code: CURRENCY;
 };
 
 export type UserOrganizationInvoiceSchema = {
-  amount: Scalars['Float']['input'];
+  amount: Scalars['Int']['input'];
   currency_code: CURRENCY;
   description: Scalars['String']['input'];
-  discount_amount: Scalars['Float']['input'];
+  discount_amount: Scalars['Int']['input'];
   due_date: Scalars['DateTime']['input'];
   invoice_date: Scalars['DateTime']['input'];
   number?: InputMaybe<Scalars['String']['input']>;
   organization_customer_id: Scalars['String']['input'];
   organization_project_id?: InputMaybe<Scalars['String']['input']>;
-  total_amount: Scalars['Float']['input'];
+  total_amount: Scalars['Int']['input'];
 };
 
 export type UserOrganizationPaymentMethodUpdateSchema = {
@@ -3104,7 +3099,7 @@ export type UserOrganizationPaymentMethodUpdateSchema = {
 };
 
 export type UserOrganizationProjectChangeRequestCreateSchema = {
-  budget_amount: Scalars['Float']['input'];
+  budget_amount: Scalars['Int']['input'];
   change_request_expires_at?: InputMaybe<Scalars['DateTime']['input']>;
   contract_url?: InputMaybe<Scalars['String']['input']>;
   ends_at: Scalars['DateTime']['input'];
@@ -3112,7 +3107,7 @@ export type UserOrganizationProjectChangeRequestCreateSchema = {
 };
 
 export type UserOrganizationProjectCreateSchema = {
-  budget_amount: Scalars['Float']['input'];
+  budget_amount: Scalars['Int']['input'];
   budget_currency_code: CURRENCY;
   contract_url?: InputMaybe<Scalars['String']['input']>;
   description: Scalars['String']['input'];
@@ -3153,18 +3148,6 @@ export type UserOrganizationUpdateSchema = {
   address_number?: InputMaybe<Scalars['String']['input']>;
   address_state?: InputMaybe<Scalars['String']['input']>;
   address_zip_code?: InputMaybe<Scalars['String']['input']>;
-  business_address_city?: InputMaybe<Scalars['String']['input']>;
-  business_address_country_code_iso_3?: InputMaybe<Scalars['String']['input']>;
-  business_address_line_1?: InputMaybe<Scalars['String']['input']>;
-  business_address_line_2?: InputMaybe<Scalars['String']['input']>;
-  business_address_number?: InputMaybe<Scalars['String']['input']>;
-  business_address_state?: InputMaybe<Scalars['String']['input']>;
-  business_address_zip_code?: InputMaybe<Scalars['String']['input']>;
-  business_industry?: InputMaybe<Scalars['String']['input']>;
-  business_name?: InputMaybe<Scalars['String']['input']>;
-  business_number_of_employees?: InputMaybe<Scalars['Int']['input']>;
-  business_tax_code?: InputMaybe<Scalars['String']['input']>;
-  business_tax_code_type?: InputMaybe<TAX_TYPE>;
   language?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   phone_number?: InputMaybe<Scalars['String']['input']>;

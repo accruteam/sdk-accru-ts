@@ -70,14 +70,15 @@ enum MIME_TYPE {
 type Mutation {
   adminClearCache: DateTime!
   adminOrganizationAcctProviderSynchronize(acct_provider: ACCT_PROVIDER!, force_pull: Boolean, organization_id: String!, pull: Boolean!, push: Boolean!): DateTime!
-  adminOrganizationAcctProviderSynchronizeAll(acct_provider: ACCT_PROVIDER, force_pull: Boolean, pull: Boolean!, push: Boolean!): Float!
-  adminOrganizationBillProcess(organization_bill_id: String, organization_id: String!): Float!
-  adminOrganizationBillTransactionProcess(organization_bill_transaction_id: String, organization_id: String!): Float!
-  adminOrganizationCustomerProcess(organization_customer_id: String, organization_id: String!): Float!
-  adminOrganizationInvoiceProcess(organization_id: String!, organization_invoice_id: String): Float!
-  adminOrganizationInvoiceTransactionProcess(organization_id: String!, organization_invoice_transaction_id: String): Float!
+  adminOrganizationAcctProviderSynchronizeAll(acct_provider: ACCT_PROVIDER, force_pull: Boolean, pull: Boolean!, push: Boolean!): Int!
+  adminOrganizationBillProcess(organization_bill_id: String, organization_id: String!): Int!
+  adminOrganizationBillTransactionProcess(organization_bill_transaction_id: String, organization_id: String!): Int!
+  adminOrganizationCustomerProcess(organization_customer_id: String, organization_id: String!): Int!
+  adminOrganizationCustomerStatementRecalculate(organization_customer_id: String, organization_id: String): DateTime!
+  adminOrganizationInvoiceProcess(organization_id: String!, organization_invoice_id: String): Int!
+  adminOrganizationInvoiceTransactionProcess(organization_id: String!, organization_invoice_transaction_id: String): Int!
   adminOrganizationUpdateSubscription(data: AdminOrganizationSubscriptionUpdateSchema!, organization_id: String!): Organization!
-  adminOrganizationVendorProcess(organization_id: String!, organization_vendor_id: String): Float!
+  adminOrganizationVendorProcess(organization_id: String!, organization_vendor_id: String): Int!
   unconnectedUserCustomerOrganizationStatementLinePDF(acct_provider: ACCT_PROVIDER!, email: String!, organization_customer_statement_line_id: Int!, token: String!, unique_code: String!): String!
   unconnectedUserCustomerOrganizationStatementRequestToken(email: String!, unique_code: String!): DateTime!
   userAuthProviderDisconnect(auth_provider: AUTH_PROVIDER!): UserAuthProviderConn!
@@ -374,27 +375,27 @@ type OrganizationAcctProviderConnSynchronization {
   finished_at: DateTime
   force_pull: Boolean
   id: ID!
-  local_create_failure_count: Float!
-  local_create_success_count: Float!
-  local_delete_failure_count: Float!
-  local_delete_success_count: Float!
-  local_read_failure_count: Float!
-  local_read_success_count: Float!
-  local_update_failure_count: Float!
-  local_update_success_count: Float!
+  local_create_failure_count: Int!
+  local_create_success_count: Int!
+  local_delete_failure_count: Int!
+  local_delete_success_count: Int!
+  local_read_failure_count: Int!
+  local_read_success_count: Int!
+  local_update_failure_count: Int!
+  local_update_success_count: Int!
   organization_acct_provider_conn_id: String!
   organization_id: String!
   payload: JSON
   pull: Boolean!
   push: Boolean!
-  remote_create_failure_count: Float!
-  remote_create_success_count: Float!
-  remote_delete_failure_count: Float!
-  remote_delete_success_count: Float!
-  remote_read_failure_count: Float!
-  remote_read_success_count: Float!
-  remote_update_failure_count: Float!
-  remote_update_success_count: Float!
+  remote_create_failure_count: Int!
+  remote_create_success_count: Int!
+  remote_delete_failure_count: Int!
+  remote_delete_success_count: Int!
+  remote_read_failure_count: Int!
+  remote_read_success_count: Int!
+  remote_update_failure_count: Int!
+  remote_update_success_count: Int!
   started_at: DateTime!
   status_description: String!
   succeeded_at: DateTime
@@ -1008,7 +1009,7 @@ type OrganizationPaymentMethod {
 
 type OrganizationProject {
   archived_at: DateTime
-  budget_amount: Float!
+  budget_amount: Int!
   budget_currency_code: CURRENCY!
   canceled_at: DateTime
   completed_at: DateTime
@@ -1026,14 +1027,14 @@ type OrganizationProject {
 }
 
 type OrganizationProjectChange {
-  changed_budget_amount: Float!
+  changed_budget_amount: Int!
   changed_ends_at: DateTime!
   changed_name: String!
   created_at: DateTime!
   id: ID!
   organization_project_change_request: OrganizationProjectChangeRequest!
   organization_project_change_request_id: String!
-  previous_budget_amount: Float!
+  previous_budget_amount: Int!
   previous_ends_at: DateTime!
   previous_name: String!
   updated_at: DateTime!
@@ -1041,7 +1042,7 @@ type OrganizationProjectChange {
 
 type OrganizationProjectChangeRequest {
   accepted_at: DateTime
-  budget_amount: Float!
+  budget_amount: Int!
   canceled_at: DateTime
   contract_url: String
   created_at: DateTime!
@@ -1393,21 +1394,21 @@ input UserOrganizationAcctProviderConnUpdateSchema {
 }
 
 input UserOrganizationBillManualPaymentCreateSchema {
-  amount: Float!
+  amount: Int!
   currency_code: CURRENCY!
 }
 
 input UserOrganizationBillSchema {
-  amount: Float!
+  amount: Int!
   bill_date: DateTime!
   currency_code: CURRENCY!
   description: String!
-  discount_amount: Float!
+  discount_amount: Int!
   due_date: DateTime!
   number: String
   organization_project_id: String
   organization_vendor_id: String!
-  total_amount: Float!
+  total_amount: Int!
 }
 
 input UserOrganizationCollaboratorUpdateSchema {
@@ -1423,18 +1424,6 @@ input UserOrganizationCreateSchema {
   address_number: String
   address_state: String
   address_zip_code: String
-  business_address_city: String
-  business_address_country_code_iso_3: String
-  business_address_line_1: String
-  business_address_line_2: String
-  business_address_number: String
-  business_address_state: String
-  business_address_zip_code: String
-  business_industry: String
-  business_name: String
-  business_number_of_employees: Int
-  business_tax_code: String
-  business_tax_code_type: TAX_TYPE
   email: String!
   language: String
   name: String!
@@ -1508,21 +1497,21 @@ input UserOrganizationInviteCollaboratorCreateSchema {
 }
 
 input UserOrganizationInvoiceManualPaymentCreateSchema {
-  amount: Float!
+  amount: Int!
   currency_code: CURRENCY!
 }
 
 input UserOrganizationInvoiceSchema {
-  amount: Float!
+  amount: Int!
   currency_code: CURRENCY!
   description: String!
-  discount_amount: Float!
+  discount_amount: Int!
   due_date: DateTime!
   invoice_date: DateTime!
   number: String
   organization_customer_id: String!
   organization_project_id: String
-  total_amount: Float!
+  total_amount: Int!
 }
 
 input UserOrganizationPaymentMethodUpdateSchema {
@@ -1531,7 +1520,7 @@ input UserOrganizationPaymentMethodUpdateSchema {
 }
 
 input UserOrganizationProjectChangeRequestCreateSchema {
-  budget_amount: Float!
+  budget_amount: Int!
   change_request_expires_at: DateTime
   contract_url: String
   ends_at: DateTime!
@@ -1539,7 +1528,7 @@ input UserOrganizationProjectChangeRequestCreateSchema {
 }
 
 input UserOrganizationProjectCreateSchema {
-  budget_amount: Float!
+  budget_amount: Int!
   budget_currency_code: CURRENCY!
   contract_url: String
   description: String!
@@ -1580,18 +1569,6 @@ input UserOrganizationUpdateSchema {
   address_number: String
   address_state: String
   address_zip_code: String
-  business_address_city: String
-  business_address_country_code_iso_3: String
-  business_address_line_1: String
-  business_address_line_2: String
-  business_address_number: String
-  business_address_state: String
-  business_address_zip_code: String
-  business_industry: String
-  business_name: String
-  business_number_of_employees: Int
-  business_tax_code: String
-  business_tax_code_type: TAX_TYPE
   language: String
   name: String
   phone_number: String
