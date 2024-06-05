@@ -1424,6 +1424,8 @@ input UserOrganizationCreateSchema {
   address_number: String
   address_state: String
   address_zip_code: String
+  business_industry: String
+  business_number_of_employees: Int
   email: String!
   language: String
   name: String!
@@ -1569,6 +1571,8 @@ input UserOrganizationUpdateSchema {
   address_number: String
   address_state: String
   address_zip_code: String
+  business_industry: String
+  business_number_of_employees: Int
   language: String
   name: String
   phone_number: String

@@ -3003,6 +3003,8 @@ export type UserOrganizationCreateSchema = {
   address_number?: InputMaybe<Scalars['String']['input']>;
   address_state?: InputMaybe<Scalars['String']['input']>;
   address_zip_code?: InputMaybe<Scalars['String']['input']>;
+  business_industry?: InputMaybe<Scalars['String']['input']>;
+  business_number_of_employees?: InputMaybe<Scalars['Int']['input']>;
   email: Scalars['String']['input'];
   language?: InputMaybe<Scalars['String']['input']>;
   name: Scalars['String']['input'];
@@ -3148,6 +3150,8 @@ export type UserOrganizationUpdateSchema = {
   address_number?: InputMaybe<Scalars['String']['input']>;
   address_state?: InputMaybe<Scalars['String']['input']>;
   address_zip_code?: InputMaybe<Scalars['String']['input']>;
+  business_industry?: InputMaybe<Scalars['String']['input']>;
+  business_number_of_employees?: InputMaybe<Scalars['Int']['input']>;
   language?: InputMaybe<Scalars['String']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
   phone_number?: InputMaybe<Scalars['String']['input']>;
