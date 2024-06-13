@@ -133,6 +133,7 @@ export const GET_CUSTOMER_STATEMENT_QUERY = gql(`
   query UserOrganizationCustomerStatement(
     $organizationId: String!
     $organizationCustomerId: String!
+    $type: STATEMENT_LINE_TYPE
     $currency: CURRENCY
     $startDate: DateTime
     $endDate: DateTime
@@ -148,6 +149,8 @@ export const GET_CUSTOMER_STATEMENT_QUERY = gql(`
     userOrganizationCustomerStatement(
       organization_id: $organizationId
       organization_customer_id: $organizationCustomerId
+
+      type: $type
 
       currency: $currency
       start_date: $startDate

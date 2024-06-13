@@ -130,6 +130,7 @@ export const GET_AS_CUSTOMER_ORGANIZATION_STATEMENT_QUERY = gql(`
   query UserCustomerOrganizationStatement(
     $organizationId: String!
     $organizationVendorId: String!
+    $type: STATEMENT_LINE_TYPE
     $currency: CURRENCY
     $startDate: DateTime
     $endDate: DateTime
@@ -145,6 +146,8 @@ export const GET_AS_CUSTOMER_ORGANIZATION_STATEMENT_QUERY = gql(`
     userCustomerOrganizationStatement(
       organization_id: $organizationId
       organization_vendor_id: $organizationVendorId
+
+      type: $type
 
       currency: $currency
       start_date: $startDate
@@ -203,6 +206,7 @@ export const GET_AS_UNCONNECTED_CUSTOMER_ORGANIZATION_STATEMENT_QUERY = gql(`
     $uniqueCode: String!
     $email: String!
     $token: String!
+    $type: STATEMENT_LINE_TYPE
     $currency: CURRENCY
     $startDate: DateTime
     $endDate: DateTime
@@ -219,6 +223,8 @@ export const GET_AS_UNCONNECTED_CUSTOMER_ORGANIZATION_STATEMENT_QUERY = gql(`
       unique_code: $uniqueCode
       email: $email
       token: $token
+
+      type: $type
 
       currency: $currency
       start_date: $startDate
