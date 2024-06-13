@@ -744,6 +744,7 @@ type OrganizationCustomerStatementInvoiceLineData {
   file_id: String
   id: ID!
   invoice_date: DateTime!
+  latest_acct_provider_balance: Int
   number: String!
   organization_acct_provider_conn_invoices: [OrganizationAcctProviderConnInvoice!]!
   organization_customer_id: String!

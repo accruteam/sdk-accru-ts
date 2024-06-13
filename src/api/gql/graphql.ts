@@ -1582,6 +1582,7 @@ export type OrganizationCustomerStatementInvoiceLineData = {
   file_id?: Maybe<Scalars['String']['output']>;
   id: Scalars['ID']['output'];
   invoice_date: Scalars['DateTime']['output'];
+  latest_acct_provider_balance?: Maybe<Scalars['Int']['output']>;
   number: Scalars['String']['output'];
   organization_acct_provider_conn_invoices: Array<OrganizationAcctProviderConnInvoice>;
   organization_customer_id: Scalars['String']['output'];
