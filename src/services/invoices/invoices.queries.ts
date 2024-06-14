@@ -87,6 +87,8 @@ export const INVOICE_SUMMARY_FRAGMENT = gql(`
   fragment OrganizationInvoiceSummaryFragment on OrganizationInvoiceSummary {
     vendor_organization_id
     vendor_organization {
+      name
+      email
       phone_number
       address_line_1
       address_number
@@ -97,6 +99,9 @@ export const INVOICE_SUMMARY_FRAGMENT = gql(`
       address_country_code_iso_3
       address_lat
       address_lng
+      logo_picture_file {
+        public_url
+      }
     }
 
     vendor_organization_customer_id
@@ -128,6 +133,9 @@ export const INVOICE_SUMMARY_FRAGMENT = gql(`
     }
 
     status
+
+    total_invoice_count
+    total_overdue_invoice_count
 
     total_amount
     paid_amount

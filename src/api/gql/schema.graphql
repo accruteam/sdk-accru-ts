@@ -709,6 +709,8 @@ type OrganizationCustomerStatement {
   start_date: DateTime
   thirty_one_to_sixty_days_due_amount: Int
   total_amount: Int!
+  total_invoice_count: Int!
+  total_overdue_invoice_count: Int!
   vendor_organization: Organization!
   vendor_organization_customer: OrganizationCustomer!
   vendor_organization_customer_id: String!
