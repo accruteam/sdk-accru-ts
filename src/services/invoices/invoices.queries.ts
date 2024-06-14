@@ -7,23 +7,12 @@ export const INVOICE_QUERY_FRAGMENT = gql(`
     number
     currency_code
     description
-    payload
     amount
     tax_amount
     discount_amount
     total_amount
     invoice_date
     due_date
-    customer_email
-    customer_address_line_1
-    customer_address_number
-    customer_address_line_2
-    customer_address_city
-    customer_address_state
-    customer_address_zip_code
-    customer_address_country_code_iso_3
-    customer_address_lat
-    customer_address_lng
     archived_at
     created_at
     updated_at
@@ -43,7 +32,6 @@ export const INVOICE_QUERY_FRAGMENT = gql(`
       id
       code
       balance
-      payload
       last_sync_at
       last_sync_success
       last_sync_id
@@ -95,6 +83,77 @@ export const INVOICE_QUERY_FRAGMENT = gql(`
   }
 `);
 
+export const INVOICE_SUMMARY_FRAGMENT = gql(`
+  fragment OrganizationInvoiceSummaryFragment on OrganizationInvoiceSummary {
+    vendor_organization_id
+    vendor_organization {
+      phone_number
+      address_line_1
+      address_number
+      address_line_2
+      address_city
+      address_state
+      address_zip_code
+      address_country_code_iso_3
+      address_lat
+      address_lng
+    }
+
+    vendor_organization_customer_id
+    vendor_organization_customer {
+      name
+      email
+    }
+
+    customer_organization_id
+    customer_organization {
+      name
+      email
+    }
+
+    data {
+      totalCount
+      edges {
+        cursor
+        node {
+          ...OrganizationInvoiceFragment
+        }
+      }
+      pageInfo {
+        startCursor
+        endCursor
+        hasPreviousPage
+        hasNextPage
+      }
+    }
+
+    status
+
+    total_amount
+    paid_amount
+    overdue_amount
+    balance
+
+    start_date
+    end_date
+    due_start_date
+    due_end_date
+    currency
+
+    has_sync_errors
+    last_sync_at
+    latest_acct_provider_balance
+
+    one_to_thirty_days_due_amount
+    thirty_one_to_sixty_days_due_amount
+    sixty_plus_days_due_amount
+
+    latest_acct_provider_one_to_thirty_days_due_amount
+    latest_acct_provider_thirty_one_to_sixty_days_due_amount
+    latest_acct_provider_sixty_plus_days_due_amount
+  }
+`);
+
 export const INVOICES_GET_SUMMARY_QUERY = gql(`
   query UserOrganizationInvoiceSummary(
     $organizationId: String!
@@ -135,43 +194,7 @@ export const INVOICES_GET_SUMMARY_QUERY = gql(`
 
       sorting: $sorting
     ) {
-      vendor_organization_id
-      vendor_organization {
-        id
-        name
-      }
-      vendor_organization_customer_id
-      vendor_organization_customer {
-        id
-        name
-      }
-      customer_organization_id
-      customer_organization {
-        id
-        name
-      }
-      data {
-        totalCount
-        edges {
-          cursor
-          node {
-            ...OrganizationInvoiceFragment
-          }
-        }
-        pageInfo {
-          startCursor
-          endCursor
-          hasPreviousPage
-          hasNextPage
-        }
-      }
-      total_amount
-      paid_amount
-      overdue_amount
-      start_date
-      end_date
-      currency
-      status
+      ...OrganizationInvoiceSummaryFragment
     }
   }
 `);
@@ -228,13 +251,13 @@ export const SEND_INVOICE_EMAIL_MUTATION = gql(`
   }
 `);
 
-export const GET_ACCT_PROVIDER_INVOICE_PDF_MUTATION = gql(`
-  mutation UserOrganizationInvoiceGetAcctProviderPDF(
+export const GET_INVOICE_PDF_MUTATION = gql(`
+  mutation UserOrganizationInvoiceGetPDF(
     $organizationId: String!
     $organizationInvoiceId: String!
-    $acctProvider: ACCT_PROVIDER!
+    $acctProvider: ACCT_PROVIDER
   ) {
-    userOrganizationInvoiceGetAcctProviderPDF(
+    userOrganizationInvoiceGetPDF(
       organization_id: $organizationId
       organization_invoice_id: $organizationInvoiceId
       acct_provider: $acctProvider
@@ -250,6 +273,74 @@ export const GET_INVOICE_BALANCE_SNAPSHOT_MUTATION = gql(`
     userOrganizationInvoiceGetBalanceSnapshot(
       organization_id: $organizationId
       organization_invoice_id: $organizationInvoiceId
+    )
+  }
+`);
+
+export const GET_AS_UNCONNECTED_CUSTOMER_INVOICE_SUMMARY_QUERY = gql(`
+  query UnconnectedCustomerOrganizationInvoiceSummary(
+    $uniqueCode: String!
+    $email: String!
+    $token: String!
+
+    $currency: CURRENCY
+    $startDate: DateTime
+    $endDate: DateTime
+    $status: INVOICE_STATUS
+    $isOverdue: Boolean
+    $customerName: String
+    $after: ConnectionCursor
+    $first: Int
+    $before: ConnectionCursor
+    $last: Int
+    $skip: Int
+    $take: Int
+    $sorting: [SortingFieldSchema!]
+  ) {
+    unconnectedCustomerOrganizationInvoiceSummary(
+      unique_code: $uniqueCode
+      email: $email
+      token: $token
+
+      currency: $currency
+      start_date: $startDate
+      end_date: $endDate
+      status: $status
+      is_overdue: $isOverdue
+      customer_name: $customerName
+
+      after: $after
+      first: $first
+
+      before: $before
+      last: $last
+
+      skip: $skip
+      take: $take
+
+      sorting: $sorting
+    ) {
+      ...OrganizationInvoiceSummaryFragment
+    }
+  }
+`);
+
+export const GET_AS_UNCONNECTED_CUSTOMER_INVOICE_PDF_MUTATION = gql(`
+  mutation UnconnectedCustomerOrganizationInvoiceGetPDF(
+    $uniqueCode: String!
+    $email: String!
+    $token: String!
+
+    $organizationInvoiceId: String!
+    $acctProvider: ACCT_PROVIDER
+  ) {
+    unconnectedCustomerOrganizationInvoiceGetPDF(
+      unique_code: $uniqueCode
+      email: $email
+      token: $token
+
+      organization_invoice_id: $organizationInvoiceId
+      acct_provider: $acctProvider
     )
   }
 `);

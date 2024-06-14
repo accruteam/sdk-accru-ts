@@ -1,15 +1,15 @@
 import { ApolloClient } from '@apollo/client';
 import {
-  UnconnectedUserCustomerOrganizationStatementLinePdfMutation,
-  UnconnectedUserCustomerOrganizationStatementLinePdfMutationVariables,
-  UnconnectedUserCustomerOrganizationStatementLineQuery,
-  UnconnectedUserCustomerOrganizationStatementLineQueryVariables,
-  UnconnectedUserCustomerOrganizationStatementQuery,
-  UnconnectedUserCustomerOrganizationStatementQueryVariables,
-  UnconnectedUserCustomerOrganizationStatementRequestTokenMutation,
-  UnconnectedUserCustomerOrganizationStatementRequestTokenMutationVariables,
-  UserCustomerOrganizationStatementLineGeneratePdfMutation,
-  UserCustomerOrganizationStatementLineGeneratePdfMutationVariables,
+  UnconnectedCustomerOrganizationStatementLineGetPDFMutation,
+  UnconnectedCustomerOrganizationStatementLineGetPDFMutationVariables,
+  UnconnectedCustomerOrganizationStatementLineQuery,
+  UnconnectedCustomerOrganizationStatementLineQueryVariables,
+  UnconnectedCustomerOrganizationStatementQuery,
+  UnconnectedCustomerOrganizationStatementQueryVariables,
+  UnconnectedCustomerOrganizationStatementRequestTokenMutation,
+  UnconnectedCustomerOrganizationStatementRequestTokenMutationVariables,
+  UserCustomerOrganizationStatementLineGetPDFMutation,
+  UserCustomerOrganizationStatementLineGetPDFMutationVariables,
   UserCustomerOrganizationStatementLineQuery,
   UserCustomerOrganizationStatementLineQueryVariables,
   UserCustomerOrganizationStatementQuery,
@@ -53,18 +53,7 @@ export default class Statements {
     };
   };
 
-  public getLinePdf = async (
-    variables: UserCustomerOrganizationStatementLineGeneratePdfMutationVariables,
-  ): Promise<Res<UserCustomerOrganizationStatementLineGeneratePdfMutation>> => {
-    const { data } = await this.apolloClient.mutate({
-      mutation: GET_AS_CUSTOMER_ORGANIZATION_STATEMENT_LINE_PDF,
-      variables,
-    });
-
-    return data!.userCustomerOrganizationStatementLineGeneratePDF;
-  };
-
-  public getStatementLine = async (
+  public getLine = async (
     variables: UserCustomerOrganizationStatementLineQueryVariables,
   ): Promise<Res<UserCustomerOrganizationStatementLineQuery>> => {
     const { data } = await this.apolloClient.query({
@@ -75,31 +64,22 @@ export default class Statements {
     return data!.userCustomerOrganizationStatementLine;
   };
 
-  public getUnconnectedStatement = async (
-    variables: UnconnectedUserCustomerOrganizationStatementQueryVariables,
-  ): Promise<
-    ChildrenEdgeListResponse<
-      Res<UnconnectedUserCustomerOrganizationStatementQuery>
-    >
-  > => {
-    const { data } = await this.apolloClient.query({
-      query: GET_AS_UNCONNECTED_CUSTOMER_ORGANIZATION_STATEMENT_QUERY,
+  public getLinePDF = async (
+    variables: UserCustomerOrganizationStatementLineGetPDFMutationVariables,
+  ): Promise<Res<UserCustomerOrganizationStatementLineGetPDFMutation>> => {
+    const { data } = await this.apolloClient.mutate({
+      mutation: GET_AS_CUSTOMER_ORGANIZATION_STATEMENT_LINE_PDF,
       variables,
     });
 
-    return {
-      ...data.unconnectedUserCustomerOrganizationStatement,
-      ...processResponseAsList(
-        data.unconnectedUserCustomerOrganizationStatement.data,
-      ),
-    };
+    return data!.userCustomerOrganizationStatementLineGetPDF;
   };
 
   public getUnconnectedStatementToken = async (
-    variables: UnconnectedUserCustomerOrganizationStatementRequestTokenMutationVariables,
+    variables: UnconnectedCustomerOrganizationStatementRequestTokenMutationVariables,
   ): Promise<
     ChildrenEdgeListResponse<
-      Res<UnconnectedUserCustomerOrganizationStatementRequestTokenMutation>
+      Res<UnconnectedCustomerOrganizationStatementRequestTokenMutation>
     >
   > => {
     const { data } = await this.apolloClient.mutate({
@@ -107,13 +87,42 @@ export default class Statements {
       variables,
     });
 
-    return data!.unconnectedUserCustomerOrganizationStatementRequestToken;
+    return data!.unconnectedCustomerOrganizationStatementRequestToken;
   };
 
-  public getUnconnectedStatementLinePdf = async (
-    variables: UnconnectedUserCustomerOrganizationStatementLinePdfMutationVariables,
+  public getUnconnectedStatement = async (
+    variables: UnconnectedCustomerOrganizationStatementQueryVariables,
   ): Promise<
-    Res<UnconnectedUserCustomerOrganizationStatementLinePdfMutation>
+    ChildrenEdgeListResponse<Res<UnconnectedCustomerOrganizationStatementQuery>>
+  > => {
+    const { data } = await this.apolloClient.query({
+      query: GET_AS_UNCONNECTED_CUSTOMER_ORGANIZATION_STATEMENT_QUERY,
+      variables,
+    });
+
+    return {
+      ...data.unconnectedCustomerOrganizationStatement,
+      ...processResponseAsList(
+        data.unconnectedCustomerOrganizationStatement.data,
+      ),
+    };
+  };
+
+  public getUnconnectedStatementLine = async (
+    variables: UnconnectedCustomerOrganizationStatementLineQueryVariables,
+  ): Promise<Res<UnconnectedCustomerOrganizationStatementLineQuery>> => {
+    const { data } = await this.apolloClient.query({
+      query: GET_AS_UNCONNECTED_CUSTOMER_ORGANIZATION_STATEMENT_LINE_QUERY,
+      variables,
+    });
+
+    return data!.unconnectedCustomerOrganizationStatementLine;
+  };
+
+  public getUnconnectedStatementLinePDF = async (
+    variables: UnconnectedCustomerOrganizationStatementLineGetPDFMutationVariables,
+  ): Promise<
+    Res<UnconnectedCustomerOrganizationStatementLineGetPDFMutation>
   > => {
     const { data } = await this.apolloClient.mutate({
       mutation:
@@ -121,17 +130,6 @@ export default class Statements {
       variables,
     });
 
-    return data!.unconnectedUserCustomerOrganizationStatementLinePDF;
-  };
-
-  public getUnconnectedStatementLine = async (
-    variables: UnconnectedUserCustomerOrganizationStatementLineQueryVariables,
-  ): Promise<Res<UnconnectedUserCustomerOrganizationStatementLineQuery>> => {
-    const { data } = await this.apolloClient.query({
-      query: GET_AS_UNCONNECTED_CUSTOMER_ORGANIZATION_STATEMENT_LINE_QUERY,
-      variables,
-    });
-
-    return data!.unconnectedUserCustomerOrganizationStatementLine;
+    return data!.unconnectedCustomerOrganizationStatementLineGetPDF;
   };
 }

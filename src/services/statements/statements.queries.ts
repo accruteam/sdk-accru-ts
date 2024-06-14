@@ -72,20 +72,30 @@ export const CUSTOMER_STATEMENT_FRAGMENT = gql(`
   fragment OrganizationCustomerStatementFragment on OrganizationCustomerStatement {
     vendor_organization_id
     vendor_organization {
-      id
-      name
+      phone_number
+      address_line_1
+      address_number
+      address_line_2
+      address_city
+      address_state
+      address_zip_code
+      address_country_code_iso_3
+      address_lat
+      address_lng
     }
+
     vendor_organization_customer_id
     vendor_organization_customer {
-      id
       name
       email
     }
+
     customer_organization_id
     customer_organization {
-      id
       name
+      email
     }
+
     data {
       totalCount
       edges {
@@ -106,6 +116,7 @@ export const CUSTOMER_STATEMENT_FRAGMENT = gql(`
         hasNextPage
       }
     }
+
     total_amount
     paid_amount
     overdue_amount
@@ -113,16 +124,21 @@ export const CUSTOMER_STATEMENT_FRAGMENT = gql(`
 
     start_date
     end_date
-
+    due_start_date
+    due_end_date
     currency
+
+    has_sync_errors
+    last_sync_at
+    latest_acct_provider_balance
 
     one_to_thirty_days_due_amount
     thirty_one_to_sixty_days_due_amount
     sixty_plus_days_due_amount
 
-    has_sync_errors
-    last_sync_at
-    latest_acct_provider_balance
+    latest_acct_provider_one_to_thirty_days_due_amount
+    latest_acct_provider_thirty_one_to_sixty_days_due_amount
+    latest_acct_provider_sixty_plus_days_due_amount
   }
 `);
 
@@ -171,14 +187,14 @@ export const GET_AS_CUSTOMER_ORGANIZATION_STATEMENT_QUERY = gql(`
 `);
 
 export const GET_AS_CUSTOMER_ORGANIZATION_STATEMENT_LINE_PDF = gql(`
-  mutation UserCustomerOrganizationStatementLineGeneratePdf(
+  mutation UserCustomerOrganizationStatementLineGetPDF(
     $organizationId: String!
     $organizationVendorId: String!
 
     $organizationCustomerStatementLineId: Int!,
-    $acctProvider: ACCT_PROVIDER!
+    $acctProvider: ACCT_PROVIDER
   ) {
-    userCustomerOrganizationStatementLineGeneratePDF(
+    userCustomerOrganizationStatementLineGetPDF(
       organization_id: $organizationId
       organization_vendor_id: $organizationVendorId
 
@@ -190,11 +206,11 @@ export const GET_AS_CUSTOMER_ORGANIZATION_STATEMENT_LINE_PDF = gql(`
 
 export const GET_AS_UNCONNECTED_CUSTOMER_ORGANIZATION_STATEMENT_TOKEN_QUERY =
   gql(`
-  mutation UnconnectedUserCustomerOrganizationStatementRequestToken(
+  mutation UnconnectedCustomerOrganizationStatementRequestToken(
     $uniqueCode: String!
     $email: String!
   ) {
-    unconnectedUserCustomerOrganizationStatementRequestToken(
+    unconnectedCustomerOrganizationStatementRequestToken(
       unique_code: $uniqueCode
       email: $email
     )
@@ -202,7 +218,7 @@ export const GET_AS_UNCONNECTED_CUSTOMER_ORGANIZATION_STATEMENT_TOKEN_QUERY =
 `);
 
 export const GET_AS_UNCONNECTED_CUSTOMER_ORGANIZATION_STATEMENT_QUERY = gql(`
-  query UnconnectedUserCustomerOrganizationStatement(
+  query UnconnectedCustomerOrganizationStatement(
     $uniqueCode: String!
     $email: String!
     $token: String!
@@ -219,7 +235,7 @@ export const GET_AS_UNCONNECTED_CUSTOMER_ORGANIZATION_STATEMENT_QUERY = gql(`
     $take: Int
     $sorting: [SortingFieldSchema!]
   ) {
-    unconnectedUserCustomerOrganizationStatement(
+    unconnectedCustomerOrganizationStatement(
       unique_code: $uniqueCode
       email: $email
       token: $token
@@ -249,15 +265,15 @@ export const GET_AS_UNCONNECTED_CUSTOMER_ORGANIZATION_STATEMENT_QUERY = gql(`
 
 export const GET_AS_UNCONNECTED_CUSTOMER_ORGANIZATION_STATEMENT_LINE_PDF_MUTATION =
   gql(`
-  mutation UnconnectedUserCustomerOrganizationStatementLinePdf(
+  mutation UnconnectedCustomerOrganizationStatementLineGetPDF(
     $uniqueCode: String!
     $email: String!
     $token: String!
 
     $organizationCustomerStatementLineId: Int!,
-    $acctProvider: ACCT_PROVIDER!
+    $acctProvider: ACCT_PROVIDER
   ) {
-    unconnectedUserCustomerOrganizationStatementLinePDF(
+    unconnectedCustomerOrganizationStatementLineGetPDF(
       unique_code: $uniqueCode
       email: $email
       token: $token
@@ -295,7 +311,7 @@ export const GET_AS_CUSTOMER_ORGANIZATION_STATEMENT_LINE_QUERY = gql(`
 
 export const GET_AS_UNCONNECTED_CUSTOMER_ORGANIZATION_STATEMENT_LINE_QUERY = // THIS ONE
   gql(`
-  query UnconnectedUserCustomerOrganizationStatementLine(
+  query UnconnectedCustomerOrganizationStatementLine(
     $email: String!,
     $organizationCustomerStatementLineId: Int,
     $organizationId: String,
@@ -304,7 +320,7 @@ export const GET_AS_UNCONNECTED_CUSTOMER_ORGANIZATION_STATEMENT_LINE_QUERY = // 
     $token: String!,
     $uniqueCode: String!
   ) {
-    unconnectedUserCustomerOrganizationStatementLine(
+    unconnectedCustomerOrganizationStatementLine(
       email: $email,
       organization_customer_statement_line_id: $organizationCustomerStatementLineId,
       organization_id: $organizationId,
