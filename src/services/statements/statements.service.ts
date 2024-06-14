@@ -8,6 +8,10 @@ import {
   UnconnectedCustomerOrganizationStatementQueryVariables,
   UnconnectedCustomerOrganizationStatementRequestTokenMutation,
   UnconnectedCustomerOrganizationStatementRequestTokenMutationVariables,
+  UserCustomerOrganizationInvoiceGetPDFMutation,
+  UserCustomerOrganizationInvoiceGetPDFMutationVariables,
+  UserCustomerOrganizationInvoiceSummaryQuery,
+  UserCustomerOrganizationInvoiceSummaryQueryVariables,
   UserCustomerOrganizationStatementLineGetPDFMutation,
   UserCustomerOrganizationStatementLineGetPDFMutationVariables,
   UserCustomerOrganizationStatementLineQuery,
@@ -21,6 +25,8 @@ import {
 } from '@utils/processResponseAsList';
 import { Res } from '@utils/response.type';
 import {
+  GET_AS_CUSTOMER_INVOICE_PDF_MUTATION,
+  GET_AS_CUSTOMER_INVOICE_SUMMARY_QUERY,
   GET_AS_CUSTOMER_ORGANIZATION_STATEMENT_LINE_PDF,
   GET_AS_CUSTOMER_ORGANIZATION_STATEMENT_LINE_QUERY,
   GET_AS_CUSTOMER_ORGANIZATION_STATEMENT_QUERY,
@@ -106,6 +112,35 @@ export default class Statements {
         data.unconnectedCustomerOrganizationStatement.data,
       ),
     };
+  };
+
+  public getInvoiceSummary = async (
+    variables: UserCustomerOrganizationInvoiceSummaryQueryVariables,
+  ): Promise<
+    ChildrenEdgeListResponse<Res<UserCustomerOrganizationInvoiceSummaryQuery>>
+  > => {
+    const { data } = await this.apolloClient.query({
+      query: GET_AS_CUSTOMER_INVOICE_SUMMARY_QUERY,
+      variables,
+    });
+
+    return {
+      ...data.userCustomerOrganizationInvoiceSummary,
+      ...processResponseAsList(
+        data.userCustomerOrganizationInvoiceSummary.data,
+      ),
+    };
+  };
+
+  public getInvoicePdf = async (
+    variables: UserCustomerOrganizationInvoiceGetPDFMutationVariables,
+  ): Promise<Res<UserCustomerOrganizationInvoiceGetPDFMutation>> => {
+    const { data } = await this.apolloClient.query({
+      query: GET_AS_CUSTOMER_INVOICE_PDF_MUTATION,
+      variables,
+    });
+
+    return data!.userCustomerOrganizationInvoiceGetPDF;
   };
 
   public getUnconnectedStatementLine = async (

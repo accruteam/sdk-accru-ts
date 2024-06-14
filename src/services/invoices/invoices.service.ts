@@ -114,13 +114,22 @@ export default class Invoices {
 
   public getUnconnectedSummary = async (
     variables: UnconnectedCustomerOrganizationInvoiceSummaryQueryVariables,
-  ): Promise<Res<UnconnectedCustomerOrganizationInvoiceSummaryQuery>> => {
+  ): Promise<
+    ChildrenEdgeListResponse<
+      Res<UnconnectedCustomerOrganizationInvoiceSummaryQuery>
+    >
+  > => {
     const { data } = await this.apolloClient.query({
       query: GET_AS_UNCONNECTED_CUSTOMER_INVOICE_SUMMARY_QUERY,
       variables,
     });
 
-    return data!.unconnectedCustomerOrganizationInvoiceSummary;
+    return {
+      ...data.unconnectedCustomerOrganizationInvoiceSummary,
+      ...processResponseAsList(
+        data.unconnectedCustomerOrganizationInvoiceSummary.data,
+      ),
+    };
   };
 
   public getUnconnectedPdf = async (
