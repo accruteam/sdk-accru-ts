@@ -309,7 +309,7 @@ export const GET_AS_CUSTOMER_ORGANIZATION_STATEMENT_LINE_QUERY = gql(`
   }
 `);
 
-export const GET_AS_UNCONNECTED_CUSTOMER_ORGANIZATION_STATEMENT_LINE_QUERY = // THIS ONE
+export const GET_AS_UNCONNECTED_CUSTOMER_ORGANIZATION_STATEMENT_LINE_QUERY =
   gql(`
   query UnconnectedCustomerOrganizationStatementLine(
     $email: String!,
@@ -336,5 +336,69 @@ export const GET_AS_UNCONNECTED_CUSTOMER_ORGANIZATION_STATEMENT_LINE_QUERY = // 
         ...OrganizationCustomerStatementTransactionLineFragment
       }
     }
+  }
+`);
+
+export const GET_AS_CUSTOMER_INVOICE_SUMMARY_QUERY = gql(`
+  query UserCustomerOrganizationInvoiceSummary(
+    $organizationId: String!
+    $organizationVendorId: String!
+
+    $currency: CURRENCY
+    $startDate: DateTime
+    $endDate: DateTime
+    $status: INVOICE_STATUS
+    $isOverdue: Boolean
+    $customerName: String
+    $after: ConnectionCursor
+    $first: Int
+    $before: ConnectionCursor
+    $last: Int
+    $skip: Int
+    $take: Int
+    $sorting: [SortingFieldSchema!]
+  ) {
+    userCustomerOrganizationInvoiceSummary(
+      organization_id: $organizationId
+      organization_vendor_id: $organizationVendorId
+
+      currency: $currency
+      start_date: $startDate
+      end_date: $endDate
+      status: $status
+      is_overdue: $isOverdue
+      customer_name: $customerName
+
+      after: $after
+      first: $first
+
+      before: $before
+      last: $last
+
+      skip: $skip
+      take: $take
+
+      sorting: $sorting
+    ) {
+      ...OrganizationInvoiceSummaryFragment
+    }
+  }
+`);
+
+export const GET_AS_CUSTOMER_INVOICE_PDF_MUTATION = gql(`
+  mutation UserCustomerOrganizationInvoiceGetPDF(
+    $organizationId: String!
+    $organizationVendorId: String!
+
+    $organizationInvoiceId: String!
+    $acctProvider: ACCT_PROVIDER
+  ) {
+    userCustomerOrganizationInvoiceGetPDF(
+      organization_id: $organizationId
+      organization_vendor_id: $organizationVendorId
+
+      organization_invoice_id: $organizationInvoiceId
+      acct_provider: $acctProvider
+    )
   }
 `);
