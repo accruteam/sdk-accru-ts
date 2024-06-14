@@ -23,6 +23,7 @@
     "lint:tsc": "tsc --noEmit",
     "deploy": "yarn build && cd dist && npm publish --access public",
     "codegen": "graphql-codegen",
+    "codegen:update": "graphql-codegen && yalc publish",
     "codegen:watch": "graphql-codegen -w",
     "sandbox": "yarn link accru-client && node ./tests/sandbox.js && yarn unlink accru-client",
     "service": "node scripts/newService.js",
