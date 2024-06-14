@@ -4,14 +4,18 @@ import {
   UserOrganizationCustomerSendInvoiceEmailMutationVariables,
   UserOrganizationInvoiceCreateMutation,
   UserOrganizationInvoiceCreateMutationVariables,
-  UserOrganizationInvoiceGetAcctProviderPDFMutation,
-  UserOrganizationInvoiceGetAcctProviderPDFMutationVariables,
+  UserOrganizationInvoiceGetPDFMutation,
+  UserOrganizationInvoiceGetPDFMutationVariables,
   UserOrganizationInvoiceGetBalanceSnapshotMutation,
   UserOrganizationInvoiceGetBalanceSnapshotMutationVariables,
   UserOrganizationInvoiceQuery,
   UserOrganizationInvoiceQueryVariables,
   UserOrganizationInvoiceSummaryQuery,
   UserOrganizationInvoiceSummaryQueryVariables,
+  UnconnectedCustomerOrganizationInvoiceSummaryQueryVariables,
+  UnconnectedCustomerOrganizationInvoiceSummaryQuery,
+  UnconnectedCustomerOrganizationInvoiceGetPDFMutationVariables,
+  UnconnectedCustomerOrganizationInvoiceGetPDFMutation,
 } from '@api/gql/graphql';
 import {
   ChildrenEdgeListResponse,
@@ -19,7 +23,9 @@ import {
 } from '@utils/processResponseAsList';
 import { Res } from '@utils/response.type';
 import {
-  GET_ACCT_PROVIDER_INVOICE_PDF_MUTATION,
+  GET_INVOICE_PDF_MUTATION,
+  GET_AS_UNCONNECTED_CUSTOMER_INVOICE_PDF_MUTATION,
+  GET_AS_UNCONNECTED_CUSTOMER_INVOICE_SUMMARY_QUERY,
   GET_INVOICE_BALANCE_SNAPSHOT_MUTATION,
   INVOICES_GET_SUMMARY_QUERY,
   INVOICE_CREATE_MUTATION,
@@ -59,14 +65,14 @@ export default class Invoices {
   };
 
   public getAcctProviderPdf = async (
-    variables: UserOrganizationInvoiceGetAcctProviderPDFMutationVariables,
-  ): Promise<Res<UserOrganizationInvoiceGetAcctProviderPDFMutation>> => {
+    variables: UserOrganizationInvoiceGetPDFMutationVariables,
+  ): Promise<Res<UserOrganizationInvoiceGetPDFMutation>> => {
     const { data } = await this.apolloClient.mutate({
-      mutation: GET_ACCT_PROVIDER_INVOICE_PDF_MUTATION,
+      mutation: GET_INVOICE_PDF_MUTATION,
       variables,
     });
 
-    return data!.userOrganizationInvoiceGetAcctProviderPDF;
+    return data!.userOrganizationInvoiceGetPDF;
   };
 
   public getBalanceSnapshot = async (
@@ -105,4 +111,26 @@ export default class Invoices {
   };
 
   public del = async (): Promise<any> => {};
+
+  public getUnconnectedSummary = async (
+    variables: UnconnectedCustomerOrganizationInvoiceSummaryQueryVariables,
+  ): Promise<Res<UnconnectedCustomerOrganizationInvoiceSummaryQuery>> => {
+    const { data } = await this.apolloClient.query({
+      query: GET_AS_UNCONNECTED_CUSTOMER_INVOICE_SUMMARY_QUERY,
+      variables,
+    });
+
+    return data!.unconnectedCustomerOrganizationInvoiceSummary;
+  };
+
+  public getUnconnectedPdf = async (
+    variables: UnconnectedCustomerOrganizationInvoiceGetPDFMutationVariables,
+  ): Promise<Res<UnconnectedCustomerOrganizationInvoiceGetPDFMutation>> => {
+    const { data } = await this.apolloClient.query({
+      query: GET_AS_UNCONNECTED_CUSTOMER_INVOICE_PDF_MUTATION,
+      variables,
+    });
+
+    return data!.unconnectedCustomerOrganizationInvoiceGetPDF;
+  };
 }

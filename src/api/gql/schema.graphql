@@ -79,17 +79,19 @@ type Mutation {
   adminOrganizationInvoiceTransactionProcess(organization_id: String!, organization_invoice_transaction_id: String): Int!
   adminOrganizationUpdateSubscription(data: AdminOrganizationSubscriptionUpdateSchema!, organization_id: String!): Organization!
   adminOrganizationVendorProcess(organization_id: String!, organization_vendor_id: String): Int!
-  unconnectedUserCustomerOrganizationStatementLinePDF(acct_provider: ACCT_PROVIDER!, email: String!, organization_customer_statement_line_id: Int!, token: String!, unique_code: String!): String!
-  unconnectedUserCustomerOrganizationStatementRequestToken(email: String!, unique_code: String!): DateTime!
+  unconnectedCustomerOrganizationInvoiceGetPDF(acct_provider: ACCT_PROVIDER, email: String!, organization_id: String, organization_invoice_id: String!, token: String!, unique_code: String!): String!
+  unconnectedCustomerOrganizationStatementLineGetPDF(acct_provider: ACCT_PROVIDER, email: String!, organization_customer_statement_line_id: Int!, organization_id: String, token: String!, unique_code: String!): String!
+  unconnectedCustomerOrganizationStatementRequestToken(email: String!, unique_code: String!): DateTime!
   userAuthProviderDisconnect(auth_provider: AUTH_PROVIDER!): UserAuthProviderConn!
   userAuthProviderGetOAuthToken(auth_provider: AUTH_PROVIDER!, authorization_token: String!): String!
   userAuthProviderGetOAuthUrl(auth_provider: AUTH_PROVIDER!): String!
   userCustomerOrganizationInvoiceCreateSyncBill(organization_id: String!, organization_invoice_id: String!, organization_vendor_id: String!): OrganizationBill!
+  userCustomerOrganizationInvoiceGetPDF(acct_provider: ACCT_PROVIDER, organization_id: String!, organization_invoice_id: String!, organization_vendor_id: String!): String!
   userCustomerOrganizationProjectChangeRequestAccept(allow_bypass: Boolean!, organization_id: String!, organization_project_change_request_id: String!, organization_project_id: String!, organization_vendor_id: String!): OrganizationProjectChangeRequest!
   userCustomerOrganizationProjectChangeRequestCancel(allow_bypass: Boolean!, organization_id: String!, organization_project_change_request_id: String!, organization_project_id: String!, organization_vendor_id: String!): OrganizationProjectChangeRequest!
   userCustomerOrganizationProjectChangeRequestCreate(data: UserOrganizationProjectChangeRequestCreateSchema!, organization_id: String!, organization_project_id: String!, organization_vendor_id: String!): OrganizationProjectChangeRequest!
   userCustomerOrganizationProjectChangeRequestReject(allow_bypass: Boolean!, organization_id: String!, organization_project_change_request_id: String!, organization_project_id: String!, organization_vendor_id: String!): OrganizationProjectChangeRequest!
-  userCustomerOrganizationStatementLineGeneratePDF(acct_provider: ACCT_PROVIDER!, organization_customer_statement_line_id: Int!, organization_id: String!, organization_vendor_id: String!): String!
+  userCustomerOrganizationStatementLineGetPDF(acct_provider: ACCT_PROVIDER, organization_customer_statement_line_id: Int!, organization_id: String!, organization_vendor_id: String!): String!
   userEmailVerifyOrChangeFinish(data: UserEmailVerifyOrChangeFinishSchema!): User!
   userEmailVerifyOrChangeStart(data: UserEmailVerifyOrChangeStartSchema!): DateTime!
   userOrganizationAcctProviderConnConfigurationPullOptionsGet(acct_provider: ACCT_PROVIDER!, organization_id: String!): JSON!
@@ -138,11 +140,11 @@ type Mutation {
   userOrganizationInvoiceCreate(data: UserOrganizationInvoiceSchema!, organization_id: String!): OrganizationInvoice!
   userOrganizationInvoiceDelete(organization_id: String!, organization_invoice_ids: [String!]!): [OrganizationInvoice!]!
   userOrganizationInvoiceFileDelete(organization_id: String!, organization_invoice_id: String!): OrganizationInvoice!
-  userOrganizationInvoiceGetAcctProviderPDF(acct_provider: ACCT_PROVIDER!, organization_id: String!, organization_invoice_id: String!): String!
   userOrganizationInvoiceGetBalanceSnapshot(organization_id: String!, organization_invoice_id: String!): Int!
+  userOrganizationInvoiceGetPDF(acct_provider: ACCT_PROVIDER, organization_id: String!, organization_invoice_id: String!): String!
   userOrganizationInvoiceManualPaymentCreate(data: UserOrganizationInvoiceManualPaymentCreateSchema!, organization_id: String!, organization_invoice_id: String!): OrganizationInvoice!
   userOrganizationInvoiceManualPaymentDelete(organization_id: String!, organization_invoice_id: String!, organization_invoice_transaction_id: String!): OrganizationInvoice!
-  userOrganizationInvoiceTransactionGetAcctProviderPDF(acct_provider: ACCT_PROVIDER!, organization_id: String!, organization_invoice_transaction_id: String!): String!
+  userOrganizationInvoiceTransactionGetPDF(acct_provider: ACCT_PROVIDER, organization_id: String!, organization_invoice_transaction_id: String!): String!
   userOrganizationInvoiceUpdate(data: UserOrganizationInvoiceSchema!, organization_id: String!, organization_invoice_id: String!): OrganizationInvoice!
   userOrganizationLeave(organization_id: String!): OrganizationUser!
   userOrganizationLogoPictureRemove(organization_id: String!): Organization!
@@ -522,11 +524,22 @@ type OrganizationBillSummary {
   due_end_date: DateTime
   due_start_date: DateTime
   end_date: DateTime
+  has_sync_errors: Boolean
+  last_sync_at: DateTime
+  latest_acct_provider_balance: Int
+  latest_acct_provider_one_to_thirty_days_due_amount: Int
+  latest_acct_provider_sixty_plus_days_due_amount: Int
+  latest_acct_provider_thirty_one_to_sixty_days_due_amount: Int
+  one_to_thirty_days_due_amount: Int
   overdue_amount: Int!
   paid_amount: Int!
+  sixty_plus_days_due_amount: Int
   start_date: DateTime
   status: BILL_STATUS
+  thirty_one_to_sixty_days_due_amount: Int
   total_amount: Int!
+  total_bill_count: Int!
+  total_overdue_bill_count: Int!
   vendor_organization: Organization
   vendor_organization_id: String
 }
@@ -686,6 +699,9 @@ type OrganizationCustomerStatement {
   has_sync_errors: Boolean
   last_sync_at: DateTime
   latest_acct_provider_balance: Int
+  latest_acct_provider_one_to_thirty_days_due_amount: Int
+  latest_acct_provider_sixty_plus_days_due_amount: Int
+  latest_acct_provider_thirty_one_to_sixty_days_due_amount: Int
   one_to_thirty_days_due_amount: Int
   overdue_amount: Int!
   paid_amount: Int!
@@ -935,11 +951,22 @@ type OrganizationInvoiceSummary {
   due_end_date: DateTime
   due_start_date: DateTime
   end_date: DateTime
+  has_sync_errors: Boolean
+  last_sync_at: DateTime
+  latest_acct_provider_balance: Int
+  latest_acct_provider_one_to_thirty_days_due_amount: Int
+  latest_acct_provider_sixty_plus_days_due_amount: Int
+  latest_acct_provider_thirty_one_to_sixty_days_due_amount: Int
+  one_to_thirty_days_due_amount: Int
   overdue_amount: Int!
   paid_amount: Int!
+  sixty_plus_days_due_amount: Int
   start_date: DateTime
   status: INVOICE_STATUS
+  thirty_one_to_sixty_days_due_amount: Int
   total_amount: Int!
+  total_invoice_count: Int!
+  total_overdue_invoice_count: Int!
   vendor_organization: Organization!
   vendor_organization_customer: OrganizationCustomer
   vendor_organization_customer_id: String
@@ -1212,8 +1239,9 @@ type Query {
   adminOrganizations(after: ConnectionCursor, before: ConnectionCursor, email: String, first: Int, id: String, include_archived: Boolean, last: Int, name: String, skip: Int, sorting: [SortingFieldSchema!], take: Int): OrganizationPaginationConnection!
   session: Session!
   unauthorizedUserOrganizationUserInvite(code: String!, email: String!, organization_id: String!, organization_invite_id: String!): UnauthorizedUserOrganizationUserInviteResponse!
-  unconnectedUserCustomerOrganizationStatement(after: ConnectionCursor, before: ConnectionCursor, currency: CURRENCY, due_end_date: DateTime, due_start_date: DateTime, email: String!, end_date: DateTime, first: Int, is_overdue: Boolean, last: Int, organization_id: String, skip: Int, sorting: [SortingFieldSchema!], start_date: DateTime, take: Int, token: String!, type: STATEMENT_LINE_TYPE, unique_code: String!): OrganizationCustomerStatement!
-  unconnectedUserCustomerOrganizationStatementLine(email: String!, organization_customer_statement_line_id: Int, organization_id: String, organization_invoice_id: String, organization_invoice_transaction_id: String, token: String!, unique_code: String!): OrganizationCustomerStatementLineData!
+  unconnectedCustomerOrganizationInvoiceSummary(after: ConnectionCursor, before: ConnectionCursor, currency: CURRENCY, customer_name: String, due_end_date: DateTime, due_start_date: DateTime, email: String!, end_date: DateTime, first: Int, is_overdue: Boolean, last: Int, organization_id: String, skip: Int, sorting: [SortingFieldSchema!], start_date: DateTime, status: INVOICE_STATUS, take: Int, token: String!, unique_code: String!): OrganizationInvoiceSummary!
+  unconnectedCustomerOrganizationStatement(after: ConnectionCursor, before: ConnectionCursor, currency: CURRENCY, due_end_date: DateTime, due_start_date: DateTime, email: String!, end_date: DateTime, first: Int, is_overdue: Boolean, last: Int, organization_id: String, skip: Int, sorting: [SortingFieldSchema!], start_date: DateTime, take: Int, token: String!, type: STATEMENT_LINE_TYPE, unique_code: String!): OrganizationCustomerStatement!
+  unconnectedCustomerOrganizationStatementLine(email: String!, organization_customer_statement_line_id: Int, organization_id: String, organization_invoice_id: String, organization_invoice_transaction_id: String, token: String!, unique_code: String!): OrganizationCustomerStatementLineData!
   user: User!
   userCustomerOrganization(organization_id: String!, organization_vendor_id: String!): OrganizationConnection!
   userCustomerOrganizationInvoice(organization_id: String!, organization_invoice_id: String!, organization_vendor_id: String!): OrganizationInvoice!
