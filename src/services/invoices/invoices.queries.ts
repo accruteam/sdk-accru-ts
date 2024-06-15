@@ -41,6 +41,7 @@ export const INVOICE_QUERY_FRAGMENT = gql(`
       organization_acct_provider_conn_id
       organization_acct_provider_conn {
         acct_provider
+        status
       }
     }
 
