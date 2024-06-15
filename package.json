@@ -3,7 +3,7 @@
   "author": "Accru Co.",
   "description": "Client SDK for Accru API",
   "license": "MIT",
-  "version": "0.0.36",
+  "version": "0.0.37",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "repository": {

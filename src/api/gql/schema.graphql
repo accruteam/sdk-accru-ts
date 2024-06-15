@@ -538,7 +538,7 @@ type OrganizationBillSummary {
   status: BILL_STATUS
   thirty_one_to_sixty_days_due_amount: Int
   total_amount: Int!
-  total_bill_count: Int!
+  total_open_bill_count: Int!
   total_overdue_bill_count: Int!
   vendor_organization: Organization
   vendor_organization_id: String
@@ -709,7 +709,7 @@ type OrganizationCustomerStatement {
   start_date: DateTime
   thirty_one_to_sixty_days_due_amount: Int
   total_amount: Int!
-  total_invoice_count: Int!
+  total_open_invoice_count: Int!
   total_overdue_invoice_count: Int!
   vendor_organization: Organization!
   vendor_organization_customer: OrganizationCustomer!
@@ -967,7 +967,7 @@ type OrganizationInvoiceSummary {
   status: INVOICE_STATUS
   thirty_one_to_sixty_days_due_amount: Int
   total_amount: Int!
-  total_invoice_count: Int!
+  total_open_invoice_count: Int!
   total_overdue_invoice_count: Int!
   vendor_organization: Organization!
   vendor_organization_customer: OrganizationCustomer

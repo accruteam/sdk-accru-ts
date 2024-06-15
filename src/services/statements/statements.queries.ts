@@ -145,7 +145,7 @@ export const CUSTOMER_STATEMENT_FRAGMENT = gql(`
     latest_acct_provider_thirty_one_to_sixty_days_due_amount
     latest_acct_provider_sixty_plus_days_due_amount
 
-    total_invoice_count
+    total_open_invoice_count
     total_overdue_invoice_count
   }
 `);

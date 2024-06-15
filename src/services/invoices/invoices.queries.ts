@@ -135,7 +135,7 @@ export const INVOICE_SUMMARY_FRAGMENT = gql(`
 
     status
 
-    total_invoice_count
+    total_open_invoice_count
     total_overdue_invoice_count
 
     total_amount
