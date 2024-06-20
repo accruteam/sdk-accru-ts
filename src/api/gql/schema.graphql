@@ -208,6 +208,14 @@ enum ORGANIZATION_INVITE_SIDE {
   ORGANIZATION
 }
 
+enum ORGANIZATION_INVITE_STATUS {
+  ACCEPTED
+  CANCELED
+  EXPIRED
+  OPEN
+  REJECTED
+}
+
 enum ORGANIZATION_SUBSCRIPTION {
   EARLY_ACCESS
 }
@@ -852,7 +860,19 @@ type OrganizationInvite {
   payload: JSON
   rejected_at: DateTime
   role: ORGANIZATION_USER_ROLE!
+  status: ORGANIZATION_INVITE_STATUS!
   updated_at: DateTime!
+}
+
+type OrganizationInvitePaginationConnection {
+  edges: [OrganizationInvitePaginationEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type OrganizationInvitePaginationEdge {
+  cursor: ConnectionCursor!
+  node: OrganizationInvite!
 }
 
 type OrganizationInvoice {
@@ -1279,7 +1299,7 @@ type Query {
   userOrganizationCustomerStatementLine(organization_customer_id: String!, organization_customer_statement_line_id: Int, organization_id: String!, organization_invoice_id: String, organization_invoice_transaction_id: String): OrganizationCustomerStatementLineData!
   userOrganizationCustomers(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, name: String, organization_id: String!, skip: Int, sorting: [SortingFieldSchema!], take: Int): OrganizationCustomerPaginationConnection!
   userOrganizationInviteCollaborator(organization_id: String!, organization_invite_id: String!): OrganizationInvite!
-  userOrganizationInviteCollaborators(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, organization_id: String!, skip: Int, take: Int): [OrganizationInvite!]!
+  userOrganizationInviteCollaborators(accepted: Boolean, after: ConnectionCursor, before: ConnectionCursor, canceled: Boolean, expired: Boolean, first: Int, last: Int, organization_id: String!, rejected: Boolean, skip: Int, sorting: [SortingFieldSchema!], take: Int): OrganizationInvitePaginationConnection!
   userOrganizationInvoice(organization_id: String!, organization_invoice_id: String!): OrganizationInvoice!
   userOrganizationInvoiceSummary(after: ConnectionCursor, before: ConnectionCursor, currency: CURRENCY, customer_name: String, due_end_date: DateTime, due_start_date: DateTime, end_date: DateTime, first: Int, is_overdue: Boolean, last: Int, organization_customer_id: String, organization_id: String!, skip: Int, sorting: [SortingFieldSchema!], start_date: DateTime, status: INVOICE_STATUS, take: Int): OrganizationInvoiceSummary!
   userOrganizationInvoiceTransaction(organization_id: String!, organization_invoice_transaction_id: String!): OrganizationInvoiceTransaction!
