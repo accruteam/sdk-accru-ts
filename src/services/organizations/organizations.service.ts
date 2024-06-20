@@ -29,6 +29,10 @@ import {
 } from '@api/gql/graphql';
 import { Res } from '@utils/response.type';
 import {
+  ListResponse,
+  processResponseAsList,
+} from '@utils/processResponseAsList';
+import {
   DELETE_ORGANIZATION_COLLABORATOR_MUTATION,
   DELETE_ORGANIZATION_LOGO_MUTATION,
   GET_ORGANIZATION_BASE_SETTINGS_QUERY,
@@ -130,13 +134,13 @@ export default class Organizations {
 
   public getCollaboratorInvites = async (
     variables: UserOrganizationInviteCollaboratorsQueryVariables,
-  ): Promise<Res<UserOrganizationInviteCollaboratorsQuery>> => {
+  ): Promise<ListResponse<Res<UserOrganizationInviteCollaboratorsQuery>>> => {
     const { data } = await this.apolloClient.query({
       query: GET_ORGANIZATION_COLLABORATOR_INVITES_QUERY,
       variables,
     });
 
-    return data!.userOrganizationInviteCollaborators;
+    return processResponseAsList(data.userOrganizationInviteCollaborators);
   };
 
   public updateCollaborator = async (

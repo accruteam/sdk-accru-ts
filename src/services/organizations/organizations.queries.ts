@@ -75,6 +75,31 @@ export const ORGANIZATION_COLLABORATOR_FRAGMENT = gql(`
   }
 `);
 
+export const ORGANIZATION_INVITE_QUERY_FRAGMENT = gql(`
+  fragment OrganizationInviteFragment on OrganizationInvite {
+    id
+    email
+    role
+    code
+
+    status
+
+    accepted_at
+    rejected_at
+    canceled_at
+    expires_at
+
+    organization_id
+    created_by_user_id
+    created_by_user {
+      email
+    }
+
+    created_at
+    updated_at
+  }
+`);
+
 export const GET_ORGANIZATION_QUERY = gql(`
   query UserOrganization ($organizationId: String!) {
     userOrganization(organization_id: $organizationId) {
@@ -133,42 +158,62 @@ export const INVITE_ORGANIZATION_COLLABORATOR_MUTATION = gql(`
 export const DELETE_ORGANIZATION_COLLABORATOR_INVITE_MUTATION = gql(`
   mutation UserOrganizationInviteCollaboratorCancel($organizationId: String!, $organizationInviteId: String!) {
     userOrganizationInviteCollaboratorCancel(organization_id: $organizationId, organization_invite_id: $organizationInviteId) {
-      id
-      email
-      role
-      code
-      expires_at
-      accepted_at
-      canceled_at
-      rejected_at
-      created_at
-      updated_at
-      organization_id
-      created_by_user_id
-      created_by_user {
-        email
-      }
+      ...OrganizationInviteFragment
     }
   }
 `);
 
 export const GET_ORGANIZATION_COLLABORATOR_INVITES_QUERY = gql(`
-  query UserOrganizationInviteCollaborators($organizationId: String!, $skip: Int, $take: Int) {
-    userOrganizationInviteCollaborators(organization_id: $organizationId, skip: $skip, take: $take) {
-      id
-      email
-      role
-      code
-      expires_at
-      accepted_at
-      canceled_at
-      rejected_at
-      created_at
-      updated_at
-      organization_id
-      created_by_user_id
-      created_by_user {
-        email
+  query UserOrganizationInviteCollaborators(
+    $organizationId: String!,
+
+    $accepted: Boolean,
+    $canceled: Boolean,
+    $expired: Boolean,
+    $rejected: Boolean,
+
+    $after: ConnectionCursor,
+    $first: Int,
+
+    $before: ConnectionCursor,
+    $last: Int,
+
+    $skip: Int,
+    $take: Int,
+
+    $sorting: [SortingFieldSchema!]
+  ) {
+    userOrganizationInviteCollaborators(
+      organization_id: $organizationId,
+
+      accepted: $accepted,
+      canceled: $canceled,
+      expired: $expired,
+      rejected: $rejected,
+
+      after: $after
+      first: $first
+
+      before: $before
+      last: $last
+
+      skip: $skip
+      take: $take
+
+      sorting: $sorting
+    ) {
+      totalCount
+      edges {
+        cursor
+        node {
+          ...OrganizationInviteFragment
+        }
+      }
+      pageInfo {
+          startCursor
+          endCursor
+          hasPreviousPage
+          hasNextPage
       }
     }
   }
