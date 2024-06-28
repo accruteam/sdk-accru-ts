@@ -12,6 +12,12 @@ const config: CodegenConfig = {
     './src/api/gql/schema.graphql': {
       plugins: ['schema-ast'],
     },
+    './src/api/gql/schema.graphql.json': {
+      plugins: ['introspection'],
+      config: {
+        minify: true,
+      },
+    },
     './src/api/gql/': {
       preset: 'client',
       plugins: [],
@@ -22,8 +28,8 @@ const config: CodegenConfig = {
       config: {
         namingConvention: 'keep',
         scalars: {
-          BigInt: 'bigint'
-        }
+          BigInt: 'bigint',
+        },
       },
     },
     /*

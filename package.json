@@ -17,7 +17,7 @@
     "build": "tsup",
     "watch": "tsup --watch",
     "start": "./scripts/run.sh",
-    "test": "vitest",
+    "test": "vitest run",
     "lint": "run-p -c lint:*",
     "lint:eslint": "eslint 'src/**/*.{ts,tsx}' --fix",
     "lint:tsc": "tsc --noEmit",
@@ -31,14 +31,19 @@
   },
   "dependencies": {
     "@apollo/client": "^3.9.10",
-    "graphql": "^16.8.1",
+    "apollo-link-scalars": "^4.0.3",
+    "graphql": "^16.9.0",
     "react": "^18.2.0"
+  },
+  "resolutions": {
+    "graphql": "16.9.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.2.1",
     "@commitlint/config-conventional": "^19.1.0",
     "@graphql-codegen/cli": "^5.0.2",
     "@graphql-codegen/client-preset": "^4.2.5",
+    "@graphql-codegen/introspection": "^4.0.3",
     "@graphql-codegen/schema-ast": "^4.0.2",
     "@graphql-typed-document-node/core": "^3.2.0",
     "@types/node": "^20.12.2",
