@@ -1,7 +1,7 @@
 /* eslint-disable */
 import { expect, beforeAll, beforeEach, describe, it } from 'vitest'
 
-import { UserQuery } from '../src/api/gql/graphql'
+import { OrganizationCustomerStatementInvoiceLine, OrganizationCustomerStatementTransactionLine, UserQuery } from '../src/api/gql/graphql'
 import { setup } from './setupTest'
 import { AccruClient } from '../src'
 
@@ -111,8 +111,9 @@ describe('VendorsService', () => {
 
     expect(statement).toMatchObject({
       items: expect.arrayContaining([
-        expect.objectContaining({
+        expect.objectContaining<Partial<OrganizationCustomerStatementInvoiceLine | OrganizationCustomerStatementTransactionLine>>({
           id: expect.any(String),
+          amount: expect.any(BigInt)
         }),
       ]),
     })
