@@ -19,7 +19,12 @@ const config: CodegenConfig = {
         gqlTagName: 'gql',
         fragmentMasking: false,
       },
-      config: { namingConvention: 'keep' },
+      config: {
+        namingConvention: 'keep',
+        scalars: {
+          BigInt: 'bigint'
+        }
+      },
     },
     /*
     './src/@types/api.d.ts': {
