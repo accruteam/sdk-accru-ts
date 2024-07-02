@@ -90,10 +90,12 @@ export type Mutation = {
   adminOrganizationBillTransactionProcess: Scalars['Int']['output'];
   adminOrganizationCustomerProcess: Scalars['Int']['output'];
   adminOrganizationCustomerStatementRecalculate: Scalars['DateTime']['output'];
+  adminOrganizationDelete: Organization;
   adminOrganizationInvoiceProcess: Scalars['Int']['output'];
   adminOrganizationInvoiceTransactionProcess: Scalars['Int']['output'];
   adminOrganizationUpdateSubscription: Organization;
   adminOrganizationVendorProcess: Scalars['Int']['output'];
+  adminUserDelete: User;
   unconnectedCustomerOrganizationInvoiceGetPDF: Scalars['String']['output'];
   unconnectedCustomerOrganizationStatementLineGetPDF: Scalars['String']['output'];
   unconnectedCustomerOrganizationStatementRequestToken: Scalars['DateTime']['output'];
@@ -248,6 +250,11 @@ export type MutationadminOrganizationCustomerStatementRecalculateArgs = {
 };
 
 
+export type MutationadminOrganizationDeleteArgs = {
+  organization_id: Scalars['String']['input'];
+};
+
+
 export type MutationadminOrganizationInvoiceProcessArgs = {
   organization_id: Scalars['String']['input'];
   organization_invoice_id?: InputMaybe<Scalars['String']['input']>;
@@ -269,6 +276,11 @@ export type MutationadminOrganizationUpdateSubscriptionArgs = {
 export type MutationadminOrganizationVendorProcessArgs = {
   organization_id: Scalars['String']['input'];
   organization_vendor_id?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+export type MutationadminUserDeleteArgs = {
+  user_id: Scalars['String']['input'];
 };
 
 
@@ -2181,6 +2193,7 @@ export type Query = {
   __typename?: 'Query';
   adminOrganizationAcctProviderSynchronizations: OrganizationAcctProviderConnSynchronizationPaginationConnection;
   adminOrganizations: OrganizationPaginationConnection;
+  adminUsers: UserPaginationConnection;
   session: Session;
   unauthorizedUserOrganizationUserInvite: UnauthorizedUserOrganizationUserInviteResponse;
   unconnectedCustomerOrganizationInvoiceSummary: OrganizationInvoiceSummary;
@@ -2274,6 +2287,23 @@ export type QueryadminOrganizationsArgs = {
   include_archived?: InputMaybe<Scalars['Boolean']['input']>;
   last?: InputMaybe<Scalars['Int']['input']>;
   name?: InputMaybe<Scalars['String']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  sorting?: InputMaybe<Array<SortingFieldSchema>>;
+  take?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type QueryadminUsersArgs = {
+  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
+  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
+  email?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  first_name?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['String']['input']>;
+  include_archived?: InputMaybe<Scalars['Boolean']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  last_name?: InputMaybe<Scalars['String']['input']>;
+  phone_number?: InputMaybe<Scalars['String']['input']>;
   skip?: InputMaybe<Scalars['Int']['input']>;
   sorting?: InputMaybe<Array<SortingFieldSchema>>;
   take?: InputMaybe<Scalars['Int']['input']>;
@@ -2970,6 +3000,7 @@ export enum RECEIVING_PROVIDER {
 
 export enum RECIPIENT_TYPE {
   ORGANIZATION = 'ORGANIZATION',
+  OTHER = 'OTHER',
   USER = 'USER'
 }
 
@@ -3165,13 +3196,15 @@ export type UserOrganizationCustomerSchema = {
 export type UserOrganizationCustomerSendInvoiceEmailSchema = {
   contact_ids: Array<Scalars['String']['input']>;
   organization_invoice_id: Scalars['String']['input'];
-  send_to_primary_contact: Scalars['Boolean']['input'];
+  send_to_base_customer_email?: InputMaybe<Scalars['Boolean']['input']>;
+  send_to_primary_contact?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 export type UserOrganizationCustomerSendStatementEmailSchema = {
   contact_ids: Array<Scalars['String']['input']>;
   organization_customer_id: Scalars['String']['input'];
-  send_to_primary_contact: Scalars['Boolean']['input'];
+  send_to_base_customer_email?: InputMaybe<Scalars['Boolean']['input']>;
+  send_to_primary_contact?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 export type UserOrganizationEmailVerifyOrChangeFinishSchema = {
@@ -3304,6 +3337,19 @@ export type UserOrganizationVendorSchema = {
   tax_code?: InputMaybe<Scalars['String']['input']>;
   tax_code_type?: InputMaybe<TAX_TYPE>;
   timezone?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type UserPaginationConnection = {
+  __typename?: 'UserPaginationConnection';
+  edges: Array<UserPaginationEdge>;
+  pageInfo: PageInfo;
+  totalCount: Scalars['Int']['output'];
+};
+
+export type UserPaginationEdge = {
+  __typename?: 'UserPaginationEdge';
+  cursor: Scalars['ConnectionCursor']['output'];
+  node: User;
 };
 
 export type UserPasswordChangeFinishSchema = {

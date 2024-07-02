@@ -80,10 +80,12 @@ type Mutation {
   adminOrganizationBillTransactionProcess(organization_bill_transaction_id: String, organization_id: String!): Int!
   adminOrganizationCustomerProcess(organization_customer_id: String, organization_id: String!): Int!
   adminOrganizationCustomerStatementRecalculate(organization_customer_id: String, organization_id: String): DateTime!
+  adminOrganizationDelete(organization_id: String!): Organization!
   adminOrganizationInvoiceProcess(organization_id: String!, organization_invoice_id: String): Int!
   adminOrganizationInvoiceTransactionProcess(organization_id: String!, organization_invoice_transaction_id: String): Int!
   adminOrganizationUpdateSubscription(data: AdminOrganizationSubscriptionUpdateSchema!, organization_id: String!): Organization!
   adminOrganizationVendorProcess(organization_id: String!, organization_vendor_id: String): Int!
+  adminUserDelete(user_id: String!): User!
   unconnectedCustomerOrganizationInvoiceGetPDF(acct_provider: ACCT_PROVIDER, email: String!, organization_id: String, organization_invoice_id: String!, token: String!, unique_code: String!): String!
   unconnectedCustomerOrganizationStatementLineGetPDF(acct_provider: ACCT_PROVIDER, email: String!, organization_customer_statement_line_id: Int!, organization_id: String, token: String!, unique_code: String!): String!
   unconnectedCustomerOrganizationStatementRequestToken(email: String!, unique_code: String!): DateTime!
@@ -1264,6 +1266,7 @@ type PageInfo {
 type Query {
   adminOrganizationAcctProviderSynchronizations(acct_provider: ACCT_PROVIDER, after: ConnectionCursor, before: ConnectionCursor, failed: Boolean, finished: Boolean, first: Int, last: Int, organization_id: String!, skip: Int, sorting: [SortingFieldSchema!], succeeded: Boolean, take: Int): OrganizationAcctProviderConnSynchronizationPaginationConnection!
   adminOrganizations(after: ConnectionCursor, before: ConnectionCursor, email: String, first: Int, id: String, include_archived: Boolean, last: Int, name: String, skip: Int, sorting: [SortingFieldSchema!], take: Int): OrganizationPaginationConnection!
+  adminUsers(after: ConnectionCursor, before: ConnectionCursor, email: String, first: Int, first_name: String, id: String, include_archived: Boolean, last: Int, last_name: String, phone_number: String, skip: Int, sorting: [SortingFieldSchema!], take: Int): UserPaginationConnection!
   session: Session!
   unauthorizedUserOrganizationUserInvite(code: String!, email: String!, organization_id: String!, organization_invite_id: String!): UnauthorizedUserOrganizationUserInviteResponse!
   unconnectedCustomerOrganizationInvoiceSummary(after: ConnectionCursor, before: ConnectionCursor, currency: CURRENCY, customer_name: String, due_end_date: DateTime, due_start_date: DateTime, email: String!, end_date: DateTime, first: Int, is_overdue: Boolean, last: Int, organization_id: String, skip: Int, sorting: [SortingFieldSchema!], start_date: DateTime, status: INVOICE_STATUS, take: Int, token: String!, unique_code: String!): OrganizationInvoiceSummary!
@@ -1345,6 +1348,7 @@ enum RECEIVING_PROVIDER {
 
 enum RECIPIENT_TYPE {
   ORGANIZATION
+  OTHER
   USER
 }
 
@@ -1536,13 +1540,15 @@ input UserOrganizationCustomerSchema {
 input UserOrganizationCustomerSendInvoiceEmailSchema {
   contact_ids: [String!]!
   organization_invoice_id: String!
-  send_to_primary_contact: Boolean!
+  send_to_base_customer_email: Boolean
+  send_to_primary_contact: Boolean
 }
 
 input UserOrganizationCustomerSendStatementEmailSchema {
   contact_ids: [String!]!
   organization_customer_id: String!
-  send_to_primary_contact: Boolean!
+  send_to_base_customer_email: Boolean
+  send_to_primary_contact: Boolean
 }
 
 input UserOrganizationEmailVerifyOrChangeFinishSchema {
@@ -1675,6 +1681,17 @@ input UserOrganizationVendorSchema {
   tax_code: String
   tax_code_type: TAX_TYPE
   timezone: String
+}
+
+type UserPaginationConnection {
+  edges: [UserPaginationEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type UserPaginationEdge {
+  cursor: ConnectionCursor!
+  node: User!
 }
 
 input UserPasswordChangeFinishSchema {
