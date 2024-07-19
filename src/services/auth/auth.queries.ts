@@ -24,6 +24,7 @@ export const USER_ORGANIZATION_USER_INVITE_QUERY = gql(`
       invited_by
       organization_name
       organization_id
+      target_account_exists
     }
   }
 `);
