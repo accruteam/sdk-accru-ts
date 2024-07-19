@@ -7,6 +7,12 @@ enum AUTH_PROVIDER {
   INTUIT
 }
 
+input AdminOrganizationSubscriptionUpdateAllSchema {
+  from: ORGANIZATION_SUBSCRIPTION
+  subscription_expires_at: DateTime
+  to: ORGANIZATION_SUBSCRIPTION
+}
+
 input AdminOrganizationSubscriptionUpdateSchema {
   subscription: ORGANIZATION_SUBSCRIPTION
   subscription_expires_at: DateTime
@@ -83,6 +89,7 @@ type Mutation {
   adminOrganizationDelete(organization_id: String!): Organization!
   adminOrganizationInvoiceProcess(organization_id: String!, organization_invoice_id: String): Int!
   adminOrganizationInvoiceTransactionProcess(organization_id: String!, organization_invoice_transaction_id: String): Int!
+  adminOrganizationUpdateAllSubscriptions(data: AdminOrganizationSubscriptionUpdateAllSchema!): Int!
   adminOrganizationUpdateSubscription(data: AdminOrganizationSubscriptionUpdateSchema!, organization_id: String!): Organization!
   adminOrganizationVendorProcess(organization_id: String!, organization_vendor_id: String): Int!
   adminUserDelete(user_id: String!): User!
@@ -1413,6 +1420,7 @@ type UnauthorizedUserOrganizationUserInviteResponse {
   invited_by: String
   organization_id: String!
   organization_name: String!
+  target_account_exists: Boolean!
 }
 
 type User {
