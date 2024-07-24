@@ -72,18 +72,13 @@ export const CUSTOMER_QUERY_FRAGMENT = gql(`
         }
       }
 
+      total_open_invoice_count
+      total_overdue_invoice_count
+
       total_amount
       paid_amount
       overdue_amount
       balance
-
-      total_open_invoice_count
-      total_overdue_invoice_count
-
-      start_date
-      end_date
-      currency
-      status
     }
   }
 `);

@@ -70,18 +70,14 @@ export const VENDOR_QUERY_FRAGMENT = gql(`
             hasNextPage
         }
       }
-      total_amount
-      paid_amount
-      overdue_amount
-      balance
 
       total_open_bill_count
       total_overdue_bill_count
 
-      start_date
-      end_date
-      currency
-      status
+      total_amount
+      paid_amount
+      overdue_amount
+      balance
     }
   }
 `);
