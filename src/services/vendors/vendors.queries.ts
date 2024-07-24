@@ -17,6 +17,9 @@ export const VENDOR_QUERY_FRAGMENT = gql(`
     last_sync_at
     latest_acct_provider_balance
 
+    balance
+    overdue_amount
+
     conn_locked_data_at
     connection {
       ...OrganizationConnectionFragment
@@ -70,6 +73,11 @@ export const VENDOR_QUERY_FRAGMENT = gql(`
       total_amount
       paid_amount
       overdue_amount
+      balance
+
+      total_open_bill_count
+      total_overdue_bill_count
+
       start_date
       end_date
       currency
