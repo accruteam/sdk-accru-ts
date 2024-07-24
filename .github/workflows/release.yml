@@ -44,3 +44,47 @@ jobs:
           HUSKY: 0
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Send a Slack notification if a publish happens
+        if: steps.changesets.outputs.published == 'true'
+        id: slack
+        uses: slackapi/slack-github-action@v1.26.0
+        with:
+          channel-id: ${{ vars.SLACK_CHANNEL_ID }}
+          payload: |
+            {
+              "text": "A new version of ${GITHUB_REPOSITORY} was published! :tada:",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": ":package: ${{ fromJSON(steps.changesets.outputs.publishedPackages)[0].name }} v${{ fromJSON(steps.changesets.outputs.publishedPackages)[0].version }} published :rocket: \n Please see the action run and NPM package for more details. Update the frontend with the new version."
+                  }
+                },
+                {
+                  "type": "actions",
+                  "elements": [
+                    {
+                      "type": "button",
+                      "text": {
+                        "type": "plain_text",
+                        "text": ":github: See action run"
+                      },
+                      "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+                    },
+                    {
+                      "type": "button",
+                      "text": {
+                        "type": "plain_text",
+                        "text": ":package: Open NPM package"
+                      },
+                      "url": "https://www.npmjs.com/package/${{ fromJSON(steps.changesets.outputs.publishedPackages)[0].name }}/v/${{ fromJSON(steps.changesets.outputs.publishedPackages)[0].version }}"
+                    }
+                  ]
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
