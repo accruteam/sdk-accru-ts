@@ -90,6 +90,77 @@ export const BILL_QUERY_FRAGMENT = gql(`
   }
 `);
 
+export const BILL_SUMMARY_FRAGMENT = gql(`
+  fragment OrganizationBillSummaryFragment on OrganizationBillSummary {
+    vendor_organization_id
+    vendor_organization {
+      name
+      email
+      phone_number
+      address_line_1
+      address_number
+      address_line_2
+      address_city
+      address_state
+      address_zip_code
+      address_country_code_iso_3
+      address_lat
+      address_lng
+      logo_picture_file {
+        public_url
+      }
+    }
+
+    customer_organization_vendor_id
+    customer_organization_vendor {
+      id
+      name
+    }
+
+    customer_organization_id
+    customer_organization {
+      id
+      name
+    }
+
+    data {
+      totalCount
+      edges {
+        cursor
+        node {
+          ...OrganizationBillFragment
+        }
+      }
+      pageInfo {
+        startCursor
+        endCursor
+        hasPreviousPage
+        hasNextPage
+      }
+    }
+
+    status
+
+    total_open_bill_count
+    total_overdue_bill_count
+
+    total_amount
+    paid_amount
+    overdue_amount
+    balance
+
+    start_date
+    end_date
+    due_start_date
+    due_end_date
+    currency
+
+    has_sync_errors
+    last_sync_at
+    latest_acct_provider_balance
+  }
+`);
+
 export const BILLS_GET_SUMMARY_QUERY = gql(`
   query UserOrganizationBillSummary(
     $organizationId: String!
@@ -128,43 +199,7 @@ export const BILLS_GET_SUMMARY_QUERY = gql(`
 
       sorting: $sorting
     ) {
-      vendor_organization_id
-      vendor_organization {
-        id
-        name
-      }
-      customer_organization_vendor_id
-      customer_organization_vendor {
-        id
-        name
-      }
-      customer_organization_id
-      customer_organization {
-        id
-        name
-      }
-      data {
-        totalCount
-        edges {
-          cursor
-          node {
-            ...OrganizationBillFragment
-          }
-        }
-        pageInfo {
-          startCursor
-          endCursor
-          hasPreviousPage
-          hasNextPage
-        }
-      }
-      total_amount
-      paid_amount
-      overdue_amount
-      start_date
-      end_date
-      currency
-      status
+      ...OrganizationBillSummaryFragment
     }
   }
 `);
