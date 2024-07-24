@@ -1,5 +1,11 @@
 # accru-client
 
+## 0.0.43
+
+### Patch Changes
+
+- 6ca57d8: add customer and vendor balances to query
+
 ## 0.0.42
 
 ### Patch Changes
