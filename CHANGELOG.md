@@ -1,5 +1,11 @@
 # accru-client
 
+## 0.0.44
+
+### Patch Changes
+
+- 481db84: add balance to bill query and refactor customer and vendor fragments
+
 ## 0.0.43
 
 ### Patch Changes
