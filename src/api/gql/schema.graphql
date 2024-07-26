@@ -180,6 +180,7 @@ type Mutation {
   userOrganizationReceivingMethodUpdate(data: UserOrganizationReceivingMethodUpdateSchema!, organization_id: String!, organization_receiving_method_id: String!): OrganizationReceivingMethod!
   userOrganizationReminderSettingCreate(data: UserOrganizationReminderSettingSchema!, organization_id: String!): OrganizationReminderSetting!
   userOrganizationReminderSettingDelete(organization_id: String!, organization_reminder_setting_id: String!): OrganizationReminderSetting!
+  userOrganizationReminderSettingGlobalUpdate(organization_id: String!, setting_allow_invoice_due_snooze_reminders: Boolean, setting_allow_invoice_overdue_snooze_reminders: Boolean, setting_send_invoice_due_reminders: Boolean, setting_send_invoice_overdue_reminders: Boolean): Organization!
   userOrganizationReminderSettingUpdate(data: UserOrganizationReminderSettingSchema!, organization_id: String!, organization_reminder_setting_id: String!): OrganizationReminderSetting!
   userOrganizationSendGenericInviteMail(email: String!, organization_id: String!): DateTime!
   userOrganizationUniqueCodeUpdate(organization_id: String!): Organization!
@@ -1555,10 +1556,6 @@ input UserOrganizationCreateSchema {
   name: String!
   phone_number: String
   primary_contact_name: String
-  setting_allow_invoice_due_snooze_reminders: Boolean
-  setting_allow_invoice_overdue_snooze_reminders: Boolean
-  setting_send_invoice_due_reminders: Boolean
-  setting_send_invoice_overdue_reminders: Boolean
   timezone: String
 }
 
@@ -1695,10 +1692,6 @@ input UserOrganizationUpdateSchema {
   name: String
   phone_number: String
   primary_contact_name: String
-  setting_allow_invoice_due_snooze_reminders: Boolean
-  setting_allow_invoice_overdue_snooze_reminders: Boolean
-  setting_send_invoice_due_reminders: Boolean
-  setting_send_invoice_overdue_reminders: Boolean
   timezone: String
 }
 

@@ -10,6 +10,8 @@ import {
   UserOrganizationReminderSettingDeleteMutationVariables,
   UserOrganizationReminderSettingUpdateMutation,
   UserOrganizationReminderSettingUpdateMutationVariables,
+  UserOrganizationReminderSettingGlobalUpdateMutationVariables,
+  UserOrganizationReminderSettingGlobalUpdateMutation,
 } from '@api/gql/graphql';
 import {
   ListResponse,
@@ -21,6 +23,7 @@ import {
   DELETE_REMINDER_SETTING_MUTATION,
   GET_ALL_REMINDER_SETTINGS_QUERY,
   GET_REMINDER_SETTING_MUTATION,
+  UPDATE_REMINDER_GLOBAL_SETTING_MUTATION,
   UPDATE_REMINDER_SETTING_MUTATION,
 } from './reminders.queries';
 
@@ -75,5 +78,15 @@ export default class ReminderSettings {
       variables,
     });
     return data!.userOrganizationReminderSettingDelete;
+  };
+
+  public updateGlobalSettings = async (
+    variables: UserOrganizationReminderSettingGlobalUpdateMutationVariables,
+  ): Promise<Res<UserOrganizationReminderSettingGlobalUpdateMutation>> => {
+    const { data } = await this.apolloClient.mutate({
+      mutation: UPDATE_REMINDER_GLOBAL_SETTING_MUTATION,
+      variables,
+    });
+    return data!.userOrganizationReminderSettingGlobalUpdate;
   };
 }
