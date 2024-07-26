@@ -1,5 +1,11 @@
 # accru-client
 
+## 0.0.46
+
+### Patch Changes
+
+- 0fb4686: add organization invite resend
+
 ## 0.0.45
 
 ### Patch Changes
