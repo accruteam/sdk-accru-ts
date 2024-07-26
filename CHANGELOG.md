@@ -1,5 +1,12 @@
 # accru-client
 
+## 0.0.45
+
+### Patch Changes
+
+- f214cfb: add projects
+- 4548692: fix user not allowed error on reminder settings
+
 ## 0.0.44
 
 ### Patch Changes
