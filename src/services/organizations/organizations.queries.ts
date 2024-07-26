@@ -163,6 +163,14 @@ export const DELETE_ORGANIZATION_COLLABORATOR_INVITE_MUTATION = gql(`
   }
 `);
 
+export const RESEND_ORGANIZATION_COLLABORATOR_INVITE_MUTATION = gql(`
+  mutation UserOrganizationInviteCollaboratorResend($organizationId: String!, $organizationInviteId: String!) {
+    userOrganizationInviteCollaboratorResend(organization_id: $organizationId, organization_invite_id: $organizationInviteId) {
+      ...OrganizationInviteFragment
+    }
+  }
+`);
+
 export const GET_ORGANIZATION_COLLABORATOR_INVITES_QUERY = gql(`
   query UserOrganizationInviteCollaborators(
     $organizationId: String!,

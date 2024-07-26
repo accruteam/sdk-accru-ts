@@ -154,6 +154,7 @@ type Mutation {
   userOrganizationEmailVerifyOrChangeStart(data: UserOrganizationEmailVerifyOrChangeStartSchema!, organization_id: String!): DateTime!
   userOrganizationInviteCollaboratorCancel(organization_id: String!, organization_invite_id: String!): OrganizationInvite!
   userOrganizationInviteCollaboratorCreate(data: UserOrganizationInviteCollaboratorCreateSchema!, organization_id: String!): OrganizationInvite!
+  userOrganizationInviteCollaboratorResend(organization_id: String!, organization_invite_id: String!): OrganizationInvite!
   userOrganizationInviteReject(code: String!, organization_id: String!, organization_invite_id: String!): OrganizationInvite!
   userOrganizationInvoiceCreate(data: UserOrganizationInvoiceSchema!, organization_id: String!): OrganizationInvoice!
   userOrganizationInvoiceDelete(organization_id: String!, organization_invoice_ids: [String!]!): [OrganizationInvoice!]!
