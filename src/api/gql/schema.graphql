@@ -94,6 +94,9 @@ type Mutation {
   adminOrganizationVendorProcess(organization_id: String!, organization_vendor_id: String): Int!
   adminUserDelete(user_id: String!): User!
   unconnectedCustomerOrganizationInvoiceGetPDF(acct_provider: ACCT_PROVIDER, email: String!, organization_id: String, organization_invoice_id: String!, token: String!, unique_code: String!): String!
+  unconnectedCustomerOrganizationProjectChangeRequestAccept(email: String!, organization_id: String, organization_project_change_request_id: String!, organization_project_id: String!, token: String!, unique_code: String!, verification_code: String!): OrganizationProjectChangeRequest!
+  unconnectedCustomerOrganizationProjectChangeRequestActionRequestToken(email: String!, organization_id: String, organization_project_change_request_id: String!, organization_project_id: String!, token: String!, unique_code: String!): DateTime!
+  unconnectedCustomerOrganizationProjectChangeRequestReject(email: String!, organization_id: String, organization_project_change_request_id: String!, organization_project_id: String!, token: String!, unique_code: String!, verification_code: String!): OrganizationProjectChangeRequest!
   unconnectedCustomerOrganizationStatementLineGetPDF(acct_provider: ACCT_PROVIDER, email: String!, organization_customer_statement_line_id: Int!, organization_id: String, token: String!, unique_code: String!): String!
   unconnectedCustomerOrganizationStatementRequestToken(email: String!, unique_code: String!): DateTime!
   userAuthProviderDisconnect(auth_provider: AUTH_PROVIDER!): UserAuthProviderConn!
@@ -101,10 +104,11 @@ type Mutation {
   userAuthProviderGetOAuthUrl(auth_provider: AUTH_PROVIDER!): String!
   userCustomerOrganizationInvoiceCreateSyncBill(organization_id: String!, organization_invoice_id: String!, organization_vendor_id: String!): OrganizationBill!
   userCustomerOrganizationInvoiceGetPDF(acct_provider: ACCT_PROVIDER, organization_id: String!, organization_invoice_id: String!, organization_vendor_id: String!): String!
-  userCustomerOrganizationProjectChangeRequestAccept(allow_bypass: Boolean!, organization_id: String!, organization_project_change_request_id: String!, organization_project_id: String!, organization_vendor_id: String!): OrganizationProjectChangeRequest!
-  userCustomerOrganizationProjectChangeRequestCancel(allow_bypass: Boolean!, organization_id: String!, organization_project_change_request_id: String!, organization_project_id: String!, organization_vendor_id: String!): OrganizationProjectChangeRequest!
-  userCustomerOrganizationProjectChangeRequestCreate(data: UserOrganizationProjectChangeRequestCreateSchema!, organization_id: String!, organization_project_id: String!, organization_vendor_id: String!): OrganizationProjectChangeRequest!
-  userCustomerOrganizationProjectChangeRequestReject(allow_bypass: Boolean!, organization_id: String!, organization_project_change_request_id: String!, organization_project_id: String!, organization_vendor_id: String!): OrganizationProjectChangeRequest!
+  userCustomerOrganizationProjectChangeRequestAccept(organization_id: String!, organization_project_change_request_id: String!, organization_project_id: String!, organization_vendor_id: String!): OrganizationProjectChangeRequest!
+  userCustomerOrganizationProjectChangeRequestCancel(organization_id: String!, organization_project_change_request_id: String!, organization_project_id: String!, organization_vendor_id: String!): OrganizationProjectChangeRequest!
+  userCustomerOrganizationProjectChangeRequestCreate(data: OrganizationProjectChangeRequestUpsertSchema!, organization_id: String!, organization_project_id: String!, organization_vendor_id: String!): OrganizationProjectChangeRequest!
+  userCustomerOrganizationProjectChangeRequestReject(organization_id: String!, organization_project_change_request_id: String!, organization_project_id: String!, organization_vendor_id: String!): OrganizationProjectChangeRequest!
+  userCustomerOrganizationProjectChangeRequestUpdate(data: OrganizationProjectChangeRequestUpsertSchema!, organization_id: String!, organization_project_change_request_id: String!, organization_project_id: String!, organization_vendor_id: String!): OrganizationProjectChangeRequest!
   userCustomerOrganizationStatementLineGetPDF(acct_provider: ACCT_PROVIDER, organization_customer_statement_line_id: Int!, organization_id: String!, organization_vendor_id: String!): String!
   userEmailVerifyOrChangeFinish(data: UserEmailVerifyOrChangeFinishSchema!): User!
   userEmailVerifyOrChangeStart(data: UserEmailVerifyOrChangeStartSchema!): DateTime!
@@ -164,10 +168,11 @@ type Mutation {
   userOrganizationLogoPictureRemove(organization_id: String!): Organization!
   userOrganizationPaymentMethodDelete(organization_id: String!, organization_payment_method_id: String!): OrganizationPaymentMethod!
   userOrganizationPaymentMethodUpdate(data: UserOrganizationPaymentMethodUpdateSchema!, organization_id: String!, organization_payment_method_id: String!): OrganizationPaymentMethod!
-  userOrganizationProjectChangeRequestAccept(allow_bypass: Boolean!, organization_id: String!, organization_project_change_request_id: String!, organization_project_id: String!): OrganizationProjectChangeRequest!
-  userOrganizationProjectChangeRequestCancel(allow_bypass: Boolean!, organization_id: String!, organization_project_change_request_id: String!, organization_project_id: String!): OrganizationProjectChangeRequest!
-  userOrganizationProjectChangeRequestCreate(data: UserOrganizationProjectChangeRequestCreateSchema!, organization_id: String!, organization_project_id: String!): OrganizationProjectChangeRequest!
-  userOrganizationProjectChangeRequestReject(allow_bypass: Boolean!, organization_id: String!, organization_project_change_request_id: String!, organization_project_id: String!): OrganizationProjectChangeRequest!
+  userOrganizationProjectChangeRequestAccept(organization_id: String!, organization_project_change_request_id: String!, organization_project_id: String!): OrganizationProjectChangeRequest!
+  userOrganizationProjectChangeRequestCancel(organization_id: String!, organization_project_change_request_id: String!, organization_project_id: String!): OrganizationProjectChangeRequest!
+  userOrganizationProjectChangeRequestCreate(data: OrganizationProjectChangeRequestUpsertSchema!, organization_id: String!, organization_project_id: String!): OrganizationProjectChangeRequest!
+  userOrganizationProjectChangeRequestReject(organization_id: String!, organization_project_change_request_id: String!, organization_project_id: String!): OrganizationProjectChangeRequest!
+  userOrganizationProjectChangeRequestUpdate(data: OrganizationProjectChangeRequestUpsertSchema!, organization_id: String!, organization_project_change_request_id: String!, organization_project_id: String!): OrganizationProjectChangeRequest!
   userOrganizationProjectCreate(data: UserOrganizationProjectCreateSchema!, organization_id: String!): OrganizationProject!
   userOrganizationProjectDelete(organization_id: String!, organization_project_id: String!): OrganizationProject!
   userOrganizationProjectUpdate(data: UserOrganizationProjectUpdateSchema!, organization_id: String!, organization_project_id: String!): OrganizationProject!
@@ -217,17 +222,17 @@ enum ORGANIZATION_CONNECTION_STATUS {
   REJECTED
 }
 
-enum ORGANIZATION_INVITE_SIDE {
-  CUSTOMER
-  ORGANIZATION
-}
-
 enum ORGANIZATION_INVITE_STATUS {
   ACCEPTED
   CANCELED
   EXPIRED
   OPEN
   REJECTED
+}
+
+enum ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE {
+  CUSTOMER
+  VENDOR
 }
 
 enum ORGANIZATION_SUBSCRIPTION {
@@ -1076,31 +1081,31 @@ type OrganizationProject {
   budget_amount: BigInt!
   budget_currency_code: CURRENCY!
   canceled_at: DateTime
+  change_requests(accepted: Boolean, after: ConnectionCursor, before: ConnectionCursor, canceled: Boolean, expired: Boolean, first: Int, last: Int, organization_project_change_request_id: String, published: Boolean, rejected: Boolean, skip: Int, sorting: [SortingFieldSchema!], take: Int): OrganizationProjectChangeRequestPaginationConnection!
   completed_at: DateTime
   contract_url: String
   created_at: DateTime!
-  description: String!
-  ends_at: DateTime!
+  description: String
+  ends_at: DateTime
   id: ID!
   name: String!
   organization: Organization!
   organization_customer: OrganizationCustomer!
   organization_customer_id: String!
   organization_id: String!
+  starts_at: DateTime
+  status: PROJECT_STATUS!
   updated_at: DateTime!
 }
 
 type OrganizationProjectChange {
-  changed_budget_amount: BigInt!
-  changed_ends_at: DateTime!
-  changed_name: String!
   created_at: DateTime!
   id: ID!
-  organization_project_change_request: OrganizationProjectChangeRequest!
   organization_project_change_request_id: String!
   previous_budget_amount: BigInt!
-  previous_ends_at: DateTime!
+  previous_ends_at: DateTime
   previous_name: String!
+  previous_starts_at: DateTime
   updated_at: DateTime!
 }
 
@@ -1110,22 +1115,57 @@ type OrganizationProjectChangeRequest {
   canceled_at: DateTime
   contract_url: String
   created_at: DateTime!
-  created_by_user: User
   created_by_user_id: String
-  created_side: ORGANIZATION_INVITE_SIDE!
-  ends_at: DateTime!
-  expires_at: DateTime!
-  finished_by_user: User
+  created_by_user_name: String!
+  created_side: ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE!
+  ends_at: DateTime
+  expires_at: DateTime
   finished_by_user_id: String
-  finished_side: ORGANIZATION_INVITE_SIDE
+  finished_by_user_name: String
+  finished_side: ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE
   id: ID!
   name: String!
-  organization_project: OrganizationProject!
-  organization_project_changes: [OrganizationProjectChange!]!
+  organization_project_change: OrganizationProjectChange
   organization_project_id: String!
   payload: JSON!
+  published_at: DateTime
   rejected_at: DateTime
+  sequence_number: Int!
+  starts_at: DateTime
+  status: PROJECT_CHANGE_REQUEST_STATUS!
   updated_at: DateTime!
+}
+
+type OrganizationProjectChangeRequestPaginationConnection {
+  edges: [OrganizationProjectChangeRequestPaginationEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type OrganizationProjectChangeRequestPaginationEdge {
+  cursor: ConnectionCursor!
+  node: OrganizationProjectChangeRequest!
+}
+
+input OrganizationProjectChangeRequestUpsertSchema {
+  budget_amount: BigInt!
+  change_request_expires_at: DateTime
+  contract_url: String
+  ends_at: DateTime
+  name: String!
+  publish: Boolean
+  starts_at: DateTime
+}
+
+type OrganizationProjectPaginationConnection {
+  edges: [OrganizationProjectPaginationEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type OrganizationProjectPaginationEdge {
+  cursor: ConnectionCursor!
+  node: OrganizationProject!
 }
 
 type OrganizationReceivingMethod {
@@ -1263,6 +1303,23 @@ enum PAYMENT_PROVIDER {
   QUICKBOOKS
 }
 
+enum PROJECT_CHANGE_REQUEST_STATUS {
+  ACCEPTED
+  CANCELED
+  DRAFT
+  EXPIRED
+  PUBLISHED
+  REJECTED
+}
+
+enum PROJECT_STATUS {
+  ACTIVE
+  CANCELED
+  COMPLETED
+  EXPIRED
+  WAITING
+}
+
 type PageInfo {
   endCursor: String
   hasNextPage: Boolean!
@@ -1277,6 +1334,8 @@ type Query {
   session: Session!
   unauthorizedUserOrganizationUserInvite(code: String!, email: String!, organization_id: String!, organization_invite_id: String!): UnauthorizedUserOrganizationUserInviteResponse!
   unconnectedCustomerOrganizationInvoiceSummary(after: ConnectionCursor, before: ConnectionCursor, currency: CURRENCY, customer_name: String, due_end_date: DateTime, due_start_date: DateTime, email: String!, end_date: DateTime, first: Int, is_overdue: Boolean, last: Int, organization_id: String, skip: Int, sorting: [SortingFieldSchema!], start_date: DateTime, status: INVOICE_STATUS, take: Int, token: String!, unique_code: String!): OrganizationInvoiceSummary!
+  unconnectedCustomerOrganizationProject(email: String!, organization_id: String, organization_project_id: String!, token: String!, unique_code: String!): OrganizationProject!
+  unconnectedCustomerOrganizationProjects(after: ConnectionCursor, before: ConnectionCursor, canceled: Boolean, completed: Boolean, email: String!, ended: Boolean, first: Int, last: Int, name: String, organization_id: String, skip: Int, sorting: [SortingFieldSchema!], started: Boolean, take: Int, token: String!, unique_code: String!): OrganizationProjectPaginationConnection!
   unconnectedCustomerOrganizationStatement(after: ConnectionCursor, before: ConnectionCursor, currency: CURRENCY, due_end_date: DateTime, due_start_date: DateTime, email: String!, end_date: DateTime, first: Int, is_overdue: Boolean, last: Int, organization_id: String, skip: Int, sorting: [SortingFieldSchema!], start_date: DateTime, take: Int, token: String!, type: STATEMENT_LINE_TYPE, unique_code: String!): OrganizationCustomerStatement!
   unconnectedCustomerOrganizationStatementLine(email: String!, organization_customer_statement_line_id: Int, organization_id: String, organization_invoice_id: String, organization_invoice_transaction_id: String, token: String!, unique_code: String!): OrganizationCustomerStatementLineData!
   user: User!
@@ -1285,11 +1344,7 @@ type Query {
   userCustomerOrganizationInvoiceSummary(after: ConnectionCursor, before: ConnectionCursor, currency: CURRENCY, customer_name: String, due_end_date: DateTime, due_start_date: DateTime, end_date: DateTime, first: Int, is_overdue: Boolean, last: Int, organization_id: String!, organization_vendor_id: String!, skip: Int, sorting: [SortingFieldSchema!], start_date: DateTime, status: INVOICE_STATUS, take: Int): OrganizationInvoiceSummary!
   userCustomerOrganizationInvoices(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, organization_id: String!, organization_vendor_id: String!, skip: Int, sorting: [SortingFieldSchema!], take: Int): OrganizationInvoicePaginationConnection!
   userCustomerOrganizationProject(organization_id: String!, organization_project_id: String!, organization_vendor_id: String!): OrganizationProject!
-  userCustomerOrganizationProjectChange(organization_id: String!, organization_project_change_id: String!, organization_project_id: String!, organization_vendor_id: String!): OrganizationProjectChange!
-  userCustomerOrganizationProjectChangeRequest(organization_id: String!, organization_project_change_request_id: String!, organization_project_id: String!, organization_vendor_id: String!): OrganizationProjectChangeRequest!
-  userCustomerOrganizationProjectChangeRequests(accepted: Boolean!, after: ConnectionCursor, before: ConnectionCursor, canceled: Boolean!, expired: Boolean!, first: Int, last: Int, organization_id: String!, organization_project_id: String!, organization_vendor_id: String!, rejected: Boolean!, skip: Int, take: Int): [OrganizationProjectChangeRequest!]!
-  userCustomerOrganizationProjectChanges(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, organization_id: String!, organization_project_id: String!, organization_vendor_id: String!, skip: Int, take: Int): [OrganizationProjectChange!]!
-  userCustomerOrganizationProjects(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, organization_id: String!, organization_vendor_id: String!, skip: Int, take: Int): [OrganizationProject!]!
+  userCustomerOrganizationProjects(after: ConnectionCursor, before: ConnectionCursor, canceled: Boolean, completed: Boolean, ended: Boolean, first: Int, last: Int, name: String, organization_id: String!, organization_vendor_id: String!, skip: Int, sorting: [SortingFieldSchema!], started: Boolean, take: Int): OrganizationProjectPaginationConnection!
   userCustomerOrganizationStatement(after: ConnectionCursor, before: ConnectionCursor, currency: CURRENCY, due_end_date: DateTime, due_start_date: DateTime, end_date: DateTime, first: Int, is_overdue: Boolean, last: Int, organization_id: String!, organization_vendor_id: String!, skip: Int, sorting: [SortingFieldSchema!], start_date: DateTime, take: Int, type: STATEMENT_LINE_TYPE): OrganizationCustomerStatement!
   userCustomerOrganizationStatementLine(organization_customer_statement_line_id: Int, organization_id: String!, organization_invoice_id: String, organization_invoice_transaction_id: String, organization_vendor_id: String!): OrganizationCustomerStatementLineData!
   userCustomerOrganizations(organization_id: String!): [OrganizationConnection!]!
@@ -1323,11 +1378,7 @@ type Query {
   userOrganizationPaymentMethod(organization_id: String!, organization_payment_method_id: String!): OrganizationPaymentMethod!
   userOrganizationPaymentMethods(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, organization_id: String!, skip: Int, take: Int): [OrganizationPaymentMethod!]!
   userOrganizationProject(organization_id: String!, organization_project_id: String!): OrganizationProject!
-  userOrganizationProjectChange(organization_id: String!, organization_project_change_id: String!, organization_project_id: String!): OrganizationProjectChange!
-  userOrganizationProjectChangeRequest(organization_id: String!, organization_project_change_request_id: String!, organization_project_id: String!): OrganizationProjectChangeRequest!
-  userOrganizationProjectChangeRequests(accepted: Boolean!, after: ConnectionCursor, before: ConnectionCursor, canceled: Boolean!, expired: Boolean!, first: Int, last: Int, organization_id: String!, organization_project_id: String!, rejected: Boolean!, skip: Int, take: Int): [OrganizationProjectChangeRequest!]!
-  userOrganizationProjectChanges(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, organization_id: String!, organization_project_id: String!, skip: Int, take: Int): [OrganizationProjectChange!]!
-  userOrganizationProjects(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, organization_id: String!, skip: Int, take: Int): [OrganizationProject!]!
+  userOrganizationProjects(after: ConnectionCursor, before: ConnectionCursor, canceled: Boolean, completed: Boolean, ended: Boolean, first: Int, last: Int, name: String, organization_customer_id: String, organization_id: String!, skip: Int, sorting: [SortingFieldSchema!], started: Boolean, take: Int): OrganizationProjectPaginationConnection!
   userOrganizationReceivingMethod(organization_id: String!, organization_receiving_method_id: String!): OrganizationReceivingMethod!
   userOrganizationReceivingMethods(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, organization_id: String!, skip: Int, take: Int): [OrganizationReceivingMethod!]!
   userOrganizationReminderSetting(organization_id: String!, organization_reminder_setting_id: String!): OrganizationReminderSetting!
@@ -1596,30 +1647,22 @@ input UserOrganizationPaymentMethodUpdateSchema {
   is_enabled: Boolean!
 }
 
-input UserOrganizationProjectChangeRequestCreateSchema {
-  budget_amount: BigInt!
-  change_request_expires_at: DateTime
-  contract_url: String
-  ends_at: DateTime!
-  name: String!
-}
-
 input UserOrganizationProjectCreateSchema {
   budget_amount: BigInt!
   budget_currency_code: CURRENCY!
   contract_url: String
-  description: String!
-  ends_at: DateTime!
+  description: String
+  ends_at: DateTime
   name: String!
   organization_customer_id: String!
+  starts_at: DateTime
 }
 
 input UserOrganizationProjectUpdateSchema {
   canceled_at: DateTime
   completed_at: DateTime
   contract_url: String
-  description: String!
-  organization_customer_id: String!
+  description: String
 }
 
 input UserOrganizationReceivingMethodUpdateSchema {
