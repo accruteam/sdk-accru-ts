@@ -13,10 +13,15 @@ import Statements from '@services/statements';
 import Users from '@services/users';
 import Vendors from '@services/vendors';
 import Organizations from '@services/organizations';
+import Projects from '@services/projects/projects.service';
 import Contacts from '@services/contacts';
 import Transactions from '@services/transactions';
 
 export { processResponseAsList } from '@utils/processResponseAsList';
+
+export type AccruClientResponseType<T extends (...args: any) => any> = Awaited<
+  ReturnType<T>
+>;
 
 export * from '@gql';
 export * from '@gql/graphql';
@@ -32,6 +37,7 @@ export class AccruClient {
   public readonly customers: Customers;
   public readonly invoices: Invoices;
   public readonly organizations: Organizations;
+  public readonly projects: Projects;
   public readonly reminders: Reminders;
   public readonly statements: Statements;
   public readonly transactions: Transactions;
@@ -48,6 +54,7 @@ export class AccruClient {
     this.customers = new Customers(this.apolloClient);
     this.invoices = new Invoices(this.apolloClient);
     this.organizations = new Organizations(this.apolloClient);
+    this.projects = new Projects(this.apolloClient);
     this.reminders = new Reminders(this.apolloClient);
     this.statements = new Statements(this.apolloClient);
     this.transactions = new Transactions(this.apolloClient);

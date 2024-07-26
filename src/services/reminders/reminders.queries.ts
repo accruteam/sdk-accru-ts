@@ -122,3 +122,26 @@ export const DELETE_REMINDER_SETTING_MUTATION = gql(`
     }
   }
 `);
+
+export const UPDATE_REMINDER_GLOBAL_SETTING_MUTATION = gql(`
+  mutation UserOrganizationReminderSettingGlobalUpdate(
+    $organizationId: String!
+    $settingSendInvoiceDueReminders: Boolean!
+    $settingSendInvoiceOverdueReminders: Boolean!
+    $settingAllowInvoiceDueSnoozeReminders: Boolean!
+    $settingAllowInvoiceOverdueSnoozeReminders: Boolean!
+  ) {
+    userOrganizationReminderSettingGlobalUpdate(
+      organization_id: $organizationId
+      setting_send_invoice_due_reminders: $settingSendInvoiceDueReminders
+      setting_send_invoice_overdue_reminders: $settingSendInvoiceOverdueReminders
+      setting_allow_invoice_due_snooze_reminders: $settingAllowInvoiceDueSnoozeReminders
+      setting_allow_invoice_overdue_snooze_reminders: $settingAllowInvoiceOverdueSnoozeReminders
+    ) {
+      setting_send_invoice_due_reminders
+      setting_send_invoice_overdue_reminders
+      setting_allow_invoice_due_snooze_reminders
+      setting_allow_invoice_overdue_snooze_reminders
+    }
+  }
+`);
