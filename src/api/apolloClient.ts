@@ -4,6 +4,8 @@ import {
   createHttpLink,
   ApolloLink,
 } from '@apollo/client';
+import { onError } from '@apollo/client/link/error';
+import { GraphQLErrors, NetworkError } from '@apollo/client/errors';
 import { setContext } from '@apollo/client/link/context';
 import { withScalars } from 'apollo-link-scalars';
 import {
@@ -14,6 +16,16 @@ import {
   buildClientSchema,
 } from 'graphql';
 import introspectionResult from './gql/schema.graphql.json';
+
+interface IAccruClientParams {
+  baseUrl: string;
+
+  getAuthToken?: () => Promise<string>;
+
+  onGraphQLError?: (errors: GraphQLErrors) => void;
+  onNetworkError?: (error: NetworkError) => void;
+  onAuthError?: () => void;
+}
 
 // eslint-disable-next-line func-names
 (BigInt.prototype as any).toJSON = function () {
@@ -63,12 +75,29 @@ const schema = buildClientSchema(
 );
 
 export const createApolloClient = ({
-  token,
   baseUrl,
-}: {
-  token: string;
-  baseUrl: string;
-}) => {
+  getAuthToken,
+
+  onGraphQLError,
+  onNetworkError,
+  onAuthError,
+}: IAccruClientParams) => {
+  const errorLink = onError(({ graphQLErrors, networkError }) => {
+    if (graphQLErrors?.length && typeof onGraphQLError === 'function')
+      onGraphQLError(graphQLErrors);
+
+    if (networkError && typeof onNetworkError === 'function')
+      onNetworkError(networkError);
+
+    if (
+      graphQLErrors?.some(
+        error => error.extensions?.code === 'UNAUTHENTICATED',
+      ) &&
+      typeof onAuthError === 'function'
+    )
+      onAuthError();
+  });
+
   const scalarLink = withScalars({
     schema,
     typesMap: {
@@ -76,21 +105,29 @@ export const createApolloClient = ({
     },
   });
 
-  const httpLink = createHttpLink({ uri: baseUrl });
+  const authLink = setContext(async (_, { headers }) => {
+    const selectedToken =
+      typeof getAuthToken === 'function'
+        ? (await getAuthToken()) || null
+        : null;
 
-  const authLink = setContext((_, { headers }) => {
     return {
       headers: {
         ...headers,
-        authorization: token ? `Bearer ${token}` : '',
+        ...(selectedToken && {
+          authorization: `Bearer ${selectedToken}`,
+        }),
       },
     };
   });
 
+  const httpLink = createHttpLink({ uri: baseUrl });
+
   return new ApolloClient({
-    link: ApolloLink.from([authLink, scalarLink, httpLink]),
+    link: ApolloLink.from([errorLink, scalarLink, authLink, httpLink]),
     cache: new InMemoryCache(),
   });
 };
 
+export type { IAccruClientParams };
 export default createApolloClient;

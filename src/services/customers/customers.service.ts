@@ -18,6 +18,7 @@ import {
   UserOrganizationCustomersQueryVariables,
 } from '@api/gql/graphql';
 import {
+  ChildrenEdgeListResponse,
   ListResponse,
   processResponseAsList,
 } from '@utils/processResponseAsList';
@@ -79,7 +80,9 @@ export default class Customers {
 
   public getStatement = async (
     variables: UserOrganizationCustomerStatementQueryVariables,
-  ): Promise<Res<UserOrganizationCustomerStatementQuery>> => {
+  ): Promise<
+    ChildrenEdgeListResponse<Res<UserOrganizationCustomerStatementQuery>>
+  > => {
     const { data } = await this.apolloClient.query({
       query: GET_CUSTOMER_STATEMENT_QUERY,
       variables,
