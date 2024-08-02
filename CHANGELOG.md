@@ -1,5 +1,11 @@
 # accru-client
 
+## 0.0.47
+
+### Patch Changes
+
+- cfe8323: change authentication, package refactors
+
 ## 0.0.46
 
 ### Patch Changes
