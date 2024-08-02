@@ -104,6 +104,8 @@ cleanup() {
   if [ -n "$PROJECT_PATH" ]; then
     echo "Removing $PACKAGE_NAME from $PROJECT_PATH..."
     executeInProject yalc remove $PACKAGE_NAME
+
+    echo "Installing old dependencies in $PROJECT_PATH using yarn... Please wait."
     executeInProject yarn --no-node-version-check --ignore-engines
 
     echo "Unregistering $PACKAGE_NAME"
@@ -118,7 +120,7 @@ cleanup() {
 
   while read -r -t 0; do read -r; done
 
-  exit 0
+  return 0
 }
 
 trap cleanup SIGINT SIGTERM
@@ -129,11 +131,36 @@ while [ ! -d "$DIR/dist" ]; do
   sleep 1
 done
 
+PACKAGE_MAIN=$(node -p "require('$DIR/package.json').main || ''")
+PACKAGE_EXPORTS=$(node -p "require('$DIR/package.json').exports || ''")
+PACKAGE_TYPES=$(node -p "require('$DIR/package.json').types || ''")
+
+if [ -n "$PACKAGE_MAIN" ]; then
+  while [ ! -f "$DIR/$PACKAGE_MAIN" ]; do
+    sleep 1
+  done
+fi
+
+if [ -n "$PACKAGE_EXPORTS" ]; then
+  while [ ! -f "$DIR/$PACKAGE_EXPORTS" ]; do
+    sleep 1
+  done
+fi
+
+if [ -n "$PACKAGE_TYPES" ]; then
+  echo "Waiting for $DIR/$PACKAGE_TYPES..."
+  while [ ! -f "$DIR/$PACKAGE_TYPES" ]; do
+    sleep 1
+  done
+fi
+
 (cd $DIR && yalc publish)
 
 if [ -n "$PROJECT_PATH" ]; then
   echo "Adding $PACKAGE_NAME to $PROJECT_PATH..."
   executeInProject yalc add $PACKAGE_NAME
+
+  echo "Installing dependencies in $PROJECT_PATH using yarn... Please wait."
   executeInProject yarn --no-node-version-check --ignore-engines
 
   if ! grep -q "yalc.lock" "$PROJECT_PATH/.gitignore"; then
@@ -145,10 +172,6 @@ if [ -n "$PROJECT_PATH" ]; then
   fi
 fi
 
-while [ ! -f "$DIR/dist/index.d.ts" ]; do
-  sleep 1
-done
-
-(cd $DIR && yalc push)
+echo "✅ Custom package install complete. Listening for changes. Press CTRL+C and wait for cleanup to finish."
 
 wait

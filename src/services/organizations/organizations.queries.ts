@@ -266,3 +266,9 @@ export const DELETE_ORGANIZATION_LOGO_MUTATION = gql(`
     }
   }
 `);
+
+export const SEND_GENERIC_INVITE_TO_ACCRU_EMAIL_MUTATION = gql(`
+  mutation UserOrganizationSendGenericInviteMail($organizationId: String!, $email: String!) {
+    userOrganizationSendGenericInviteMail(organization_id: $organizationId, email: $email)
+  }
+`);

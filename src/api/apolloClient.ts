@@ -15,6 +15,13 @@ import {
 } from 'graphql';
 import introspectionResult from './gql/schema.graphql.json';
 
+interface IAccruClientParams {
+  baseUrl: string;
+
+  token?: string;
+  getAuthToken?: () => Promise<string>;
+}
+
 // eslint-disable-next-line func-names
 (BigInt.prototype as any).toJSON = function () {
   return this.toString();
@@ -63,12 +70,10 @@ const schema = buildClientSchema(
 );
 
 export const createApolloClient = ({
-  token,
   baseUrl,
-}: {
-  token: string;
-  baseUrl: string;
-}) => {
+  getAuthToken,
+  token,
+}: IAccruClientParams) => {
   const scalarLink = withScalars({
     schema,
     typesMap: {
@@ -78,11 +83,18 @@ export const createApolloClient = ({
 
   const httpLink = createHttpLink({ uri: baseUrl });
 
-  const authLink = setContext((_, { headers }) => {
+  const authLink = setContext(async (_, { headers }) => {
+    const selectedToken =
+      typeof getAuthToken === 'function'
+        ? (await getAuthToken()) || token
+        : token;
+
     return {
       headers: {
         ...headers,
-        authorization: token ? `Bearer ${token}` : '',
+        ...(selectedToken && {
+          authorization: `Bearer ${selectedToken}`,
+        }),
       },
     };
   });
@@ -93,4 +105,5 @@ export const createApolloClient = ({
   });
 };
 
+export type { IAccruClientParams };
 export default createApolloClient;
