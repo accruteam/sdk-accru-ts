@@ -1,4 +1,3 @@
-/* eslint-disable */
 import { expect, beforeAll, beforeEach, describe, it } from 'vitest'
 
 import { OrganizationCustomerStatementInvoiceLine, OrganizationCustomerStatementTransactionLine, UserQuery } from '../src/api/gql/graphql'
@@ -9,7 +8,7 @@ let client: AccruClient
 let user: UserQuery['user']
 let organizationId: string
 
-describe('VendorsService', () => {
+describe('Test', () => {
   beforeAll(async () => {
     const data = await setup()
     client = data.client

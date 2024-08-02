@@ -26,6 +26,8 @@ import {
   UserOrganizationLogoPictureRemoveMutationVariables,
   UserOrganizationQuery,
   UserOrganizationQueryVariables,
+  UserOrganizationSendGenericInviteMailMutation,
+  UserOrganizationSendGenericInviteMailMutationVariables,
   UserOrganizationUpdateMutation,
   UserOrganizationUpdateMutationVariables,
 } from '@api/gql/graphql';
@@ -47,6 +49,7 @@ import {
   GET_ORGANIZATION_COLLABORATOR_INVITES_QUERY,
   DELETE_ORGANIZATION_COLLABORATOR_INVITE_MUTATION,
   RESEND_ORGANIZATION_COLLABORATOR_INVITE_MUTATION,
+  SEND_GENERIC_INVITE_TO_ACCRU_EMAIL_MUTATION,
 } from './organizations.queries';
 
 export default class Organizations {
@@ -188,5 +191,16 @@ export default class Organizations {
     });
 
     return data!.userOrganizationLogoPictureRemove;
+  };
+
+  public sendGenericInviteToAccru = async (
+    variables: UserOrganizationSendGenericInviteMailMutationVariables,
+  ): Promise<Res<UserOrganizationSendGenericInviteMailMutation>> => {
+    const { data } = await this.apolloClient.mutate({
+      mutation: SEND_GENERIC_INVITE_TO_ACCRU_EMAIL_MUTATION,
+      variables,
+    });
+
+    return data!.userOrganizationSendGenericInviteMail;
   };
 }

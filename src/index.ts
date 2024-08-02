@@ -1,6 +1,6 @@
 import { ApolloClient } from '@apollo/client';
 
-import { createApolloClient } from '@api/apolloClient';
+import { IAccruClientParams, createApolloClient } from '@api/apolloClient';
 
 import AccountingProviders from '@services/accountingProviders';
 import Auth from '@services/auth';
@@ -44,8 +44,8 @@ export class AccruClient {
   public readonly users: Users;
   public readonly vendors: Vendors;
 
-  constructor({ token, baseUrl }: { token: string; baseUrl: string }) {
-    this.apolloClient = createApolloClient({ token, baseUrl });
+  constructor(params: IAccruClientParams) {
+    this.apolloClient = createApolloClient(params);
     this.accountingProviders = new AccountingProviders(this.apolloClient);
     this.auth = new Auth(this.apolloClient);
     this.bills = new Bills(this.apolloClient);

@@ -1,16 +1,17 @@
 {
   "compilerOptions": {
+    "noEmit": true,
     "target": "es6",
     "module": "commonjs",
     "outDir": "./dist",
-    "rootDir": "./src",
-    "baseUrl": "./src",
+    "rootDir": "./",
+    "baseUrl": "./",
     "paths": {
-      "@api/*": ["api/*"],
-      "@gql/*": ["api/gql/*"],
-      "@gql": ["api/gql"],
-      "@services/*": ["services/*"],
-      "@utils/*": ["utils/*"]
+      "@api/*": ["./src/api/*"],
+      "@gql/*": ["./src/api/gql/*"],
+      "@gql": ["./src/api/gql"],
+      "@services/*": ["./src/services/*"],
+      "@utils/*": ["./src/utils/*"]
     },
     "strict": true,
     "allowJs": true,
@@ -20,7 +21,5 @@
     "skipLibCheck": true,
     "declaration": true,
     "declarationDir": "./dist/types"
-  },
-  "include": ["./src/**/*"],
-  "exclude": ["node_modules", "dist", "scripts", "tests"]
+  }
 }
