@@ -1,5 +1,11 @@
 # accru-client
 
+## 0.0.48
+
+### Patch Changes
+
+- 110f1aa: disable apollo cache by default
+
 ## 0.0.47
 
 ### Patch Changes
