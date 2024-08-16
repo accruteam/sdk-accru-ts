@@ -3,6 +3,7 @@ import { ApolloClient } from '@apollo/client';
 import { IAccruClientParams, createApolloClient } from '@api/apolloClient';
 
 import AccountingProviders from '@services/accountingProviders';
+import Admin from '@services/admin';
 import Auth from '@services/auth';
 import Bills from '@services/bills';
 import Connections from '@services/connections';
@@ -30,6 +31,7 @@ export class AccruClient {
   public readonly apolloClient: ApolloClient<unknown>;
 
   public readonly accountingProviders: AccountingProviders;
+  public readonly admin: Admin;
   public readonly auth: Auth;
   public readonly bills: Bills;
   public readonly connections: Connections;
@@ -47,6 +49,7 @@ export class AccruClient {
   constructor(params: IAccruClientParams) {
     this.apolloClient = createApolloClient(params);
     this.accountingProviders = new AccountingProviders(this.apolloClient);
+    this.admin = new Admin(this.apolloClient);
     this.auth = new Auth(this.apolloClient);
     this.bills = new Bills(this.apolloClient);
     this.connections = new Connections(this.apolloClient);
