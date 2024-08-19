@@ -1,5 +1,11 @@
 # accru-client
 
+## 0.0.49
+
+### Patch Changes
+
+- 7935edd: add admin features
+
 ## 0.0.48
 
 ### Patch Changes
