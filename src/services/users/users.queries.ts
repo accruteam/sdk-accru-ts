@@ -19,6 +19,7 @@ export const USER_FRAGMENT = gql(`
     language
     phone_number
     timezone
+    is_admin
     updated_at
     created_at
     profile_picture_file {
