@@ -34,7 +34,7 @@ export const ORGANIZATION_QUERY_FRAGMENT = gql(`
     business_tax_code
     timezone
     language
-    subscription_level
+
     archived_at
     created_at
     updated_at
@@ -43,8 +43,35 @@ export const ORGANIZATION_QUERY_FRAGMENT = gql(`
     logo_picture_file {
       public_url
     }
+
     current_email_verification_id
     current_phone_number_verification_id
+
+    subscription_level
+    subscription_data {
+      subscription_level
+      organization_user_seats
+      requires_user_action
+      requires_provider_refresh
+      active_subscriptions {
+          id
+          provider
+          provider_status
+      }
+      active_plans {
+          item_type
+          status
+      }
+      active_modules {
+          item_type
+          status
+      }
+      active_addons {
+          item_type
+          quantity
+          status
+      }
+    }
   }
 `);
 

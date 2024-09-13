@@ -7,17 +7,6 @@ enum AUTH_PROVIDER {
   INTUIT
 }
 
-input AdminOrganizationSubscriptionUpdateAllSchema {
-  from: ORGANIZATION_SUBSCRIPTION
-  subscription_expires_at: DateTime
-  to: ORGANIZATION_SUBSCRIPTION
-}
-
-input AdminOrganizationSubscriptionUpdateSchema {
-  subscription: ORGANIZATION_SUBSCRIPTION
-  subscription_expires_at: DateTime
-}
-
 enum BILL_STATUS {
   OPEN
   PAID
@@ -27,6 +16,258 @@ enum BILL_STATUS {
 The `BigInt` scalar type represents non-fractional signed whole numeric values.
 """
 scalar BigInt
+
+enum COUNTRY_ISO_3 {
+  ABW
+  AFG
+  AGO
+  AIA
+  ALA
+  ALB
+  AND
+  ARE
+  ARG
+  ARM
+  ASM
+  ATA
+  ATF
+  ATG
+  AUS
+  AUT
+  AZE
+  BDI
+  BEL
+  BEN
+  BES
+  BFA
+  BGD
+  BGR
+  BHR
+  BHS
+  BIH
+  BLM
+  BLR
+  BLZ
+  BMU
+  BOL
+  BRA
+  BRB
+  BRN
+  BTN
+  BVT
+  BWA
+  CAF
+  CAN
+  CCK
+  CHE
+  CHL
+  CHN
+  CIV
+  CMR
+  COD
+  COG
+  COK
+  COL
+  COM
+  CPV
+  CRI
+  CUB
+  CUW
+  CXR
+  CYM
+  CYP
+  CZE
+  DEU
+  DJI
+  DMA
+  DNK
+  DOM
+  DZA
+  ECU
+  EGY
+  ERI
+  ESH
+  ESP
+  EST
+  ETH
+  FIN
+  FJI
+  FLK
+  FRA
+  FRO
+  FSM
+  GAB
+  GBR
+  GEO
+  GGY
+  GHA
+  GIB
+  GIN
+  GLP
+  GMB
+  GNB
+  GNQ
+  GRC
+  GRD
+  GRL
+  GTM
+  GUF
+  GUM
+  GUY
+  HKG
+  HMD
+  HND
+  HRV
+  HTI
+  HUN
+  IDN
+  IMN
+  IND
+  IOT
+  IRL
+  IRN
+  IRQ
+  ISL
+  ISR
+  ITA
+  JAM
+  JEY
+  JOR
+  JPN
+  KAZ
+  KEN
+  KGZ
+  KHM
+  KIR
+  KNA
+  KOR
+  KWT
+  LAO
+  LBN
+  LBR
+  LBY
+  LCA
+  LIE
+  LKA
+  LSO
+  LTU
+  LUX
+  LVA
+  MAC
+  MAF
+  MAR
+  MCO
+  MDA
+  MDG
+  MDV
+  MEX
+  MHL
+  MKD
+  MLI
+  MLT
+  MMR
+  MNE
+  MNG
+  MNP
+  MOZ
+  MRT
+  MSR
+  MTQ
+  MUS
+  MWI
+  MYS
+  MYT
+  NAM
+  NCL
+  NER
+  NFK
+  NGA
+  NIC
+  NIU
+  NLD
+  NOR
+  NPL
+  NRU
+  NZL
+  OMN
+  PAK
+  PAN
+  PCN
+  PER
+  PHL
+  PLW
+  PNG
+  POL
+  PRI
+  PRK
+  PRT
+  PRY
+  PSE
+  PYF
+  QAT
+  REU
+  ROU
+  RUS
+  RWA
+  SAU
+  SDN
+  SEN
+  SGP
+  SGS
+  SHN
+  SJM
+  SLB
+  SLE
+  SLV
+  SMR
+  SOM
+  SPM
+  SRB
+  SSD
+  STP
+  SUR
+  SVK
+  SVN
+  SWE
+  SWZ
+  SXM
+  SYC
+  SYR
+  TCA
+  TCD
+  TGO
+  THA
+  TJK
+  TKL
+  TKM
+  TLS
+  TON
+  TTO
+  TUN
+  TUR
+  TUV
+  TWN
+  TZA
+  UGA
+  UKR
+  UMI
+  URY
+  USA
+  UZB
+  VAT
+  VCT
+  VEN
+  VGB
+  VIR
+  VNM
+  VUT
+  WLF
+  WSM
+  YEM
+  ZAF
+  ZMB
+  ZWE
+}
 
 enum CURRENCY {
   USD
@@ -84,13 +325,20 @@ type Mutation {
   adminOrganizationAcctProviderSynchronizeAll(acct_provider: ACCT_PROVIDER, force_pull: Boolean, pull: Boolean!, push: Boolean!): Int!
   adminOrganizationBillProcess(organization_bill_id: String, organization_id: String!): Int!
   adminOrganizationBillTransactionProcess(organization_bill_transaction_id: String, organization_id: String!): Int!
+  adminOrganizationCouponCreate(data: OrganizationCouponCreateSchema!): OrganizationCoupon!
+  adminOrganizationCouponDelete(organization_coupon_id: String!): OrganizationCoupon!
   adminOrganizationCustomerProcess(organization_customer_id: String, organization_id: String!): Int!
   adminOrganizationCustomerStatementRecalculate(organization_customer_id: String, organization_id: String): DateTime!
   adminOrganizationDelete(organization_id: String!): Organization!
   adminOrganizationInvoiceProcess(organization_id: String!, organization_invoice_id: String): Int!
   adminOrganizationInvoiceTransactionProcess(organization_id: String!, organization_invoice_transaction_id: String): Int!
-  adminOrganizationUpdateAllSubscriptions(data: AdminOrganizationSubscriptionUpdateAllSchema!): Int!
-  adminOrganizationUpdateSubscription(data: AdminOrganizationSubscriptionUpdateSchema!, organization_id: String!): Organization!
+  adminOrganizationManualSubscriptionAddonsSetup(data: OrganizationManualSubscriptionAddonsSetupSchema!): OrganizationSubscription!
+  adminOrganizationManualSubscriptionCancel(organization_subscription_id: String!): OrganizationSubscription!
+  adminOrganizationManualSubscriptionModuleSetup(data: OrganizationManualSubscriptionModuleSetupSchema!): OrganizationSubscription!
+  adminOrganizationManualSubscriptionPlanSetup(data: OrganizationManualSubscriptionPlanSetupSchema!): OrganizationSubscription!
+  adminOrganizationSubscriptionProviderCancelSubscription(organization_subscription_id: String!): OrganizationSubscription!
+  adminOrganizationSubscriptionProviderRefreshSettings(provider: ORGANIZATION_SUBSCRIPTION_PROVIDER!): DateTime!
+  adminOrganizationSubscriptionProviderRefreshSubscription(organization_subscription_id: String!): OrganizationSubscription!
   adminOrganizationVendorProcess(organization_id: String!, organization_vendor_id: String): Int!
   adminUserDelete(user_id: String!): User!
   unconnectedCustomerOrganizationInvoiceGetPDF(acct_provider: ACCT_PROVIDER, email: String!, organization_id: String, organization_invoice_id: String!, token: String!, unique_code: String!): String!
@@ -167,8 +415,6 @@ type Mutation {
   userOrganizationInvoiceUpdate(data: UserOrganizationInvoiceSchema!, organization_id: String!, organization_invoice_id: String!): OrganizationInvoice!
   userOrganizationLeave(organization_id: String!): OrganizationUser!
   userOrganizationLogoPictureRemove(organization_id: String!): Organization!
-  userOrganizationPaymentMethodDelete(organization_id: String!, organization_payment_method_id: String!): OrganizationPaymentMethod!
-  userOrganizationPaymentMethodUpdate(data: UserOrganizationPaymentMethodUpdateSchema!, organization_id: String!, organization_payment_method_id: String!): OrganizationPaymentMethod!
   userOrganizationProjectChangeRequestAccept(organization_id: String!, organization_project_change_request_id: String!, organization_project_id: String!): OrganizationProjectChangeRequest!
   userOrganizationProjectChangeRequestCancel(organization_id: String!, organization_project_change_request_id: String!, organization_project_id: String!): OrganizationProjectChangeRequest!
   userOrganizationProjectChangeRequestCreate(data: OrganizationProjectChangeRequestUpsertSchema!, organization_id: String!, organization_project_id: String!): OrganizationProjectChangeRequest!
@@ -184,6 +430,11 @@ type Mutation {
   userOrganizationReminderSettingGlobalUpdate(organization_id: String!, setting_allow_invoice_due_snooze_reminders: Boolean, setting_allow_invoice_overdue_snooze_reminders: Boolean, setting_send_invoice_due_reminders: Boolean, setting_send_invoice_overdue_reminders: Boolean): Organization!
   userOrganizationReminderSettingUpdate(data: UserOrganizationReminderSettingSchema!, organization_id: String!, organization_reminder_setting_id: String!): OrganizationReminderSetting!
   userOrganizationSendGenericInviteMail(email: String!, organization_id: String!): DateTime!
+  userOrganizationSubscriptionCalculatePricing(data: UserOrganizationSubscriptionCalculatePricingSchema!, organization_id: String!): OrganizationSubscriptionPricing!
+  userOrganizationSubscriptionCancel(organization_id: String!, organization_subscription_id: String!): OrganizationSubscription!
+  userOrganizationSubscriptionCompletePurchase(organization_id: String!, organization_subscription_id: String!, organization_subscription_transaction_id: String!): OrganizationSubscription!
+  userOrganizationSubscriptionGetPrePurchaseTransactionData(organization_id: String!): OrganizationTransactionPreTransactionData!
+  userOrganizationSubscriptionStartPurchase(data: UserOrganizationSubscriptionStartPurchaseSchema!, organization_id: String!): OrganizationSubscriptionTransaction!
   userOrganizationUniqueCodeUpdate(organization_id: String!): Organization!
   userOrganizationUniqueNameUpdate(organization_id: String!): Organization!
   userOrganizationUpdate(data: UserOrganizationUpdateSchema!, organization_id: String!): Organization!
@@ -212,6 +463,13 @@ type Mutation {
   userUpdateData(data: UserUpdateDataSchema!): User!
 }
 
+type NuveiTransactionProviderPreTransactionData {
+  environment: String!
+  merchant_id: String!
+  merchant_site_id: String!
+  transaction_provider: TRANSACTION_PROVIDER!
+}
+
 enum ORGANIZATION_ACCT_PROVIDER_CONN_STATUS {
   CONNECTED
   DISCONNECTED
@@ -224,12 +482,36 @@ enum ORGANIZATION_CONNECTION_STATUS {
   REJECTED
 }
 
+enum ORGANIZATION_COUPON_CAMPAIGN {
+  FOUNDING_FIRST_1OO_ORGANIZATIONS
+  RANDOM_ADMIN_GIVEAWAY
+}
+
+enum ORGANIZATION_COUPON_CATEGORY {
+  ORGANIZATION_SUBSCRIPTION
+}
+
+enum ORGANIZATION_COUPON_STATUS {
+  ACTIVATED
+  AVAILABLE
+  EXPIRED
+}
+
+enum ORGANIZATION_COUPON_SUBDIVISION {
+  ORGANIZATION_SUBSCRIPTION_FOUNDING_PRICING_TIER
+}
+
 enum ORGANIZATION_INVITE_STATUS {
   ACCEPTED
   CANCELED
   EXPIRED
   OPEN
   REJECTED
+}
+
+enum ORGANIZATION_PAYMENT_METHOD_BOUND_MODE {
+  SYSTEM_SUBSCRIPTION_PAYMENT
+  VENDOR_RECEIVING_METHOD_PAYMENT
 }
 
 enum ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE {
@@ -242,6 +524,77 @@ enum ORGANIZATION_SUBSCRIPTION {
   EARLY_ACCESS_PREMIUM
 }
 
+enum ORGANIZATION_SUBSCRIPTION_ADDON_ITEM {
+  ADDITIONAL_USERS_ADDON
+}
+
+enum ORGANIZATION_SUBSCRIPTION_BASE_ITEM {
+  BASIC_PLAN
+  FREE_PLAN
+  PROJECTS_MODULE
+  PRO_PLAN
+}
+
+enum ORGANIZATION_SUBSCRIPTION_ITEM {
+  ADDITIONAL_USERS_ADDON
+  BASIC_PLAN
+  FREE_PLAN
+  PROJECTS_MODULE
+  PRO_PLAN
+}
+
+enum ORGANIZATION_SUBSCRIPTION_ITEM_STATUS {
+  ACTIVE
+  CANCELED
+}
+
+enum ORGANIZATION_SUBSCRIPTION_MODULE_ITEM {
+  PROJECTS_MODULE
+}
+
+enum ORGANIZATION_SUBSCRIPTION_PLAN_ITEM {
+  BASIC_PLAN
+  FREE_PLAN
+  PRO_PLAN
+}
+
+enum ORGANIZATION_SUBSCRIPTION_PRICE_TIER {
+  FOUNDING
+  STANDARD
+}
+
+enum ORGANIZATION_SUBSCRIPTION_PROVIDER {
+  MANUAL
+  NUVEI
+}
+
+enum ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS {
+  ACTIVE
+  CANCELED
+  EXPIRED
+  INACTIVE
+  INITIALIZING
+}
+
+enum ORGANIZATION_SUBSCRIPTION_RENEW_INTERVAL {
+  MONTHLY
+  YEARLY
+}
+
+enum ORGANIZATION_SUBSCRIPTION_STATUS {
+  ACTIVE
+  CANCELED
+  EXPIRED
+  INACTIVE
+  INITIALIZING
+}
+
+enum ORGANIZATION_SUBSCRIPTION_TRANSACTION_PROCEDURE {
+  CHANGE
+  PURCHASE
+  RENEWAL
+}
+
 enum ORGANIZATION_USER_ROLE {
   ADMIN
   EDITOR
@@ -251,7 +604,7 @@ enum ORGANIZATION_USER_ROLE {
 
 type Organization {
   address_city: String
-  address_country_code_iso_3: String
+  address_country_code_iso_3: COUNTRY_ISO_3
   address_lat: Float
   address_line_1: String
   address_line_2: String
@@ -261,7 +614,7 @@ type Organization {
   address_zip_code: String
   archived_at: DateTime
   business_address_city: String
-  business_address_country_code_iso_3: String
+  business_address_country_code_iso_3: COUNTRY_ISO_3
   business_address_lat: Float
   business_address_line_1: String
   business_address_line_2: String
@@ -289,11 +642,12 @@ type Organization {
   setting_allow_invoice_overdue_snooze_reminders: Boolean
   setting_send_invoice_due_reminders: Boolean
   setting_send_invoice_overdue_reminders: Boolean
-  subscription: ORGANIZATION_SUBSCRIPTION
-  subscription_code: String
-  subscription_date: DateTime
-  subscription_expires_at: DateTime
-  subscription_level: Int
+  subscription: ORGANIZATION_SUBSCRIPTION @deprecated(reason: "Use subscription_data instead")
+  subscription_code: String @deprecated(reason: "Use subscription_data instead")
+  subscription_data: OrganizationSubscriptionData
+  subscription_date: DateTime @deprecated(reason: "Use subscription_data instead")
+  subscription_expires_at: DateTime @deprecated(reason: "Use subscription_data instead")
+  subscription_level: Int @deprecated(reason: "Use subscription_data.subscription_level instead")
   timezone: String
   unique_code: String!
   unique_name: String!
@@ -502,7 +856,7 @@ type OrganizationBill {
   unique_code: String!
   updated_at: DateTime!
   vendor_address_city: String
-  vendor_address_country_code_iso_3: String
+  vendor_address_country_code_iso_3: COUNTRY_ISO_3
   vendor_address_lat: Float
   vendor_address_line_1: String
   vendor_address_line_2: String
@@ -596,6 +950,7 @@ type OrganizationBillTransaction {
   started_at: DateTime
   status: TRANSACTION_STATUS
   succeeded_at: DateTime
+  transaction_code: String!
   transaction_date: DateTime!
   transaction_provider: TRANSACTION_PROVIDER!
   updated_at: DateTime!
@@ -646,9 +1001,45 @@ type OrganizationConnectionPaginationEdge {
   node: OrganizationConnection!
 }
 
+type OrganizationCoupon {
+  activated_at: DateTime
+  archived_at: DateTime
+  campaign: ORGANIZATION_COUPON_CAMPAIGN!
+  category: ORGANIZATION_COUPON_CATEGORY!
+  created_at: DateTime!
+  description: String!
+  expires_at: DateTime
+  id: ID!
+  is_activation_unlimited: Boolean!
+  organization_id: String
+  status: ORGANIZATION_COUPON_STATUS!
+  subdivision: ORGANIZATION_COUPON_SUBDIVISION!
+  updated_at: DateTime!
+}
+
+input OrganizationCouponCreateSchema {
+  campaign: ORGANIZATION_COUPON_CAMPAIGN!
+  category: ORGANIZATION_COUPON_CATEGORY!
+  expires_at: DateTime
+  is_activation_unlimited: Boolean!
+  organization_id: String
+  subdivision: ORGANIZATION_COUPON_SUBDIVISION!
+}
+
+type OrganizationCouponPaginationConnection {
+  edges: [OrganizationCouponPaginationEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type OrganizationCouponPaginationEdge {
+  cursor: ConnectionCursor!
+  node: OrganizationCoupon!
+}
+
 type OrganizationCustomer {
   address_city: String
-  address_country_code_iso_3: String
+  address_country_code_iso_3: COUNTRY_ISO_3
   address_lat: Float
   address_line_1: String
   address_line_2: String
@@ -776,7 +1167,7 @@ type OrganizationCustomerStatementInvoiceLineData {
   created_at: DateTime!
   currency_code: CURRENCY!
   customer_address_city: String
-  customer_address_country_code_iso_3: String
+  customer_address_country_code_iso_3: COUNTRY_ISO_3
   customer_address_lat: Float
   customer_address_line_1: String
   customer_address_line_2: String
@@ -858,6 +1249,7 @@ type OrganizationCustomerStatementTransactionLineData {
   started_at: DateTime
   status: TRANSACTION_STATUS
   succeeded_at: DateTime
+  transaction_code: String!
   transaction_date: DateTime!
   transaction_provider: TRANSACTION_PROVIDER!
   unapplied_amount: BigInt!
@@ -908,7 +1300,7 @@ type OrganizationInvoice {
   created_at: DateTime!
   currency_code: CURRENCY!
   customer_address_city: String
-  customer_address_country_code_iso_3: String
+  customer_address_country_code_iso_3: COUNTRY_ISO_3
   customer_address_lat: Float
   customer_address_line_1: String
   customer_address_line_2: String
@@ -1037,6 +1429,7 @@ type OrganizationInvoiceTransaction {
   started_at: DateTime
   status: TRANSACTION_STATUS
   succeeded_at: DateTime
+  transaction_code: String!
   transaction_date: DateTime!
   transaction_provider: TRANSACTION_PROVIDER!
   unapplied_amount: BigInt!
@@ -1056,6 +1449,29 @@ type OrganizationInvoiceTransactionLink {
   updated_at: DateTime!
 }
 
+input OrganizationManualSubscriptionAddonsSetupSchema {
+  addons: [OrganizationManualSubscriptionSetupAddonSchema!]!
+  expires_at: DateTime
+  organization_id: String!
+}
+
+input OrganizationManualSubscriptionModuleSetupSchema {
+  expires_at: DateTime
+  module: ORGANIZATION_SUBSCRIPTION_MODULE_ITEM!
+  organization_id: String!
+}
+
+input OrganizationManualSubscriptionPlanSetupSchema {
+  expires_at: DateTime
+  organization_id: String!
+  plan: ORGANIZATION_SUBSCRIPTION_PLAN_ITEM!
+}
+
+input OrganizationManualSubscriptionSetupAddonSchema {
+  addon: ORGANIZATION_SUBSCRIPTION_ADDON_ITEM!
+  quantity: Float!
+}
+
 type OrganizationPaginationConnection {
   edges: [OrganizationPaginationEdge!]!
   pageInfo: PageInfo!
@@ -1069,15 +1485,41 @@ type OrganizationPaginationEdge {
 
 type OrganizationPaymentMethod {
   archived_at: DateTime
+  billing_address_city: String
+  billing_address_country_code_iso_3: COUNTRY_ISO_3
+  billing_address_line_1: String
+  billing_address_line_2: String
+  billing_address_number: String
+  billing_address_state: String
+  billing_address_zip_code: String
+  billing_email: String
+  billing_first_name: String
+  billing_last_name: String
+  billing_phone_number: String
+  bound_id: String
+  bound_mode: ORGANIZATION_PAYMENT_METHOD_BOUND_MODE
   created_at: DateTime!
   id: ID!
   is_default: Boolean!
   is_enabled: Boolean!
   organization_id: String!
   payment_method: PAYMENT_METHOD!
+  payment_method_info: OrganizationPaymentMethodInfo
   payment_provider: PAYMENT_PROVIDER!
   updated_at: DateTime!
 }
+
+type OrganizationPaymentMethodCreditCardInfo {
+  card_brand: String
+  card_number_masked: String
+  type: PAYMENT_METHOD!
+}
+
+type OrganizationPaymentMethodGenericInfo {
+  type: PAYMENT_METHOD!
+}
+
+union OrganizationPaymentMethodInfo = OrganizationPaymentMethodCreditCardInfo | OrganizationPaymentMethodGenericInfo
 
 type OrganizationProject {
   archived_at: DateTime
@@ -1210,6 +1652,146 @@ type OrganizationReminderSettingPaginationEdge {
   node: OrganizationReminderSetting!
 }
 
+type OrganizationSubscription {
+  canceled_at: DateTime
+  created_at: DateTime!
+  current_period_finishes_at: DateTime
+  current_period_started_at: DateTime
+  expires_at: DateTime
+  has_outdated_price: Boolean!
+  id: ID!
+  items: [OrganizationSubscriptionItem!]!
+  next_renew_at: DateTime
+  organization_coupon_id: String
+  organization_id: String!
+  organization_payment_method: OrganizationPaymentMethod!
+  organization_payment_method_id: String!
+  price_currency: CURRENCY!
+  price_tier: ORGANIZATION_SUBSCRIPTION_PRICE_TIER!
+  price_total_amount: BigInt!
+  provider: ORGANIZATION_SUBSCRIPTION_PROVIDER!
+  provider_error: String
+  provider_last_verified_at: DateTime
+  provider_plan_code: String
+  provider_status: ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS!
+  provider_subscription_code: String
+  renew_interval: ORGANIZATION_SUBSCRIPTION_RENEW_INTERVAL!
+  started_at: DateTime
+  status: ORGANIZATION_SUBSCRIPTION_STATUS!
+  transactions: [OrganizationSubscriptionTransaction!]!
+  updated_at: DateTime!
+}
+
+type OrganizationSubscriptionData {
+  active_addons: [OrganizationSubscriptionItem!]!
+  active_modules: [OrganizationSubscriptionItem!]!
+  active_plans: [OrganizationSubscriptionItem!]!
+  active_subscriptions: [OrganizationSubscription!]!
+  organization_user_seats: Int!
+  requires_provider_refresh: Boolean!
+  requires_user_action: Boolean!
+  subscription_level: Int!
+}
+
+type OrganizationSubscriptionItem {
+  canceled_at: DateTime
+  created_at: DateTime!
+  id: ID!
+  item_type: ORGANIZATION_SUBSCRIPTION_ITEM!
+  organization_subscription_id: String!
+  quantity: Int!
+  started_at: DateTime
+  status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS!
+  unit_price: BigInt!
+  updated_at: DateTime!
+}
+
+type OrganizationSubscriptionPaginationConnection {
+  edges: [OrganizationSubscriptionPaginationEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type OrganizationSubscriptionPaginationEdge {
+  cursor: ConnectionCursor!
+  node: OrganizationSubscription!
+}
+
+type OrganizationSubscriptionPricing {
+  addon_items: [OrganizationSubscriptionPricingAddonItem!]!
+  base_item: OrganizationSubscriptionPricingBaseItem!
+  organization_coupon: OrganizationCoupon
+  organization_coupon_id: String
+  price_currency: CURRENCY!
+  price_tier: ORGANIZATION_SUBSCRIPTION_PRICE_TIER!
+  price_total_amount: BigInt!
+  provider: ORGANIZATION_SUBSCRIPTION_PROVIDER!
+  renew_interval: ORGANIZATION_SUBSCRIPTION_RENEW_INTERVAL!
+}
+
+type OrganizationSubscriptionPricingAddonItem {
+  item_type: ORGANIZATION_SUBSCRIPTION_ADDON_ITEM!
+  quantity: Int!
+  unit_price: BigInt!
+}
+
+type OrganizationSubscriptionPricingBaseItem {
+  item_type: ORGANIZATION_SUBSCRIPTION_BASE_ITEM!
+  quantity: Int!
+  unit_price: BigInt!
+}
+
+type OrganizationSubscriptionTransaction {
+  amount: BigInt!
+  created_at: DateTime!
+  currency: CURRENCY!
+  due_date: DateTime!
+  failed_at: DateTime
+  id: ID!
+  organization_payment_method: OrganizationPaymentMethod!
+  organization_payment_method_id: String!
+  organization_subscription: OrganizationSubscription!
+  organization_subscription_id: String!
+  procedure: ORGANIZATION_SUBSCRIPTION_TRANSACTION_PROCEDURE!
+  provider_transaction_code: String!
+  reverted_at: DateTime
+  started_at: DateTime
+  status: TRANSACTION_STATUS!
+  subscription_item_ids: [String!]!
+  succeeded_at: DateTime
+  transaction_code: String!
+  transaction_date: DateTime!
+  transaction_provider: TRANSACTION_PROVIDER!
+  updated_at: DateTime!
+}
+
+type OrganizationSubscriptionTransactionPaginationConnection {
+  edges: [OrganizationSubscriptionTransactionPaginationEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type OrganizationSubscriptionTransactionPaginationEdge {
+  cursor: ConnectionCursor!
+  node: OrganizationSubscriptionTransaction!
+}
+
+input OrganizationTransactionBillingAddressSchema {
+  billing_address_city: String
+  billing_address_country_code_iso_3: COUNTRY_ISO_3!
+  billing_address_line_1: String
+  billing_address_line_2: String
+  billing_address_number: String
+  billing_address_state: String
+  billing_address_zip_code: String
+  billing_email: String!
+  billing_first_name: String!
+  billing_last_name: String!
+  billing_phone_number: String
+}
+
+union OrganizationTransactionPreTransactionData = NuveiTransactionProviderPreTransactionData
+
 type OrganizationUser {
   archived_at: DateTime
   created_at: DateTime!
@@ -1226,7 +1808,7 @@ type OrganizationUser {
 
 type OrganizationVendor {
   address_city: String
-  address_country_code_iso_3: String
+  address_country_code_iso_3: COUNTRY_ISO_3
   address_lat: Float
   address_line_1: String
   address_line_2: String
@@ -1303,6 +1885,7 @@ enum PAYMENT_METHOD {
 
 enum PAYMENT_PROVIDER {
   MANUAL
+  NUVEI
   QUICKBOOKS
 }
 
@@ -1332,6 +1915,14 @@ type PageInfo {
 
 type Query {
   adminOrganizationAcctProviderSynchronizations(acct_provider: ACCT_PROVIDER, after: ConnectionCursor, before: ConnectionCursor, failed: Boolean, finished: Boolean, first: Int, last: Int, organization_id: String!, skip: Int, sorting: [SortingFieldSchema!], succeeded: Boolean, take: Int): OrganizationAcctProviderConnSynchronizationPaginationConnection!
+  adminOrganizationCoupon(organization_coupon_id: String!): OrganizationCoupon!
+  adminOrganizationCoupons(activated: Boolean, after: ConnectionCursor, before: ConnectionCursor, campaign: ORGANIZATION_COUPON_CAMPAIGN, category: ORGANIZATION_COUPON_CATEGORY, code: String, expired: Boolean, first: Int, is_activation_unlimited: Boolean, last: Int, organization_id: String, skip: Int, sorting: [SortingFieldSchema!], subdivision: ORGANIZATION_COUPON_SUBDIVISION, take: Int): OrganizationCouponPaginationConnection!
+  adminOrganizationManualSubscription(organization_subscription_id: String!): OrganizationSubscription!
+  adminOrganizationManualSubscriptions(after: ConnectionCursor, before: ConnectionCursor, canceled: Boolean, contains_item: ORGANIZATION_SUBSCRIPTION_ITEM, expired: Boolean, first: Int, has_error: Boolean, has_outdated_price: Boolean, last: Int, organization_coupon_id: String, organization_id: String, organization_payment_method_id: String, price_tier: ORGANIZATION_SUBSCRIPTION_PRICE_TIER, provider_plan_code: String, provider_status: ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS, provider_subscription_code: String, renew_interval: ORGANIZATION_SUBSCRIPTION_RENEW_INTERVAL, skip: Int, sorting: [SortingFieldSchema!], started: Boolean, take: Int): OrganizationSubscriptionPaginationConnection!
+  adminOrganizationSubscription(organization_subscription_id: String!): OrganizationSubscription!
+  adminOrganizationSubscriptionTransaction(organization_subscription_transaction_id: String!): OrganizationSubscriptionTransaction!
+  adminOrganizationSubscriptionTransactions(after: ConnectionCursor, before: ConnectionCursor, failed: Boolean, first: Int, last: Int, organization_id: String, organization_payment_method_id: String, organization_subscription_id: String, procedure: ORGANIZATION_SUBSCRIPTION_TRANSACTION_PROCEDURE, provider_transaction_code: String, reverted: Boolean, skip: Int, sorting: [SortingFieldSchema!], started: Boolean, succeeded: Boolean, take: Int, transaction_code: String, transaction_end_date: DateTime, transaction_provider: TRANSACTION_PROVIDER, transaction_start_date: DateTime): OrganizationSubscriptionTransactionPaginationConnection!
+  adminOrganizationSubscriptions(after: ConnectionCursor, before: ConnectionCursor, canceled: Boolean, contains_item: ORGANIZATION_SUBSCRIPTION_ITEM, expired: Boolean, first: Int, has_error: Boolean, has_outdated_price: Boolean, last: Int, organization_coupon_id: String, organization_id: String, organization_payment_method_id: String, price_tier: ORGANIZATION_SUBSCRIPTION_PRICE_TIER, provider: ORGANIZATION_SUBSCRIPTION_PROVIDER, provider_plan_code: String, provider_status: ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS, provider_subscription_code: String, renew_interval: ORGANIZATION_SUBSCRIPTION_RENEW_INTERVAL, skip: Int, sorting: [SortingFieldSchema!], started: Boolean, take: Int): OrganizationSubscriptionPaginationConnection!
   adminOrganizations(after: ConnectionCursor, before: ConnectionCursor, email: String, first: Int, id: String, include_archived: Boolean, last: Int, name: String, skip: Int, sorting: [SortingFieldSchema!], take: Int): OrganizationPaginationConnection!
   adminUsers(after: ConnectionCursor, before: ConnectionCursor, email: String, first: Int, first_name: String, id: String, include_archived: Boolean, last: Int, last_name: String, phone_number: String, skip: Int, sorting: [SortingFieldSchema!], take: Int): UserPaginationConnection!
   session: Session!
@@ -1386,6 +1977,8 @@ type Query {
   userOrganizationReceivingMethods(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, organization_id: String!, skip: Int, take: Int): [OrganizationReceivingMethod!]!
   userOrganizationReminderSetting(organization_id: String!, organization_reminder_setting_id: String!): OrganizationReminderSetting!
   userOrganizationReminderSettings(after: ConnectionCursor, before: ConnectionCursor, due_date_mode: REMINDER_DUE_DATE_MODE, first: Int, last: Int, organization_customer_id: String, organization_id: String!, organization_invoice_id: String, organization_project_id: String, skip: Int, sorting: [SortingFieldSchema!], take: Int): OrganizationReminderSettingPaginationConnection!
+  userOrganizationSubscription(organization_id: String!, organization_subscription_id: String!): OrganizationSubscription!
+  userOrganizationSubscriptions(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, organization_id: String!, skip: Int, sorting: [SortingFieldSchema!], take: Int): OrganizationSubscriptionPaginationConnection!
   userOrganizationUserInvite(organization_invite_id: String!): OrganizationInvite!
   userOrganizationUserInvites(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, skip: Int, take: Int): [OrganizationInvite!]!
   userOrganizationVendor(organization_id: String!, organization_vendor_id: String!): OrganizationVendor!
@@ -1459,10 +2052,12 @@ enum TAX_TYPE {
 
 enum TRANSACTION_PROVIDER {
   MANUAL
+  NUVEI
   QUICKBOOKS
 }
 
 enum TRANSACTION_STATUS {
+  EXPIRED
   FAILED
   PENDING
   REVERTED
@@ -1546,7 +2141,7 @@ input UserOrganizationCollaboratorUpdateSchema {
 
 input UserOrganizationCreateSchema {
   address_city: String
-  address_country_code_iso_3: String
+  address_country_code_iso_3: COUNTRY_ISO_3
   address_line_1: String
   address_line_2: String
   address_number: String
@@ -1580,7 +2175,7 @@ input UserOrganizationCustomerContactUpdateSchema {
 
 input UserOrganizationCustomerSchema {
   address_city: String
-  address_country_code_iso_3: String
+  address_country_code_iso_3: COUNTRY_ISO_3
   address_line_1: String
   address_line_2: String
   address_number: String
@@ -1642,11 +2237,6 @@ input UserOrganizationInvoiceSchema {
   total_amount: BigInt!
 }
 
-input UserOrganizationPaymentMethodUpdateSchema {
-  is_default: Boolean!
-  is_enabled: Boolean!
-}
-
 input UserOrganizationProjectCreateSchema {
   budget_amount: BigInt!
   budget_currency_code: CURRENCY!
@@ -1681,9 +2271,34 @@ input UserOrganizationReminderSettingSchema {
   selected_hour: Int!
 }
 
+input UserOrganizationSubscriptionCalculatePricingAddonItemSchema {
+  item_type: ORGANIZATION_SUBSCRIPTION_ADDON_ITEM!
+  quantity: Int!
+}
+
+input UserOrganizationSubscriptionCalculatePricingSchema {
+  addon_items: [UserOrganizationSubscriptionCalculatePricingAddonItemSchema!]!
+  base_item: ORGANIZATION_SUBSCRIPTION_BASE_ITEM!
+  currency: CURRENCY!
+  organization_coupon_code: String
+  organization_coupon_id: String
+  renew_interval: ORGANIZATION_SUBSCRIPTION_RENEW_INTERVAL!
+}
+
+input UserOrganizationSubscriptionStartPurchaseSchema {
+  addon_items: [UserOrganizationSubscriptionCalculatePricingAddonItemSchema!]!
+  base_item: ORGANIZATION_SUBSCRIPTION_BASE_ITEM!
+  billing_address: OrganizationTransactionBillingAddressSchema
+  calculated_total_amount: BigInt!
+  currency: CURRENCY!
+  organization_coupon_code: String
+  organization_coupon_id: String
+  renew_interval: ORGANIZATION_SUBSCRIPTION_RENEW_INTERVAL!
+}
+
 input UserOrganizationUpdateSchema {
   address_city: String
-  address_country_code_iso_3: String
+  address_country_code_iso_3: COUNTRY_ISO_3
   address_line_1: String
   address_line_2: String
   address_number: String
@@ -1714,7 +2329,7 @@ input UserOrganizationVendorContactUpdateSchema {
 
 input UserOrganizationVendorSchema {
   address_city: String
-  address_country_code_iso_3: String
+  address_country_code_iso_3: COUNTRY_ISO_3
   address_line_1: String
   address_line_2: String
   address_number: String
