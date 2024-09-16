@@ -8,9 +8,12 @@ export const USER_FRAGMENT = gql(`
       id
       organization_id
       organization {
-        subscription_level
         name
         email
+        subscription_level
+        subscription_data {
+          ...OrganizationSubscriptionDataFragment
+        }
       }
       role
     }

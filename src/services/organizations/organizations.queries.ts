@@ -1,5 +1,32 @@
 import { gql } from '@gql';
 
+export const ORGANIZATION_SUBSCRIPTION_DATA_FRAGMENT = gql(`
+  fragment OrganizationSubscriptionDataFragment on OrganizationSubscriptionData {
+    subscription_level
+    organization_user_seats
+    requires_user_action
+    requires_provider_refresh
+    active_subscriptions {
+        id
+        provider
+        provider_status
+    }
+    active_plans {
+        item_type
+        status
+    }
+    active_modules {
+        item_type
+        status
+    }
+    active_addons {
+        item_type
+        quantity
+        status
+    }
+  }
+`);
+
 export const ORGANIZATION_QUERY_FRAGMENT = gql(`
   fragment OrganizationFragment on Organization {
     id
@@ -49,28 +76,7 @@ export const ORGANIZATION_QUERY_FRAGMENT = gql(`
 
     subscription_level
     subscription_data {
-      subscription_level
-      organization_user_seats
-      requires_user_action
-      requires_provider_refresh
-      active_subscriptions {
-          id
-          provider
-          provider_status
-      }
-      active_plans {
-          item_type
-          status
-      }
-      active_modules {
-          item_type
-          status
-      }
-      active_addons {
-          item_type
-          quantity
-          status
-      }
+      ...OrganizationSubscriptionDataFragment
     }
   }
 `);
