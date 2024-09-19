@@ -13,6 +13,10 @@ import {
   UserOrganizationSubscriptionStartPurchaseMutation,
   UserOrganizationSubscriptionCompletePurchaseMutationVariables,
   UserOrganizationSubscriptionCompletePurchaseMutation,
+  UserOrganizationSubscriptionDefaultPricingSetupQueryVariables,
+  UserOrganizationSubscriptionDefaultPricingSetupQuery,
+  UserOrganizationSubscriptionVerifyCouponMutation,
+  UserOrganizationSubscriptionVerifyCouponMutationVariables,
 } from '@api/gql/graphql';
 import { ApolloClient } from '@apollo/client';
 import { Res } from '@utils/response.type';
@@ -21,13 +25,15 @@ import {
   processResponseAsList,
 } from '@utils/processResponseAsList';
 import {
-  ORGANIZATION_SUBSCRIPTION_CALCULATE_PRICING,
-  ORGANIZATION_SUBSCRIPTION_CANCEL_QUERY,
+  ORGANIZATION_SUBSCRIPTION_CALCULATE_PRICING_MUTATION,
+  ORGANIZATION_SUBSCRIPTION_CANCEL_MUTATION,
   ORGANIZATION_SUBSCRIPTION_COMPLETE_PURCHASE,
+  ORGANIZATION_SUBSCRIPTION_GET_DEFAULT_PRICING_QUERY,
   ORGANIZATION_SUBSCRIPTION_GET_MANY_QUERY,
   ORGANIZATION_SUBSCRIPTION_GET_ONE_QUERY,
-  ORGANIZATION_SUBSCRIPTION_GET_PRE_TRANSACTION_DATA,
-  ORGANIZATION_SUBSCRIPTION_START_PURCHASE,
+  ORGANIZATION_SUBSCRIPTION_GET_PRE_TRANSACTION_DATA_MUTATION,
+  ORGANIZATION_SUBSCRIPTION_START_PURCHASE_MUTATION,
+  ORGANIZATION_SUBSCRIPTION_VERIFY_COUPON_MUTATION,
 } from './subscriptions.queries';
 
 export default class Subscriptions {
@@ -59,22 +65,33 @@ export default class Subscriptions {
     return data.userOrganizationSubscription;
   };
 
-  public cancel = async (
-    variables: UserOrganizationSubscriptionCancelMutationVariables,
-  ): Promise<Res<UserOrganizationSubscriptionCancelMutation>> => {
-    const { data } = await this.apolloClient.mutate({
-      mutation: ORGANIZATION_SUBSCRIPTION_CANCEL_QUERY,
+  public getDefaultPricing = async (
+    variables: UserOrganizationSubscriptionDefaultPricingSetupQueryVariables,
+  ): Promise<Res<UserOrganizationSubscriptionDefaultPricingSetupQuery>> => {
+    const { data } = await this.apolloClient.query({
+      query: ORGANIZATION_SUBSCRIPTION_GET_DEFAULT_PRICING_QUERY,
       variables,
     });
 
-    return data!.userOrganizationSubscriptionCancel;
+    return data.userOrganizationSubscriptionDefaultPricingSetup;
+  };
+
+  public verifyCoupon = async (
+    variables: UserOrganizationSubscriptionVerifyCouponMutationVariables,
+  ): Promise<Res<UserOrganizationSubscriptionVerifyCouponMutation>> => {
+    const { data } = await this.apolloClient.mutate({
+      mutation: ORGANIZATION_SUBSCRIPTION_VERIFY_COUPON_MUTATION,
+      variables,
+    });
+
+    return data!.userOrganizationSubscriptionVerifyCoupon;
   };
 
   public calculatePricing = async (
     variables: UserOrganizationSubscriptionCalculatePricingMutationVariables,
   ): Promise<Res<UserOrganizationSubscriptionCalculatePricingMutation>> => {
     const { data } = await this.apolloClient.mutate({
-      mutation: ORGANIZATION_SUBSCRIPTION_CALCULATE_PRICING,
+      mutation: ORGANIZATION_SUBSCRIPTION_CALCULATE_PRICING_MUTATION,
       variables,
     });
 
@@ -87,7 +104,7 @@ export default class Subscriptions {
     Res<UserOrganizationSubscriptionGetPrePurchaseTransactionDataMutation>
   > => {
     const { data } = await this.apolloClient.mutate({
-      mutation: ORGANIZATION_SUBSCRIPTION_GET_PRE_TRANSACTION_DATA,
+      mutation: ORGANIZATION_SUBSCRIPTION_GET_PRE_TRANSACTION_DATA_MUTATION,
       variables,
     });
 
@@ -98,7 +115,7 @@ export default class Subscriptions {
     variables: UserOrganizationSubscriptionStartPurchaseMutationVariables,
   ): Promise<Res<UserOrganizationSubscriptionStartPurchaseMutation>> => {
     const { data } = await this.apolloClient.mutate({
-      mutation: ORGANIZATION_SUBSCRIPTION_START_PURCHASE,
+      mutation: ORGANIZATION_SUBSCRIPTION_START_PURCHASE_MUTATION,
       variables,
     });
 
@@ -114,5 +131,16 @@ export default class Subscriptions {
     });
 
     return data!.userOrganizationSubscriptionCompletePurchase;
+  };
+
+  public cancel = async (
+    variables: UserOrganizationSubscriptionCancelMutationVariables,
+  ): Promise<Res<UserOrganizationSubscriptionCancelMutation>> => {
+    const { data } = await this.apolloClient.mutate({
+      mutation: ORGANIZATION_SUBSCRIPTION_CANCEL_MUTATION,
+      variables,
+    });
+
+    return data!.userOrganizationSubscriptionCancel;
   };
 }

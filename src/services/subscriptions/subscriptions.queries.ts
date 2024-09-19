@@ -1,4 +1,4 @@
-import { gql } from '@api/gql';
+import { gql } from '@gql';
 
 export const ORGANIZATION_PAYMENT_METHOD_FRAGMENT = gql(`
   fragment OrganizationPaymentMethodFragment on OrganizationPaymentMethod {
@@ -62,7 +62,7 @@ export const ORGANIZATION_SUBSCRIPTION_TRANSACTION_FRAGMENT = gql(`
 `);
 
 export const ORGANIZATION_COUPON_FRAGMENT = gql(`
-  fragment organizationCoupon on OrganizationCoupon {
+  fragment OrganizationCouponFragment on OrganizationCoupon {
     id
     campaign
     category
@@ -75,7 +75,8 @@ export const ORGANIZATION_COUPON_FRAGMENT = gql(`
     updated_at
     status
     organization_id
-    description
+    category_description
+    subdivision_description
   }
 `);
 
@@ -91,32 +92,6 @@ export const ORGANIZATION_SUBSCRIPTION_ITEM_FRAGMENT = gql(`
     updated_at
     status
     organization_subscription_id
-  }
-`);
-
-export const ORGANIZATION_SUBSCRIPTION_PRICING_FRAGMENT = gql(`
-  fragment OrganizationSubscriptionPricingFragment on OrganizationSubscriptionPricing {
-    price_tier
-    price_currency
-    price_total_amount
-    renew_interval
-    provider
-
-    base_item {
-        item_type
-        quantity
-        unit_price
-    }
-    addon_items {
-        item_type
-        quantity
-        unit_price
-    }
-
-    organization_coupon_id
-    organization_coupon {
-        ...organizationCoupon
-    }
   }
 `);
 
@@ -162,9 +137,90 @@ export const ORGANIZATION_SUBSCRIPTION_FRAGMENT = gql(`
   }
 `);
 
+export const ORGANIZATION_SUBSCRIPTION_DEFAULT_PRICING_FRAGMENT = gql(`
+  fragment OrganizationSubscriptionDefaultPricingFragment on OrganizationSubscriptionDefaultPricing {
+    organization_id
+    organization_coupon_id
+    organization_coupon {
+      ...OrganizationCouponFragment
+    }
+
+    price_tier
+    price_currency
+
+    options {
+      renew_interval
+      options {
+        base_item {
+          item_type
+          is_enabled
+          is_purchase_enabled
+          additional_organization_seats
+          original_unit_price
+          unit_price
+        }
+        available_addon_items {
+          item_type
+          is_enabled
+          is_purchase_enabled
+          original_unit_price
+          unit_price
+        }
+      }
+    }
+  }
+`);
+
+export const ORGANIZATION_SUBSCRIPTION_CALCULATED_PRICING_FRAGMENT = gql(`
+  fragment OrganizationSubscriptionCalculatedPricingFragment on OrganizationSubscriptionCalculatedPricing {
+    organization_id
+    organization_coupon_id
+    organization_coupon {
+      ...OrganizationCouponFragment
+    }
+    price_tier
+    price_currency
+    renew_interval
+    selected_base_item {
+      item_type
+      original_unit_price
+      unit_price
+    }
+    selected_addon_items {
+      item_type
+      quantity
+      original_unit_price
+      unit_price
+    }
+    original_price_total_amount
+    price_total_amount
+    provider
+  }
+`);
+
 export const ORGANIZATION_SUBSCRIPTION_GET_MANY_QUERY = gql(`
   query UserOrganizationSubscriptions(
     $organizationId: String!
+    $organizationCouponId: String
+    $organizationPaymentMethodId: String
+
+    $provider: ORGANIZATION_SUBSCRIPTION_PROVIDER
+    $providerStatus: ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS
+    $providerPlanCode: String
+    $providerSubscriptionCode: String
+
+    $containsItem: ORGANIZATION_SUBSCRIPTION_ITEM
+
+    $renewInterval: ORGANIZATION_SUBSCRIPTION_RENEW_INTERVAL
+
+    $priceTier: ORGANIZATION_SUBSCRIPTION_PRICE_TIER
+
+    $started: Boolean
+    $canceled: Boolean
+    $expired: Boolean
+
+    $hasOutdatedPrice: Boolean
+    $hasError: Boolean
 
     $skip: Int
     $take: Int
@@ -179,6 +235,26 @@ export const ORGANIZATION_SUBSCRIPTION_GET_MANY_QUERY = gql(`
   ) {
     userOrganizationSubscriptions(
       organization_id: $organizationId
+      organization_coupon_id: $organizationCouponId
+      organization_payment_method_id: $organizationPaymentMethodId
+
+      provider: $provider
+      provider_status: $providerStatus
+      provider_plan_code: $providerPlanCode
+      provider_subscription_code: $providerSubscriptionCode
+
+      contains_item: $containsItem
+
+      renew_interval: $renewInterval
+
+      price_tier: $priceTier
+
+      started: $started
+      canceled: $canceled
+      expired: $expired
+
+      has_outdated_price: $hasOutdatedPrice
+      has_error: $hasError
 
       skip: $skip
       take: $take
@@ -222,35 +298,34 @@ export const ORGANIZATION_SUBSCRIPTION_GET_ONE_QUERY = gql(`
   }
 `);
 
-export const ORGANIZATION_SUBSCRIPTION_CANCEL_QUERY = gql(`
-  mutation UserOrganizationSubscriptionCancel(
-    $organizationId: String!
-    $subscriptionId: String!
-  ) {
-    userOrganizationSubscriptionCancel(
+export const ORGANIZATION_SUBSCRIPTION_GET_DEFAULT_PRICING_QUERY = gql(`
+  query UserOrganizationSubscriptionDefaultPricingSetup($organizationId: String!, $organizationCouponId: String) {
+    userOrganizationSubscriptionDefaultPricingSetup(
       organization_id: $organizationId
-      organization_subscription_id: $subscriptionId
+      organization_coupon_id: $organizationCouponId
     ) {
-      ...OrganizationSubscriptionFragment
+      ...OrganizationSubscriptionDefaultPricingFragment
     }
   }
 `);
 
-export const ORGANIZATION_SUBSCRIPTION_CALCULATE_PRICING = gql(`
-  mutation UserOrganizationSubscriptionCalculatePricing(
-    $organizationId: String!
-    $data: UserOrganizationSubscriptionCalculatePricingSchema!
-  ) {
-    userOrganizationSubscriptionCalculatePricing(
-      organization_id: $organizationId
-      data: $data
-    ) {
-      ...OrganizationSubscriptionPricingFragment
+export const ORGANIZATION_SUBSCRIPTION_VERIFY_COUPON_MUTATION = gql(`
+  mutation UserOrganizationSubscriptionVerifyCoupon($organizationId: String!, $code: String!) {
+    userOrganizationSubscriptionVerifyCoupon(organization_id: $organizationId, code: $code) {
+      ...OrganizationCouponFragment
     }
   }
 `);
 
-export const ORGANIZATION_SUBSCRIPTION_GET_PRE_TRANSACTION_DATA = gql(`
+export const ORGANIZATION_SUBSCRIPTION_CALCULATE_PRICING_MUTATION = gql(`
+  mutation UserOrganizationSubscriptionCalculatePricing($data: UserOrganizationSubscriptionCalculatePricingSchema!, $organizationId: String!) {
+    userOrganizationSubscriptionCalculatePricing(data: $data, organization_id: $organizationId) {
+      ...OrganizationSubscriptionCalculatedPricingFragment
+    }
+  }
+`);
+
+export const ORGANIZATION_SUBSCRIPTION_GET_PRE_TRANSACTION_DATA_MUTATION = gql(`
   mutation UserOrganizationSubscriptionGetPrePurchaseTransactionData(
     $organizationId: String!
   ) {
@@ -260,14 +335,14 @@ export const ORGANIZATION_SUBSCRIPTION_GET_PRE_TRANSACTION_DATA = gql(`
       ... on NuveiTransactionProviderPreTransactionData {
         transaction_provider
         environment
-        merchant_id,
+        merchant_id
         merchant_site_id
       }
     }
   }
 `);
 
-export const ORGANIZATION_SUBSCRIPTION_START_PURCHASE = gql(`
+export const ORGANIZATION_SUBSCRIPTION_START_PURCHASE_MUTATION = gql(`
   mutation UserOrganizationSubscriptionStartPurchase(
     $organizationId: String!
     $data: UserOrganizationSubscriptionStartPurchaseSchema!
@@ -291,6 +366,20 @@ export const ORGANIZATION_SUBSCRIPTION_COMPLETE_PURCHASE = gql(`
       organization_id: $organizationId
       organization_subscription_id: $organizationSubscriptionId
       organization_subscription_transaction_id: $organizationSubscriptionTransactionId
+    ) {
+      ...OrganizationSubscriptionFragment
+    }
+  }
+`);
+
+export const ORGANIZATION_SUBSCRIPTION_CANCEL_MUTATION = gql(`
+  mutation UserOrganizationSubscriptionCancel(
+    $organizationId: String!
+    $organizationSubscriptionId: String!
+  ) {
+    userOrganizationSubscriptionCancel(
+      organization_id: $organizationId
+      organization_subscription_id: $organizationSubscriptionId
     ) {
       ...OrganizationSubscriptionFragment
     }
