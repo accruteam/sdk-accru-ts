@@ -544,6 +544,17 @@ enum ORGANIZATION_SUBSCRIPTION_ITEM {
   PRO_PLAN
 }
 
+enum ORGANIZATION_SUBSCRIPTION_ITEM_CATEGORY {
+  ADDON
+  MODULE
+  PLAN
+}
+
+enum ORGANIZATION_SUBSCRIPTION_ITEM_CLASSIFICATION {
+  ADDON
+  BASE
+}
+
 enum ORGANIZATION_SUBSCRIPTION_ITEM_STATUS {
   ACTIVE
   CANCELED
@@ -551,6 +562,13 @@ enum ORGANIZATION_SUBSCRIPTION_ITEM_STATUS {
 
 enum ORGANIZATION_SUBSCRIPTION_MODULE_ITEM {
   PROJECTS_MODULE
+}
+
+enum ORGANIZATION_SUBSCRIPTION_PAYMENT_STATUS {
+  CURRENT
+  OVERDUE
+  PENDING
+  REQUIRES_ACTION
 }
 
 enum ORGANIZATION_SUBSCRIPTION_PLAN_ITEM {
@@ -585,7 +603,6 @@ enum ORGANIZATION_SUBSCRIPTION_RENEW_INTERVAL {
 enum ORGANIZATION_SUBSCRIPTION_STATUS {
   ACTIVE
   CANCELED
-  EXPIRED
   INACTIVE
   INITIALIZING
 }
@@ -1453,18 +1470,18 @@ type OrganizationInvoiceTransactionLink {
 
 input OrganizationManualSubscriptionAddonsSetupSchema {
   addons: [OrganizationManualSubscriptionSetupAddonSchema!]!
-  expires_at: DateTime
+  ends_at: DateTime
   organization_id: String!
 }
 
 input OrganizationManualSubscriptionModuleSetupSchema {
-  expires_at: DateTime
+  ends_at: DateTime
   module: ORGANIZATION_SUBSCRIPTION_MODULE_ITEM!
   organization_id: String!
 }
 
 input OrganizationManualSubscriptionPlanSetupSchema {
-  expires_at: DateTime
+  ends_at: DateTime
   organization_id: String!
   plan: ORGANIZATION_SUBSCRIPTION_PLAN_ITEM!
 }
@@ -1657,17 +1674,17 @@ type OrganizationReminderSettingPaginationEdge {
 type OrganizationSubscription {
   canceled_at: DateTime
   created_at: DateTime!
-  current_period_finishes_at: DateTime
-  current_period_started_at: DateTime
-  expires_at: DateTime
+  current_period_ends_at: DateTime
+  current_period_starts_at: DateTime
   has_outdated_price: Boolean!
   id: ID!
   items: [OrganizationSubscriptionItem!]!
-  next_renew_at: DateTime
+  next_payment_at: DateTime
   organization_coupon_id: String
   organization_id: String!
   organization_payment_method: OrganizationPaymentMethod!
   organization_payment_method_id: String!
+  payment_status: ORGANIZATION_SUBSCRIPTION_PAYMENT_STATUS
   price_currency: CURRENCY!
   price_tier: ORGANIZATION_SUBSCRIPTION_PRICE_TIER!
   price_total_amount: BigInt!
@@ -1678,7 +1695,6 @@ type OrganizationSubscription {
   provider_status: ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS!
   provider_subscription_code: String
   renew_interval: ORGANIZATION_SUBSCRIPTION_RENEW_INTERVAL!
-  started_at: DateTime
   status: ORGANIZATION_SUBSCRIPTION_STATUS!
   transactions: [OrganizationSubscriptionTransaction!]!
   updated_at: DateTime!
@@ -1706,6 +1722,7 @@ type OrganizationSubscriptionCalculatedPricingAddonItem {
 }
 
 type OrganizationSubscriptionCalculatedPricingBaseItem {
+  category: ORGANIZATION_SUBSCRIPTION_ITEM_CATEGORY!
   item_type: ORGANIZATION_SUBSCRIPTION_BASE_ITEM!
   original_unit_price: BigInt!
   unit_price: BigInt!
@@ -1737,8 +1754,7 @@ type OrganizationSubscriptionDefaultPricingOption {
 }
 
 type OrganizationSubscriptionDefaultPricingOptionAddonItem {
-  is_enabled: Boolean!
-  is_purchase_enabled: Boolean!
+  is_purchase_available: Boolean!
   item_type: ORGANIZATION_SUBSCRIPTION_ADDON_ITEM!
   original_unit_price: BigInt!
   unit_price: BigInt!
@@ -1746,8 +1762,11 @@ type OrganizationSubscriptionDefaultPricingOptionAddonItem {
 
 type OrganizationSubscriptionDefaultPricingOptionBaseItem {
   additional_organization_seats: Int!
-  is_enabled: Boolean!
-  is_purchase_enabled: Boolean!
+  category: ORGANIZATION_SUBSCRIPTION_ITEM_CATEGORY!
+  current_item_active_until: DateTime
+  current_item_pending_purchase_subscription: OrganizationSubscription
+  current_item_subscription: OrganizationSubscription
+  is_purchase_available: Boolean!
   item_type: ORGANIZATION_SUBSCRIPTION_BASE_ITEM!
   original_unit_price: BigInt!
   unit_price: BigInt!
@@ -1760,6 +1779,8 @@ type OrganizationSubscriptionDefaultPricingRenewIntervalOption {
 
 type OrganizationSubscriptionItem {
   canceled_at: DateTime
+  category: ORGANIZATION_SUBSCRIPTION_ITEM_CATEGORY!
+  classification: ORGANIZATION_SUBSCRIPTION_ITEM_CLASSIFICATION!
   created_at: DateTime!
   id: ID!
   item_type: ORGANIZATION_SUBSCRIPTION_ITEM!
@@ -1791,8 +1812,10 @@ type OrganizationSubscriptionTransaction {
   id: ID!
   organization_payment_method: OrganizationPaymentMethod!
   organization_payment_method_id: String!
-  organization_subscription: OrganizationSubscription!
   organization_subscription_id: String!
+  period_ends_at: DateTime
+  period_sequence: Int
+  period_starts_at: DateTime
   procedure: ORGANIZATION_SUBSCRIPTION_TRANSACTION_PROCEDURE!
   provider_transaction_code: String!
   reverted_at: DateTime
@@ -1837,6 +1860,7 @@ type OrganizationUser {
   archived_at: DateTime
   created_at: DateTime!
   id: ID!
+  is_current_organization_user_seat_available: Boolean
   organization: Organization!
   organization_id: String!
   payload: JSON
@@ -1959,11 +1983,11 @@ type Query {
   adminOrganizationCoupon(organization_coupon_id: String!): OrganizationCoupon!
   adminOrganizationCoupons(activated: Boolean, after: ConnectionCursor, before: ConnectionCursor, campaign: ORGANIZATION_COUPON_CAMPAIGN, category: ORGANIZATION_COUPON_CATEGORY, code: String, expired: Boolean, first: Int, is_activation_unlimited: Boolean, last: Int, organization_id: String, skip: Int, sorting: [SortingFieldSchema!], subdivision: ORGANIZATION_COUPON_SUBDIVISION, take: Int): OrganizationCouponPaginationConnection!
   adminOrganizationManualSubscription(organization_subscription_id: String!): OrganizationSubscription!
-  adminOrganizationManualSubscriptions(after: ConnectionCursor, before: ConnectionCursor, canceled: Boolean, contains_item: ORGANIZATION_SUBSCRIPTION_ITEM, expired: Boolean, first: Int, has_error: Boolean, has_outdated_price: Boolean, last: Int, organization_coupon_id: String, organization_payment_method_id: String, price_tier: ORGANIZATION_SUBSCRIPTION_PRICE_TIER, provider_plan_code: String, provider_status: ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS, provider_subscription_code: String, renew_interval: ORGANIZATION_SUBSCRIPTION_RENEW_INTERVAL, skip: Int, sorting: [SortingFieldSchema!], started: Boolean, take: Int): OrganizationSubscriptionPaginationConnection!
+  adminOrganizationManualSubscriptions(after: ConnectionCursor, before: ConnectionCursor, canceled: Boolean, contains_item: ORGANIZATION_SUBSCRIPTION_ITEM, expired: Boolean, first: Int, has_error: Boolean, has_outdated_price: Boolean, last: Int, organization_coupon_id: String, organization_payment_method_id: String, price_tier: ORGANIZATION_SUBSCRIPTION_PRICE_TIER, provider_plan_code: String, provider_status: ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS, provider_subscription_code: String, renew_interval: ORGANIZATION_SUBSCRIPTION_RENEW_INTERVAL, skip: Int, sorting: [SortingFieldSchema!], started: Boolean, status: ORGANIZATION_SUBSCRIPTION_STATUS, take: Int): OrganizationSubscriptionPaginationConnection!
   adminOrganizationSubscription(organization_subscription_id: String!): OrganizationSubscription!
   adminOrganizationSubscriptionTransaction(organization_subscription_transaction_id: String!): OrganizationSubscriptionTransaction!
   adminOrganizationSubscriptionTransactions(after: ConnectionCursor, before: ConnectionCursor, failed: Boolean, first: Int, last: Int, organization_id: String, organization_payment_method_id: String, organization_subscription_id: String, procedure: ORGANIZATION_SUBSCRIPTION_TRANSACTION_PROCEDURE, provider_transaction_code: String, reverted: Boolean, skip: Int, sorting: [SortingFieldSchema!], started: Boolean, succeeded: Boolean, take: Int, transaction_code: String, transaction_end_date: DateTime, transaction_provider: TRANSACTION_PROVIDER, transaction_start_date: DateTime): OrganizationSubscriptionTransactionPaginationConnection!
-  adminOrganizationSubscriptions(after: ConnectionCursor, before: ConnectionCursor, canceled: Boolean, contains_item: ORGANIZATION_SUBSCRIPTION_ITEM, expired: Boolean, first: Int, has_error: Boolean, has_outdated_price: Boolean, last: Int, organization_coupon_id: String, organization_payment_method_id: String, price_tier: ORGANIZATION_SUBSCRIPTION_PRICE_TIER, provider: ORGANIZATION_SUBSCRIPTION_PROVIDER, provider_plan_code: String, provider_status: ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS, provider_subscription_code: String, renew_interval: ORGANIZATION_SUBSCRIPTION_RENEW_INTERVAL, skip: Int, sorting: [SortingFieldSchema!], started: Boolean, take: Int): OrganizationSubscriptionPaginationConnection!
+  adminOrganizationSubscriptions(after: ConnectionCursor, before: ConnectionCursor, canceled: Boolean, contains_item: ORGANIZATION_SUBSCRIPTION_ITEM, expired: Boolean, first: Int, has_error: Boolean, has_outdated_price: Boolean, last: Int, organization_coupon_id: String, organization_payment_method_id: String, price_tier: ORGANIZATION_SUBSCRIPTION_PRICE_TIER, provider: ORGANIZATION_SUBSCRIPTION_PROVIDER, provider_plan_code: String, provider_status: ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS, provider_subscription_code: String, renew_interval: ORGANIZATION_SUBSCRIPTION_RENEW_INTERVAL, skip: Int, sorting: [SortingFieldSchema!], started: Boolean, status: ORGANIZATION_SUBSCRIPTION_STATUS, take: Int): OrganizationSubscriptionPaginationConnection!
   adminOrganizations(after: ConnectionCursor, before: ConnectionCursor, email: String, first: Int, id: String, include_archived: Boolean, last: Int, name: String, skip: Int, sorting: [SortingFieldSchema!], take: Int): OrganizationPaginationConnection!
   adminUsers(after: ConnectionCursor, before: ConnectionCursor, email: String, first: Int, first_name: String, id: String, include_archived: Boolean, last: Int, last_name: String, phone_number: String, skip: Int, sorting: [SortingFieldSchema!], take: Int): UserPaginationConnection!
   session: Session!
@@ -2020,7 +2044,7 @@ type Query {
   userOrganizationReminderSettings(after: ConnectionCursor, before: ConnectionCursor, due_date_mode: REMINDER_DUE_DATE_MODE, first: Int, last: Int, organization_customer_id: String, organization_id: String!, organization_invoice_id: String, organization_project_id: String, skip: Int, sorting: [SortingFieldSchema!], take: Int): OrganizationReminderSettingPaginationConnection!
   userOrganizationSubscription(organization_id: String!, organization_subscription_id: String!): OrganizationSubscription!
   userOrganizationSubscriptionDefaultPricingSetup(organization_coupon_id: String, organization_id: String!): OrganizationSubscriptionDefaultPricing!
-  userOrganizationSubscriptions(after: ConnectionCursor, before: ConnectionCursor, canceled: Boolean, contains_item: ORGANIZATION_SUBSCRIPTION_ITEM, expired: Boolean, first: Int, has_error: Boolean, has_outdated_price: Boolean, last: Int, organization_coupon_id: String, organization_id: String!, organization_payment_method_id: String, price_tier: ORGANIZATION_SUBSCRIPTION_PRICE_TIER, provider: ORGANIZATION_SUBSCRIPTION_PROVIDER, provider_plan_code: String, provider_status: ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS, provider_subscription_code: String, renew_interval: ORGANIZATION_SUBSCRIPTION_RENEW_INTERVAL, skip: Int, sorting: [SortingFieldSchema!], started: Boolean, take: Int): OrganizationSubscriptionPaginationConnection!
+  userOrganizationSubscriptions(after: ConnectionCursor, before: ConnectionCursor, canceled: Boolean, contains_item: ORGANIZATION_SUBSCRIPTION_ITEM, expired: Boolean, first: Int, has_error: Boolean, has_outdated_price: Boolean, last: Int, organization_coupon_id: String, organization_id: String!, organization_payment_method_id: String, price_tier: ORGANIZATION_SUBSCRIPTION_PRICE_TIER, provider: ORGANIZATION_SUBSCRIPTION_PROVIDER, provider_plan_code: String, provider_status: ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS, provider_subscription_code: String, renew_interval: ORGANIZATION_SUBSCRIPTION_RENEW_INTERVAL, skip: Int, sorting: [SortingFieldSchema!], started: Boolean, status: ORGANIZATION_SUBSCRIPTION_STATUS, take: Int): OrganizationSubscriptionPaginationConnection!
   userOrganizationUserInvite(organization_invite_id: String!): OrganizationInvite!
   userOrganizationUserInvites(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, skip: Int, take: Int): [OrganizationInvite!]!
   userOrganizationVendor(organization_id: String!, organization_vendor_id: String!): OrganizationVendor!

@@ -6,6 +6,8 @@ export const USER_FRAGMENT = gql(`
     email
     organizations {
       id
+      role
+      is_current_organization_user_seat_available
       organization_id
       organization {
         name
@@ -15,7 +17,6 @@ export const USER_FRAGMENT = gql(`
           ...OrganizationSubscriptionDataFragment
         }
       }
-      role
     }
     first_name
     last_name

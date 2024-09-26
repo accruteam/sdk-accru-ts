@@ -53,6 +53,9 @@ export const ORGANIZATION_SUBSCRIPTION_TRANSACTION_FRAGMENT = gql(`
     due_date
     procedure
     subscription_item_ids
+    period_ends_at
+    period_sequence
+    period_starts_at
     created_at
     updated_at
     status
@@ -91,6 +94,8 @@ export const ORGANIZATION_SUBSCRIPTION_ITEM_FRAGMENT = gql(`
     created_at
     updated_at
     status
+    category
+    classification
     organization_subscription_id
   }
 `);
@@ -101,13 +106,11 @@ export const ORGANIZATION_SUBSCRIPTION_FRAGMENT = gql(`
     price_total_amount
     price_currency
     price_tier
-    started_at
+    current_period_ends_at
+    current_period_starts_at
     canceled_at
-    current_period_started_at
-    current_period_finishes_at
-    expires_at
     renew_interval
-    next_renew_at
+    next_payment_at
     provider
     provider_status
     provider_error
@@ -118,6 +121,7 @@ export const ORGANIZATION_SUBSCRIPTION_FRAGMENT = gql(`
     created_at
     updated_at
     status
+    payment_status
 
     organization_id
     organization_coupon_id
@@ -153,16 +157,26 @@ export const ORGANIZATION_SUBSCRIPTION_DEFAULT_PRICING_FRAGMENT = gql(`
       options {
         base_item {
           item_type
-          is_enabled
-          is_purchase_enabled
+          category
           additional_organization_seats
+
           original_unit_price
           unit_price
+
+          is_purchase_available
+
+          current_item_pending_purchase_subscription {
+            ...OrganizationSubscriptionFragment
+          }
+
+          current_item_active_until
+          current_item_subscription {
+            ...OrganizationSubscriptionFragment
+          }
         }
         available_addon_items {
           item_type
-          is_enabled
-          is_purchase_enabled
+          is_purchase_available
           original_unit_price
           unit_price
         }
@@ -185,6 +199,7 @@ export const ORGANIZATION_SUBSCRIPTION_CALCULATED_PRICING_FRAGMENT = gql(`
       item_type
       original_unit_price
       unit_price
+      category
     }
     selected_addon_items {
       item_type
@@ -214,6 +229,8 @@ export const ORGANIZATION_SUBSCRIPTION_GET_MANY_QUERY = gql(`
     $renewInterval: ORGANIZATION_SUBSCRIPTION_RENEW_INTERVAL
 
     $priceTier: ORGANIZATION_SUBSCRIPTION_PRICE_TIER
+
+    $status: ORGANIZATION_SUBSCRIPTION_STATUS
 
     $started: Boolean
     $canceled: Boolean
@@ -248,6 +265,8 @@ export const ORGANIZATION_SUBSCRIPTION_GET_MANY_QUERY = gql(`
       renew_interval: $renewInterval
 
       price_tier: $priceTier
+
+      status: $status
 
       started: $started
       canceled: $canceled

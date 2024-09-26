@@ -81,10 +81,11 @@ export const ORGANIZATION_QUERY_FRAGMENT = gql(`
   }
 `);
 
-export const ORGANIZATION_COLLABORATOR_FRAGMENT = gql(`
-  fragment OrganizationCollaboratorFragment on OrganizationUser {
+export const ORGANIZATION_USER_FRAGMENT = gql(`
+  fragment OrganizationUserFragment on OrganizationUser {
     id
     role
+    is_current_organization_user_seat_available
     send_invoice_reminders
     archived_at
     created_at
@@ -175,7 +176,7 @@ export const GET_ORGANIZATION_COLLABORATORS_QUERY = gql(`
     userOrganizationCollaborators(
       organization_id: $organizationId
     ) {
-      ...OrganizationCollaboratorFragment
+      ...OrganizationUserFragment
     }
   }
 `);
