@@ -1,5 +1,32 @@
 import { gql } from '@gql';
 
+export const ORGANIZATION_SUBSCRIPTION_DATA_FRAGMENT = gql(`
+  fragment OrganizationSubscriptionDataFragment on OrganizationSubscriptionData {
+    subscription_level
+    organization_user_seats
+    requires_user_action
+    requires_provider_refresh
+    active_subscriptions {
+        id
+        provider
+        provider_status
+    }
+    active_plans {
+        item_type
+        status
+    }
+    active_modules {
+        item_type
+        status
+    }
+    active_addons {
+        item_type
+        quantity
+        status
+    }
+  }
+`);
+
 export const ORGANIZATION_QUERY_FRAGMENT = gql(`
   fragment OrganizationFragment on Organization {
     id
@@ -34,7 +61,7 @@ export const ORGANIZATION_QUERY_FRAGMENT = gql(`
     business_tax_code
     timezone
     language
-    subscription_level
+
     archived_at
     created_at
     updated_at
@@ -43,15 +70,22 @@ export const ORGANIZATION_QUERY_FRAGMENT = gql(`
     logo_picture_file {
       public_url
     }
+
     current_email_verification_id
     current_phone_number_verification_id
+
+    subscription_level
+    subscription_data {
+      ...OrganizationSubscriptionDataFragment
+    }
   }
 `);
 
-export const ORGANIZATION_COLLABORATOR_FRAGMENT = gql(`
-  fragment OrganizationCollaboratorFragment on OrganizationUser {
+export const ORGANIZATION_USER_FRAGMENT = gql(`
+  fragment OrganizationUserFragment on OrganizationUser {
     id
     role
+    is_current_organization_user_seat_available
     send_invoice_reminders
     archived_at
     created_at
@@ -142,7 +176,7 @@ export const GET_ORGANIZATION_COLLABORATORS_QUERY = gql(`
     userOrganizationCollaborators(
       organization_id: $organizationId
     ) {
-      ...OrganizationCollaboratorFragment
+      ...OrganizationUserFragment
     }
   }
 `);

@@ -2,4 +2,4 @@
 "accru-client": patch
 ---
 
-add admin features
+add subscriptions

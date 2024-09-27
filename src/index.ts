@@ -7,16 +7,17 @@ import Admin from '@services/admin';
 import Auth from '@services/auth';
 import Bills from '@services/bills';
 import Connections from '@services/connections';
+import Contacts from '@services/contacts';
 import Customers from '@services/customers';
 import Invoices from '@services/invoices';
+import Organizations from '@services/organizations';
 import Reminders from '@services/reminders';
 import Statements from '@services/statements';
+import Subscriptions from '@services/subscriptions/subscriptions.service';
+import Projects from '@services/projects/projects.service';
+import Transactions from '@services/transactions';
 import Users from '@services/users';
 import Vendors from '@services/vendors';
-import Organizations from '@services/organizations';
-import Projects from '@services/projects/projects.service';
-import Contacts from '@services/contacts';
-import Transactions from '@services/transactions';
 
 export { processResponseAsList } from '@utils/processResponseAsList';
 
@@ -42,6 +43,7 @@ export class AccruClient {
   public readonly projects: Projects;
   public readonly reminders: Reminders;
   public readonly statements: Statements;
+  public readonly subscriptions: Subscriptions;
   public readonly transactions: Transactions;
   public readonly users: Users;
   public readonly vendors: Vendors;
@@ -60,6 +62,7 @@ export class AccruClient {
     this.projects = new Projects(this.apolloClient);
     this.reminders = new Reminders(this.apolloClient);
     this.statements = new Statements(this.apolloClient);
+    this.subscriptions = new Subscriptions(this.apolloClient);
     this.transactions = new Transactions(this.apolloClient);
     this.users = new Users(this.apolloClient);
     this.vendors = new Vendors(this.apolloClient);
