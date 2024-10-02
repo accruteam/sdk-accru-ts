@@ -113,7 +113,6 @@ export const ORGANIZATION_SUBSCRIPTION_FRAGMENT = gql(`
     next_payment_at
     provider
     provider_status
-    provider_error
     provider_plan_code
     provider_subscription_code
     provider_last_verified_at

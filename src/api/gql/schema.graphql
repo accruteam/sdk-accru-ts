@@ -1817,6 +1817,7 @@ type OrganizationSubscriptionTransaction {
   period_sequence: Int
   period_starts_at: DateTime
   procedure: ORGANIZATION_SUBSCRIPTION_TRANSACTION_PROCEDURE!
+  provider_error: String
   provider_transaction_code: String!
   reverted_at: DateTime
   started_at: DateTime
