@@ -1,5 +1,11 @@
 # accru-client
 
+## 0.0.50
+
+### Patch Changes
+
+- 5082fff: add subscriptions
+
 ## 0.0.49
 
 ### Patch Changes
