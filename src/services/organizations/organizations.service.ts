@@ -55,7 +55,7 @@ import {
 export default class Organizations {
   constructor(private readonly apolloClient: ApolloClient<unknown>) {}
 
-  public get = async (
+  public getOne = async (
     variables: UserOrganizationQueryVariables,
     apolloClientOptions?: QueryOptions,
   ): Promise<Res<UserOrganizationQuery>> => {
