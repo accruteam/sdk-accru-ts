@@ -67,6 +67,7 @@ export const BILL_QUERY_FRAGMENT = gql(`
     has_sync_errors
     last_sync_at
     latest_acct_provider_balance
+    latest_acct_provider_status
 
     status
     is_overdue
@@ -168,8 +169,13 @@ export const BILLS_GET_SUMMARY_QUERY = gql(`
     $currency: CURRENCY
     $startDate: DateTime
     $endDate: DateTime
+
     $status: BILL_STATUS
     $isOverdue: Boolean
+
+    $latestAcctProviderStatus: BILL_STATUS
+    $latestAcctProviderIsOverdue: Boolean
+
     $after: ConnectionCursor
     $first: Int
     $before: ConnectionCursor
@@ -185,8 +191,12 @@ export const BILLS_GET_SUMMARY_QUERY = gql(`
       currency: $currency
       start_date: $startDate
       end_date: $endDate
+
       status: $status
       is_overdue: $isOverdue
+
+      latest_acct_provider_status: $latestAcctProviderStatus
+      latest_acct_provider_is_overdue: $latestAcctProviderIsOverdue
 
       after: $after
       first: $first
