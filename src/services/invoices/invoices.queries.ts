@@ -53,6 +53,7 @@ export const INVOICE_QUERY_FRAGMENT = gql(`
     has_sync_errors
     last_sync_at
     latest_acct_provider_balance
+    latest_acct_provider_status
 
     status
     is_overdue
@@ -170,8 +171,13 @@ export const INVOICES_GET_SUMMARY_QUERY = gql(`
     $currency: CURRENCY
     $startDate: DateTime
     $endDate: DateTime
+
     $status: INVOICE_STATUS
     $isOverdue: Boolean
+
+    $latestAcctProviderStatus: INVOICE_STATUS
+    $latestAcctProviderIsOverdue: Boolean
+
     $customerName: String
     $after: ConnectionCursor
     $first: Int
@@ -188,8 +194,13 @@ export const INVOICES_GET_SUMMARY_QUERY = gql(`
       currency: $currency
       start_date: $startDate
       end_date: $endDate
+
       status: $status
       is_overdue: $isOverdue
+
+      latest_acct_provider_status: $latestAcctProviderStatus
+      latest_acct_provider_is_overdue: $latestAcctProviderIsOverdue
+
       customer_name: $customerName
 
       after: $after
@@ -295,8 +306,13 @@ export const GET_AS_UNCONNECTED_CUSTOMER_INVOICE_SUMMARY_QUERY = gql(`
     $currency: CURRENCY
     $startDate: DateTime
     $endDate: DateTime
+
     $status: INVOICE_STATUS
     $isOverdue: Boolean
+
+    $latestAcctProviderStatus: INVOICE_STATUS
+    $latestAcctProviderIsOverdue: Boolean
+
     $customerName: String
     $after: ConnectionCursor
     $first: Int
@@ -314,8 +330,13 @@ export const GET_AS_UNCONNECTED_CUSTOMER_INVOICE_SUMMARY_QUERY = gql(`
       currency: $currency
       start_date: $startDate
       end_date: $endDate
+
       status: $status
       is_overdue: $isOverdue
+
+      latest_acct_provider_status: $latestAcctProviderStatus
+      latest_acct_provider_is_overdue: $latestAcctProviderIsOverdue
+
       customer_name: $customerName
 
       after: $after
