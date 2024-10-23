@@ -8,6 +8,7 @@ import {
   UnconnectedCustomerOrganizationStatementQueryVariables,
   UnconnectedCustomerOrganizationStatementRequestTokenMutation,
   UnconnectedCustomerOrganizationStatementRequestTokenMutationVariables,
+  UnconnectedCustomerSynchronizeMutationVariables,
   UserCustomerOrganizationInvoiceGetPDFMutation,
   UserCustomerOrganizationInvoiceGetPDFMutationVariables,
   UserCustomerOrganizationInvoiceSummaryQuery,
@@ -18,6 +19,7 @@ import {
   UserCustomerOrganizationStatementLineQueryVariables,
   UserCustomerOrganizationStatementQuery,
   UserCustomerOrganizationStatementQueryVariables,
+  UserCustomerOrganizationSynchronizeMutationVariables,
 } from '@api/gql/graphql';
 import {
   ChildrenEdgeListResponse,
@@ -34,6 +36,8 @@ import {
   GET_AS_UNCONNECTED_CUSTOMER_ORGANIZATION_STATEMENT_LINE_QUERY,
   GET_AS_UNCONNECTED_CUSTOMER_ORGANIZATION_STATEMENT_QUERY,
   GET_AS_UNCONNECTED_CUSTOMER_ORGANIZATION_STATEMENT_TOKEN_QUERY,
+  SYNC_AS_CUSTOMER_MUTATION,
+  SYNC_AS_UNCONNECTED_CUSTOMER_MUTATION,
 } from './statements.queries';
 
 export default class Statements {
@@ -166,5 +170,23 @@ export default class Statements {
     });
 
     return data!.unconnectedCustomerOrganizationStatementLineGetPDF;
+  };
+
+  public sync = async (
+    variables: UserCustomerOrganizationSynchronizeMutationVariables,
+  ): Promise<void> => {
+    await this.apolloClient.mutate({
+      mutation: SYNC_AS_CUSTOMER_MUTATION,
+      variables,
+    });
+  };
+
+  public syncUnconnected = async (
+    variables: UnconnectedCustomerSynchronizeMutationVariables,
+  ): Promise<void> => {
+    await this.apolloClient.mutate({
+      mutation: SYNC_AS_UNCONNECTED_CUSTOMER_MUTATION,
+      variables,
+    });
   };
 }

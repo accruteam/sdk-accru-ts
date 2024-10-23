@@ -420,3 +420,15 @@ export const GET_AS_CUSTOMER_INVOICE_PDF_MUTATION = gql(`
     )
   }
 `);
+
+export const SYNC_AS_CUSTOMER_MUTATION = gql(`
+  mutation UserCustomerOrganizationSynchronize($organizationId: String!, $organizationVendorId: String!) {
+    userCustomerOrganizationSynchronize(organization_id: $organizationId, organization_vendor_id: $organizationVendorId)
+  }
+`);
+
+export const SYNC_AS_UNCONNECTED_CUSTOMER_MUTATION = gql(`
+  mutation UnconnectedCustomerSynchronize($uniqueCode: String!, $email: String!, $token: String!) {
+    unconnectedCustomerSynchronize(unique_code: $uniqueCode, email: $email,token: $token)
+  }
+`);
