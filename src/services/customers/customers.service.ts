@@ -12,6 +12,7 @@ import {
   UserOrganizationCustomerStatementLineQueryVariables,
   UserOrganizationCustomerStatementQuery,
   UserOrganizationCustomerStatementQueryVariables,
+  UserOrganizationCustomerSynchronizeMutationVariables,
   UserOrganizationCustomerUpdateMutation,
   UserOrganizationCustomerUpdateMutationVariables,
   UserOrganizationCustomersQuery,
@@ -32,6 +33,7 @@ import {
   GET_CUSTOMER_STATEMENT_LINE_QUERY,
   SEND_CUSTOMERS_STATEMENT_MUTATION,
   GET_CUSTOMER_STATEMENT_LINK_MUTATION,
+  SYNC_CUSTOMER_MUTATION,
 } from './customers.queries';
 
 export default class Customers {
@@ -125,5 +127,14 @@ export default class Customers {
     });
 
     return data!.userOrganizationCustomerGetStatementLink;
+  };
+
+  public sync = async (
+    variables: UserOrganizationCustomerSynchronizeMutationVariables,
+  ): Promise<void> => {
+    await this.apolloClient.mutate({
+      mutation: SYNC_CUSTOMER_MUTATION,
+      variables,
+    });
   };
 }
