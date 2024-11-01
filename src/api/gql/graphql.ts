@@ -408,7 +408,7 @@ export type Mutation = {
   userOrganizationCustomerGetStatementLink: Scalars['String']['output'];
   userOrganizationCustomerSendInvoiceEmail: Scalars['JSON']['output'];
   userOrganizationCustomerSendStatementEmail: Scalars['JSON']['output'];
-  userOrganizationCustomerSynchronize: Scalars['DateTime']['output'];
+  userOrganizationCustomerSynchronize: Array<Scalars['String']['output']>;
   userOrganizationCustomerUniqueCodeUpdate: OrganizationCustomer;
   userOrganizationCustomerUpdate: OrganizationCustomer;
   userOrganizationDelete: Organization;
@@ -4981,7 +4981,7 @@ export type UserOrganizationCustomerSynchronizeMutationVariables = Exact<{
 }>;
 
 
-export type UserOrganizationCustomerSynchronizeMutation = { __typename?: 'Mutation', userOrganizationCustomerSynchronize: any };
+export type UserOrganizationCustomerSynchronizeMutation = { __typename?: 'Mutation', userOrganizationCustomerSynchronize: Array<string> };
 
 export type OrganizationInvoiceFragmentFragment = { __typename?: 'OrganizationInvoice', id: string, unique_code: string, number: string, currency_code: CURRENCY, description: string, amount: bigint, tax_amount: bigint, discount_amount: bigint, total_amount: bigint, invoice_date: any, due_date: any, archived_at?: any | null, created_at: any, updated_at: any, organization_id: string, organization_customer_id: string, file_id?: string | null, has_sync_errors?: boolean | null, last_sync_at?: any | null, latest_acct_provider_balance?: bigint | null, latest_acct_provider_status?: INVOICE_STATUS | null, status?: INVOICE_STATUS | null, is_overdue?: boolean | null, paid_amount?: bigint | null, paid_at?: any | null, balance?: bigint | null, email_sent_at?: any | null, organization: { __typename?: 'Organization', name: string }, organization_customer: { __typename?: 'OrganizationCustomer', name: string, email: string, balance?: bigint | null }, organization_acct_provider_conn_invoices: Array<{ __typename?: 'OrganizationAcctProviderConnInvoice', id: string, code: string, balance?: bigint | null, last_sync_at?: any | null, last_sync_success?: boolean | null, last_sync_id?: string | null, organization_invoice_id: string, organization_acct_provider_conn_id: string, organization_acct_provider_conn: { __typename?: 'OrganizationAcctProviderConn', acct_provider: ACCT_PROVIDER, status: ORGANIZATION_ACCT_PROVIDER_CONN_STATUS } }>, file?: { __typename?: 'File', public_url?: string | null } | null, payment_options: Array<{ __typename?: 'OrganizationInvoicePaymentOption', method: PAYMENT_METHOD, url?: string | null, payload?: any | null }>, transaction_links?: Array<{ __typename?: 'OrganizationInvoiceTransactionLink', id: string, amount: bigint, organization_invoice_id: string, created_at: any, updated_at: any, organization_invoice_transaction_id: string, organization_invoice_transaction: { __typename?: 'OrganizationInvoiceTransaction', id: string } }> | null };
 

@@ -398,7 +398,7 @@ type Mutation {
   userOrganizationCustomerGetStatementLink(expires_at: DateTime, organization_customer_id: String!, organization_id: String!): String!
   userOrganizationCustomerSendInvoiceEmail(organization_id: String!, targets: [UserOrganizationCustomerSendInvoiceEmailSchema!]!): JSON!
   userOrganizationCustomerSendStatementEmail(organization_id: String!, targets: [UserOrganizationCustomerSendStatementEmailSchema!]!): JSON!
-  userOrganizationCustomerSynchronize(organization_customer_id: String!, organization_id: String!): DateTime!
+  userOrganizationCustomerSynchronize(organization_customer_id: String!, organization_id: String!): [String!]!
   userOrganizationCustomerUniqueCodeUpdate(organization_customer_id: String!, organization_id: String!): OrganizationCustomer!
   userOrganizationCustomerUpdate(data: UserOrganizationCustomerSchema!, organization_customer_id: String!, organization_id: String!): OrganizationCustomer!
   userOrganizationDelete(organization_id: String!): Organization!
