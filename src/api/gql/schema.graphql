@@ -363,6 +363,7 @@ type Mutation {
   userCustomerOrganizationSynchronize(organization_id: String!, organization_vendor_id: String!): DateTime!
   userEmailVerifyOrChangeFinish(data: UserEmailVerifyOrChangeFinishSchema!): User!
   userEmailVerifyOrChangeStart(data: UserEmailVerifyOrChangeStartSchema!): DateTime!
+  userHandleLoginAttempt(email: String!): DateTime!
   userOrganizationAcctProviderConnConfigurationPullOptionsGet(acct_provider: ACCT_PROVIDER!, organization_id: String!): JSON!
   userOrganizationAcctProviderConnConfigurationPullOptionsSet(acct_provider: ACCT_PROVIDER!, organization_id: String!, payload: JSON!): OrganizationAcctProviderConn!
   userOrganizationAcctProviderConnConfigurationPushOptionsGet(acct_provider: ACCT_PROVIDER!, organization_id: String!): JSON!
