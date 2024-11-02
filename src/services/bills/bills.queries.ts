@@ -68,6 +68,7 @@ export const BILL_QUERY_FRAGMENT = gql(`
     last_sync_at
     latest_acct_provider_balance
     latest_acct_provider_status
+    latest_acct_provider_is_overdue
 
     status
     is_overdue

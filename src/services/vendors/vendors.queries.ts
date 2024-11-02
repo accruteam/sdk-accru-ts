@@ -61,6 +61,7 @@ export const VENDOR_QUERY_FRAGMENT = gql(`
               created_at
               updated_at
               status
+              latest_acct_provider_status
             }
         }
         pageInfo {
