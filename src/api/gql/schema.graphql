@@ -348,6 +348,7 @@ type Mutation {
   unconnectedCustomerOrganizationProjectChangeRequestReject(email: String!, organization_id: String, organization_project_change_request_id: String!, organization_project_id: String!, token: String!, unique_code: String!, verification_code: String!): OrganizationProjectChangeRequest!
   unconnectedCustomerOrganizationStatementLineGetPDF(acct_provider: ACCT_PROVIDER, email: String!, organization_customer_statement_line_id: Int!, organization_id: String, token: String!, unique_code: String!): String!
   unconnectedCustomerOrganizationStatementRequestToken(email: String!, unique_code: String!): DateTime!
+  unconnectedCustomerSynchronize(email: String!, organization_id: String, token: String!, unique_code: String!): DateTime!
   userAuthProviderDisconnect(auth_provider: AUTH_PROVIDER!): UserAuthProviderConn!
   userAuthProviderGetOAuthToken(auth_provider: AUTH_PROVIDER!, authorization_token: String!): String!
   userAuthProviderGetOAuthUrl(auth_provider: AUTH_PROVIDER!): String!
@@ -359,8 +360,10 @@ type Mutation {
   userCustomerOrganizationProjectChangeRequestReject(organization_id: String!, organization_project_change_request_id: String!, organization_project_id: String!, organization_vendor_id: String!): OrganizationProjectChangeRequest!
   userCustomerOrganizationProjectChangeRequestUpdate(data: OrganizationProjectChangeRequestUpsertSchema!, organization_id: String!, organization_project_change_request_id: String!, organization_project_id: String!, organization_vendor_id: String!): OrganizationProjectChangeRequest!
   userCustomerOrganizationStatementLineGetPDF(acct_provider: ACCT_PROVIDER, organization_customer_statement_line_id: Int!, organization_id: String!, organization_vendor_id: String!): String!
+  userCustomerOrganizationSynchronize(organization_id: String!, organization_vendor_id: String!): DateTime!
   userEmailVerifyOrChangeFinish(data: UserEmailVerifyOrChangeFinishSchema!): User!
   userEmailVerifyOrChangeStart(data: UserEmailVerifyOrChangeStartSchema!): DateTime!
+  userHandleLoginAttempt(email: String!): DateTime!
   userOrganizationAcctProviderConnConfigurationPullOptionsGet(acct_provider: ACCT_PROVIDER!, organization_id: String!): JSON!
   userOrganizationAcctProviderConnConfigurationPullOptionsSet(acct_provider: ACCT_PROVIDER!, organization_id: String!, payload: JSON!): OrganizationAcctProviderConn!
   userOrganizationAcctProviderConnConfigurationPushOptionsGet(acct_provider: ACCT_PROVIDER!, organization_id: String!): JSON!
@@ -396,6 +399,7 @@ type Mutation {
   userOrganizationCustomerGetStatementLink(expires_at: DateTime, organization_customer_id: String!, organization_id: String!): String!
   userOrganizationCustomerSendInvoiceEmail(organization_id: String!, targets: [UserOrganizationCustomerSendInvoiceEmailSchema!]!): JSON!
   userOrganizationCustomerSendStatementEmail(organization_id: String!, targets: [UserOrganizationCustomerSendStatementEmailSchema!]!): JSON!
+  userOrganizationCustomerSynchronize(organization_customer_id: String!, organization_id: String!): [String!]!
   userOrganizationCustomerUniqueCodeUpdate(organization_customer_id: String!, organization_id: String!): OrganizationCustomer!
   userOrganizationCustomerUpdate(data: UserOrganizationCustomerSchema!, organization_customer_id: String!, organization_id: String!): OrganizationCustomer!
   userOrganizationDelete(organization_id: String!): Organization!
@@ -857,6 +861,7 @@ type OrganizationBill {
   is_overdue: Boolean
   last_sync_at: DateTime
   latest_acct_provider_balance: BigInt
+  latest_acct_provider_is_overdue: Boolean
   latest_acct_provider_status: BILL_STATUS
   number: String!
   organization: Organization!
@@ -1344,6 +1349,7 @@ type OrganizationInvoice {
   is_overdue: Boolean
   last_sync_at: DateTime
   latest_acct_provider_balance: BigInt
+  latest_acct_provider_is_overdue: Boolean
   latest_acct_provider_status: INVOICE_STATUS
   number: String!
   organization: Organization!

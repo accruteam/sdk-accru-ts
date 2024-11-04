@@ -97,3 +97,9 @@ export const UPDATE_USER_DELETE_PROFILE_PICTURE_MUTATION = gql(`
     }
   }
 `);
+
+export const USER_HANDLE_LOGIN_ATTEMPT_MUTATION = gql(`
+  mutation UserHandleLoginAttempt($email: String!) {
+    userHandleLoginAttempt(email: $email)
+  }
+`);

@@ -62,6 +62,7 @@ export const CUSTOMER_QUERY_FRAGMENT = gql(`
               created_at
               updated_at
               status
+              latest_acct_provider_status
             }
         }
         pageInfo {
@@ -248,5 +249,11 @@ export const SEND_CUSTOMERS_STATEMENT_MUTATION = gql(`
 export const GET_CUSTOMER_STATEMENT_LINK_MUTATION = gql(`
   mutation UserOrganizationCustomerGetStatementLink($organizationId: String!, $organizationCustomerId: String!, $expiresAt: DateTime) {
     userOrganizationCustomerGetStatementLink(organization_id: $organizationId, organization_customer_id: $organizationCustomerId, expires_at: $expiresAt)
+  }
+`);
+
+export const SYNC_CUSTOMER_MUTATION = gql(`
+  mutation UserOrganizationCustomerSynchronize($organizationId: String!, $organizationCustomerId: String!) {
+    userOrganizationCustomerSynchronize(organization_id: $organizationId, organization_customer_id: $organizationCustomerId)
   }
 `);

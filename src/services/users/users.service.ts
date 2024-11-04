@@ -4,6 +4,7 @@ import {
   UserEmailVerifyOrChangeFinishMutationVariables,
   UserEmailVerifyOrChangeStartMutation,
   UserEmailVerifyOrChangeStartMutationVariables,
+  UserHandleLoginAttemptMutationVariables,
   UserPasswordChangeFinishMutation,
   UserPasswordChangeFinishMutationVariables,
   UserPasswordChangeStartMutation,
@@ -29,6 +30,7 @@ import {
   UPDATE_USER_PASSWORD_START_MUTATION,
   UPDATE_USER_PASSWORD_FINISH_MUTATION,
   UPDATE_USER_DELETE_PROFILE_PICTURE_MUTATION,
+  USER_HANDLE_LOGIN_ATTEMPT_MUTATION,
 } from './users.queries';
 
 export default class UsersService {
@@ -122,5 +124,14 @@ export default class UsersService {
     });
 
     return data!.userProfilePictureRemove;
+  };
+
+  public handleLoginAttempt = async (
+    variables: UserHandleLoginAttemptMutationVariables,
+  ): Promise<void> => {
+    await this.apolloClient.mutate({
+      mutation: USER_HANDLE_LOGIN_ATTEMPT_MUTATION,
+      variables,
+    });
   };
 }
