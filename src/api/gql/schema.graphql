@@ -861,6 +861,7 @@ type OrganizationBill {
   is_overdue: Boolean
   last_sync_at: DateTime
   latest_acct_provider_balance: BigInt
+  latest_acct_provider_is_overdue: Boolean
   latest_acct_provider_status: BILL_STATUS
   number: String!
   organization: Organization!
@@ -1348,6 +1349,7 @@ type OrganizationInvoice {
   is_overdue: Boolean
   last_sync_at: DateTime
   latest_acct_provider_balance: BigInt
+  latest_acct_provider_is_overdue: Boolean
   latest_acct_provider_status: INVOICE_STATUS
   number: String!
   organization: Organization!
