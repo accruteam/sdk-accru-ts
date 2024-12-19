@@ -6,7 +6,10 @@ on:
       - main
 
 permissions:
-  contents: read
+  contents: write
+  issues: write
+  pull-requests: write
+  id-token: write
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
@@ -24,10 +27,15 @@ jobs:
       - name: Checkout to Branch
         uses: actions/checkout@v3
 
-      - name: Setup Node.js 20
+      - name: Extract branch name
+        id: extract-branch
+        shell: bash
+        run: echo "branch=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_OUTPUT
+
+      - name: Setup Node.js 22
         uses: actions/setup-node@v3
         with:
-          node-version: 20
+          node-version: 22
 
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
@@ -45,21 +53,45 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Send a Slack notification if a publish happens
+      - name: Get release information
+        if: steps.changesets.outputs.published == 'true'
+        id: get-release
+        uses: actions/github-script@v6
+        with:
+          result-encoding: string
+          script: |
+            const markdownParser = require('slackify-markdown');
+            const release = await github.rest.repos.getReleaseByTag({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              tag: "v${{ fromJSON(steps.changesets.outputs.publishedPackages)[0].version }}"
+            });
+            return markdownParser(release.data.body);
+
+      - name: Send a Slack notification
         if: steps.changesets.outputs.published == 'true'
         id: slack
-        uses: slackapi/slack-github-action@v1.26.0
+        uses: slackapi/slack-github-action@v2.0.0
         with:
-          channel-id: ${{ vars.SLACK_CHANNEL_ID }}
+          webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+          webhook-type: incoming-webhook
+          payload-templated: true
           payload: |
             {
-              "text": "A new version of ${GITHUB_REPOSITORY} was published! :tada:",
+              "text": "[Accru] A new version of ${{ github.repository }} was published! Version ${{ fromJSON(steps.changesets.outputs.publishedPackages)[0].version }} is now available! :tada:",
               "blocks": [
                 {
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": ":package: *${{ fromJSON(steps.changesets.outputs.publishedPackages)[0].name }} v${{ fromJSON(steps.changesets.outputs.publishedPackages)[0].version }} published* :rocket:\n Update frontend using `yarn add ${{ fromJSON(steps.changesets.outputs.publishedPackages)[0].name }}@${{ fromJSON(steps.changesets.outputs.publishedPackages)[0].version }}`"
+                    "text": "*[Accru] :package: ${{ fromJSON(steps.changesets.outputs.publishedPackages)[0].name }} v${{ fromJSON(steps.changesets.outputs.publishedPackages)[0].version }} published* :rocket:\nUpdate the package using `npm install ${{ fromJSON(steps.changesets.outputs.publishedPackages)[0].name }}@${{ fromJSON(steps.changesets.outputs.publishedPackages)[0].version }}`"
+                  }
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*Release Notes:*\n\n${{ steps.get-release.outputs.result }}"
                   }
                 },
                 {
@@ -76,6 +108,22 @@ jobs:
                     {
                       "type": "button",
                       "text": {
+                      "type": "plain_text",
+                      "text": ":bookmark: View Release"
+                      },
+                      "url": "${{ github.server_url }}/${{ github.repository }}/releases/tag/v${{ fromJSON(steps.changesets.outputs.publishedPackages)[0].version }}"
+                    },
+                    {
+                      "type": "button",
+                      "text": {
+                      "type": "plain_text",
+                      "text": ":bookmark_tabs: Checkout to Git Tag"
+                      },
+                      "url": "${{ github.server_url }}/${{ github.repository }}/tree/v${{ fromJSON(steps.changesets.outputs.publishedPackages)[0].version }}"
+                    },
+                    {
+                      "type": "button",
+                      "text": {
                         "type": "plain_text",
                         "text": ":package: Open NPM package"
                       },
@@ -85,6 +133,16 @@ jobs:
                 }
               ]
             }
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+
+      - name: Push to develop branch
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git fetch origin || echo "Fetch failed"
+          git fetch origin develop:develop || echo "Fetch develop failed"
+          git checkout develop || echo "Checkout failed"
+          git pull origin develop || echo "Pull failed"
+          git merge ${{ steps.extract-branch.outputs.branch }} --no-ff --no-edit || echo "Merge failed, resolving manually required"
+          git push origin develop || echo "Push failed"
+        continue-on-error: true

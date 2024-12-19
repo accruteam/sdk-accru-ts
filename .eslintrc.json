@@ -33,6 +33,14 @@
     ],
 
     "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "_",
+        "ignoreRestSiblings": true,
+        "caughtErrors": "none"
+      }
+    ],
 
     "lines-between-class-members": [
       "error",
@@ -43,7 +51,9 @@
       }
     ],
 
-    "import/extensions": ["error", "ignorePackages", { "ts": "never" }]
+    "import/extensions": ["error", "ignorePackages", { "ts": "never" }],
+
+    "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*.test.js", "**/*.spec.js", "!**/src/**"]}]
   },
   "settings": {
     "import/resolver": {
