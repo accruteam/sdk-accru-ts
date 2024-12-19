@@ -5,26 +5,39 @@ import {
   ApolloLink,
 } from '@apollo/client';
 import { onError } from '@apollo/client/link/error';
-import { GraphQLErrors, NetworkError } from '@apollo/client/errors';
+import { NetworkError } from '@apollo/client/errors';
 import { setContext } from '@apollo/client/link/context';
 import { withScalars } from 'apollo-link-scalars';
 import {
   GraphQLError,
+  GraphQLFormattedError,
   GraphQLScalarType,
   IntrospectionQuery,
   Kind,
   buildClientSchema,
 } from 'graphql';
-import introspectionResult from './gql/schema.graphql.json';
+
+import introspectionResult from './gql/schema.graphql.json' assert { type: 'json' };
+
+const AccruEnvironments = {
+  production: 'https://api.accru.co',
+  qa: 'https://api.qa.accru.co',
+};
 
 interface IAccruClientParams {
-  baseUrl: string;
+  environment?: keyof typeof AccruEnvironments;
+
+  /** Overrides the environment base URL */
+  url?: string;
+
+  /** @deprecated Use `url` or select the `environment` instead */
+  baseUrl?: string;
 
   getAuthToken?: () => Promise<string>;
 
-  onGraphQLError?: (errors: GraphQLErrors) => void;
-  onNetworkError?: (error: NetworkError) => void;
   onAuthError?: () => void;
+  onGraphQLError?: (errors: ReadonlyArray<GraphQLFormattedError>) => void;
+  onNetworkError?: (error: NetworkError) => void;
 }
 
 // eslint-disable-next-line func-names
@@ -75,7 +88,11 @@ const schema = buildClientSchema(
 );
 
 export const createApolloClient = ({
+  environment,
+
+  url,
   baseUrl,
+
   getAuthToken,
 
   onGraphQLError,
@@ -121,7 +138,9 @@ export const createApolloClient = ({
     };
   });
 
-  const httpLink = createHttpLink({ uri: baseUrl });
+  const httpLink = createHttpLink({
+    uri: url || baseUrl || AccruEnvironments[environment || 'production'],
+  });
 
   return new ApolloClient({
     link: ApolloLink.from([errorLink, scalarLink, authLink, httpLink]),

@@ -11,6 +11,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * 3. It does not support dead code elimination, so it will add unused operations.
  *
  * Therefore it is highly recommended to use the babel or swc plugin for production.
+ * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 const documents = {
     "\n  fragment OrganizationAcctProviderConnFragment on OrganizationAcctProviderConn {\n    id\n    acct_provider\n    code\n    payload\n    conn_expires_at\n    automatic_pull_enabled\n    automatic_push_enabled\n    disconnected_at\n    created_at\n    updated_at\n    organization_id\n    status\n\n    synchronizations(skip: 0, take: 1, finished: true) {\n      edges {\n        node {\n          ...OrganizationAcctProviderConnSynchronizationFragment\n        }\n      }\n    }\n  }\n": types.OrganizationAcctProviderConnFragmentFragmentDoc,
