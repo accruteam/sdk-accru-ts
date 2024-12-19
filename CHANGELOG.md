@@ -1,5 +1,11 @@
 # accru-client
 
+## 0.0.51
+
+### Patch Changes
+
+- cac9d38: add user handle login attempt
+
 ## 0.0.50
 
 ### Patch Changes
