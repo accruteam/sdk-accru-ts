@@ -1,5 +1,15 @@
 # accru-client
 
+## 0.1.0
+
+### Minor Changes
+
+- 0d5b114: add environments to client constructor
+
+### Patch Changes
+
+- 0d5b114: bump package versions
+
 ## 0.0.51
 
 ### Patch Changes
