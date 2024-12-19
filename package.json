@@ -8,10 +8,10 @@
   "homepage": "https://accru.co",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/accruteam/sdk-accru-react"
+    "url": "git+https://github.com/accruteam/sdk-accru-ts"
   },
   "bugs": {
-    "url": "https://github.com/accruteam/sdk-accru-react/issues"
+    "url": "https://github.com/accruteam/sdk-accru-ts/issues"
   },
   "keywords": [
     "accru",
@@ -54,9 +54,6 @@
     "@apollo/client": "^3.12.3",
     "apollo-link-scalars": "^4.0.3",
     "graphql": "^16.10.0"
-  },
-  "peerDependencies": {
-    "react": ">=18"
   },
   "devDependencies": {
     "@changesets/cli": "^2.27.11",
