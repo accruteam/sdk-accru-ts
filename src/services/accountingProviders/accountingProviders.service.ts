@@ -5,6 +5,10 @@ import {
   processResponseAsList,
 } from '@utils/processResponseAsList';
 import {
+  UnauthorizedUserOrganizationAcctProviderConnCheckConnectionMutation,
+  UnauthorizedUserOrganizationAcctProviderConnCheckConnectionMutationVariables,
+  UserOrganizationAcctProviderConnCheckConnectionMutation,
+  UserOrganizationAcctProviderConnCheckConnectionMutationVariables,
   UserOrganizationAcctProviderConnConfigurationPullOptionsGetMutation,
   UserOrganizationAcctProviderConnConfigurationPullOptionsGetMutationVariables,
   UserOrganizationAcctProviderConnConfigurationPullOptionsSetMutation,
@@ -33,6 +37,8 @@ import {
   UserOrganizationAcctProvidersQueryVariables,
 } from '@api/gql/graphql';
 import {
+  ACCT_PROVIDER_CONN_VERIFY_MUTATION,
+  ACCT_PROVIDER_CONN_VERIFY_UNAUTHORIZED_MUTATION,
   CONNECT_ACCT_PROVIDER_MUTATION,
   DISCONNECT_ACCT_PROVIDER_MUTATION,
   GET_ACCT_PROVIDER_CONN_QUERY,
@@ -192,5 +198,27 @@ export default class AccountingProviders {
       variables,
     });
     return data.userOrganizationAcctProviderSynchronization;
+  };
+
+  public verifyConnection = async (
+    variables: UserOrganizationAcctProviderConnCheckConnectionMutationVariables,
+  ): Promise<Res<UserOrganizationAcctProviderConnCheckConnectionMutation>> => {
+    const { data } = await this.apolloClient.mutate({
+      mutation: ACCT_PROVIDER_CONN_VERIFY_MUTATION,
+      variables,
+    });
+    return data!.userOrganizationAcctProviderConnCheckConnection;
+  };
+
+  public verifyConnectionUnauthorized = async (
+    variables: UnauthorizedUserOrganizationAcctProviderConnCheckConnectionMutationVariables,
+  ): Promise<
+    Res<UnauthorizedUserOrganizationAcctProviderConnCheckConnectionMutation>
+  > => {
+    const { data } = await this.apolloClient.mutate({
+      mutation: ACCT_PROVIDER_CONN_VERIFY_UNAUTHORIZED_MUTATION,
+      variables,
+    });
+    return data!.unauthorizedUserOrganizationAcctProviderConnCheckConnection;
   };
 }

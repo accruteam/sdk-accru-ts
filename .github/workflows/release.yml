@@ -143,6 +143,6 @@ jobs:
           git fetch origin develop:develop || echo "Fetch develop failed"
           git checkout develop || echo "Checkout failed"
           git pull origin develop || echo "Pull failed"
-          git merge ${{ steps.extract-branch.outputs.branch }} --no-ff --no-edit || echo "Merge failed, resolving manually required"
+          git merge ${{ steps.extract-branch.outputs.branch }} --no-ff --allow-unrelated-histories --no-edit || echo "Merge failed, resolving manually required"
           git push origin develop || echo "Push failed"
         continue-on-error: true

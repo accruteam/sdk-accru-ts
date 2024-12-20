@@ -342,6 +342,7 @@ type Mutation {
   adminOrganizationSubscriptionProviderRefreshSubscription(organization_subscription_id: String!): OrganizationSubscription!
   adminOrganizationVendorProcess(organization_id: String!, organization_vendor_id: String): Int!
   adminUserDelete(user_id: String!): User!
+  unauthorizedUserOrganizationAcctProviderConnCheckConnection(acct_provider: ACCT_PROVIDER!, acct_provider_conn_code: String!): DateTime!
   unconnectedCustomerOrganizationInvoiceGetPDF(acct_provider: ACCT_PROVIDER, email: String!, organization_id: String, organization_invoice_id: String!, token: String!, unique_code: String!): String!
   unconnectedCustomerOrganizationProjectChangeRequestAccept(email: String!, organization_id: String, organization_project_change_request_id: String!, organization_project_id: String!, token: String!, unique_code: String!, verification_code: String!): OrganizationProjectChangeRequest!
   unconnectedCustomerOrganizationProjectChangeRequestActionRequestToken(email: String!, organization_id: String, organization_project_change_request_id: String!, organization_project_id: String!, token: String!, unique_code: String!): DateTime!
@@ -364,6 +365,7 @@ type Mutation {
   userEmailVerifyOrChangeFinish(data: UserEmailVerifyOrChangeFinishSchema!): User!
   userEmailVerifyOrChangeStart(data: UserEmailVerifyOrChangeStartSchema!): DateTime!
   userHandleLoginAttempt(email: String!): DateTime!
+  userOrganizationAcctProviderConnCheckConnection(acct_provider: ACCT_PROVIDER!, acct_provider_conn_code: String!, organization_id: String!): OrganizationAcctProviderConn!
   userOrganizationAcctProviderConnConfigurationPullOptionsGet(acct_provider: ACCT_PROVIDER!, organization_id: String!): JSON!
   userOrganizationAcctProviderConnConfigurationPullOptionsSet(acct_provider: ACCT_PROVIDER!, organization_id: String!, payload: JSON!): OrganizationAcctProviderConn!
   userOrganizationAcctProviderConnConfigurationPushOptionsGet(acct_provider: ACCT_PROVIDER!, organization_id: String!): JSON!

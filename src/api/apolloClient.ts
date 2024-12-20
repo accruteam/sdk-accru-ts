@@ -17,11 +17,11 @@ import {
   buildClientSchema,
 } from 'graphql';
 
-import introspectionResult from './gql/schema.graphql.json' assert { type: 'json' };
+import introspectionResult from './gql/schema.graphql.json';
 
 const AccruEnvironments = {
-  production: 'https://api.accru.co',
-  qa: 'https://api.qa.accru.co',
+  production: 'https://api.accru.co/graphql',
+  qa: 'https://api.qa.accru.co/graphql',
 };
 
 interface IAccruClientParams {
