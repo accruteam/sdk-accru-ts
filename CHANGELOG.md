@@ -1,5 +1,12 @@
 # accru-client
 
+## 0.1.1
+
+### Patch Changes
+
+- 5b2225e: change queries for better performance
+- c2ca114: add check accounting provider connection functions
+
 ## 0.1.0
 
 ### Minor Changes
