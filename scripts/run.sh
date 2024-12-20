@@ -136,12 +136,14 @@ PACKAGE_MODULE=$(node -p "require('$DIR/package.json').module || ''")
 PACKAGE_TYPES=$(node -p "require('$DIR/package.json').types || ''")
 
 if [ -n "$PACKAGE_MAIN" ]; then
+  echo "Waiting for $DIR/$PACKAGE_MAIN..."
   while [ ! -f "$DIR/$PACKAGE_MAIN" ]; do
     sleep 1
   done
 fi
 
 if [ -n "$PACKAGE_MODULE" ]; then
+  echo "Waiting for $DIR/$PACKAGE_MODULE..."
   while [ ! -f "$DIR/$PACKAGE_MODULE" ]; do
     sleep 1
   done
