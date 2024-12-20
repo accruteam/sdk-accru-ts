@@ -1,89 +1,5 @@
 import { gql } from '@gql';
 
-export const CUSTOMER_QUERY_FRAGMENT = gql(`
-  fragment OrganizationCustomerFragment on OrganizationCustomer {
-    id
-    is_active
-    email
-    name
-    unique_code
-    phone_number
-    tax_code_type
-    tax_code
-    created_at
-    updated_at
-
-    has_sync_errors
-    last_sync_at
-    latest_acct_provider_balance
-
-    balance
-    overdue_amount
-
-    conn_locked_data_at
-    connection {
-      ...OrganizationConnectionFragment
-    }
-
-    contacts {
-      id
-      name
-      email
-      phone_number
-      is_default
-      send_invoice_reminders
-      created_at
-      updated_at
-    }
-
-    invoice_summary {
-      data {
-        totalCount
-        edges {
-            cursor
-            node {
-              id
-              file_id
-              file {
-                public_url
-              }
-              unique_code
-              number
-              currency_code
-              description
-              amount
-              tax_amount
-              discount_amount
-              total_amount
-              paid_amount
-              invoice_date
-              due_date
-              customer_email
-              created_at
-              updated_at
-              status
-              latest_acct_provider_status
-            }
-        }
-        pageInfo {
-            startCursor
-            endCursor
-            hasPreviousPage
-            hasNextPage
-        }
-      }
-
-      total_open_invoice_count
-      total_overdue_invoice_count
-
-      total_amount
-      paid_amount
-      overdue_amount
-      balance
-    }
-  }
-`);
-
 export const GET_ALL_CUSTOMERS_QUERY = gql(`
   query UserOrganizationCustomers(
     $organizationId: String!,
@@ -213,6 +129,7 @@ export const GET_CUSTOMER_QUERY = gql(`
       organization_customer_id: $organizationCustomerId,
       ) {
       ...OrganizationCustomerFragment
+      ...OrganizationCustomerAdditionalDataFragment
     }
   }
 `);
@@ -225,6 +142,7 @@ export const UPDATE_CUSTOMER_MUTATION = gql(`
       data: $data
     ) {
       ...OrganizationCustomerFragment
+      ...OrganizationCustomerAdditionalDataFragment
     }
   }
 `);
