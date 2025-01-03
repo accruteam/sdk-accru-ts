@@ -14,6 +14,10 @@ import {
   UserOrganizationCollaboratorsQueryVariables,
   UserOrganizationCreateMutation,
   UserOrganizationCreateMutationVariables,
+  UserOrganizationEmailVerifyOrChangeFinishMutation,
+  UserOrganizationEmailVerifyOrChangeFinishMutationVariables,
+  UserOrganizationEmailVerifyOrChangeStartMutation,
+  UserOrganizationEmailVerifyOrChangeStartMutationVariables,
   UserOrganizationInviteCollaboratorCancelMutation,
   UserOrganizationInviteCollaboratorCancelMutationVariables,
   UserOrganizationInviteCollaboratorCreateMutation,
@@ -50,6 +54,8 @@ import {
   DELETE_ORGANIZATION_COLLABORATOR_INVITE_MUTATION,
   RESEND_ORGANIZATION_COLLABORATOR_INVITE_MUTATION,
   SEND_GENERIC_INVITE_TO_ACCRU_EMAIL_MUTATION,
+  UPDATE_ORGANIZATION_EMAIL_START_MUTATION,
+  UPDATE_ORGANIZATION_EMAIL_FINISH_MUTATION,
 } from './organizations.queries';
 
 export default class Organizations {
@@ -202,5 +208,27 @@ export default class Organizations {
     });
 
     return data!.userOrganizationSendGenericInviteMail;
+  };
+
+  public updateEmailStart = async (
+    variables: UserOrganizationEmailVerifyOrChangeStartMutationVariables,
+  ): Promise<Res<UserOrganizationEmailVerifyOrChangeStartMutation>> => {
+    const { data } = await this.apolloClient.mutate({
+      mutation: UPDATE_ORGANIZATION_EMAIL_START_MUTATION,
+      variables,
+    });
+
+    return data!.userOrganizationEmailVerifyOrChangeStart;
+  };
+
+  public updateEmailFinish = async (
+    variables: UserOrganizationEmailVerifyOrChangeFinishMutationVariables,
+  ): Promise<Res<UserOrganizationEmailVerifyOrChangeFinishMutation>> => {
+    const { data } = await this.apolloClient.mutate({
+      mutation: UPDATE_ORGANIZATION_EMAIL_FINISH_MUTATION,
+      variables,
+    });
+
+    return data!.userOrganizationEmailVerifyOrChangeFinish;
   };
 }
