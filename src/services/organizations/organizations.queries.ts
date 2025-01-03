@@ -306,3 +306,17 @@ export const SEND_GENERIC_INVITE_TO_ACCRU_EMAIL_MUTATION = gql(`
     userOrganizationSendGenericInviteMail(organization_id: $organizationId, email: $email)
   }
 `);
+
+export const UPDATE_ORGANIZATION_EMAIL_START_MUTATION = gql(`
+  mutation UserOrganizationEmailVerifyOrChangeStart($organizationId: String!, $data: UserOrganizationEmailVerifyOrChangeStartSchema!) {
+    userOrganizationEmailVerifyOrChangeStart(organization_id: $organizationId, data: $data)
+  }
+`);
+
+export const UPDATE_ORGANIZATION_EMAIL_FINISH_MUTATION = gql(`
+  mutation UserOrganizationEmailVerifyOrChangeFinish($organizationId: String!, $data: UserOrganizationEmailVerifyOrChangeFinishSchema!) {
+    userOrganizationEmailVerifyOrChangeFinish(organization_id: $organizationId, data: $data) {
+      ...OrganizationFragment
+    }
+  }
+`);
