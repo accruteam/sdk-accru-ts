@@ -1,5 +1,11 @@
 # @accru/client
 
+## 0.3.0
+
+### Minor Changes
+
+- de0447d: update package id
+
 ## 0.2.0
 
 ### Minor Changes
