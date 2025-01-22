@@ -1,4 +1,4 @@
-# accru-client
+# @accru/client
 
 ## 0.2.0
 

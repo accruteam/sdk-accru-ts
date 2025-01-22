@@ -1,6 +1,6 @@
 const util = require('util');
 require('dotenv').config();
-const { AccruClient } = require('accru-client'); // Import the services from your SDK
+const { AccruClient } = require('@accru/client'); // Import the services from your SDK
 const { getAuthToken } = require('./testAuth');
 
 function deepLog(obj) {
