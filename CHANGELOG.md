@@ -1,5 +1,11 @@
 # accru-client
 
+## 0.2.0
+
+### Minor Changes
+
+- c9f4a27: add organization email update
+
 ## 0.1.1
 
 ### Patch Changes
