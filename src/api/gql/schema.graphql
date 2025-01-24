@@ -665,6 +665,7 @@ type Organization {
   primary_contact_name: String
   setting_allow_invoice_due_snooze_reminders: Boolean
   setting_allow_invoice_overdue_snooze_reminders: Boolean
+  setting_receive_customer_notification_mode: RECEIVE_CUSTOMER_NOTIFICATION_MODE
   setting_send_invoice_due_reminders: Boolean
   setting_send_invoice_overdue_reminders: Boolean
   subscription: ORGANIZATION_SUBSCRIPTION @deprecated(reason: "Use subscription_data instead")
@@ -1877,8 +1878,9 @@ type OrganizationUser {
   organization: Organization!
   organization_id: String!
   payload: JSON
+  receive_customer_notification_mode: RECEIVE_CUSTOMER_NOTIFICATION_MODE
+  receive_invoice_reminders: Boolean!
   role: ORGANIZATION_USER_ROLE!
-  send_invoice_reminders: Boolean!
   updated_at: DateTime!
   user: User
   user_id: String!
@@ -2067,6 +2069,11 @@ type Query {
   userOrganizations(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, skip: Int, take: Int): [Organization!]!
 }
 
+enum RECEIVE_CUSTOMER_NOTIFICATION_MODE {
+  BCC
+  TO
+}
+
 enum RECEIVING_METHOD {
   ACH
   DEBIT_CARD
@@ -2214,8 +2221,9 @@ input UserOrganizationBillSchema {
 }
 
 input UserOrganizationCollaboratorUpdateSchema {
+  receive_customer_notification_mode: RECEIVE_CUSTOMER_NOTIFICATION_MODE
+  receive_invoice_reminders: Boolean!
   role: ORGANIZATION_USER_ROLE!
-  send_invoice_reminders: Boolean!
 }
 
 input UserOrganizationCreateSchema {
@@ -2233,6 +2241,7 @@ input UserOrganizationCreateSchema {
   name: String!
   phone_number: String
   primary_contact_name: String
+  setting_receive_customer_notification_mode: RECEIVE_CUSTOMER_NOTIFICATION_MODE
   timezone: String
 }
 
@@ -2387,6 +2396,7 @@ input UserOrganizationUpdateSchema {
   name: String
   phone_number: String
   primary_contact_name: String
+  setting_receive_customer_notification_mode: RECEIVE_CUSTOMER_NOTIFICATION_MODE
   timezone: String
 }
 

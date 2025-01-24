@@ -78,6 +78,8 @@ export const ORGANIZATION_QUERY_FRAGMENT = gql(`
     subscription_data {
       ...OrganizationSubscriptionDataFragment
     }
+
+    setting_receive_customer_notification_mode
   }
 `);
 
@@ -86,7 +88,8 @@ export const ORGANIZATION_USER_FRAGMENT = gql(`
     id
     role
     is_current_organization_user_seat_available
-    send_invoice_reminders
+    receive_invoice_reminders
+    receive_customer_notification_mode
     archived_at
     created_at
     updated_at
