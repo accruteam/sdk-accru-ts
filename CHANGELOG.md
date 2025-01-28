@@ -1,5 +1,15 @@
 # @accru/client
 
+## 0.4.0
+
+### Minor Changes
+
+- 902e63b: add send customer notification settings
+
+### Patch Changes
+
+- 1282593: add accrupay schema data
+
 ## 0.3.0
 
 ### Minor Changes
