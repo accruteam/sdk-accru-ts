@@ -356,6 +356,13 @@ export const ORGANIZATION_SUBSCRIPTION_GET_PRE_TRANSACTION_DATA_MUTATION = gql(`
         merchant_id
         merchant_site_id
       }
+
+      ... on AccruPayTransactionProviderPreTransactionData {
+        transaction_provider
+        environment
+        merchant_id
+        merchant_site_id
+      }
     }
   }
 `);
