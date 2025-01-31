@@ -56,7 +56,34 @@ export const USER_GET_ORGANIZATION_INVITES_QUERY = gql(`
     ) {
       edges {
         node {
-          ...OrganizationInviteFragment
+          id
+          email
+          role
+          code
+          expires_at
+          accepted_at
+          canceled_at
+          rejected_at
+          created_at
+          updated_at
+          organization_id
+          organization {
+              id
+              name
+              logo_picture_file {
+                  public_url
+              }
+          }
+          created_by_user_id
+          created_by_user {
+              id
+              first_name
+              last_name
+              email
+              profile_picture_file {
+                  public_url
+              }
+          }
         }
         cursor
       }
