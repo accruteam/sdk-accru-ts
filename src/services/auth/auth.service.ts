@@ -7,6 +7,8 @@ import {
   UserAuthProviderGetOAuthUrlMutationVariables,
   UserOrganizationUserInviteAcceptMutation,
   UserOrganizationUserInviteAcceptMutationVariables,
+  UserOrganizationUserInvitesQuery,
+  UserOrganizationUserInvitesQueryVariables,
   UserPasswordResetFinishMutation,
   UserPasswordResetFinishMutationVariables,
   UserPasswordResetStartMutation,
@@ -20,8 +22,12 @@ import {
   UserSignUpWithEmailVerifyMutation,
   UserSignUpWithEmailVerifyMutationVariables,
 } from '@api/gql/graphql';
-import { ApolloClient } from '@apollo/client';
+import { ApolloClient } from '@apollo/client/core';
 import { Res } from '@utils/response.type';
+import {
+  ListResponse,
+  processResponseAsList,
+} from '@utils/processResponseAsList';
 import {
   USER_CLOSE_SESSION_MUTATION,
   EMAIL_SIGNUP_MUTATION,
@@ -33,6 +39,7 @@ import {
   PASSWORD_RESET_FINISH_MUTATION,
   INTUIT_LOGIN_START_MUTATION,
   INTUIT_LOGIN_FINISH_MUTATION,
+  USER_GET_ORGANIZATION_INVITES_QUERY,
 } from './auth.queries';
 
 export default class Auth {
@@ -76,6 +83,17 @@ export default class Auth {
       variables,
     });
     return data!.unauthorizedUserOrganizationUserInvite;
+  };
+
+  public getInvites = async (
+    variables: UserOrganizationUserInvitesQueryVariables,
+  ): Promise<ListResponse<Res<UserOrganizationUserInvitesQuery>>> => {
+    const { data } = await this.apolloClient.query({
+      query: USER_GET_ORGANIZATION_INVITES_QUERY,
+      variables,
+    });
+
+    return processResponseAsList(data.userOrganizationUserInvites);
   };
 
   public acceptInvite = async (

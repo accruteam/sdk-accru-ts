@@ -1,4 +1,4 @@
-import { ApolloClient } from '@apollo/client';
+import { ApolloClient } from '@apollo/client/core';
 
 import AsCustomerProjects from './projects.asCustomer.service';
 import AsUnconnectedCustomerProjects from './projects.asUnconnectedCustomer.service';

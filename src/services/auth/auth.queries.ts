@@ -29,6 +29,48 @@ export const USER_ORGANIZATION_USER_INVITE_QUERY = gql(`
   }
 `);
 
+export const USER_GET_ORGANIZATION_INVITES_QUERY = gql(`
+  query UserOrganizationUserInvites(
+    $after: ConnectionCursor,
+    $first: Int,
+
+    $before: ConnectionCursor,
+    $last: Int,
+
+    $skip: Int,
+    $take: Int,
+
+    $sorting: [SortingFieldSchema!]
+  ) {
+    userOrganizationUserInvites(
+      after: $after,
+      first: $first,
+
+      before: $before,
+      last: $last,
+
+      skip: $skip,
+      take: $take,
+
+      sorting: $sorting
+    ) {
+      edges {
+        node {
+          ...OrganizationInviteFragment
+        }
+        cursor
+      }
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        startCursor
+        endCursor
+      }
+      totalCount
+    }
+  }
+`);
+
 export const EMAIL_SIGNUP_MUTATION = gql(`
   mutation UserSignUpWithEmailStart($data: UserSignUpWithEmailStartSchema!) {
     userSignUpWithEmailStart(data: $data)

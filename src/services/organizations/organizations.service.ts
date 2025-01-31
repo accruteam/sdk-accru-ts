@@ -2,7 +2,7 @@ import {
   QueryOptions,
   type ApolloClient,
   MutationOptions,
-} from '@apollo/client';
+} from '@apollo/client/core';
 import {
   UserOrganizationBaseSettingsQuery,
   UserOrganizationBaseSettingsQueryVariables,

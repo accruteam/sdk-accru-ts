@@ -1,4 +1,4 @@
-import { ApolloClient } from '@apollo/client';
+import { ApolloClient } from '@apollo/client/core';
 import AdminOrganizations from './adminOrganizations';
 
 export default class Admin {
