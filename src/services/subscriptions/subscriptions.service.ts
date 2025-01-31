@@ -18,7 +18,7 @@ import {
   UserOrganizationSubscriptionVerifyCouponMutation,
   UserOrganizationSubscriptionVerifyCouponMutationVariables,
 } from '@api/gql/graphql';
-import { ApolloClient } from '@apollo/client';
+import { ApolloClient } from '@apollo/client/core';
 import { Res } from '@utils/response.type';
 import {
   ListResponse,

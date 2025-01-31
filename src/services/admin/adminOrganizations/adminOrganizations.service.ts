@@ -2,7 +2,7 @@ import {
   AdminOrganizationsQuery,
   AdminOrganizationsQueryVariables,
 } from '@api/gql/graphql';
-import { ApolloClient } from '@apollo/client';
+import { ApolloClient } from '@apollo/client/core';
 import {
   ListResponse,
   processResponseAsList,
