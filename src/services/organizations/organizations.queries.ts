@@ -118,22 +118,30 @@ export const ORGANIZATION_INVITE_QUERY_FRAGMENT = gql(`
     email
     role
     code
-
-    status
-
-    accepted_at
-    rejected_at
-    canceled_at
     expires_at
-
-    organization_id
-    created_by_user_id
-    created_by_user {
-      email
-    }
-
+    accepted_at
+    canceled_at
+    rejected_at
     created_at
     updated_at
+    organization_id
+    organization {
+        id
+        name
+        logo_picture_file {
+            public_url
+        }
+    }
+    created_by_user_id
+    created_by_user {
+        id
+        first_name
+        last_name
+        email
+        profile_picture_file {
+            public_url
+        }
+    }
   }
 `);
 

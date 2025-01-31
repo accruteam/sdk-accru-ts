@@ -1,4 +1,4 @@
-import { ApolloClient, QueryOptions } from '@apollo/client';
+import { ApolloClient, QueryOptions } from '@apollo/client/core';
 import {
   UserOrganizationProjectChangeRequestAcceptMutation,
   UserOrganizationProjectChangeRequestAcceptMutationVariables,
