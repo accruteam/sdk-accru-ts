@@ -8,7 +8,6 @@ export const ACCT_PROVIDER_CONN_FRAGMENT = gql(`
     payload
     conn_expires_at
     automatic_pull_enabled
-    automatic_push_enabled
     disconnected_at
     created_at
     updated_at
@@ -28,34 +27,34 @@ export const ACCT_PROVIDER_CONN_FRAGMENT = gql(`
 export const ACCT_PROVIDER_SYNC_FRAGMENT = gql(`
   fragment OrganizationAcctProviderConnSynchronizationFragment on OrganizationAcctProviderConnSynchronization {
     id
-    trigger_code
-    pull
-    push
+    mode
+    force
+    provider
     errors
+    warnings
     started_at
     finished_at
     failed_at
     succeeded_at
-    local_read_success_count
-    local_create_success_count
-    local_update_success_count
-    local_delete_success_count
-    local_read_failure_count
-    local_create_failure_count
-    local_update_failure_count
-    local_delete_failure_count
-    remote_read_success_count
-    remote_create_success_count
-    remote_update_success_count
-    remote_delete_success_count
-    remote_read_failure_count
-    remote_create_failure_count
-    remote_update_failure_count
-    remote_delete_failure_count
-    sync_cluster_code
-    status_description
+
+    read_success
+    read_failure
+    skipped
+    create_success
+    create_failure
+    update_success
+    update_failure
+    delete_failure
+    delete_success
+    process_failure
+    process_success
+
     created_at
     updated_at
+
+    scope
+    scope_id
+
     organization_id
     organization_acct_provider_conn_id
   }

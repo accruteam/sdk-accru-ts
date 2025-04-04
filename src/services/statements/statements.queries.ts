@@ -23,13 +23,6 @@ export const ORGANIZATION_CUSTOMER_STATEMENT_INVOICE_LINE_FRAGMENT = gql(`
         url
         payload
       }
-
-      organization_acct_provider_conn_invoices {
-        organization_acct_provider_conn {
-          acct_provider
-          status
-        }
-      }
     }
   }
 `);
@@ -56,13 +49,6 @@ export const ORGANIZATION_CUSTOMER_STATEMENT_TRANSACTION_LINE_FRAGMENT = gql(`
         id
         amount
         organization_invoice_id
-      }
-
-      organization_acct_provider_conn_invoice_transactions {
-        organization_acct_provider_conn {
-          acct_provider
-          status
-        }
       }
     }
   }

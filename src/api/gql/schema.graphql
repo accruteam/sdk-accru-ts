@@ -277,6 +277,7 @@ enum COUNTRY_ISO_3 {
 }
 
 enum CURRENCY {
+  EUR
   USD
 }
 
@@ -328,8 +329,8 @@ enum MIME_TYPE {
 
 type Mutation {
   adminClearCache: DateTime!
-  adminOrganizationAcctProviderSynchronize(acct_provider: ACCT_PROVIDER!, force_pull: Boolean, organization_id: String!, pull: Boolean!, push: Boolean!): DateTime!
-  adminOrganizationAcctProviderSynchronizeAll(acct_provider: ACCT_PROVIDER, force_pull: Boolean, pull: Boolean!, push: Boolean!): Int!
+  adminOrganizationAcctProviderSynchronize(acct_provider: ACCT_PROVIDER!, organization_id: String!): DateTime!
+  adminOrganizationAcctProviderSynchronizeAll(acct_provider: ACCT_PROVIDER): Int!
   adminOrganizationArchive(organization_id: String!): Organization!
   adminOrganizationBillProcess(organization_bill_id: String, organization_id: String!): Int!
   adminOrganizationBillTransactionProcess(organization_bill_transaction_id: String, organization_id: String!): Int!
@@ -373,15 +374,11 @@ type Mutation {
   userEmailVerifyOrChangeStart(data: UserEmailVerifyOrChangeStartSchema!): DateTime!
   userHandleLoginAttempt(email: String!): DateTime!
   userOrganizationAcctProviderConnCheckConnection(acct_provider: ACCT_PROVIDER!, acct_provider_conn_code: String!, organization_id: String!): OrganizationAcctProviderConn!
-  userOrganizationAcctProviderConnConfigurationPullOptionsGet(acct_provider: ACCT_PROVIDER!, organization_id: String!): JSON!
-  userOrganizationAcctProviderConnConfigurationPullOptionsSet(acct_provider: ACCT_PROVIDER!, organization_id: String!, payload: JSON!): OrganizationAcctProviderConn!
-  userOrganizationAcctProviderConnConfigurationPushOptionsGet(acct_provider: ACCT_PROVIDER!, organization_id: String!): JSON!
-  userOrganizationAcctProviderConnConfigurationPushOptionsSet(acct_provider: ACCT_PROVIDER!, organization_id: String!, payload: JSON!): OrganizationAcctProviderConn!
   userOrganizationAcctProviderConnDisconnect(acct_provider: ACCT_PROVIDER!, organization_id: String!): OrganizationAcctProviderConn!
   userOrganizationAcctProviderConnUpdate(acct_provider: ACCT_PROVIDER!, data: UserOrganizationAcctProviderConnUpdateSchema!, organization_id: String!): OrganizationAcctProviderConn!
-  userOrganizationAcctProviderConnect(acct_provider: ACCT_PROVIDER!, automatic_pull_enabled: Boolean!, automatic_push_enabled: Boolean!, organization_id: String!, url: String!): OrganizationAcctProviderConn!
+  userOrganizationAcctProviderConnect(acct_provider: ACCT_PROVIDER!, automatic_pull_enabled: Boolean!, organization_id: String!, url: String!): OrganizationAcctProviderConn!
   userOrganizationAcctProviderGetOAuthUrl(acct_provider: ACCT_PROVIDER!, organization_id: String!): String!
-  userOrganizationAcctProviderSynchronize(acct_provider: ACCT_PROVIDER!, force_pull: Boolean, organization_id: String!, pull: Boolean!, push: Boolean!): DateTime!
+  userOrganizationAcctProviderSynchronize(acct_provider: ACCT_PROVIDER!, organization_id: String!): DateTime!
   userOrganizationBillConnLock(organization_bill_id: String!, organization_id: String!): OrganizationBill!
   userOrganizationBillConnSync(organization_bill_id: String!, organization_id: String!): OrganizationBill!
   userOrganizationBillConnUnlock(organization_bill_id: String!, organization_id: String!): OrganizationBill!
@@ -421,7 +418,6 @@ type Mutation {
   userOrganizationInvoiceCreate(data: UserOrganizationInvoiceSchema!, organization_id: String!): OrganizationInvoice!
   userOrganizationInvoiceDelete(organization_id: String!, organization_invoice_ids: [String!]!): [OrganizationInvoice!]!
   userOrganizationInvoiceFileDelete(organization_id: String!, organization_invoice_id: String!): OrganizationInvoice!
-  userOrganizationInvoiceGetBalanceSnapshot(organization_id: String!, organization_invoice_id: String!): BigInt!
   userOrganizationInvoiceGetPDF(acct_provider: ACCT_PROVIDER, organization_id: String!, organization_invoice_id: String!): String!
   userOrganizationInvoiceManualPaymentCreate(data: UserOrganizationInvoiceManualPaymentCreateSchema!, organization_id: String!, organization_invoice_id: String!): OrganizationInvoice!
   userOrganizationInvoiceManualPaymentDelete(organization_id: String!, organization_invoice_id: String!, organization_invoice_transaction_id: String!): OrganizationInvoice!
@@ -691,7 +687,6 @@ type Organization {
 type OrganizationAcctProviderConn {
   acct_provider: ACCT_PROVIDER!
   automatic_pull_enabled: Boolean!
-  automatic_push_enabled: Boolean!
   code: String!
   conn_expires_at: DateTime!
   created_at: DateTime!
@@ -789,39 +784,35 @@ type OrganizationAcctProviderConnPaginationEdge {
 }
 
 type OrganizationAcctProviderConnSynchronization {
+  create_failure: Int!
+  create_success: Int!
   created_at: DateTime!
+  delete_failure: Int!
+  delete_success: Int!
+  error: String
   errors: [String!]!
   failed_at: DateTime
   finished_at: DateTime
-  force_pull: Boolean
+  force: Boolean
   id: ID!
-  local_create_failure_count: Int!
-  local_create_success_count: Int!
-  local_delete_failure_count: Int!
-  local_delete_success_count: Int!
-  local_read_failure_count: Int!
-  local_read_success_count: Int!
-  local_update_failure_count: Int!
-  local_update_success_count: Int!
+  mode: String!
   organization_acct_provider_conn_id: String!
   organization_id: String!
   payload: JSON
-  pull: Boolean!
-  push: Boolean!
-  remote_create_failure_count: Int!
-  remote_create_success_count: Int!
-  remote_delete_failure_count: Int!
-  remote_delete_success_count: Int!
-  remote_read_failure_count: Int!
-  remote_read_success_count: Int!
-  remote_update_failure_count: Int!
-  remote_update_success_count: Int!
-  started_at: DateTime!
-  status_description: String!
+  process_failure: Int!
+  process_success: Int!
+  provider: ACCT_PROVIDER!
+  read_failure: Int!
+  read_success: Int!
+  scope: String!
+  scope_id: String
+  skipped: Int!
+  started_at: DateTime
   succeeded_at: DateTime
-  sync_cluster_code: String!
-  trigger_code: String!
+  update_failure: Int!
+  update_success: Int!
   updated_at: DateTime!
+  warnings: [String!]!
 }
 
 type OrganizationAcctProviderConnSynchronizationPaginationConnection {
@@ -861,22 +852,28 @@ type OrganizationBill {
   conn_locked_data_at: DateTime
   created_at: DateTime!
   currency_code: CURRENCY!
-  description: String!
+  description: String
   discount_amount: BigInt!
   due_date: DateTime!
   file: File
   file_id: String
-  has_sync_errors: Boolean
+  has_sync_errors: Boolean @deprecated(reason: "Use `provider_errors` and `provider_warnings` instead")
   history(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, skip: Int, sorting: [SortingFieldSchema!], take: Int): OrganizationBillHistoryPaginationConnection!
   id: ID!
   is_overdue: Boolean
+  last_successful_sync_at: DateTime
+  last_successful_sync_id: String
   last_sync_at: DateTime
+  last_sync_id: String
+  last_sync_succeeded: Boolean
   latest_acct_provider_balance: BigInt
   latest_acct_provider_is_overdue: Boolean
   latest_acct_provider_status: BILL_STATUS
-  number: String!
+  number: String
   organization: Organization!
+  organization_acct_provider_conn: OrganizationAcctProviderConn!
   organization_acct_provider_conn_bills: [OrganizationAcctProviderConnBill!]!
+  organization_acct_provider_conn_id: String!
   organization_id: String!
   organization_project: OrganizationProject
   organization_project_id: String
@@ -885,6 +882,10 @@ type OrganizationBill {
   paid_amount: BigInt
   paid_at: DateTime
   payload: JSON
+  provider: ACCT_PROVIDER!
+  provider_code: String!
+  provider_errors: [String!]!
+  provider_warnings: [String!]!
   status: BILL_STATUS
   tax_amount: BigInt!
   total_amount: BigInt!
@@ -969,19 +970,29 @@ type OrganizationBillTransaction {
   archived_at: DateTime
   created_at: DateTime!
   currency_code: CURRENCY!
+  customer_organization_acct_provider_conn: OrganizationAcctProviderConn!
+  customer_organization_acct_provider_conn_id: String!
   customer_organization_id: String!
   customer_organization_payment_method_id: String!
   customer_organization_vendor_id: String!
   due_date: DateTime!
   failed_at: DateTime
-  has_sync_errors: Boolean
+  has_sync_errors: Boolean @deprecated(reason: "Use `provider_errors` and `provider_warnings` instead")
   id: ID!
+  last_successful_sync_at: DateTime
+  last_successful_sync_id: String
   last_sync_at: DateTime
+  last_sync_id: String
+  last_sync_succeeded: Boolean
   links: [OrganizationBillTransactionLink!]!
   organization_acct_provider_conn_bill_transactions: [OrganizationAcctProviderConnBillTransaction!]!
   payment_method: PAYMENT_METHOD!
   payment_method_code: String!
+  provider: ACCT_PROVIDER!
+  provider_code: String!
+  provider_errors: [String!]!
   provider_transaction_code: String!
+  provider_warnings: [String!]!
   reverted_at: DateTime
   started_at: DateTime
   status: TRANSACTION_STATUS
@@ -1089,20 +1100,30 @@ type OrganizationCustomer {
   connection: OrganizationConnection
   contacts: [OrganizationCustomerContact!]!
   created_at: DateTime!
-  email: String!
-  has_sync_errors: Boolean
+  email: String
+  has_sync_errors: Boolean @deprecated(reason: "Use `provider_errors` and `provider_warnings` instead")
   id: ID!
   invoice_summary(after: ConnectionCursor, before: ConnectionCursor, currency: CURRENCY, customer_name: String, due_end_date: DateTime, due_start_date: DateTime, end_date: DateTime, first: Int, is_overdue: Boolean, last: Int, latest_acct_provider_is_overdue: Boolean, latest_acct_provider_status: INVOICE_STATUS, skip: Int, sorting: [SortingFieldSchema!], start_date: DateTime, status: INVOICE_STATUS, take: Int): OrganizationInvoiceSummary!
   is_active: Boolean!
   language: String
+  last_successful_sync_at: DateTime
+  last_successful_sync_id: String
   last_sync_at: DateTime
+  last_sync_id: String
+  last_sync_succeeded: Boolean
   latest_acct_provider_balance: BigInt
   name: String!
   organization: Organization!
+  organization_acct_provider_conn: OrganizationAcctProviderConn!
   organization_acct_provider_conn_customers: [OrganizationAcctProviderConnCustomer!]!
+  organization_acct_provider_conn_id: String!
   organization_id: String!
   overdue_amount: BigInt
   phone_number: String
+  provider: ACCT_PROVIDER!
+  provider_code: String!
+  provider_errors: [String!]!
+  provider_warnings: [String!]!
   statement(after: ConnectionCursor, before: ConnectionCursor, currency: CURRENCY, due_end_date: DateTime, due_start_date: DateTime, end_date: DateTime, first: Int, is_overdue: Boolean, last: Int, skip: Int, sorting: [SortingFieldSchema!], start_date: DateTime, take: Int, type: STATEMENT_LINE_TYPE): OrganizationCustomerStatement!
   tax_code: String
   tax_code_type: TAX_TYPE
@@ -1213,16 +1234,22 @@ type OrganizationCustomerStatementInvoiceLineData {
   customer_address_state: String
   customer_address_zip_code: String
   customer_email: String
-  description: String!
+  description: String
   discount_amount: BigInt!
   due_date: DateTime!
   email_sent_at: DateTime
   file_id: String
   id: ID!
   invoice_date: DateTime!
+  last_successful_sync_at: DateTime
+  last_successful_sync_id: String
+  last_sync_at: DateTime
+  last_sync_id: String
+  last_sync_succeeded: Boolean
   latest_acct_provider_balance: BigInt
   latest_acct_provider_status: INVOICE_STATUS
-  number: String!
+  number: String
+  organization_acct_provider_conn_id: String!
   organization_acct_provider_conn_invoices: [OrganizationAcctProviderConnInvoice!]!
   organization_customer_id: String!
   organization_id: String!
@@ -1231,6 +1258,10 @@ type OrganizationCustomerStatementInvoiceLineData {
   paid_at: DateTime
   payload: JSON
   payment_options: [OrganizationInvoicePaymentOption!]!
+  provider: ACCT_PROVIDER!
+  provider_code: String!
+  provider_errors: [String!]!
+  provider_warnings: [String!]!
   status: INVOICE_STATUS
   tax_amount: BigInt!
   total_amount: BigInt!
@@ -1274,15 +1305,23 @@ type OrganizationCustomerStatementTransactionLineData {
   archived_at: DateTime
   created_at: DateTime!
   currency_code: CURRENCY!
-  customer_organization_payment_method_id: String
   due_date: DateTime!
   failed_at: DateTime
   id: ID!
+  last_successful_sync_at: DateTime
+  last_successful_sync_id: String
+  last_sync_at: DateTime
+  last_sync_id: String
+  last_sync_succeeded: Boolean
   links: [OrganizationInvoiceTransactionLink!]!
   organization_acct_provider_conn_invoice_transactions: [OrganizationAcctProviderConnInvoiceTransaction!]!
   payment_method: PAYMENT_METHOD!
   payment_method_code: String!
+  provider: ACCT_PROVIDER!
+  provider_code: String!
+  provider_errors: [String!]!
   provider_transaction_code: String!
+  provider_warnings: [String!]!
   reverted_at: DateTime
   started_at: DateTime
   status: TRANSACTION_STATUS
@@ -1292,6 +1331,7 @@ type OrganizationCustomerStatementTransactionLineData {
   transaction_provider: TRANSACTION_PROVIDER!
   unapplied_amount: BigInt!
   updated_at: DateTime!
+  vendor_organization_acct_provider_conn_id: String!
   vendor_organization_customer_id: String!
   vendor_organization_id: String!
   vendor_organization_receiving_method_id: String!
@@ -1347,23 +1387,29 @@ type OrganizationInvoice {
   customer_address_state: String
   customer_address_zip_code: String
   customer_email: String
-  description: String!
+  description: String
   discount_amount: BigInt!
   due_date: DateTime!
   email_sent_at: DateTime
   file: File
   file_id: String
-  has_sync_errors: Boolean
+  has_sync_errors: Boolean @deprecated(reason: "Use `provider_errors` and `provider_warnings` instead")
   history(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, skip: Int, sorting: [SortingFieldSchema!], take: Int): OrganizationInvoiceHistoryPaginationConnection!
   id: ID!
   invoice_date: DateTime!
   is_overdue: Boolean
+  last_successful_sync_at: DateTime
+  last_successful_sync_id: String
   last_sync_at: DateTime
+  last_sync_id: String
+  last_sync_succeeded: Boolean
   latest_acct_provider_balance: BigInt
   latest_acct_provider_is_overdue: Boolean
   latest_acct_provider_status: INVOICE_STATUS
-  number: String!
+  number: String
   organization: Organization!
+  organization_acct_provider_conn: OrganizationAcctProviderConn!
+  organization_acct_provider_conn_id: String!
   organization_acct_provider_conn_invoices: [OrganizationAcctProviderConnInvoice!]!
   organization_customer: OrganizationCustomer!
   organization_customer_id: String!
@@ -1374,6 +1420,10 @@ type OrganizationInvoice {
   paid_at: DateTime
   payload: JSON
   payment_options: [OrganizationInvoicePaymentOption!]!
+  provider: ACCT_PROVIDER!
+  provider_code: String!
+  provider_errors: [String!]!
+  provider_warnings: [String!]!
   status: INVOICE_STATUS
   tax_amount: BigInt!
   total_amount: BigInt!
@@ -1454,17 +1504,24 @@ type OrganizationInvoiceTransaction {
   archived_at: DateTime
   created_at: DateTime!
   currency_code: CURRENCY!
-  customer_organization_payment_method_id: String
   due_date: DateTime!
   failed_at: DateTime
-  has_sync_errors: Boolean
+  has_sync_errors: Boolean @deprecated(reason: "Use `provider_errors` and `provider_warnings` instead")
   id: ID!
+  last_successful_sync_at: DateTime
+  last_successful_sync_id: String
   last_sync_at: DateTime
+  last_sync_id: String
+  last_sync_succeeded: Boolean
   links: [OrganizationInvoiceTransactionLink!]!
   organization_acct_provider_conn_invoice_transactions: [OrganizationAcctProviderConnInvoiceTransaction!]!
   payment_method: PAYMENT_METHOD!
   payment_method_code: String!
+  provider: ACCT_PROVIDER!
+  provider_code: String!
+  provider_errors: [String!]!
   provider_transaction_code: String!
+  provider_warnings: [String!]!
   reverted_at: DateTime
   started_at: DateTime
   status: TRANSACTION_STATUS
@@ -1474,6 +1531,8 @@ type OrganizationInvoiceTransaction {
   transaction_provider: TRANSACTION_PROVIDER!
   unapplied_amount: BigInt!
   updated_at: DateTime!
+  vendor_organization_acct_provider_conn: OrganizationAcctProviderConn!
+  vendor_organization_acct_provider_conn_id: String!
   vendor_organization_customer_id: String!
   vendor_organization_id: String!
   vendor_organization_receiving_method_id: String!
@@ -1911,18 +1970,28 @@ type OrganizationVendor {
   contacts: [OrganizationVendorContact!]!
   created_at: DateTime!
   email: String
-  has_sync_errors: Boolean
+  has_sync_errors: Boolean @deprecated(reason: "Use `provider_errors` and `provider_warnings` instead")
   id: ID!
   is_active: Boolean!
   language: String
+  last_successful_sync_at: DateTime
+  last_successful_sync_id: String
   last_sync_at: DateTime
+  last_sync_id: String
+  last_sync_succeeded: Boolean
   latest_acct_provider_balance: BigInt
   name: String!
   organization: Organization!
+  organization_acct_provider_conn: OrganizationAcctProviderConn!
+  organization_acct_provider_conn_id: String!
   organization_acct_provider_conn_vendors: [OrganizationAcctProviderConnVendor!]!
   organization_id: String!
   overdue_amount: BigInt
   phone_number: String
+  provider: ACCT_PROVIDER!
+  provider_code: String!
+  provider_errors: [String!]!
+  provider_warnings: [String!]!
   tax_code: String
   tax_code_type: TAX_TYPE
   timezone: String
@@ -2209,7 +2278,6 @@ input UserEmailVerifyOrChangeStartSchema {
 
 input UserOrganizationAcctProviderConnUpdateSchema {
   automatic_pull_enabled: Boolean!
-  automatic_push_enabled: Boolean!
 }
 
 input UserOrganizationBillManualPaymentCreateSchema {

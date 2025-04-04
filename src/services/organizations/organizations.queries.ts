@@ -62,7 +62,6 @@ export const ORGANIZATION_QUERY_FRAGMENT = gql(`
     timezone
     language
 
-    archived_at
     created_at
     updated_at
 
@@ -90,7 +89,6 @@ export const ORGANIZATION_USER_FRAGMENT = gql(`
     is_current_organization_user_seat_available
     receive_invoice_reminders
     receive_customer_notification_mode
-    archived_at
     created_at
     updated_at
     organization_id

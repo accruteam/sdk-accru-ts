@@ -5,6 +5,17 @@ export const BILL_QUERY_FRAGMENT = gql(`
     id
     unique_code
     number
+
+    provider
+    provider_code
+    provider_errors
+    provider_warnings
+    last_successful_sync_id
+    last_successful_sync_at
+    last_sync_succeeded
+    last_sync_id
+    last_sync_at
+
     currency_code
     description
     payload
@@ -24,7 +35,6 @@ export const BILL_QUERY_FRAGMENT = gql(`
     vendor_address_country_code_iso_3
     vendor_address_lat
     vendor_address_lng
-    archived_at
     created_at
     updated_at
 
@@ -40,23 +50,6 @@ export const BILL_QUERY_FRAGMENT = gql(`
       name
       email
       balance
-    }
-
-    organization_acct_provider_conn_bills {
-      id
-      code
-      balance
-      payload
-      last_sync_at
-      last_sync_success
-      last_sync_id
-
-      organization_bill_id
-
-      organization_acct_provider_conn_id
-      organization_acct_provider_conn {
-        acct_provider
-      }
     }
 
     file_id

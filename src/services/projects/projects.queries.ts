@@ -52,7 +52,6 @@ export const ORGANIZATION_PROJECT_FRAGMENT = gql(`
   fragment OrganizationProjectFragment on OrganizationProject {
     id
 
-    archived_at
     budget_amount
     budget_currency_code
     canceled_at

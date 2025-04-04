@@ -1,61 +1,5 @@
 import { gql } from '@gql';
 
-export const GET_ACCT_PROVIDER_PULL_OPTIONS_MUTATION = gql(`
-  mutation UserOrganizationAcctProviderConnConfigurationPullOptionsGet(
-    $organizationId: String!
-    $accountProvider: ACCT_PROVIDER!
-  ) {
-    userOrganizationAcctProviderConnConfigurationPullOptionsGet(
-      organization_id: $organizationId
-      acct_provider: $accountProvider
-    )
-  }
-`);
-
-export const SET_ACCT_PROVIDER_PULL_OPTIONS_MUTATION = gql(`
-  mutation UserOrganizationAcctProviderConnConfigurationPullOptionsSet(
-    $organizationId: String!
-    $accountProvider: ACCT_PROVIDER!
-    $payload: JSON!
-  ) {
-    userOrganizationAcctProviderConnConfigurationPullOptionsSet(
-      organization_id: $organizationId
-      acct_provider: $accountProvider
-      payload: $payload
-    ) {
-      ...OrganizationAcctProviderConnFragment
-    }
-  }
-`);
-
-export const GET_ACCT_PROVIDER_PUSH_OPTIONS_MUTATION = gql(`
-  mutation UserOrganizationAcctProviderConnConfigurationPushOptionsGet(
-    $organizationId: String!
-    $accountProvider: ACCT_PROVIDER!
-  ) {
-    userOrganizationAcctProviderConnConfigurationPushOptionsGet(
-      organization_id: $organizationId
-      acct_provider: $accountProvider
-    )
-  }
-`);
-
-export const SET_ACCT_PROVIDER_PUSH_OPTIONS_MUTATION = gql(`
-  mutation UserOrganizationAcctProviderConnConfigurationPushOptionsSet(
-    $organizationId: String!
-    $accountProvider: ACCT_PROVIDER!
-    $payload: JSON!
-  ) {
-    userOrganizationAcctProviderConnConfigurationPushOptionsSet(
-      organization_id: $organizationId
-      acct_provider: $accountProvider
-      payload: $payload
-    ) {
-      ...OrganizationAcctProviderConnFragment
-    }
-  }
-`);
-
 export const DISCONNECT_ACCT_PROVIDER_MUTATION = gql(`
   mutation UserOrganizationAcctProviderConnDisconnect(
     $organizationId: String!
@@ -99,7 +43,6 @@ export const CONNECT_ACCT_PROVIDER_MUTATION = gql(`
       acct_provider: $accountProvider
       url: $url
       automatic_pull_enabled: $automaticPull
-      automatic_push_enabled: $automaticPush
     ) {
       ...OrganizationAcctProviderConnFragment
     }
@@ -122,14 +65,10 @@ export const SYNC_ACCT_PROVIDER_MUTATION = gql(`
   mutation UserOrganizationAcctProviderSynchronize(
     $organizationId: String!
     $accountProvider: ACCT_PROVIDER!
-    $pull: Boolean!
-    $push: Boolean!
   ) {
     userOrganizationAcctProviderSynchronize(
       organization_id: $organizationId
       acct_provider: $accountProvider
-      pull: $pull
-      push: $push
     )
   }
 `);

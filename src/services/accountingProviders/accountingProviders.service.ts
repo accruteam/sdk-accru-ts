@@ -9,14 +9,6 @@ import {
   UnauthorizedUserOrganizationAcctProviderConnCheckConnectionMutationVariables,
   UserOrganizationAcctProviderConnCheckConnectionMutation,
   UserOrganizationAcctProviderConnCheckConnectionMutationVariables,
-  UserOrganizationAcctProviderConnConfigurationPullOptionsGetMutation,
-  UserOrganizationAcctProviderConnConfigurationPullOptionsGetMutationVariables,
-  UserOrganizationAcctProviderConnConfigurationPullOptionsSetMutation,
-  UserOrganizationAcctProviderConnConfigurationPullOptionsSetMutationVariables,
-  UserOrganizationAcctProviderConnConfigurationPushOptionsGetMutation,
-  UserOrganizationAcctProviderConnConfigurationPushOptionsGetMutationVariables,
-  UserOrganizationAcctProviderConnConfigurationPushOptionsSetMutation,
-  UserOrganizationAcctProviderConnConfigurationPushOptionsSetMutationVariables,
   UserOrganizationAcctProviderConnDisconnectMutation,
   UserOrganizationAcctProviderConnDisconnectMutationVariables,
   UserOrganizationAcctProviderConnUpdateMutation,
@@ -43,67 +35,15 @@ import {
   DISCONNECT_ACCT_PROVIDER_MUTATION,
   GET_ACCT_PROVIDER_CONN_QUERY,
   GET_ACCT_PROVIDER_OAUTH_URL_MUTATION,
-  GET_ACCT_PROVIDER_PULL_OPTIONS_MUTATION,
-  GET_ACCT_PROVIDER_PUSH_OPTIONS_MUTATION,
   GET_ACCT_PROVIDER_SYNC_QUERY,
   GET_ALL_ACCT_PROVIDER_CONNS_QUERY,
   GET_ALL_ACCT_PROVIDER_SYNCS_QUERY,
-  SET_ACCT_PROVIDER_PULL_OPTIONS_MUTATION,
-  SET_ACCT_PROVIDER_PUSH_OPTIONS_MUTATION,
   SYNC_ACCT_PROVIDER_MUTATION,
   UPDATE_ACCT_PROVIDER_CONN_MUTATION,
 } from './accountingProviders.queries';
 
 export default class AccountingProviders {
   constructor(private readonly apolloClient: ApolloClient<unknown>) {}
-
-  public getPullOptions = async (
-    variables: UserOrganizationAcctProviderConnConfigurationPullOptionsGetMutationVariables,
-  ): Promise<
-    Res<UserOrganizationAcctProviderConnConfigurationPullOptionsGetMutation>
-  > => {
-    const { data } = await this.apolloClient.mutate({
-      mutation: GET_ACCT_PROVIDER_PULL_OPTIONS_MUTATION,
-      variables,
-    });
-    return data!.userOrganizationAcctProviderConnConfigurationPullOptionsGet;
-  };
-
-  public setPullOptions = async (
-    variables: UserOrganizationAcctProviderConnConfigurationPullOptionsSetMutationVariables,
-  ): Promise<
-    Res<UserOrganizationAcctProviderConnConfigurationPullOptionsSetMutation>
-  > => {
-    const { data } = await this.apolloClient.mutate({
-      mutation: SET_ACCT_PROVIDER_PULL_OPTIONS_MUTATION,
-      variables,
-    });
-    return data!.userOrganizationAcctProviderConnConfigurationPullOptionsSet;
-  };
-
-  public getPushOptions = async (
-    variables: UserOrganizationAcctProviderConnConfigurationPushOptionsGetMutationVariables,
-  ): Promise<
-    Res<UserOrganizationAcctProviderConnConfigurationPushOptionsGetMutation>
-  > => {
-    const { data } = await this.apolloClient.mutate({
-      mutation: GET_ACCT_PROVIDER_PUSH_OPTIONS_MUTATION,
-      variables,
-    });
-    return data!.userOrganizationAcctProviderConnConfigurationPushOptionsGet;
-  };
-
-  public setPushOptions = async (
-    variables: UserOrganizationAcctProviderConnConfigurationPushOptionsSetMutationVariables,
-  ): Promise<
-    Res<UserOrganizationAcctProviderConnConfigurationPushOptionsSetMutation>
-  > => {
-    const { data } = await this.apolloClient.mutate({
-      mutation: SET_ACCT_PROVIDER_PUSH_OPTIONS_MUTATION,
-      variables,
-    });
-    return data!.userOrganizationAcctProviderConnConfigurationPushOptionsSet;
-  };
 
   public disconnect = async (
     variables: UserOrganizationAcctProviderConnDisconnectMutationVariables,
