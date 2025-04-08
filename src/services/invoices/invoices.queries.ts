@@ -8,6 +8,7 @@ export const INVOICE_QUERY_FRAGMENT = gql(`
 
     provider
     provider_code
+    provider_url
     provider_errors
     provider_warnings
     last_successful_sync_id

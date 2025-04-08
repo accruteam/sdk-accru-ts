@@ -32,6 +32,14 @@ export const ACCT_PROVIDER_SYNC_FRAGMENT = gql(`
     provider
     errors
     warnings
+    data {
+        customer { items }
+        invoice { items }
+        invoice_transaction { items }
+        vendor { items }
+        bill { items }
+        bill_transaction { items }
+    }
     started_at
     finished_at
     failed_at
@@ -54,6 +62,7 @@ export const ACCT_PROVIDER_SYNC_FRAGMENT = gql(`
 
     scope
     scope_id
+    scope_description
 
     organization_id
     organization_acct_provider_conn_id

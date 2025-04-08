@@ -487,6 +487,11 @@ enum ORGANIZATION_ACCT_PROVIDER_CONN_STATUS {
   EXPIRED
 }
 
+enum ORGANIZATION_ACCT_PROVIDER_CONN_SYNCHRONIZATION_SCOPE {
+  COMPLETE
+  CUSTOMER
+}
+
 enum ORGANIZATION_CONNECTION_STATUS {
   ACCEPTED
   INVITED
@@ -695,7 +700,7 @@ type OrganizationAcctProviderConn {
   organization_id: String!
   payload: JSON
   status: ORGANIZATION_ACCT_PROVIDER_CONN_STATUS!
-  synchronizations(after: ConnectionCursor, before: ConnectionCursor, failed: Boolean, finished: Boolean, first: Int, last: Int, skip: Int, sorting: [SortingFieldSchema!], succeeded: Boolean, take: Int): OrganizationAcctProviderConnSynchronizationPaginationConnection!
+  synchronizations(after: ConnectionCursor, before: ConnectionCursor, failed: Boolean, finished: Boolean, first: Int, last: Int, scope: ORGANIZATION_ACCT_PROVIDER_CONN_SYNCHRONIZATION_SCOPE, skip: Int, sorting: [SortingFieldSchema!], succeeded: Boolean, take: Int): OrganizationAcctProviderConnSynchronizationPaginationConnection!
   updated_at: DateTime!
 }
 
@@ -787,6 +792,7 @@ type OrganizationAcctProviderConnSynchronization {
   create_failure: Int!
   create_success: Int!
   created_at: DateTime!
+  data: OrganizationAcctProviderConnSynchronizationData
   delete_failure: Int!
   delete_success: Int!
   error: String
@@ -805,6 +811,7 @@ type OrganizationAcctProviderConnSynchronization {
   read_failure: Int!
   read_success: Int!
   scope: String!
+  scope_description: String
   scope_id: String
   skipped: Int!
   started_at: DateTime
@@ -813,6 +820,34 @@ type OrganizationAcctProviderConnSynchronization {
   update_success: Int!
   updated_at: DateTime!
   warnings: [String!]!
+}
+
+type OrganizationAcctProviderConnSynchronizationData {
+  bill: OrganizationAcctProviderConnSynchronizationEntity
+  bill_transaction: OrganizationAcctProviderConnSynchronizationEntity
+  customer: OrganizationAcctProviderConnSynchronizationEntity
+  invoice: OrganizationAcctProviderConnSynchronizationEntity
+  invoice_transaction: OrganizationAcctProviderConnSynchronizationEntity
+  vendor: OrganizationAcctProviderConnSynchronizationEntity
+}
+
+type OrganizationAcctProviderConnSynchronizationEntity {
+  count: OrganizationAcctProviderConnSynchronizationEntityCount!
+  items: JSON
+}
+
+type OrganizationAcctProviderConnSynchronizationEntityCount {
+  create_failure: Int!
+  create_success: Int!
+  delete_failure: Int!
+  delete_success: Int!
+  process_failure: Int!
+  process_success: Int!
+  read_failure: Int!
+  read_success: Int!
+  skipped: Int!
+  update_failure: Int!
+  update_success: Int!
 }
 
 type OrganizationAcctProviderConnSynchronizationPaginationConnection {
@@ -885,6 +920,7 @@ type OrganizationBill {
   provider: ACCT_PROVIDER!
   provider_code: String!
   provider_errors: [String!]!
+  provider_url: String
   provider_warnings: [String!]!
   status: BILL_STATUS
   tax_amount: BigInt!
@@ -992,6 +1028,7 @@ type OrganizationBillTransaction {
   provider_code: String!
   provider_errors: [String!]!
   provider_transaction_code: String!
+  provider_url: String
   provider_warnings: [String!]!
   reverted_at: DateTime
   started_at: DateTime
@@ -1123,6 +1160,7 @@ type OrganizationCustomer {
   provider: ACCT_PROVIDER!
   provider_code: String!
   provider_errors: [String!]!
+  provider_url: String
   provider_warnings: [String!]!
   statement(after: ConnectionCursor, before: ConnectionCursor, currency: CURRENCY, due_end_date: DateTime, due_start_date: DateTime, end_date: DateTime, first: Int, is_overdue: Boolean, last: Int, skip: Int, sorting: [SortingFieldSchema!], start_date: DateTime, take: Int, type: STATEMENT_LINE_TYPE): OrganizationCustomerStatement!
   tax_code: String
@@ -1261,6 +1299,7 @@ type OrganizationCustomerStatementInvoiceLineData {
   provider: ACCT_PROVIDER!
   provider_code: String!
   provider_errors: [String!]!
+  provider_url: String
   provider_warnings: [String!]!
   status: INVOICE_STATUS
   tax_amount: BigInt!
@@ -1321,6 +1360,7 @@ type OrganizationCustomerStatementTransactionLineData {
   provider_code: String!
   provider_errors: [String!]!
   provider_transaction_code: String!
+  provider_url: String
   provider_warnings: [String!]!
   reverted_at: DateTime
   started_at: DateTime
@@ -1423,6 +1463,7 @@ type OrganizationInvoice {
   provider: ACCT_PROVIDER!
   provider_code: String!
   provider_errors: [String!]!
+  provider_url: String
   provider_warnings: [String!]!
   status: INVOICE_STATUS
   tax_amount: BigInt!
@@ -1521,6 +1562,7 @@ type OrganizationInvoiceTransaction {
   provider_code: String!
   provider_errors: [String!]!
   provider_transaction_code: String!
+  provider_url: String
   provider_warnings: [String!]!
   reverted_at: DateTime
   started_at: DateTime
@@ -1991,6 +2033,7 @@ type OrganizationVendor {
   provider: ACCT_PROVIDER!
   provider_code: String!
   provider_errors: [String!]!
+  provider_url: String
   provider_warnings: [String!]!
   tax_code: String
   tax_code_type: TAX_TYPE
@@ -2072,7 +2115,7 @@ type PageInfo {
 }
 
 type Query {
-  adminOrganizationAcctProviderSynchronizations(acct_provider: ACCT_PROVIDER, after: ConnectionCursor, before: ConnectionCursor, failed: Boolean, finished: Boolean, first: Int, last: Int, organization_id: String!, skip: Int, sorting: [SortingFieldSchema!], succeeded: Boolean, take: Int): OrganizationAcctProviderConnSynchronizationPaginationConnection!
+  adminOrganizationAcctProviderSynchronizations(acct_provider: ACCT_PROVIDER, after: ConnectionCursor, before: ConnectionCursor, failed: Boolean, finished: Boolean, first: Int, last: Int, organization_id: String!, scope: ORGANIZATION_ACCT_PROVIDER_CONN_SYNCHRONIZATION_SCOPE, skip: Int, sorting: [SortingFieldSchema!], succeeded: Boolean, take: Int): OrganizationAcctProviderConnSynchronizationPaginationConnection!
   adminOrganizationCoupon(organization_coupon_id: String!): OrganizationCoupon!
   adminOrganizationCoupons(activated: Boolean, after: ConnectionCursor, before: ConnectionCursor, campaign: ORGANIZATION_COUPON_CAMPAIGN, category: ORGANIZATION_COUPON_CATEGORY, code: String, expired: Boolean, first: Int, is_activation_unlimited: Boolean, last: Int, organization_id: String, skip: Int, sorting: [SortingFieldSchema!], subdivision: ORGANIZATION_COUPON_SUBDIVISION, take: Int): OrganizationCouponPaginationConnection!
   adminOrganizationManualSubscription(organization_subscription_id: String!): OrganizationSubscription!
@@ -2103,7 +2146,7 @@ type Query {
   userOrganization(organization_id: String!): Organization!
   userOrganizationAcctProvider(organization_acct_provider_conn_id: String!, organization_id: String!): OrganizationAcctProviderConn!
   userOrganizationAcctProviderSynchronization(organization_acct_provider_conn_synchronization_id: String!, organization_id: String!): OrganizationAcctProviderConnSynchronization!
-  userOrganizationAcctProviderSynchronizations(after: ConnectionCursor, before: ConnectionCursor, failed: Boolean, finished: Boolean, first: Int, last: Int, organization_acct_provider_conn_id: String, organization_id: String!, skip: Int, sorting: [SortingFieldSchema!], succeeded: Boolean, take: Int): OrganizationAcctProviderConnSynchronizationPaginationConnection!
+  userOrganizationAcctProviderSynchronizations(after: ConnectionCursor, before: ConnectionCursor, failed: Boolean, finished: Boolean, first: Int, last: Int, organization_acct_provider_conn_id: String, organization_id: String!, scope: ORGANIZATION_ACCT_PROVIDER_CONN_SYNCHRONIZATION_SCOPE, skip: Int, sorting: [SortingFieldSchema!], succeeded: Boolean, take: Int): OrganizationAcctProviderConnSynchronizationPaginationConnection!
   userOrganizationAcctProviders(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, organization_id: String!, skip: Int, sorting: [SortingFieldSchema!], take: Int): OrganizationAcctProviderConnPaginationConnection!
   userOrganizationBill(organization_bill_id: String!, organization_id: String!): OrganizationBill!
   userOrganizationBillSummary(after: ConnectionCursor, before: ConnectionCursor, currency: CURRENCY, due_end_date: DateTime, due_start_date: DateTime, end_date: DateTime, first: Int, is_overdue: Boolean, last: Int, latest_acct_provider_is_overdue: Boolean, latest_acct_provider_status: BILL_STATUS, organization_id: String!, organization_vendor_id: String, skip: Int, sorting: [SortingFieldSchema!], start_date: DateTime, status: BILL_STATUS, take: Int): OrganizationBillSummary!

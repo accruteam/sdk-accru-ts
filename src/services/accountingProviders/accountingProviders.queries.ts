@@ -36,7 +36,6 @@ export const CONNECT_ACCT_PROVIDER_MUTATION = gql(`
     $accountProvider: ACCT_PROVIDER!
     $url: String!
     $automaticPull: Boolean!
-    $automaticPush: Boolean!
   ) {
     userOrganizationAcctProviderConnect(
       organization_id: $organizationId
@@ -138,6 +137,11 @@ export const GET_ALL_ACCT_PROVIDER_SYNCS_QUERY = gql(`
     $organizationId: String!,
     $organizationAcctProviderConnId: String,
 
+    $scope: ORGANIZATION_ACCT_PROVIDER_CONN_SYNCHRONIZATION_SCOPE,
+    $finished: Boolean,
+    $failed: Boolean,
+    $succeeded: Boolean,
+
     $after: ConnectionCursor,
     $first: Int,
 
@@ -152,6 +156,11 @@ export const GET_ALL_ACCT_PROVIDER_SYNCS_QUERY = gql(`
       userOrganizationAcctProviderSynchronizations(
         organization_id: $organizationId
         organization_acct_provider_conn_id: $organizationAcctProviderConnId
+
+        scope: $scope
+        finished: $finished
+        failed: $failed
+        succeeded: $succeeded
 
         after: $after
         first: $first

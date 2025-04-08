@@ -6,6 +6,7 @@ export const CUSTOMER_FRAGMENT = gql(`
 
     provider
     provider_code
+    provider_url
     provider_errors
     provider_warnings
     last_successful_sync_id
@@ -45,6 +46,7 @@ export const CUSTOMER_INVOICE_SUMMARY_FRAGMENT = gql(`
 
               provider
               provider_code
+              provider_url
               provider_errors
               provider_warnings
               last_successful_sync_id
