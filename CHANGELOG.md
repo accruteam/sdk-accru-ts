@@ -1,5 +1,11 @@
 # @accru/client
 
+## 0.6.0
+
+### Minor Changes
+
+- dc0962e: change to new sync structure
+
 ## 0.5.0
 
 ### Minor Changes
