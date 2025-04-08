@@ -6,8 +6,6 @@ import {
   UserOrganizationInvoiceCreateMutationVariables,
   UserOrganizationInvoiceGetPDFMutation,
   UserOrganizationInvoiceGetPDFMutationVariables,
-  UserOrganizationInvoiceGetBalanceSnapshotMutation,
-  UserOrganizationInvoiceGetBalanceSnapshotMutationVariables,
   UserOrganizationInvoiceQuery,
   UserOrganizationInvoiceQueryVariables,
   UserOrganizationInvoiceSummaryQuery,
@@ -26,7 +24,6 @@ import {
   GET_INVOICE_PDF_MUTATION,
   GET_AS_UNCONNECTED_CUSTOMER_INVOICE_PDF_MUTATION,
   GET_AS_UNCONNECTED_CUSTOMER_INVOICE_SUMMARY_QUERY,
-  GET_INVOICE_BALANCE_SNAPSHOT_MUTATION,
   INVOICES_GET_SUMMARY_QUERY,
   INVOICE_CREATE_MUTATION,
   INVOICE_GET_QUERY,
@@ -73,17 +70,6 @@ export default class Invoices {
     });
 
     return data!.userOrganizationInvoiceGetPDF;
-  };
-
-  public getBalanceSnapshot = async (
-    variables: UserOrganizationInvoiceGetBalanceSnapshotMutationVariables,
-  ): Promise<Res<UserOrganizationInvoiceGetBalanceSnapshotMutation>> => {
-    const { data } = await this.apolloClient.mutate({
-      mutation: GET_INVOICE_BALANCE_SNAPSHOT_MUTATION,
-      variables,
-    });
-
-    return data!.userOrganizationInvoiceGetBalanceSnapshot;
   };
 
   public create = async (

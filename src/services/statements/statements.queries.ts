@@ -2,13 +2,13 @@ import { gql } from '@gql';
 
 export const ORGANIZATION_CUSTOMER_STATEMENT_INVOICE_LINE_FRAGMENT = gql(`
   fragment OrganizationCustomerStatementInvoiceLineFragment on OrganizationCustomerStatementInvoiceLine {
+    id
     amount
     code
     created_at
     currency_code
     date
     due_date
-    id
     organization_customer_id
     organization_invoice_id
     paid_amount
@@ -18,17 +18,13 @@ export const ORGANIZATION_CUSTOMER_STATEMENT_INVOICE_LINE_FRAGMENT = gql(`
     updated_at
 
     organization_invoice {
+      provider
+      provider_code
+
       payment_options {
         method
         url
         payload
-      }
-
-      organization_acct_provider_conn_invoices {
-        organization_acct_provider_conn {
-          acct_provider
-          status
-        }
       }
     }
   }
@@ -52,17 +48,13 @@ export const ORGANIZATION_CUSTOMER_STATEMENT_TRANSACTION_LINE_FRAGMENT = gql(`
     updated_at
 
     organization_invoice_transaction {
+      provider
+      provider_code
+
       links {
         id
         amount
         organization_invoice_id
-      }
-
-      organization_acct_provider_conn_invoice_transactions {
-        organization_acct_provider_conn {
-          acct_provider
-          status
-        }
       }
     }
   }
