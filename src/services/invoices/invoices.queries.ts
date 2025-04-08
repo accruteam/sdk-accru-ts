@@ -5,6 +5,18 @@ export const INVOICE_QUERY_FRAGMENT = gql(`
     id
     unique_code
     number
+
+    provider
+    provider_code
+    provider_url
+    provider_errors
+    provider_warnings
+    last_successful_sync_id
+    last_successful_sync_at
+    last_sync_succeeded
+    last_sync_id
+    last_sync_at
+
     currency_code
     description
     amount
@@ -13,7 +25,6 @@ export const INVOICE_QUERY_FRAGMENT = gql(`
     total_amount
     invoice_date
     due_date
-    archived_at
     created_at
     updated_at
 
@@ -26,23 +37,6 @@ export const INVOICE_QUERY_FRAGMENT = gql(`
       name
       email
       balance
-    }
-
-    organization_acct_provider_conn_invoices {
-      id
-      code
-      balance
-      last_sync_at
-      last_sync_success
-      last_sync_id
-
-      organization_invoice_id
-
-      organization_acct_provider_conn_id
-      organization_acct_provider_conn {
-        acct_provider
-        status
-      }
     }
 
     file_id
@@ -244,7 +238,6 @@ export const INVOICE_CREATE_MUTATION = gql(`
       organization_id: $organizationId
     ) {
       amount
-      archived_at
       balance
       created_at
       currency_code
@@ -282,18 +275,6 @@ export const GET_INVOICE_PDF_MUTATION = gql(`
       organization_id: $organizationId
       organization_invoice_id: $organizationInvoiceId
       acct_provider: $acctProvider
-    )
-  }
-`);
-
-export const GET_INVOICE_BALANCE_SNAPSHOT_MUTATION = gql(`
-  mutation UserOrganizationInvoiceGetBalanceSnapshot(
-    $organizationId: String!
-    $organizationInvoiceId: String!
-  ) {
-    userOrganizationInvoiceGetBalanceSnapshot(
-      organization_id: $organizationId
-      organization_invoice_id: $organizationInvoiceId
     )
   }
 `);

@@ -3,6 +3,18 @@ import { gql } from '@gql';
 export const CUSTOMER_FRAGMENT = gql(`
   fragment OrganizationCustomerFragment on OrganizationCustomer {
     id
+
+    provider
+    provider_code
+    provider_url
+    provider_errors
+    provider_warnings
+    last_successful_sync_id
+    last_successful_sync_at
+    last_sync_succeeded
+    last_sync_id
+    last_sync_at
+
     is_active
     email
     name
@@ -31,6 +43,18 @@ export const CUSTOMER_INVOICE_SUMMARY_FRAGMENT = gql(`
             cursor
             node {
               id
+
+              provider
+              provider_code
+              provider_url
+              provider_errors
+              provider_warnings
+              last_successful_sync_id
+              last_successful_sync_at
+              last_sync_succeeded
+              last_sync_id
+              last_sync_at
+
               file_id
               file {
                 public_url

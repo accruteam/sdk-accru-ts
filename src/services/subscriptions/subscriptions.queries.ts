@@ -20,7 +20,6 @@ export const ORGANIZATION_PAYMENT_METHOD_FRAGMENT = gql(`
     billing_address_state
     billing_address_zip_code
     billing_address_country_code_iso_3
-    archived_at
     created_at
     updated_at
     payment_method_info {
@@ -73,7 +72,6 @@ export const ORGANIZATION_COUPON_FRAGMENT = gql(`
     is_activation_unlimited
     activated_at
     expires_at
-    archived_at
     created_at
     updated_at
     status
