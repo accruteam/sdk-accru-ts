@@ -282,7 +282,6 @@ export const GET_INVOICE_PDF_MUTATION = gql(`
 export const GET_AS_UNCONNECTED_CUSTOMER_INVOICE_SUMMARY_QUERY = gql(`
   query UnconnectedCustomerOrganizationInvoiceSummary(
     $uniqueCode: String!
-    $email: String!
     $token: String!
 
     $currency: CURRENCY
@@ -306,7 +305,6 @@ export const GET_AS_UNCONNECTED_CUSTOMER_INVOICE_SUMMARY_QUERY = gql(`
   ) {
     unconnectedCustomerOrganizationInvoiceSummary(
       unique_code: $uniqueCode
-      email: $email
       token: $token
 
       currency: $currency
@@ -340,7 +338,6 @@ export const GET_AS_UNCONNECTED_CUSTOMER_INVOICE_SUMMARY_QUERY = gql(`
 export const GET_AS_UNCONNECTED_CUSTOMER_INVOICE_PDF_MUTATION = gql(`
   mutation UnconnectedCustomerOrganizationInvoiceGetPDF(
     $uniqueCode: String!
-    $email: String!
     $token: String!
 
     $organizationInvoiceId: String!
@@ -348,7 +345,6 @@ export const GET_AS_UNCONNECTED_CUSTOMER_INVOICE_PDF_MUTATION = gql(`
   ) {
     unconnectedCustomerOrganizationInvoiceGetPDF(
       unique_code: $uniqueCode
-      email: $email
       token: $token
 
       organization_invoice_id: $organizationInvoiceId

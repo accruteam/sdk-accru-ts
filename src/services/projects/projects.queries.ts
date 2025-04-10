@@ -463,7 +463,6 @@ export const ORGANIZATION_PROJECT_CHANGE_REQUEST_REJECT_AS_CUSTOMER_MUTATION =
 export const ORGANIZATION_PROJECT_GET_MANY_AS_UNCONNECTED_CUSTOMER_QUERY = gql(`
   query UnconnectedCustomerOrganizationProjects(
     $uniqueCode: String!
-    $email: String!
     $token: String!
 
     $name: String
@@ -486,7 +485,6 @@ export const ORGANIZATION_PROJECT_GET_MANY_AS_UNCONNECTED_CUSTOMER_QUERY = gql(`
   ) {
     unconnectedCustomerOrganizationProjects(
       unique_code: $uniqueCode
-      email: $email
       token: $token
 
       name: $name
@@ -527,7 +525,6 @@ export const ORGANIZATION_PROJECT_GET_MANY_AS_UNCONNECTED_CUSTOMER_QUERY = gql(`
 export const ORGANIZATION_PROJECT_GET_ONE_AS_UNCONNECTED_CUSTOMER_QUERY = gql(`
   query UnconnectedCustomerOrganizationProject(
     $uniqueCode: String!
-    $email: String!
     $token: String!
 
     $organizationId: String
@@ -535,7 +532,6 @@ export const ORGANIZATION_PROJECT_GET_ONE_AS_UNCONNECTED_CUSTOMER_QUERY = gql(`
   ) {
     unconnectedCustomerOrganizationProject(
       unique_code: $uniqueCode
-      email: $email
       token: $token
 
       organization_id: $organizationId
@@ -550,7 +546,6 @@ export const ORGANIZATION_PROJECT_CHANGE_REQUEST_ACTION_REQUEST_TOKEN_AS_UNCONNE
   gql(`
   mutation UnconnectedCustomerOrganizationProjectChangeRequestActionRequestToken(
     $uniqueCode: String!
-    $email: String!
     $token: String!
 
     $organizationId: String
@@ -558,7 +553,6 @@ export const ORGANIZATION_PROJECT_CHANGE_REQUEST_ACTION_REQUEST_TOKEN_AS_UNCONNE
     $organizationProjectChangeRequestId: String!
   ) {
     unconnectedCustomerOrganizationProjectChangeRequestActionRequestToken(
-      email: $email
       organization_id: $organizationId
       organization_project_change_request_id: $organizationProjectChangeRequestId
       organization_project_id: $organizationProjectId
@@ -572,7 +566,6 @@ export const ORGANIZATION_PROJECT_CHANGE_REQUEST_ACCEPT_AS_UNCONNECTED_CUSTOMER_
   gql(`
   mutation UnconnectedCustomerOrganizationProjectChangeRequestAccept(
     $uniqueCode: String!
-    $email: String!
     $token: String!
 
     $organizationId: String
@@ -581,7 +574,6 @@ export const ORGANIZATION_PROJECT_CHANGE_REQUEST_ACCEPT_AS_UNCONNECTED_CUSTOMER_
     $verificationCode: String!
   ) {
     unconnectedCustomerOrganizationProjectChangeRequestAccept(
-      email: $email
       organization_id: $organizationId
       organization_project_change_request_id: $organizationProjectChangeRequestId
       organization_project_id: $organizationProjectId
@@ -598,7 +590,6 @@ export const ORGANIZATION_PROJECT_CHANGE_REQUEST_REJECT_AS_UNCONNECTED_CUSTOMER_
   gql(`
   mutation UnconnectedCustomerOrganizationProjectChangeRequestReject(
     $uniqueCode: String!
-    $email: String!
     $token: String!
 
     $organizationId: String
@@ -607,7 +598,6 @@ export const ORGANIZATION_PROJECT_CHANGE_REQUEST_REJECT_AS_UNCONNECTED_CUSTOMER_
     $verificationCode: String!
   ) {
     unconnectedCustomerOrganizationProjectChangeRequestReject(
-      email: $email
       organization_id: $organizationId
       organization_project_change_request_id: $organizationProjectChangeRequestId
       organization_project_id: $organizationProjectId
