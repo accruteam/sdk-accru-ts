@@ -1,5 +1,11 @@
 # @accru/client
 
+## 0.6.1
+
+### Patch Changes
+
+- 610aa90: remove user data from statement link
+
 ## 0.6.0
 
 ### Minor Changes
