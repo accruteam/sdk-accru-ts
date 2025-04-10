@@ -208,11 +208,9 @@ export const GET_AS_UNCONNECTED_CUSTOMER_ORGANIZATION_STATEMENT_TOKEN_QUERY =
   gql(`
   mutation UnconnectedCustomerOrganizationStatementRequestToken(
     $uniqueCode: String!
-    $email: String!
   ) {
     unconnectedCustomerOrganizationStatementRequestToken(
       unique_code: $uniqueCode
-      email: $email
     )
 }
 `);
@@ -220,7 +218,6 @@ export const GET_AS_UNCONNECTED_CUSTOMER_ORGANIZATION_STATEMENT_TOKEN_QUERY =
 export const GET_AS_UNCONNECTED_CUSTOMER_ORGANIZATION_STATEMENT_QUERY = gql(`
   query UnconnectedCustomerOrganizationStatement(
     $uniqueCode: String!
-    $email: String!
     $token: String!
     $type: STATEMENT_LINE_TYPE
     $currency: CURRENCY
@@ -237,7 +234,6 @@ export const GET_AS_UNCONNECTED_CUSTOMER_ORGANIZATION_STATEMENT_QUERY = gql(`
   ) {
     unconnectedCustomerOrganizationStatement(
       unique_code: $uniqueCode
-      email: $email
       token: $token
 
       type: $type
@@ -267,7 +263,6 @@ export const GET_AS_UNCONNECTED_CUSTOMER_ORGANIZATION_STATEMENT_LINE_PDF_MUTATIO
   gql(`
   mutation UnconnectedCustomerOrganizationStatementLineGetPDF(
     $uniqueCode: String!
-    $email: String!
     $token: String!
 
     $organizationCustomerStatementLineId: Int!,
@@ -275,7 +270,6 @@ export const GET_AS_UNCONNECTED_CUSTOMER_ORGANIZATION_STATEMENT_LINE_PDF_MUTATIO
   ) {
     unconnectedCustomerOrganizationStatementLineGetPDF(
       unique_code: $uniqueCode
-      email: $email
       token: $token
 
       organization_customer_statement_line_id: $organizationCustomerStatementLineId
@@ -312,7 +306,6 @@ export const GET_AS_CUSTOMER_ORGANIZATION_STATEMENT_LINE_QUERY = gql(`
 export const GET_AS_UNCONNECTED_CUSTOMER_ORGANIZATION_STATEMENT_LINE_QUERY =
   gql(`
   query UnconnectedCustomerOrganizationStatementLine(
-    $email: String!,
     $organizationCustomerStatementLineId: Int,
     $organizationId: String,
     $organizationInvoiceId: String,
@@ -321,7 +314,6 @@ export const GET_AS_UNCONNECTED_CUSTOMER_ORGANIZATION_STATEMENT_LINE_QUERY =
     $uniqueCode: String!
   ) {
     unconnectedCustomerOrganizationStatementLine(
-      email: $email,
       organization_customer_statement_line_id: $organizationCustomerStatementLineId,
       organization_id: $organizationId,
       organization_invoice_id: $organizationInvoiceId,
@@ -420,7 +412,7 @@ export const SYNC_AS_CUSTOMER_MUTATION = gql(`
 `);
 
 export const SYNC_AS_UNCONNECTED_CUSTOMER_MUTATION = gql(`
-  mutation UnconnectedCustomerSynchronize($uniqueCode: String!, $email: String!, $token: String!) {
-    unconnectedCustomerSynchronize(unique_code: $uniqueCode, email: $email,token: $token)
+  mutation UnconnectedCustomerSynchronize($uniqueCode: String!, $token: String!) {
+    unconnectedCustomerSynchronize(unique_code: $uniqueCode, token: $token)
   }
 `);
