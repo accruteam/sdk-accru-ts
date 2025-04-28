@@ -1,5 +1,15 @@
 # @accru/client
 
+## 0.7.0
+
+### Minor Changes
+
+- 1477729: remove old acct provider conn data
+
+### Patch Changes
+
+- 610aa90: remove user data from statement link
+
 ## 0.6.1
 
 ### Patch Changes
