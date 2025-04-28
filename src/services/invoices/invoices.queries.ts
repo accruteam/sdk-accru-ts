@@ -16,6 +16,7 @@ export const INVOICE_QUERY_FRAGMENT = gql(`
     last_sync_succeeded
     last_sync_id
     last_sync_at
+    view_url
 
     currency_code
     description

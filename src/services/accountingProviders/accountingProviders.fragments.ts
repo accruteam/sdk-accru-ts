@@ -4,8 +4,53 @@ export const ACCT_PROVIDER_CONN_FRAGMENT = gql(`
   fragment OrganizationAcctProviderConnFragment on OrganizationAcctProviderConn {
     id
     acct_provider
+
     code
+    url
     payload
+
+    customer_add_url
+    invoice_add_url
+    vendor_add_url
+    bill_add_url
+
+    name
+    email
+    phone_number
+    website_url
+
+    primary_contact_name
+
+    business_name
+    business_industry
+    business_number_of_employees
+
+    timezone
+    language
+
+    business_tax_code_type
+    business_tax_code
+
+    address_line_1
+    address_number
+    address_line_2
+    address_city
+    address_state
+    address_zip_code
+    address_country_code_iso_3
+    address_lat
+    address_lng
+
+    business_address_line_1
+    business_address_number
+    business_address_line_2
+    business_address_city
+    business_address_state
+    business_address_zip_code
+    business_address_country_code_iso_3
+    business_address_lat
+    business_address_lng
+
     conn_expires_at
     automatic_pull_enabled
     disconnected_at
