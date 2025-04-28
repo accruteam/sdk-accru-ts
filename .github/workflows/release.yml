@@ -143,12 +143,5 @@ jobs:
           git fetch origin develop:develop || git checkout -b develop
           git checkout develop
           git pull origin develop
-
-          # Try merging with theirs strategy (keep changes from current branch)
-          git merge ${{ steps.extract-branch.outputs.branch }} -X theirs --no-ff --no-edit --allow-unrelated-histories || {
-            git checkout --theirs .
-            git add .
-            git -c core.editor=true merge --continue || git commit -m "Merge ${{ steps.extract-branch.outputs.branch }} into develop"
-          }
-
+          git merge ${{ steps.extract-branch.outputs.branch }} --no-ff -X theirs --no-edit
           git push origin develop

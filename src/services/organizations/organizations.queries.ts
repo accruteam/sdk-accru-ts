@@ -32,6 +32,7 @@ export const ORGANIZATION_QUERY_FRAGMENT = gql(`
     id
     name
     email
+    website
     unique_name
     unique_code
     phone_number

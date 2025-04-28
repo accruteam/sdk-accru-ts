@@ -20,6 +20,7 @@ export const ORGANIZATION_CUSTOMER_STATEMENT_INVOICE_LINE_FRAGMENT = gql(`
     organization_invoice {
       provider
       provider_code
+      view_url
 
       payment_options {
         method
