@@ -843,11 +843,11 @@ type OrganizationBill {
   history(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, skip: Int, sorting: [SortingFieldSchema!], take: Int): OrganizationBillHistoryPaginationConnection!
   id: ID!
   is_overdue: Boolean
-  last_successful_sync_at: DateTime!
-  last_successful_sync_id: String!
-  last_sync_at: DateTime!
-  last_sync_id: String!
-  last_sync_succeeded: Boolean!
+  last_successful_sync_at: DateTime
+  last_successful_sync_id: String
+  last_sync_at: DateTime
+  last_sync_id: String
+  last_sync_succeeded: Boolean
   latest_acct_provider_balance: BigInt
   latest_acct_provider_is_overdue: Boolean
   latest_acct_provider_status: BILL_STATUS
@@ -918,6 +918,11 @@ type OrganizationBillPaginationEdge {
 type OrganizationBillSummary {
   balance: BigInt!
   currency: CURRENCY
+
+  """
+  Represents the balance as of the end of today (UTC), excluding future invoices. Will be null if customer is not provided.
+  """
+  current_balance: BigInt
   customer_organization: Organization!
   customer_organization_id: String!
   customer_organization_vendor: OrganizationVendor
@@ -958,11 +963,11 @@ type OrganizationBillTransaction {
   failed_at: DateTime
   has_sync_errors: Boolean @deprecated(reason: "Use `provider_errors` and `provider_warnings` instead")
   id: ID!
-  last_successful_sync_at: DateTime!
-  last_successful_sync_id: String!
-  last_sync_at: DateTime!
-  last_sync_id: String!
-  last_sync_succeeded: Boolean!
+  last_successful_sync_at: DateTime
+  last_successful_sync_id: String
+  last_sync_at: DateTime
+  last_sync_id: String
+  last_sync_succeeded: Boolean
   links: [OrganizationBillTransactionLink!]!
   payment_method: PAYMENT_METHOD!
   payment_method_code: String!
@@ -1085,11 +1090,11 @@ type OrganizationCustomer {
   invoice_summary(after: ConnectionCursor, before: ConnectionCursor, currency: CURRENCY, customer_name: String, due_end_date: DateTime, due_start_date: DateTime, end_date: DateTime, first: Int, is_overdue: Boolean, last: Int, latest_acct_provider_is_overdue: Boolean, latest_acct_provider_status: INVOICE_STATUS, skip: Int, sorting: [SortingFieldSchema!], start_date: DateTime, status: INVOICE_STATUS, take: Int): OrganizationInvoiceSummary!
   is_active: Boolean!
   language: String
-  last_successful_sync_at: DateTime!
-  last_successful_sync_id: String!
-  last_sync_at: DateTime!
-  last_sync_id: String!
-  last_sync_succeeded: Boolean!
+  last_successful_sync_at: DateTime
+  last_successful_sync_id: String
+  last_sync_at: DateTime
+  last_sync_id: String
+  last_sync_succeeded: Boolean
   latest_acct_provider_balance: BigInt
   name: String!
   organization: Organization!
@@ -1147,6 +1152,11 @@ type OrganizationCustomerPaginationEdge {
 type OrganizationCustomerStatement {
   balance: BigInt!
   currency: CURRENCY
+
+  """
+  Represents the balance as of the end of today (UTC), excluding future invoices.
+  """
+  current_balance: BigInt!
   customer_organization: Organization
   customer_organization_id: String
   data: OrganizationCustomerStatementLineDataPaginationConnection!
@@ -1218,11 +1228,11 @@ type OrganizationCustomerStatementInvoiceLineData {
   file_id: String
   id: ID!
   invoice_date: DateTime!
-  last_successful_sync_at: DateTime!
-  last_successful_sync_id: String!
-  last_sync_at: DateTime!
-  last_sync_id: String!
-  last_sync_succeeded: Boolean!
+  last_successful_sync_at: DateTime
+  last_successful_sync_id: String
+  last_sync_at: DateTime
+  last_sync_id: String
+  last_sync_succeeded: Boolean
   latest_acct_provider_balance: BigInt
   latest_acct_provider_status: INVOICE_STATUS
   number: String
@@ -1285,11 +1295,11 @@ type OrganizationCustomerStatementTransactionLineData {
   due_date: DateTime!
   failed_at: DateTime
   id: ID!
-  last_successful_sync_at: DateTime!
-  last_successful_sync_id: String!
-  last_sync_at: DateTime!
-  last_sync_id: String!
-  last_sync_succeeded: Boolean!
+  last_successful_sync_at: DateTime
+  last_successful_sync_id: String
+  last_sync_at: DateTime
+  last_sync_id: String
+  last_sync_succeeded: Boolean
   links: [OrganizationInvoiceTransactionLink!]!
   payment_method: PAYMENT_METHOD!
   payment_method_code: String!
@@ -1374,11 +1384,11 @@ type OrganizationInvoice {
   id: ID!
   invoice_date: DateTime!
   is_overdue: Boolean
-  last_successful_sync_at: DateTime!
-  last_successful_sync_id: String!
-  last_sync_at: DateTime!
-  last_sync_id: String!
-  last_sync_succeeded: Boolean!
+  last_successful_sync_at: DateTime
+  last_successful_sync_id: String
+  last_sync_at: DateTime
+  last_sync_id: String
+  last_sync_succeeded: Boolean
   latest_acct_provider_balance: BigInt
   latest_acct_provider_is_overdue: Boolean
   latest_acct_provider_status: INVOICE_STATUS
@@ -1447,6 +1457,11 @@ type OrganizationInvoicePaymentOption {
 type OrganizationInvoiceSummary {
   balance: BigInt!
   currency: CURRENCY
+
+  """
+  Represents the balance as of the end of today (UTC), excluding future invoices. Will be null if customer is not provided.
+  """
+  current_balance: BigInt
   customer_organization: Organization
   customer_organization_id: String
   data: OrganizationInvoicePaginationConnection!
@@ -1483,11 +1498,11 @@ type OrganizationInvoiceTransaction {
   failed_at: DateTime
   has_sync_errors: Boolean @deprecated(reason: "Use `provider_errors` and `provider_warnings` instead")
   id: ID!
-  last_successful_sync_at: DateTime!
-  last_successful_sync_id: String!
-  last_sync_at: DateTime!
-  last_sync_id: String!
-  last_sync_succeeded: Boolean!
+  last_successful_sync_at: DateTime
+  last_successful_sync_id: String
+  last_sync_at: DateTime
+  last_sync_id: String
+  last_sync_succeeded: Boolean
   links: [OrganizationInvoiceTransactionLink!]!
   payment_method: PAYMENT_METHOD!
   payment_method_code: String!
@@ -1947,11 +1962,11 @@ type OrganizationVendor {
   id: ID!
   is_active: Boolean!
   language: String
-  last_successful_sync_at: DateTime!
-  last_successful_sync_id: String!
-  last_sync_at: DateTime!
-  last_sync_id: String!
-  last_sync_succeeded: Boolean!
+  last_successful_sync_at: DateTime
+  last_successful_sync_id: String
+  last_sync_at: DateTime
+  last_sync_id: String
+  last_sync_succeeded: Boolean
   latest_acct_provider_balance: BigInt
   name: String!
   organization: Organization!
