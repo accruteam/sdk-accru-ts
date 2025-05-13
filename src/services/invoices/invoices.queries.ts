@@ -139,6 +139,7 @@ export const INVOICE_SUMMARY_FRAGMENT = gql(`
     paid_amount
     overdue_amount
     balance
+    current_balance
 
     start_date
     end_date
