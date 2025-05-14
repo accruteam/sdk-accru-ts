@@ -59,8 +59,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
-          prs=$(gh pr list --json number,title,body,headRefName --state open --base ${{ github.ref_name }})
-          match=$(echo "$prs" | jq '[.[] | select(.title | contains("Version Packages") and .headRefName | contains("changeset-release"))]')
+          prs=$(gh pr list --json number,title,body,headRef --state open --base ${{ github.ref_name }})
+          match=$(echo "$prs" | jq '[.[] | select(.title | contains("Version Packages") and .headRef.name | contains("changeset-release"))]')
           details=$(echo "$match" | jq -c '[.[] | {number: .number, body: .body}]')
 
           if [ "$(echo "$match" | jq length)" -eq 0 ]; then
