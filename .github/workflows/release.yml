@@ -53,6 +53,78 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
+      - name: Check for changeset PR
+        if: steps.changesets.outputs.published == 'false'
+        id: check-pr
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          prs=$(gh pr list --json number,title,body,headRefName --state open --base ${{ github.ref_name }})
+          match=$(echo "$prs" | jq '[.[] | select(.title | contains("Version Packages") and .headRefName | contains("changeset-release"))]')
+          details=$(echo "$match" | jq -c '[.[] | {number: .number, body: .body}]')
+
+          if [ "$(echo "$match" | jq length)" -eq 0 ]; then
+            echo "No changeset PR found for the current branch."
+            echo "has_pr=false" >> $GITHUB_OUTPUT
+          else
+            echo "Found changeset PR:"
+            echo "$details"
+            echo "has_pr=true" >> $GITHUB_OUTPUT
+            echo "pr_details=$details" >> $GITHUB_OUTPUT
+            echo "pr_number=$(echo "$match" | jq -r '.[0].number')" >> $GITHUB_OUTPUT
+            echo "pr_body=$(echo "$match" | jq -r '.[0].body')" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Send Slack notification for PR
+        if: steps.check-pr.outputs.has_pr == 'true'
+        uses: slackapi/slack-github-action@v2.0.0
+        with:
+          webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+          webhook-type: incoming-webhook
+          payload-templated: true
+          errors: true
+          payload: |
+            {
+              "text": "[Accru] A release of ${{ github.repository }} (${{ github.ref_name }} branch) is ready to review and deploy. :mag:",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": ":floppy_disk: *[Accru] A release of `${{ github.repository }}` (`${{ github.ref_name }}` branch) is ready to review and deploy.* :mag:\n\n*Note:* No deployment/release will be triggered until the PR is merged.\nPlease take action on the PR. :bulb:"
+                  }
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*Description:*\n\n${{ steps.check-pr.outputs.pr_body }}"
+                  }
+                },
+                {
+                  "type": "actions",
+                  "elements": [
+                    {
+                      "type": "button",
+                      "text": {
+                        "type": "plain_text",
+                        "text": ":mag_right: Open Pull Request"
+                      },
+                      "url": "${{ github.server_url }}/${{ github.repository }}/pull/${{ steps.check-pr.outputs.pr_number }}"
+                    },
+                    {
+                      "type": "button",
+                      "text": {
+                        "type": "plain_text",
+                        "text": ":mag_right: See action run"
+                      },
+                      "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+                    }
+                  ]
+                }
+              ]
+            }
+
       - name: Get release information
         if: steps.changesets.outputs.published == 'true'
         id: get-release
