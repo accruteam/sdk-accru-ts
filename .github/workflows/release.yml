@@ -33,9 +33,10 @@ jobs:
         run: echo "branch=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_OUTPUT
 
       - name: Setup Node.js 22
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version-file: .nvmrc
+          cache: 'yarn'
 
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
@@ -59,8 +60,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
-          prs=$(gh pr list --json number,title,body,headRef --state open --base ${{ github.ref_name }})
-          match=$(echo "$prs" | jq '[.[] | select(.title | contains("Version Packages") and .headRef.name | contains("changeset-release"))]')
+          prs=$(gh pr list --json number,title,body,headRefName --state open --base ${{ github.ref_name }})
+          match=$(echo "$prs" | jq '[.[] | select(.title | contains("Version Packages") and .headRefName | contains("changeset-release"))]')
           details=$(echo "$match" | jq -c '[.[] | {number: .number, body: .body}]')
 
           if [ "$(echo "$match" | jq length)" -eq 0 ]; then
