@@ -80,6 +80,16 @@ jobs:
             } >> $GITHUB_OUTPUT
           fi
 
+      - name: Parse PR body for Slack
+        if: steps.check-pr.outputs.has_pr == 'true'
+        id: parse-body
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const markdownParser = require('slackify-markdown');
+            const body = `${{ steps.check-pr.outputs.pr_body }}`;
+            return markdownParser(body);
+
       - name: Send Slack notification for PR
         if: steps.check-pr.outputs.has_pr == 'true'
         uses: slackapi/slack-github-action@v2.0.0
@@ -90,20 +100,20 @@ jobs:
           errors: true
           payload: |
             {
-              "text": "[Accru] A release of ${{ github.repository }} (${{ github.ref_name }} branch) is ready to review and deploy. :mag:",
+              "text": "[Accru] A release of ${{ github.repository }} (${{ github.ref_name }} branch) is ready to review and publish. :mag:",
               "blocks": [
                 {
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": ":floppy_disk: *[Accru] A release of `${{ github.repository }}` (`${{ github.ref_name }}` branch) is ready to review and deploy.* :mag:\n\n*Note:* No deployment/release will be triggered until the PR is merged.\nPlease take action on the PR. :bulb:"
+                    "text": ":floppy_disk: *[Accru] A release of `${{ github.repository }}` (${{ github.ref_name }} branch) is ready to review and publish.* :mag:\n\n*Note:* No publish/release will be triggered until the PR is merged.\nPlease take action on the PR. :bulb:"
                   }
                 },
                 {
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "*Description:*\n\n${{ steps.check-pr.outputs.pr_body }}"
+                    "text": "*Description:*\n\n${{ steps.parse-body.outputs.result }}"
                   }
                 },
                 {
