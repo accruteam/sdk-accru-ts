@@ -227,9 +227,9 @@ jobs:
           git fetch origin develop:develop || git checkout -b develop
           git checkout develop
 
-          git merge ${{ steps.extract-branch.outputs.branch }} -X theirs --no-ff --no-edit --allow-unrelated-histories || {
+          git merge "${{ steps.extract-branch.outputs.branch }}" --strategy=recursive -X theirs --no-ff --no-edit --allow-unrelated-histories || {
             git checkout --theirs .
-            git add .
+            git add -A
             git -c core.editor=true merge --continue || git commit -m "Merge ${{ steps.extract-branch.outputs.branch }} into develop"
           }
 
