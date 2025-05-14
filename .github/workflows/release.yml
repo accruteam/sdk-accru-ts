@@ -73,7 +73,11 @@ jobs:
             echo "has_pr=true" >> $GITHUB_OUTPUT
             echo "pr_details=$details" >> $GITHUB_OUTPUT
             echo "pr_number=$(echo "$match" | jq -r '.[0].number')" >> $GITHUB_OUTPUT
-            echo "pr_body=$(echo "$match" | jq -r '.[0].body')" >> $GITHUB_OUTPUT
+            {
+              echo "pr_body<<EOF"
+              echo "$match" | jq -r '.[0].body'
+              echo "EOF"
+            } >> $GITHUB_OUTPUT
           fi
 
       - name: Send Slack notification for PR
