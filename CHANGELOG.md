@@ -1,5 +1,11 @@
 # @accru/client
 
+## 0.8.0
+
+### Minor Changes
+
+- b04099c: add statement for future invoices
+
 ## 0.7.0
 
 ### Minor Changes
