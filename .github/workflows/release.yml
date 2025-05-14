@@ -80,15 +80,12 @@ jobs:
             } >> $GITHUB_OUTPUT
           fi
 
-      - name: Parse PR body for Slack
+      - name: Parse Slack Message
         if: steps.check-pr.outputs.has_pr == 'true'
-        id: parse-body
-        uses: actions/github-script@v6
+        id: pr-message
+        uses: LoveToKnow/slackify-markdown-action@v1.1.1
         with:
-          script: |
-            const markdownParser = require('slackify-markdown');
-            const body = `${{ steps.check-pr.outputs.pr_body }}`;
-            return markdownParser(body);
+          text: ${{ steps.check-pr.outputs.pr_body }}
 
       - name: Send Slack notification for PR
         if: steps.check-pr.outputs.has_pr == 'true'
@@ -113,7 +110,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "*Description:*\n\n${{ steps.parse-body.outputs.result }}"
+                    "text": "*Description:*\n\n${{ steps.pr-message.outputs.text }}"
                   }
                 },
                 {
