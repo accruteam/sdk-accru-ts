@@ -140,6 +140,8 @@ jobs:
       - name: Get release information
         if: steps.changesets.outputs.published == 'true'
         id: get-release
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         run: |
           version=$(echo '${{ fromJSON(steps.changesets.outputs.publishedPackages)[0].version }}')
           release_info=$(gh release view "v$version" --json body --jq .body)
