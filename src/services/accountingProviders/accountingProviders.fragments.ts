@@ -51,13 +51,23 @@ export const ACCT_PROVIDER_CONN_FRAGMENT = gql(`
     business_address_lat
     business_address_lng
 
-    conn_expires_at
     automatic_pull_enabled
+
+    status
     disconnected_at
+    conn_expires_at
+
+    organization_id
+
+    last_conn_at
+    last_successful_sync_id
+    last_successful_sync_at
+    last_sync_succeeded
+    last_sync_id
+    last_sync_at
+
     created_at
     updated_at
-    organization_id
-    status
 
     synchronizations(skip: 0, take: 1, finished: true) {
       edges {

@@ -128,7 +128,7 @@ jobs:
                       "type": "button",
                       "text": {
                         "type": "plain_text",
-                        "text": ":mag_right: See action run"
+                        "text": ":gear: See action run"
                       },
                       "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
                     }
@@ -140,17 +140,19 @@ jobs:
       - name: Get release information
         if: steps.changesets.outputs.published == 'true'
         id: get-release
-        uses: actions/github-script@v6
+        run: |
+          version=$(echo '${{ fromJSON(steps.changesets.outputs.publishedPackages)[0].version }}')
+          release_info=$(gh release view "v$version" --json body --jq .body)
+          echo "release_body<<EOF" >> $GITHUB_OUTPUT
+          echo "$release_info" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Parse Slack Message
+        if: steps.changesets.outputs.published == 'true'
+        id: release-message
+        uses: LoveToKnow/slackify-markdown-action@v1.1.1
         with:
-          result-encoding: string
-          script: |
-            const markdownParser = require('slackify-markdown');
-            const release = await github.rest.repos.getReleaseByTag({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              tag: "v${{ fromJSON(steps.changesets.outputs.publishedPackages)[0].version }}"
-            });
-            return markdownParser(release.data.body);
+          text: ${{ steps.get-release.outputs.release_body }}
 
       - name: Send a Slack notification
         if: steps.changesets.outputs.published == 'true'
@@ -175,7 +177,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "*Release Notes:*\n\n${{ steps.get-release.outputs.result }}"
+                    "text": "*Release Notes:*\n\n${{ steps.get-release.outputs.release_body }}"
                   }
                 },
                 {
@@ -185,7 +187,7 @@ jobs:
                       "type": "button",
                       "text": {
                         "type": "plain_text",
-                        "text": ":mag_right: See action run"
+                        "text": ":gear: See action run"
                       },
                       "url": "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
                     },
@@ -227,9 +229,9 @@ jobs:
           git fetch origin develop:develop || git checkout -b develop
           git checkout develop
 
-          git merge ${{ steps.extract-branch.outputs.branch }} -X theirs --no-ff --no-edit --allow-unrelated-histories || {
+          git merge "${{ steps.extract-branch.outputs.branch }}" --strategy=recursive -X theirs --no-ff --no-edit --allow-unrelated-histories || {
             git checkout --theirs .
-            git add .
+            git add -A
             git -c core.editor=true merge --continue || git commit -m "Merge ${{ steps.extract-branch.outputs.branch }} into develop"
           }
 
