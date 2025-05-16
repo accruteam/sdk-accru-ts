@@ -535,11 +535,6 @@ enum ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE {
   VENDOR
 }
 
-enum ORGANIZATION_SUBSCRIPTION {
-  EARLY_ACCESS
-  EARLY_ACCESS_PREMIUM
-}
-
 enum ORGANIZATION_SUBSCRIPTION_ADDON_ITEM {
   ADDITIONAL_USERS_ADDON
 }
@@ -637,6 +632,7 @@ enum ORGANIZATION_USER_ROLE {
 }
 
 type Organization {
+  acct_provider_conns(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, skip: Int, sorting: [SortingFieldSchema!], take: Int): OrganizationAcctProviderConnPaginationConnection!
   address_city: String
   address_country_code_iso_3: COUNTRY_ISO_3
   address_lat: Float
@@ -677,13 +673,10 @@ type Organization {
   setting_receive_customer_notification_mode: RECEIVE_CUSTOMER_NOTIFICATION_MODE
   setting_send_invoice_due_reminders: Boolean
   setting_send_invoice_overdue_reminders: Boolean
-  subscription: ORGANIZATION_SUBSCRIPTION @deprecated(reason: "Use subscription_data instead")
-  subscription_code: String @deprecated(reason: "Use subscription_data instead")
   subscription_data: OrganizationSubscriptionData
-  subscription_date: DateTime @deprecated(reason: "Use subscription_data instead")
-  subscription_expires_at: DateTime @deprecated(reason: "Use subscription_data instead")
   subscription_level: Int @deprecated(reason: "Use subscription_data.subscription_level instead")
   timezone: String
+  track_first_invoice_email_sent_at: DateTime
   unique_code: String!
   unique_name: String!
   updated_at: DateTime!
@@ -726,6 +719,12 @@ type OrganizationAcctProviderConn {
   id: ID!
   invoice_add_url: String
   language: String
+  last_conn_at: DateTime
+  last_successful_sync_at: DateTime
+  last_successful_sync_id: String
+  last_sync_at: DateTime
+  last_sync_id: String
+  last_sync_succeeded: Boolean
   name: String
   organization_id: String!
   payload: JSON

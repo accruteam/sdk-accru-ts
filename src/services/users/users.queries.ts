@@ -1,23 +1,10 @@
 import { gql } from '@gql';
 
 export const USER_FRAGMENT = gql(`
-  fragment User on User {
+  fragment UserFragment on User {
     id
     email
-    organizations {
-      id
-      role
-      is_current_organization_user_seat_available
-      organization_id
-      organization {
-        name
-        email
-        subscription_level
-        subscription_data {
-          ...OrganizationSubscriptionDataFragment
-        }
-      }
-    }
+
     first_name
     last_name
     language
@@ -32,10 +19,26 @@ export const USER_FRAGMENT = gql(`
   }
 `);
 
+export const USER_WITH_ORGANIZATIONS_FRAGMENT = gql(`
+  fragment UserWithOrganizationFragment on User {
+    ...UserFragment
+
+    organizations {
+      id
+      role
+      is_current_organization_user_seat_available
+      organization_id
+      organization {
+        ...OrganizationFragment
+      }
+    }
+  }
+`);
+
 export const USER_QUERY = gql(`
   query User {
     user {
-      ...User
+      ...UserWithOrganizationFragment
     }
   }
 `);
@@ -45,7 +48,7 @@ export const UPDATE_USER_MUTATION = gql(`
     userUpdateData(
       data: $data
     ) {
-      ...User
+      ...UserWithOrganizationFragment
     }
   }
 `);
