@@ -58,27 +58,3 @@ export const GET_VENDOR_QUERY = gql(`
     }
   }
 `);
-
-export const UPDATE_VENDOR_MUTATION = gql(`
-  mutation UserOrganizationVendorUpdate ($organizationId: String!, $organizationVendorId: String!, $data: UserOrganizationVendorSchema!) {
-    userOrganizationVendorUpdate(
-      organization_id: $organizationId
-      organization_vendor_id: $organizationVendorId
-      data: $data
-    ) {
-      ...OrganizationVendorFragment
-      ...OrganizationVendorAdditionalDataFragment
-    }
-  }
-`);
-
-export const CREATE_VENDOR_MUTATION = gql(`
-  mutation UserOrganizationVendorCreate ($organizationId: String!, $data: UserOrganizationVendorSchema!) {
-    userOrganizationVendorCreate(
-      organization_id: $organizationId
-      data: $data
-    ) {
-      ...OrganizationVendorFragment
-    }
-  }
-`);
