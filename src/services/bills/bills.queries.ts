@@ -222,14 +222,3 @@ export const BILL_GET_QUERY = gql(`
     }
   }
 `);
-
-export const BILL_CREATE_MUTATION = gql(`
-  mutation UserOrganizationBillCreate(
-    $organizationId: String!
-    $data: UserOrganizationBillSchema!
-  ) {
-    userOrganizationBillCreate(organization_id: $organizationId, data: $data) {
-      ...OrganizationBillFragment
-    }
-  }
-`);

@@ -1,30 +1,25 @@
-import { ApolloClient } from '@apollo/client/core';
 import {
-  UserOrganizationCustomerSendInvoiceEmailMutation,
-  UserOrganizationCustomerSendInvoiceEmailMutationVariables,
-  UserOrganizationInvoiceQuery,
-  UserOrganizationInvoiceQueryVariables,
   UserOrganizationInvoiceSummaryQuery,
   UserOrganizationInvoiceSummaryQueryVariables,
+  UserOrganizationInvoiceGetPDFMutation,
+  UserOrganizationInvoiceGetPDFMutationVariables,
+  UserOrganizationInvoiceQueryVariables,
+  UserOrganizationInvoiceQuery,
 } from '@api/gql/graphql';
-import {
-  ChildrenEdgeListResponse,
-  processResponseAsList,
-} from '@utils/processResponseAsList';
 import { Res } from '@utils/response.type';
-import { SEND_INVOICE_EMAIL_MUTATION } from './invoices.queries';
 import {
+  processResponseAsList,
+  ChildrenEdgeListResponse,
+} from '@utils/processResponseAsList';
+import { ApolloClient } from '@apollo/client';
+import {
+  INVOICES_SUMMARY_AS_VENDOR_GET_PDF_MUTATION,
   INVOICES_SUMMARY_AS_VENDOR_GET_SUMMARY_QUERY,
   INVOICES_SUMMARY_AS_VENDOR_GET_ONE_INVOICE_QUERY,
-} from './summary/asVendor/invoicesSummaryAsVendor.queries';
-import InvoicesSummary from './summary/invoicesSummary.service';
+} from './invoicesSummaryAsVendor.queries';
 
-export default class Invoices {
-  public readonly summary: InvoicesSummary;
-
-  constructor(private apolloClient: ApolloClient<unknown>) {
-    this.summary = new InvoicesSummary(this.apolloClient);
-  }
+export default class InvoicesSummaryAsVendor {
+  constructor(private apolloClient: ApolloClient<unknown>) {}
 
   public get = async (
     variables: UserOrganizationInvoiceSummaryQueryVariables,
@@ -54,14 +49,14 @@ export default class Invoices {
     return data.userOrganizationInvoice;
   };
 
-  public sendEmail = async (
-    variables: UserOrganizationCustomerSendInvoiceEmailMutationVariables,
-  ): Promise<Res<UserOrganizationCustomerSendInvoiceEmailMutation>> => {
+  public getPdf = async (
+    variables: UserOrganizationInvoiceGetPDFMutationVariables,
+  ): Promise<Res<UserOrganizationInvoiceGetPDFMutation>> => {
     const { data } = await this.apolloClient.mutate({
-      mutation: SEND_INVOICE_EMAIL_MUTATION,
+      mutation: INVOICES_SUMMARY_AS_VENDOR_GET_PDF_MUTATION,
       variables,
     });
 
-    return data!.userOrganizationCustomerSendInvoiceEmail;
+    return data!.userOrganizationInvoiceGetPDF;
   };
 }
