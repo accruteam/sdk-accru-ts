@@ -361,6 +361,7 @@ type Mutation {
   userAuthProviderDisconnect(auth_provider: AUTH_PROVIDER!): UserAuthProviderConn!
   userAuthProviderGetOAuthToken(auth_provider: AUTH_PROVIDER!, authorization_token: String!): String!
   userAuthProviderGetOAuthUrl(auth_provider: AUTH_PROVIDER!): String!
+  userCreateReferralCode: User!
   userCustomerOrganizationInvoiceCreateSyncBill(organization_id: String!, organization_invoice_id: String!, organization_vendor_id: String!): OrganizationBill!
   userCustomerOrganizationInvoiceGetPDF(acct_provider: ACCT_PROVIDER, organization_id: String!, organization_invoice_id: String!, organization_vendor_id: String!): String!
   userCustomerOrganizationProjectChangeRequestAccept(organization_id: String!, organization_project_change_request_id: String!, organization_project_id: String!, organization_vendor_id: String!): OrganizationProjectChangeRequest!
@@ -668,6 +669,7 @@ type Organization {
   name: String!
   phone_number: String
   primary_contact_name: String
+  referred_by_code: String
   setting_allow_invoice_due_snooze_reminders: Boolean
   setting_allow_invoice_overdue_snooze_reminders: Boolean
   setting_receive_customer_notification_mode: RECEIVE_CUSTOMER_NOTIFICATION_MODE
@@ -2240,6 +2242,7 @@ type User {
   phone_number: String
   profile_picture_file: File
   profile_picture_file_id: String
+  referral_code: String
   timezone: String
   updated_at: DateTime!
 }
@@ -2307,6 +2310,7 @@ input UserOrganizationCreateSchema {
   name: String!
   phone_number: String
   primary_contact_name: String
+  referred_by_code: String
   setting_receive_customer_notification_mode: RECEIVE_CUSTOMER_NOTIFICATION_MODE
   timezone: String
   website: String
