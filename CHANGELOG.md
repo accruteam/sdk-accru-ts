@@ -1,5 +1,11 @@
 # @accru/client
 
+## 0.11.0
+
+### Minor Changes
+
+- 103f669: add organization referral data
+
 ## 0.10.0
 
 ### Minor Changes
