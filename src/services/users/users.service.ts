@@ -1,5 +1,6 @@
 import { ApolloClient } from '@apollo/client/core';
 import {
+  UserCreateReferralCodeMutation,
   UserEmailVerifyOrChangeFinishMutation,
   UserEmailVerifyOrChangeFinishMutationVariables,
   UserEmailVerifyOrChangeStartMutation,
@@ -31,6 +32,7 @@ import {
   UPDATE_USER_PASSWORD_FINISH_MUTATION,
   UPDATE_USER_DELETE_PROFILE_PICTURE_MUTATION,
   USER_HANDLE_LOGIN_ATTEMPT_MUTATION,
+  USER_CREATE_REFERRAL_CODE_MUTATION,
 } from './users.queries';
 
 export default class UsersService {
@@ -133,5 +135,15 @@ export default class UsersService {
       mutation: USER_HANDLE_LOGIN_ATTEMPT_MUTATION,
       variables,
     });
+  };
+
+  public createReferralCode = async (): Promise<
+    Res<UserCreateReferralCodeMutation>
+  > => {
+    const { data } = await this.apolloClient.mutate({
+      mutation: USER_CREATE_REFERRAL_CODE_MUTATION,
+    });
+
+    return data!.userCreateReferralCode;
   };
 }

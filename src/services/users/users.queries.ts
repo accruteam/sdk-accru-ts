@@ -11,6 +11,8 @@ export const USER_FRAGMENT = gql(`
     phone_number
     timezone
     is_admin
+    referral_code
+
     updated_at
     created_at
     profile_picture_file {
@@ -104,5 +106,13 @@ export const UPDATE_USER_DELETE_PROFILE_PICTURE_MUTATION = gql(`
 export const USER_HANDLE_LOGIN_ATTEMPT_MUTATION = gql(`
   mutation UserHandleLoginAttempt($email: String!) {
     userHandleLoginAttempt(email: $email)
+  }
+`);
+
+export const USER_CREATE_REFERRAL_CODE_MUTATION = gql(`
+  mutation UserCreateReferralCode {
+    userCreateReferralCode {
+      ...UserFragment
+    }
   }
 `);
