@@ -32,7 +32,7 @@ jobs:
         shell: bash
         run: echo "branch=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_OUTPUT
 
-      - name: Setup Node.js 22
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
@@ -229,12 +229,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          git pull
           git fetch origin develop
           git checkout develop
-
-          git merge origin/${{ github.ref_name }} -X theirs --no-ff --no-edit --allow-unrelated-histories --no-commit
-          git add -A
-          git commit -m "Merge ${{ github.ref_name }} into develop"
-
-          git push origin develop
+          git pull origin ${{ github.ref_name }} -X theirs --no-ff --no-edit --allow-unrelated-histories
+          git push
