@@ -128,6 +128,11 @@ export const CUSTOMER_STATEMENT_FRAGMENT = gql(`
     currency
 
     has_sync_errors
+    has_mismatching_balance
+
+    acct_provider
+    is_acct_provider_connected
+
     last_sync_at
     latest_acct_provider_balance
 
