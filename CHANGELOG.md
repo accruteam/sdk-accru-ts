@@ -1,5 +1,11 @@
 # @accru/client
 
+## 0.12.0
+
+### Minor Changes
+
+- 15717aa: add quickbooks sync statement warning fields
+
 ## 0.11.0
 
 ### Minor Changes
