@@ -329,6 +329,7 @@ enum MIME_TYPE {
 
 type Mutation {
   adminClearCache: DateTime!
+  adminOrganizationAcctProviderDelete(acct_provider: ACCT_PROVIDER!, organization_id: String!): DateTime!
   adminOrganizationAcctProviderSynchronize(acct_provider: ACCT_PROVIDER!, organization_id: String!): DateTime!
   adminOrganizationAcctProviderSynchronizeAll(acct_provider: ACCT_PROVIDER): Int!
   adminOrganizationArchive(organization_id: String!): Organization!
@@ -375,6 +376,7 @@ type Mutation {
   userEmailVerifyOrChangeStart(data: UserEmailVerifyOrChangeStartSchema!): DateTime!
   userHandleLoginAttempt(email: String!): DateTime!
   userOrganizationAcctProviderConnCheckConnection(acct_provider: ACCT_PROVIDER!, acct_provider_conn_code: String!, organization_id: String!): OrganizationAcctProviderConn!
+  userOrganizationAcctProviderConnDelete(acct_provider: ACCT_PROVIDER!, organization_id: String!): OrganizationAcctProviderConn!
   userOrganizationAcctProviderConnDisconnect(acct_provider: ACCT_PROVIDER!, organization_id: String!): OrganizationAcctProviderConn!
   userOrganizationAcctProviderConnUpdate(acct_provider: ACCT_PROVIDER!, data: UserOrganizationAcctProviderConnUpdateSchema!, organization_id: String!): OrganizationAcctProviderConn!
   userOrganizationAcctProviderConnect(acct_provider: ACCT_PROVIDER!, automatic_pull_enabled: Boolean!, organization_id: String!, url: String!): OrganizationAcctProviderConn!
@@ -917,6 +919,7 @@ type OrganizationBillPaginationEdge {
 }
 
 type OrganizationBillSummary {
+  acct_provider: ACCT_PROVIDER
   balance: BigInt!
   currency: CURRENCY
 
@@ -932,7 +935,9 @@ type OrganizationBillSummary {
   due_end_date: DateTime
   due_start_date: DateTime
   end_date: DateTime
+  has_mismatching_balance: Boolean
   has_sync_errors: Boolean
+  is_acct_provider_connected: Boolean
   last_sync_at: DateTime
   latest_acct_provider_balance: BigInt
   latest_acct_provider_one_to_thirty_days_due_amount: BigInt
@@ -1151,6 +1156,7 @@ type OrganizationCustomerPaginationEdge {
 }
 
 type OrganizationCustomerStatement {
+  acct_provider: ACCT_PROVIDER
   balance: BigInt!
   currency: CURRENCY
 
@@ -1164,7 +1170,9 @@ type OrganizationCustomerStatement {
   due_end_date: DateTime
   due_start_date: DateTime
   end_date: DateTime
+  has_mismatching_balance: Boolean
   has_sync_errors: Boolean
+  is_acct_provider_connected: Boolean
   last_sync_at: DateTime
   latest_acct_provider_balance: BigInt
   latest_acct_provider_one_to_thirty_days_due_amount: BigInt
@@ -1456,6 +1464,7 @@ type OrganizationInvoicePaymentOption {
 }
 
 type OrganizationInvoiceSummary {
+  acct_provider: ACCT_PROVIDER
   balance: BigInt!
   currency: CURRENCY
 
@@ -1469,7 +1478,9 @@ type OrganizationInvoiceSummary {
   due_end_date: DateTime
   due_start_date: DateTime
   end_date: DateTime
+  has_mismatching_balance: Boolean
   has_sync_errors: Boolean
+  is_acct_provider_connected: Boolean
   last_sync_at: DateTime
   latest_acct_provider_balance: BigInt
   latest_acct_provider_one_to_thirty_days_due_amount: BigInt

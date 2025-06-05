@@ -1,32 +1,32 @@
-import { expect, beforeAll, beforeEach, describe, it } from 'vitest'
+import { expect, beforeAll, beforeEach, describe, it } from 'vitest';
 
-import { OrganizationCustomerStatementInvoiceLine, OrganizationCustomerStatementTransactionLine, UserQuery } from '../src/api/gql/graphql'
-import { setup } from './setupTest'
-import { AccruClient } from '../src'
+import { UserQuery } from '../src/api/gql/graphql';
+import { setup } from './setupTest';
+import { AccruClient } from '../src';
 
-let client: AccruClient
-let user: UserQuery['user']
-let organizationId: string
+let client: AccruClient;
+let user: UserQuery['user'];
+let organizationId: string;
 
 describe('Test', () => {
   beforeAll(async () => {
-    const data = await setup()
-    client = data.client
-    user = data.user
-    organizationId = data.organizationId
-  })
+    const data = await setup();
+    client = data.client;
+    user = data.user;
+    organizationId = data.organizationId;
+  });
 
   beforeEach(async () => {
-    const user = await client.users.getCurrent()
-    expect(user.organizations).toBeDefined()
-    expect(user.organizations!.length).toBeGreaterThan(0)
-    expect(user.organizations![0]!.organization_id).toBeDefined()
-  })
+    user = await client.users.getCurrent();
+    expect(user.organizations).toBeDefined();
+    expect(user.organizations!.length).toBeGreaterThan(0);
+    expect(user.organizations![0]!.organization_id).toBeDefined();
+  });
 
   it('should get vendors', async () => {
-    const vendors = await client.vendors.get({ organizationId })
+    const vendors = await client.vendors.get({ organizationId });
 
-    expect(vendors.items.length).toBeGreaterThan(0)
+    expect(vendors.items.length).toBeGreaterThan(0);
 
     expect(vendors).toMatchObject({
       items: expect.arrayContaining([
@@ -34,13 +34,13 @@ describe('Test', () => {
           id: expect.any(String),
         }),
       ]),
-    })
-  })
+    });
+  });
 
   it('should get customers', async () => {
-    const customers = await client.customers.get({ organizationId })
+    const customers = await client.customers.get({ organizationId });
 
-    expect(customers.items.length).toBeGreaterThan(0)
+    expect(customers.items.length).toBeGreaterThan(0);
 
     expect(customers).toMatchObject({
       items: expect.arrayContaining([
@@ -48,13 +48,13 @@ describe('Test', () => {
           id: expect.any(String),
         }),
       ]),
-    })
-  })
+    });
+  });
 
   it('should get invoices', async () => {
-    const invoices = await client.invoices.get({ organizationId })
+    const invoices = await client.invoices.get({ organizationId });
 
-    expect(invoices.items.length).toBeGreaterThan(0)
+    expect(invoices.items.length).toBeGreaterThan(0);
 
     expect(invoices).toMatchObject({
       items: expect.arrayContaining([
@@ -62,13 +62,13 @@ describe('Test', () => {
           id: expect.any(String),
         }),
       ]),
-    })
-  })
+    });
+  });
 
   it('should get bills', async () => {
-    const bills = await client.bills.get({ organizationId })
+    const bills = await client.bills.get({ organizationId });
 
-    expect(bills.items.length).toBeGreaterThan(0)
+    expect(bills.items.length).toBeGreaterThan(0);
 
     expect(bills).toMatchObject({
       items: expect.arrayContaining([
@@ -76,6 +76,6 @@ describe('Test', () => {
           id: expect.any(String),
         }),
       ]),
-    })
-  })
-})
+    });
+  });
+});
