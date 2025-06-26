@@ -146,14 +146,35 @@ export const PASSWORD_RESET_FINISH_MUTATION = gql(`
   }
 `);
 
-export const INTUIT_LOGIN_START_MUTATION = gql(`
-  mutation UserAuthProviderGetOAuthUrl($authProvider: AUTH_PROVIDER!) {
-    userAuthProviderGetOAuthUrl(auth_provider: $authProvider)
+export const USER_ACCT_PROVIDER_OAUTH_START_MUTATION = gql(`
+  mutation UserAcctProviderGetOAuthUrl($acctProvider: ACCT_PROVIDER!) {
+    userAcctProviderGetOAuthUrl(acct_provider: $acctProvider)
   }
 `);
 
-export const INTUIT_LOGIN_FINISH_MUTATION = gql(`
-  mutation UserAuthProviderGetOAuthToken($authProvider: AUTH_PROVIDER!, $authorizationToken: String!) {
-    userAuthProviderGetOAuthToken(auth_provider: $authProvider, authorization_token: $authorizationToken)
+export const USER_ACCT_PROVIDER_OAUTH_FINISH_MUTATION = gql(`
+  mutation UserAcctProviderExchangeToken($acctProvider: ACCT_PROVIDER!, $authorizationToken: String!) {
+    userAcctProviderExchangeToken(acct_provider: $acctProvider, authorization_token: $authorizationToken)
+  }
+`);
+
+export const USER_AND_ORGANIZATION_ACCT_PROVIDER_OAUTH_START_MUTATION = gql(`
+  mutation UserAndOrganizationAcctProviderGetOAuthUrl($acctProvider: ACCT_PROVIDER!) {
+    userAndOrganizationAcctProviderGetOAuthUrl(acct_provider: $acctProvider)
+  }
+`);
+
+export const USER_AND_ORGANIZATION_ACCT_PROVIDER_OAUTH_FINISH_MUTATION = gql(`
+  mutation UserAndOrganizationAcctProviderExchangeToken($acctProvider: ACCT_PROVIDER!, $authorizationToken: String!, $referredByCode: String) {
+    userAndOrganizationAcctProviderExchangeToken(acct_provider: $acctProvider, authorization_token: $authorizationToken, referred_by_code: $referredByCode) {
+      status
+      token
+      user {
+        ...UserFragment
+      }
+      organization {
+        ...OrganizationFragment
+      }
+    }
   }
 `);

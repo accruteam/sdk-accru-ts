@@ -1,10 +1,10 @@
 import {
   UnauthorizedUserOrganizationUserInviteQuery,
   UnauthorizedUserOrganizationUserInviteQueryVariables,
-  UserAuthProviderGetOAuthTokenMutation,
-  UserAuthProviderGetOAuthTokenMutationVariables,
-  UserAuthProviderGetOAuthUrlMutation,
-  UserAuthProviderGetOAuthUrlMutationVariables,
+  UserAndOrganizationAcctProviderExchangeTokenMutationVariables,
+  UserAndOrganizationAcctProviderExchangeTokenMutation,
+  UserAndOrganizationAcctProviderGetOAuthUrlMutationVariables,
+  UserAndOrganizationAcctProviderGetOAuthUrlMutation,
   UserOrganizationUserInviteAcceptMutation,
   UserOrganizationUserInviteAcceptMutationVariables,
   UserOrganizationUserInvitesQuery,
@@ -21,6 +21,10 @@ import {
   UserSignUpWithEmailStartMutationVariables,
   UserSignUpWithEmailVerifyMutation,
   UserSignUpWithEmailVerifyMutationVariables,
+  UserAcctProviderGetOAuthUrlMutation,
+  UserAcctProviderGetOAuthUrlMutationVariables,
+  UserAcctProviderExchangeTokenMutation,
+  UserAcctProviderExchangeTokenMutationVariables,
 } from '@api/gql/graphql';
 import { ApolloClient } from '@apollo/client/core';
 import { Res } from '@utils/response.type';
@@ -37,9 +41,11 @@ import {
   ACCEPT_ORG_INVITE_MUTATE,
   PASSWORD_RESET_START_MUTATION,
   PASSWORD_RESET_FINISH_MUTATION,
-  INTUIT_LOGIN_START_MUTATION,
-  INTUIT_LOGIN_FINISH_MUTATION,
   USER_GET_ORGANIZATION_INVITES_QUERY,
+  USER_AND_ORGANIZATION_ACCT_PROVIDER_OAUTH_START_MUTATION,
+  USER_AND_ORGANIZATION_ACCT_PROVIDER_OAUTH_FINISH_MUTATION,
+  USER_ACCT_PROVIDER_OAUTH_START_MUTATION,
+  USER_ACCT_PROVIDER_OAUTH_FINISH_MUTATION,
 } from './auth.queries';
 
 export default class Auth {
@@ -136,23 +142,43 @@ export default class Auth {
     return data!.userPasswordResetFinish;
   };
 
-  public startIntuitLogin = async (
-    variables: UserAuthProviderGetOAuthUrlMutationVariables,
-  ): Promise<Res<UserAuthProviderGetOAuthUrlMutation>> => {
+  public startUserAcctProviderOAuth = async (
+    variables: UserAcctProviderGetOAuthUrlMutationVariables,
+  ): Promise<Res<UserAcctProviderGetOAuthUrlMutation>> => {
     const { data } = await this.apolloClient.mutate({
-      mutation: INTUIT_LOGIN_START_MUTATION,
+      mutation: USER_ACCT_PROVIDER_OAUTH_START_MUTATION,
       variables,
     });
-    return data!.userAuthProviderGetOAuthUrl;
+    return data!.userAcctProviderGetOAuthUrl;
   };
 
-  public finishIntuitLogin = async (
-    variables: UserAuthProviderGetOAuthTokenMutationVariables,
-  ): Promise<Res<UserAuthProviderGetOAuthTokenMutation>> => {
+  public finishUserAcctProviderOAuth = async (
+    variables: UserAcctProviderExchangeTokenMutationVariables,
+  ): Promise<Res<UserAcctProviderExchangeTokenMutation>> => {
     const { data } = await this.apolloClient.mutate({
-      mutation: INTUIT_LOGIN_FINISH_MUTATION,
+      mutation: USER_ACCT_PROVIDER_OAUTH_FINISH_MUTATION,
       variables,
     });
-    return data!.userAuthProviderGetOAuthToken;
+    return data!.userAcctProviderExchangeToken;
+  };
+
+  public startUserAndOrganizationAcctProviderOAuth = async (
+    variables: UserAndOrganizationAcctProviderGetOAuthUrlMutationVariables,
+  ): Promise<Res<UserAndOrganizationAcctProviderGetOAuthUrlMutation>> => {
+    const { data } = await this.apolloClient.mutate({
+      mutation: USER_AND_ORGANIZATION_ACCT_PROVIDER_OAUTH_START_MUTATION,
+      variables,
+    });
+    return data!.userAndOrganizationAcctProviderGetOAuthUrl;
+  };
+
+  public finishUserAndOrganizationAcctProviderOAuth = async (
+    variables: UserAndOrganizationAcctProviderExchangeTokenMutationVariables,
+  ): Promise<Res<UserAndOrganizationAcctProviderExchangeTokenMutation>> => {
+    const { data } = await this.apolloClient.mutate({
+      mutation: USER_AND_ORGANIZATION_ACCT_PROVIDER_OAUTH_FINISH_MUTATION,
+      variables,
+    });
+    return data!.userAndOrganizationAcctProviderExchangeToken;
   };
 }
