@@ -102,10 +102,12 @@ export const ACCEPT_CONNECTION_MUTATION = gql(`
   mutation UserOrganizationConnectionAccept(
     $organizationId: String!
     $organizationConnectionId: String!
+    $organizationTargetId: String!
   ) {
     userOrganizationConnectionAccept(
       organization_id: $organizationId
       organization_connection_id: $organizationConnectionId
+      organization_target_id: $organizationTargetId
     ) {
       ...OrganizationConnectionFragment
     }
@@ -116,10 +118,12 @@ export const REJECT_CONNECTION_MUTATION = gql(`
   mutation UserOrganizationConnectionReject(
     $organizationId: String!
     $organizationConnectionId: String!
+    $organizationTargetId: String
   ) {
     userOrganizationConnectionReject(
       organization_id: $organizationId
       organization_connection_id: $organizationConnectionId
+      organization_target_id: $organizationTargetId
     ) {
       ...OrganizationConnectionFragment
     }

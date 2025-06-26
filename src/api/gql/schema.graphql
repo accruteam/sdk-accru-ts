@@ -4,7 +4,6 @@ enum ACCT_PROVIDER {
 
 enum AUTH_PROVIDER {
   FIREBASE
-  INTUIT
 }
 
 type AccruPayTransactionProviderPreTransactionData {
@@ -359,9 +358,10 @@ type Mutation {
   unconnectedCustomerOrganizationStatementLineGetPDF(acct_provider: ACCT_PROVIDER, organization_customer_statement_line_id: Int!, organization_id: String, token: String!, unique_code: String!): String!
   unconnectedCustomerOrganizationStatementRequestToken(unique_code: String!): DateTime!
   unconnectedCustomerSynchronize(organization_id: String, token: String!, unique_code: String!): DateTime!
-  userAuthProviderDisconnect(auth_provider: AUTH_PROVIDER!): UserAuthProviderConn!
-  userAuthProviderGetOAuthToken(auth_provider: AUTH_PROVIDER!, authorization_token: String!): String!
-  userAuthProviderGetOAuthUrl(auth_provider: AUTH_PROVIDER!): String!
+  userAcctProviderExchangeToken(acct_provider: ACCT_PROVIDER!, authorization_token: String!): String!
+  userAcctProviderGetOAuthUrl(acct_provider: ACCT_PROVIDER!): String!
+  userAndOrganizationAcctProviderExchangeToken(acct_provider: ACCT_PROVIDER!, authorization_token: String!, referred_by_code: String): OrganizationAcctProviderTokenExchange!
+  userAndOrganizationAcctProviderGetOAuthUrl(acct_provider: ACCT_PROVIDER!): String!
   userCreateReferralCode: User!
   userCustomerOrganizationInvoiceCreateSyncBill(organization_id: String!, organization_invoice_id: String!, organization_vendor_id: String!): OrganizationBill!
   userCustomerOrganizationInvoiceGetPDF(acct_provider: ACCT_PROVIDER, organization_id: String!, organization_invoice_id: String!, organization_vendor_id: String!): String!
@@ -393,10 +393,10 @@ type Mutation {
   userOrganizationBillUpdate(data: UserOrganizationBillSchema!, organization_bill_id: String!, organization_id: String!): OrganizationBill!
   userOrganizationCollaboratorDelete(organization_id: String!, organization_user_id: String!): OrganizationUser!
   userOrganizationCollaboratorUpdate(data: UserOrganizationCollaboratorUpdateSchema!, organization_id: String!, organization_user_id: String!): OrganizationUser!
-  userOrganizationConnectionAccept(organization_connection_id: String!, organization_id: String!): OrganizationConnection!
+  userOrganizationConnectionAccept(organization_connection_id: String!, organization_id: String!, organization_target_id: String!): OrganizationConnection!
   userOrganizationConnectionInviteCustomer(organization_customer_id: String!, organization_id: String!): OrganizationConnection!
   userOrganizationConnectionInviteVendor(organization_id: String!, organization_vendor_id: String!): OrganizationConnection!
-  userOrganizationConnectionReject(organization_connection_id: String!, organization_id: String!): OrganizationConnection!
+  userOrganizationConnectionReject(organization_connection_id: String!, organization_id: String!, organization_target_id: String): OrganizationConnection!
   userOrganizationCreate(data: UserOrganizationCreateSchema!): Organization!
   userOrganizationCustomerConnLock(organization_customer_id: String!, organization_id: String!): OrganizationCustomer!
   userOrganizationCustomerConnSync(organization_customer_id: String!, organization_id: String!): OrganizationCustomer!
@@ -493,6 +493,13 @@ enum ORGANIZATION_ACCT_PROVIDER_CONN_STATUS {
 enum ORGANIZATION_ACCT_PROVIDER_CONN_SYNCHRONIZATION_SCOPE {
   COMPLETE
   CUSTOMER
+}
+
+enum ORGANIZATION_ACCT_PROVIDER_TOKEN_EXCHANGE_STATUS {
+  ACCT_PROVIDER_CONNECTED_TO_DIFFERENT_ORGANIZATION
+  COMPLETED
+  DIFFERENT_ACCOUNTING_PROVIDER_ALREADY_CONNECTED
+  ORGANIZATION_ALREADY_EXISTS
 }
 
 enum ORGANIZATION_CONNECTION_STATUS {
@@ -635,7 +642,7 @@ enum ORGANIZATION_USER_ROLE {
 }
 
 type Organization {
-  acct_provider_conns(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, skip: Int, sorting: [SortingFieldSchema!], take: Int): OrganizationAcctProviderConnPaginationConnection!
+  acct_provider_conns(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, skip: Int, sorting: [SortingFieldSchema!], take: Int): OrganizationAcctProviderConnPaginationConnection
   address_city: String
   address_country_code_iso_3: COUNTRY_ISO_3
   address_lat: Float
@@ -825,6 +832,13 @@ type OrganizationAcctProviderConnSynchronizationPaginationConnection {
 type OrganizationAcctProviderConnSynchronizationPaginationEdge {
   cursor: ConnectionCursor!
   node: OrganizationAcctProviderConnSynchronization!
+}
+
+type OrganizationAcctProviderTokenExchange {
+  organization: Organization
+  status: ORGANIZATION_ACCT_PROVIDER_TOKEN_EXCHANGE_STATUS!
+  token: String!
+  user: User!
 }
 
 type OrganizationBill {
@@ -2561,8 +2575,6 @@ type UserSession {
   canceled_at: DateTime
   created_at: DateTime!
   id: ID!
-  parent_session: UserSession
-  parent_session_id: String
   payload: JSON!
   refresh_token: String
   refresh_token_expires_at: DateTime
