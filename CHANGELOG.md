@@ -1,5 +1,12 @@
 # @accru/client
 
+## 0.13.0
+
+### Minor Changes
+
+- 22b21c0: add intuit and quickbooks sso
+- 15717aa: add quickbooks sync statement warning fields
+
 ## 0.12.0
 
 ### Minor Changes
