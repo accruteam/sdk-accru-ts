@@ -44,7 +44,7 @@ export const ORGANIZATION_FRAGMENT = gql(`
       public_url
     }
 
-    setting_receive_customer_notification_mode
+    setting_customer_email_copy_mode
 
     current_email_verification_id
     current_phone_number_verification_id
@@ -70,7 +70,7 @@ export const ORGANIZATION_USER_FRAGMENT = gql(`
     role
     is_current_organization_user_seat_available
     receive_invoice_reminders
-    receive_customer_notification_mode
+    customer_email_copy_mode
     created_at
     updated_at
     organization_id

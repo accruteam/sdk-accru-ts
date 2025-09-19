@@ -111,7 +111,8 @@ export const CUSTOMER_ADDITIONAL_DATA_FRAGMENT = gql(`
       email
       phone_number
       is_default
-      send_invoice_reminders
+      receive_invoice_reminders
+      email_copy_mode
       created_at
       updated_at
     }
