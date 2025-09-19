@@ -477,6 +477,11 @@ type Mutation {
   userUpdateData(data: UserUpdateDataSchema!): User!
 }
 
+enum NOTIFICATION_EMAIL_COPY_MODE {
+  BCC
+  TO
+}
+
 type NuveiTransactionProviderPreTransactionData {
   environment: String!
   merchant_id: String!
@@ -681,7 +686,8 @@ type Organization {
   referred_by_code: String
   setting_allow_invoice_due_snooze_reminders: Boolean
   setting_allow_invoice_overdue_snooze_reminders: Boolean
-  setting_receive_customer_notification_mode: RECEIVE_CUSTOMER_NOTIFICATION_MODE
+  setting_customer_email_copy_mode: NOTIFICATION_EMAIL_COPY_MODE
+  setting_receive_customer_notification_mode: NOTIFICATION_EMAIL_COPY_MODE @deprecated(reason: "Use `setting_customer_email_copy_mode` instead")
   setting_send_invoice_due_reminders: Boolean
   setting_send_invoice_overdue_reminders: Boolean
   subscription_data: OrganizationSubscriptionData
@@ -1138,12 +1144,14 @@ type OrganizationCustomer {
 type OrganizationCustomerContact {
   created_at: DateTime!
   email: String!
+  email_copy_mode: NOTIFICATION_EMAIL_COPY_MODE
   id: ID!
   is_default: Boolean!
   name: String!
   organization_customer_id: String!
   phone_number: String
-  send_invoice_reminders: Boolean!
+  receive_invoice_reminders: Boolean
+  send_invoice_reminders: Boolean @deprecated(reason: "Use `receive_invoice_reminders` instead")
   updated_at: DateTime!
 }
 
@@ -1954,12 +1962,13 @@ union OrganizationTransactionPreTransactionData = AccruPayTransactionProviderPre
 
 type OrganizationUser {
   created_at: DateTime!
+  customer_email_copy_mode: NOTIFICATION_EMAIL_COPY_MODE
   id: ID!
   is_current_organization_user_seat_available: Boolean
   organization: Organization!
   organization_id: String!
   payload: JSON
-  receive_customer_notification_mode: RECEIVE_CUSTOMER_NOTIFICATION_MODE
+  receive_customer_notification_mode: NOTIFICATION_EMAIL_COPY_MODE @deprecated(reason: "Use `customer_email_copy_mode` instead")
   receive_invoice_reminders: Boolean!
   role: ORGANIZATION_USER_ROLE!
   updated_at: DateTime!
@@ -2162,11 +2171,6 @@ type Query {
   userOrganizations(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, skip: Int, take: Int): [Organization!]!
 }
 
-enum RECEIVE_CUSTOMER_NOTIFICATION_MODE {
-  BCC
-  TO
-}
-
 enum RECEIVING_METHOD {
   ACH
   DEBIT_CARD
@@ -2315,7 +2319,7 @@ input UserOrganizationBillSchema {
 }
 
 input UserOrganizationCollaboratorUpdateSchema {
-  receive_customer_notification_mode: RECEIVE_CUSTOMER_NOTIFICATION_MODE
+  customer_email_copy_mode: NOTIFICATION_EMAIL_COPY_MODE
   receive_invoice_reminders: Boolean!
   role: ORGANIZATION_USER_ROLE!
 }
@@ -2336,25 +2340,27 @@ input UserOrganizationCreateSchema {
   phone_number: String
   primary_contact_name: String
   referred_by_code: String
-  setting_receive_customer_notification_mode: RECEIVE_CUSTOMER_NOTIFICATION_MODE
+  setting_customer_email_copy_mode: NOTIFICATION_EMAIL_COPY_MODE
   timezone: String
   website: String
 }
 
 input UserOrganizationCustomerContactCreateSchema {
   email: String!
+  email_copy_mode: NOTIFICATION_EMAIL_COPY_MODE!
   is_default: Boolean!
   name: String!
   phone_number: String
-  send_invoice_reminders: Boolean!
+  receive_invoice_reminders: Boolean!
 }
 
 input UserOrganizationCustomerContactUpdateSchema {
   email: String!
+  email_copy_mode: NOTIFICATION_EMAIL_COPY_MODE!
   is_default: Boolean!
   name: String!
   phone_number: String
-  send_invoice_reminders: Boolean!
+  receive_invoice_reminders: Boolean!
 }
 
 input UserOrganizationCustomerSchema {
@@ -2492,7 +2498,7 @@ input UserOrganizationUpdateSchema {
   name: String
   phone_number: String
   primary_contact_name: String
-  setting_receive_customer_notification_mode: RECEIVE_CUSTOMER_NOTIFICATION_MODE
+  setting_customer_email_copy_mode: NOTIFICATION_EMAIL_COPY_MODE
   timezone: String
   website: String
 }

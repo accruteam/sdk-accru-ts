@@ -1,7 +1,9 @@
 import dotenv from 'dotenv';
 import { CodegenConfig } from '@graphql-codegen/cli';
 
-dotenv.config();
+dotenv.config({
+  quiet: true,
+});
 
 const config: CodegenConfig = {
   schema:

@@ -102,7 +102,7 @@ export default defineConfig([
       'import/no-extraneous-dependencies': [
         'error',
         {
-          devDependencies: ['**/*.test.js', '**/*.spec.js', '!**/src/**'],
+          devDependencies: ['**/*.test.ts', '**/*.spec.ts', '!**/src/**'],
         },
       ],
     },

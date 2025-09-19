@@ -13,11 +13,7 @@ export const GET_CONTACTS_QUERY = gql(`
       edges {
         cursor
         node {
-          email
-          id
-          is_default
-          name
-          phone_number
+          ...VendorContactFragment
         }
       }
       pageInfo {
@@ -43,15 +39,7 @@ export const GET_CUSTOMERS_CONTACTS_QUERY = gql(`
       edges {
         cursor
         node {
-          id
-          name
-          email
-          phone_number
-          is_default
-          send_invoice_reminders
-          created_at
-          updated_at
-          organization_customer_id
+          ...CustomerContactFragment
         }
       }
       pageInfo {
@@ -75,12 +63,7 @@ export const CREATE_CONTACT_MUTATION = gql(`
       organization_vendor_id: $organizationVendorId
       data: $data
     ) {
-      id
-      name
-      email
-      phone_number
-      is_default
-      organization_vendor_id
+      ...VendorContactFragment
     }
   }
 `);
@@ -96,15 +79,7 @@ export const CREATE_CUSTOMER_CONTACT_QUERY = gql(`
       organization_customer_id: $organizationCustomerId
       organization_id: $organizationId
     ) {
-      id
-      name
-      email
-      phone_number
-      is_default
-      send_invoice_reminders
-      created_at
-      updated_at
-      organization_customer_id
+      ...CustomerContactFragment
     }
   }
 `);
@@ -122,11 +97,7 @@ export const UPDATE_CONTACT_MUTATION = gql(`
       organization_vendor_id: $organizationVendorId
       organization_id: $organizationId
     ) {
-      email
-      id
-      is_default
-      name
-      phone_number
+      ...VendorContactFragment
     }
   }
 `);
@@ -144,15 +115,7 @@ export const UPDATE_CUSTOMER_CONTACT_MUTATION = gql(`
       organization_customer_id: $organizationCustomerId
       organization_id: $organizationId
     ) {
-      id
-      name
-      email
-      phone_number
-      is_default
-      send_invoice_reminders
-      created_at
-      updated_at
-      organization_customer_id
+      ...CustomerContactFragment
     }
   }
 `);
@@ -168,12 +131,7 @@ export const DELETE_CONTACT_MUTATION = gql(`
       organization_vendor_id: $organizationVendorId
       organization_id: $organizationId
     ) {
-      email
-      id
-      name
-      organization_vendor_id
-      phone_number
-      is_default
+      ...VendorContactFragment
     }
   }
 `);
@@ -189,15 +147,7 @@ export const DELETE_CUSTOMER_CONTACT_MUTATION = gql(`
       organization_customer_id: $organizationCustomerId
       organization_id: $organizationId
     ) {
-      id
-      name
-      email
-      phone_number
-      is_default
-      send_invoice_reminders
-      created_at
-      updated_at
-      organization_customer_id
+      ...CustomerContactFragment
     }
   }
 `);
