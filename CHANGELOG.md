@@ -1,5 +1,11 @@
 # @accru/client
 
+## 0.14.0
+
+### Minor Changes
+
+- 85e0111: add notification email query fields and fragments
+
 ## 0.13.0
 
 ### Minor Changes
