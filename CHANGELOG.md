@@ -1,5 +1,11 @@
 # @accru/client
 
+## 0.15.0
+
+### Minor Changes
+
+- 9d97c87: update bulk actions
+
 ## 0.14.0
 
 ### Minor Changes
