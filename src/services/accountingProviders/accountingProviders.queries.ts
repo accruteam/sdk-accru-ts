@@ -137,7 +137,7 @@ export const GET_ALL_ACCT_PROVIDER_SYNCS_QUERY = gql(`
     $organizationId: String!,
     $organizationAcctProviderConnId: String,
 
-    $scope: ORGANIZATION_ACCT_PROVIDER_CONN_SYNCHRONIZATION_SCOPE,
+    $scope: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_SCOPE,
     $finished: Boolean,
     $failed: Boolean,
     $succeeded: Boolean,

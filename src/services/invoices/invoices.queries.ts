@@ -8,6 +8,8 @@ export const SEND_INVOICE_EMAIL_MUTATION = gql(`
     userOrganizationCustomerSendInvoiceEmail(
       organization_id: $organizationId
       targets: $targets
-    )
+    ) {
+        ...BatchItemResultFragment
+    }
   }
 `);
