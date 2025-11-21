@@ -18,6 +18,26 @@ enum BILL_STATUS {
   PAID
 }
 
+type BatchItemError {
+  code: String!
+  details: JSON
+  message: String!
+}
+
+type BatchItemResult {
+  data: JSON
+  error: BatchItemError
+  id: String!
+  success: Boolean!
+}
+
+type BatchOperationResult {
+  failureCount: Int!
+  results: [BatchItemResult!]!
+  successCount: Int!
+  total: Int!
+}
+
 """
 The `BigInt` scalar type represents non-fractional signed whole numeric values.
 """
@@ -406,8 +426,8 @@ type Mutation {
   userOrganizationCustomerContactUpdate(data: UserOrganizationCustomerContactUpdateSchema!, organization_customer_contact_id: String!, organization_customer_id: String!, organization_id: String!): OrganizationCustomerContact!
   userOrganizationCustomerCreate(data: UserOrganizationCustomerSchema!, organization_id: String!): OrganizationCustomer!
   userOrganizationCustomerGetStatementLink(expires_at: DateTime, organization_customer_id: String!, organization_id: String!): String!
-  userOrganizationCustomerSendInvoiceEmail(organization_id: String!, targets: [UserOrganizationCustomerSendInvoiceEmailSchema!]!): JSON!
-  userOrganizationCustomerSendStatementEmail(organization_id: String!, targets: [UserOrganizationCustomerSendStatementEmailSchema!]!): JSON!
+  userOrganizationCustomerSendInvoiceEmail(organization_id: String!, targets: [UserOrganizationCustomerSendInvoiceEmailSchema!]!): BatchOperationResult!
+  userOrganizationCustomerSendStatementEmail(organization_id: String!, targets: [UserOrganizationCustomerSendStatementEmailSchema!]!): BatchOperationResult!
   userOrganizationCustomerSynchronize(organization_customer_id: String!, organization_id: String!): [String!]!
   userOrganizationCustomerUniqueCodeUpdate(organization_customer_id: String!, organization_id: String!): OrganizationCustomer!
   userOrganizationCustomerUpdate(data: UserOrganizationCustomerSchema!, organization_customer_id: String!, organization_id: String!): OrganizationCustomer!
@@ -495,7 +515,13 @@ enum ORGANIZATION_ACCT_PROVIDER_CONN_STATUS {
   EXPIRED
 }
 
-enum ORGANIZATION_ACCT_PROVIDER_CONN_SYNCHRONIZATION_SCOPE {
+enum ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_MODE {
+  AUTOMATIC
+  MANUAL
+  SCHEDULED
+}
+
+enum ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_SCOPE {
   COMPLETE
   CUSTOMER
 }
@@ -748,7 +774,7 @@ type OrganizationAcctProviderConn {
   phone_number: String
   primary_contact_name: String
   status: ORGANIZATION_ACCT_PROVIDER_CONN_STATUS!
-  synchronizations(after: ConnectionCursor, before: ConnectionCursor, failed: Boolean, finished: Boolean, first: Int, last: Int, scope: ORGANIZATION_ACCT_PROVIDER_CONN_SYNCHRONIZATION_SCOPE, skip: Int, sorting: [SortingFieldSchema!], succeeded: Boolean, take: Int): OrganizationAcctProviderConnSynchronizationPaginationConnection!
+  synchronizations(after: ConnectionCursor, before: ConnectionCursor, failed: Boolean, finished: Boolean, first: Int, last: Int, scope: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_SCOPE, skip: Int, skipped: Boolean, sorting: [SortingFieldSchema!], succeeded: Boolean, take: Int): OrganizationAcctProviderConnSynchronizationPaginationConnection!
   timezone: String
   updated_at: DateTime!
   url: String
@@ -780,7 +806,7 @@ type OrganizationAcctProviderConnSynchronization {
   finished_at: DateTime
   force: Boolean
   id: ID!
-  mode: String!
+  mode: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_MODE!
   organization_acct_provider_conn_id: String!
   organization_id: String!
   payload: JSON
@@ -789,10 +815,11 @@ type OrganizationAcctProviderConnSynchronization {
   provider: ACCT_PROVIDER!
   read_failure: Int!
   read_success: Int!
-  scope: String!
+  scope: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_SCOPE!
   scope_description: String
   scope_id: String
   skipped: Int!
+  skipped_at: DateTime
   started_at: DateTime
   succeeded_at: DateTime
   update_failure: Int!
@@ -2094,7 +2121,7 @@ type PageInfo {
 }
 
 type Query {
-  adminOrganizationAcctProviderSynchronizations(acct_provider: ACCT_PROVIDER, after: ConnectionCursor, before: ConnectionCursor, failed: Boolean, finished: Boolean, first: Int, last: Int, organization_id: String!, scope: ORGANIZATION_ACCT_PROVIDER_CONN_SYNCHRONIZATION_SCOPE, skip: Int, sorting: [SortingFieldSchema!], succeeded: Boolean, take: Int): OrganizationAcctProviderConnSynchronizationPaginationConnection!
+  adminOrganizationAcctProviderSynchronizations(acct_provider: ACCT_PROVIDER, after: ConnectionCursor, before: ConnectionCursor, failed: Boolean, finished: Boolean, first: Int, last: Int, organization_id: String!, scope: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_SCOPE, skip: Int, skipped: Boolean, sorting: [SortingFieldSchema!], succeeded: Boolean, take: Int): OrganizationAcctProviderConnSynchronizationPaginationConnection!
   adminOrganizationCoupon(organization_coupon_id: String!): OrganizationCoupon!
   adminOrganizationCoupons(activated: Boolean, after: ConnectionCursor, before: ConnectionCursor, campaign: ORGANIZATION_COUPON_CAMPAIGN, category: ORGANIZATION_COUPON_CATEGORY, code: String, expired: Boolean, first: Int, is_activation_unlimited: Boolean, last: Int, organization_id: String, skip: Int, sorting: [SortingFieldSchema!], subdivision: ORGANIZATION_COUPON_SUBDIVISION, take: Int): OrganizationCouponPaginationConnection!
   adminOrganizationManualSubscription(organization_subscription_id: String!): OrganizationSubscription!
@@ -2126,7 +2153,7 @@ type Query {
   userOrganization(organization_id: String!): Organization!
   userOrganizationAcctProvider(organization_acct_provider_conn_id: String!, organization_id: String!): OrganizationAcctProviderConn!
   userOrganizationAcctProviderSynchronization(organization_acct_provider_conn_synchronization_id: String!, organization_id: String!): OrganizationAcctProviderConnSynchronization!
-  userOrganizationAcctProviderSynchronizations(after: ConnectionCursor, before: ConnectionCursor, failed: Boolean, finished: Boolean, first: Int, last: Int, organization_acct_provider_conn_id: String, organization_id: String!, scope: ORGANIZATION_ACCT_PROVIDER_CONN_SYNCHRONIZATION_SCOPE, skip: Int, sorting: [SortingFieldSchema!], succeeded: Boolean, take: Int): OrganizationAcctProviderConnSynchronizationPaginationConnection!
+  userOrganizationAcctProviderSynchronizations(after: ConnectionCursor, before: ConnectionCursor, failed: Boolean, finished: Boolean, first: Int, last: Int, organization_acct_provider_conn_id: String, organization_id: String!, scope: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_SCOPE, skip: Int, skipped: Boolean, sorting: [SortingFieldSchema!], succeeded: Boolean, take: Int): OrganizationAcctProviderConnSynchronizationPaginationConnection!
   userOrganizationAcctProviders(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, organization_id: String!, skip: Int, sorting: [SortingFieldSchema!], take: Int): OrganizationAcctProviderConnPaginationConnection!
   userOrganizationBill(organization_bill_id: String!, organization_id: String!): OrganizationBill!
   userOrganizationBillSummary(after: ConnectionCursor, before: ConnectionCursor, currency: CURRENCY, due_end_date: DateTime, due_start_date: DateTime, end_date: DateTime, first: Int, is_overdue: Boolean, last: Int, latest_acct_provider_is_overdue: Boolean, latest_acct_provider_status: BILL_STATUS, organization_id: String!, organization_vendor_id: String, skip: Int, sorting: [SortingFieldSchema!], start_date: DateTime, status: BILL_STATUS, take: Int): OrganizationBillSummary!
@@ -2347,7 +2374,7 @@ input UserOrganizationCreateSchema {
 
 input UserOrganizationCustomerContactCreateSchema {
   email: String!
-  email_copy_mode: NOTIFICATION_EMAIL_COPY_MODE!
+  email_copy_mode: NOTIFICATION_EMAIL_COPY_MODE
   is_default: Boolean!
   name: String!
   phone_number: String
@@ -2356,7 +2383,7 @@ input UserOrganizationCustomerContactCreateSchema {
 
 input UserOrganizationCustomerContactUpdateSchema {
   email: String!
-  email_copy_mode: NOTIFICATION_EMAIL_COPY_MODE!
+  email_copy_mode: NOTIFICATION_EMAIL_COPY_MODE
   is_default: Boolean!
   name: String!
   phone_number: String

@@ -94,7 +94,9 @@ export const STATEMENT_AS_VENDOR_SYNC_CUSTOMER_MUTATION = gql(`
 
 export const STATEMENT_AS_VENDOR_SEND_CUSTOMER_STATEMENT_EMAIL_MUTATION = gql(`
   mutation UserOrganizationCustomerSendStatementEmail($targets: [UserOrganizationCustomerSendStatementEmailSchema!]!, $organizationId: String!) {
-    userOrganizationCustomerSendStatementEmail(targets: $targets, organization_id: $organizationId)
+    userOrganizationCustomerSendStatementEmail(targets: $targets, organization_id: $organizationId) {
+      ...BatchItemResultFragment
+    }
   }
 `);
 
