@@ -20,14 +20,28 @@ export const INVOICE_QUERY_FRAGMENT = gql(`
 
     currency_code
     description
+
     amount
     tax_amount
     discount_amount
     total_amount
+
     invoice_date
     due_date
+
     created_at
     updated_at
+
+    customer_email
+    customer_address_line_1
+    customer_address_number
+    customer_address_line_2
+    customer_address_city
+    customer_address_state
+    customer_address_zip_code
+    customer_address_country_code_iso_3
+    customer_address_lat
+    customer_address_lng
 
     organization_id
     organization {
