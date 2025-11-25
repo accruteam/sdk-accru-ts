@@ -19,13 +19,18 @@ export const BILL_QUERY_FRAGMENT = gql(`
 
     currency_code
     description
-    payload
+
     amount
     tax_amount
     discount_amount
     total_amount
+
     bill_date
     due_date
+    
+    created_at
+    updated_at
+
     vendor_email
     vendor_address_line_1
     vendor_address_number
@@ -36,8 +41,6 @@ export const BILL_QUERY_FRAGMENT = gql(`
     vendor_address_country_code_iso_3
     vendor_address_lat
     vendor_address_lng
-    created_at
-    updated_at
 
     conn_linked_invoice_id
     conn_locked_data_at
