@@ -14,6 +14,7 @@ export const CUSTOMER_FRAGMENT = gql(`
     last_sync_succeeded
     last_sync_id
     last_sync_at
+    has_sync_errors
 
     is_active
     email
@@ -25,8 +26,6 @@ export const CUSTOMER_FRAGMENT = gql(`
     created_at
     updated_at
 
-    has_sync_errors
-    last_sync_at
     latest_acct_provider_balance
 
     balance
@@ -104,6 +103,19 @@ export const CUSTOMER_ADDITIONAL_DATA_FRAGMENT = gql(`
     connection {
       ...OrganizationConnectionFragment
     }
+
+    address_line_1
+    address_number
+    address_line_2
+    address_city
+    address_state
+    address_zip_code
+    address_country_code_iso_3
+    address_lat
+    address_lng
+
+    language
+    timezone
 
     contacts {
       id
