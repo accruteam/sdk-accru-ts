@@ -1,5 +1,11 @@
 # @accru/client
 
+## 0.17.0
+
+### Minor Changes
+
+- b5574b3: add statement log features
+
 ## 0.16.0
 
 ### Minor Changes
