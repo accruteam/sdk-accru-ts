@@ -82,5 +82,7 @@ export const INVOICE_SUMMARY_FRAGMENT = gql(`
     latest_acct_provider_one_to_thirty_days_due_amount
     latest_acct_provider_thirty_one_to_sixty_days_due_amount
     latest_acct_provider_sixty_plus_days_due_amount
+    
+    statement_session_token
   }
 `);

@@ -14,9 +14,14 @@ import {
   GET_ALL_CUSTOMERS_QUERY,
   GET_CUSTOMER_QUERY,
 } from './customers.queries';
+import CustomerStatementLogs from './customerStatementLogs.service';
 
 export default class Customers {
-  constructor(private apolloClient: ApolloClient<unknown>) {}
+  public readonly statementLogs: CustomerStatementLogs;
+
+  constructor(private apolloClient: ApolloClient<unknown>) {
+    this.statementLogs = new CustomerStatementLogs(apolloClient);
+  }
 
   public get = async (
     variables: UserOrganizationCustomersQueryVariables,

@@ -130,3 +130,38 @@ export const CUSTOMER_ADDITIONAL_DATA_FRAGMENT = gql(`
     }
   }
 `);
+
+export const ORGANIZATION_CUSTOMER_STATEMENT_LOG_FRAGMENT = gql(`
+  fragment OrganizationCustomerStatementLogFragment on OrganizationCustomerStatementLog {
+    id
+    access_type
+    created_at
+    updated_at
+    last_activity_at
+
+    organization_customer_id
+    organization_customer_name
+    vendor_organization_id
+    customer_organization_id
+    user_id
+    statement_session_token
+
+    statement_current_balance
+    statement_total_open_invoice_count
+    statement_total_overdue_invoice_count
+
+    agent_info_ip
+    agent_info_browser_name
+    agent_info_browser_version
+    agent_info_os
+    agent_info_is_desktop
+    agent_info_is_mobile
+
+    location_city
+    location_country
+    location_region
+    location_timezone
+    location_latitude
+    location_longitude
+  }
+`);

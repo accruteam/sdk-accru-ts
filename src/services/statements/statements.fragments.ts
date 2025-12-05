@@ -146,5 +146,7 @@ export const CUSTOMER_STATEMENT_FRAGMENT = gql(`
 
     total_open_invoice_count
     total_overdue_invoice_count
+
+    statement_session_token
   }
 `);

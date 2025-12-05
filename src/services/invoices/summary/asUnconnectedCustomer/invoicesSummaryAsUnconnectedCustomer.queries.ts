@@ -23,6 +23,8 @@ export const INVOICES_SUMMARY_AS_UNCONNECTED_CUSTOMER_GET_SUMMARY_QUERY = gql(`
     $skip: Int
     $take: Int
     $sorting: [SortingFieldSchema!]
+
+    $statementSessionToken: String
   ) {
     unconnectedCustomerOrganizationInvoiceSummary(
       unique_code: $uniqueCode
@@ -50,6 +52,8 @@ export const INVOICES_SUMMARY_AS_UNCONNECTED_CUSTOMER_GET_SUMMARY_QUERY = gql(`
       take: $take
 
       sorting: $sorting
+
+      statement_session_token: $statementSessionToken
     ) {
       ...OrganizationInvoiceSummaryFragment
     }
