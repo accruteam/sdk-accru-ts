@@ -16,6 +16,8 @@ export const STATEMENT_AS_CUSTOMER_GET_ORGANIZATION_STATEMENT_QUERY = gql(`
     $skip: Int
     $take: Int
     $sorting: [SortingFieldSchema!]
+
+    $statementSessionToken: String
   ) {
     userCustomerOrganizationStatement(
       organization_id: $organizationId
@@ -38,6 +40,8 @@ export const STATEMENT_AS_CUSTOMER_GET_ORGANIZATION_STATEMENT_QUERY = gql(`
       take: $take
 
       sorting: $sorting
+
+      statement_session_token: $statementSessionToken
     ) {
       ...OrganizationCustomerStatementFragment
   }

@@ -17,6 +17,8 @@ export const STATEMENT_AS_UNCONNECTED_CUSTOMER_GET_ORGANIZATION_STATEMENT_QUERY 
     $skip: Int
     $take: Int
     $sorting: [SortingFieldSchema!]
+
+    $statementSessionToken: String
   ) {
     unconnectedCustomerOrganizationStatement(
       unique_code: $uniqueCode
@@ -39,6 +41,8 @@ export const STATEMENT_AS_UNCONNECTED_CUSTOMER_GET_ORGANIZATION_STATEMENT_QUERY 
       take: $take
 
       sorting: $sorting
+
+      statement_session_token: $statementSessionToken
     ) {
       ...OrganizationCustomerStatementFragment
   }

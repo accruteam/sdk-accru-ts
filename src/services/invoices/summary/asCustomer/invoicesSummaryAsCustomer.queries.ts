@@ -23,6 +23,8 @@ export const INVOICES_SUMMARY_AS_CUSTOMER_GET_SUMMARY_QUERY = gql(`
     $skip: Int
     $take: Int
     $sorting: [SortingFieldSchema!]
+
+    $statementSessionToken: String
   ) {
     userCustomerOrganizationInvoiceSummary(
       organization_id: $organizationId
@@ -50,6 +52,8 @@ export const INVOICES_SUMMARY_AS_CUSTOMER_GET_SUMMARY_QUERY = gql(`
       take: $take
 
       sorting: $sorting
+
+      statement_session_token: $statementSessionToken
     ) {
       ...OrganizationInvoiceSummaryFragment
     }

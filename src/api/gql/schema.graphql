@@ -1232,6 +1232,7 @@ type OrganizationCustomerStatement {
   paid_amount: BigInt!
   sixty_plus_days_due_amount: BigInt
   start_date: DateTime
+  statement_session_token: String
   thirty_one_to_sixty_days_due_amount: BigInt
   total_amount: BigInt!
   total_open_invoice_count: Int!
@@ -1326,6 +1327,46 @@ type OrganizationCustomerStatementLineDataPaginationConnection {
 type OrganizationCustomerStatementLineDataPaginationEdge {
   cursor: ConnectionCursor!
   node: OrganizationCustomerStatementLineData!
+}
+
+type OrganizationCustomerStatementLog {
+  access_type: STATEMENT_ACCESS_TYPE!
+  agent_info_browser_name: String
+  agent_info_browser_version: String
+  agent_info_ip: String!
+  agent_info_is_desktop: Boolean
+  agent_info_is_mobile: Boolean
+  agent_info_os: String
+  created_at: DateTime!
+  customer_organization_id: String
+  id: ID!
+  last_activity_at: DateTime!
+  location_city: String
+  location_country: String
+  location_latitude: Float
+  location_longitude: Float
+  location_region: String
+  location_timezone: String
+  organization_customer_id: String!
+  organization_customer_name: String
+  statement_current_balance: BigInt
+  statement_session_token: String!
+  statement_total_open_invoice_count: Int
+  statement_total_overdue_invoice_count: Int
+  updated_at: DateTime!
+  user_id: String
+  vendor_organization_id: String!
+}
+
+type OrganizationCustomerStatementLogPaginationConnection {
+  edges: [OrganizationCustomerStatementLogPaginationEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type OrganizationCustomerStatementLogPaginationEdge {
+  cursor: ConnectionCursor!
+  node: OrganizationCustomerStatementLog!
 }
 
 type OrganizationCustomerStatementTransactionLine {
@@ -1540,6 +1581,7 @@ type OrganizationInvoiceSummary {
   paid_amount: BigInt!
   sixty_plus_days_due_amount: BigInt
   start_date: DateTime
+  statement_session_token: String
   status: INVOICE_STATUS
   thirty_one_to_sixty_days_due_amount: BigInt
   total_amount: BigInt!
@@ -2135,19 +2177,19 @@ type Query {
   session: Session!
   unauthorizedUserOrganizationUserInvite(code: String!, email: String!, organization_id: String!, organization_invite_id: String!): UnauthorizedUserOrganizationUserInviteResponse!
   unconnectedCustomerOrganizationInvoice(acct_provider: ACCT_PROVIDER, organization_id: String, organization_invoice_id: String!, token: String!, unique_code: String!): OrganizationInvoice!
-  unconnectedCustomerOrganizationInvoiceSummary(after: ConnectionCursor, before: ConnectionCursor, currency: CURRENCY, customer_name: String, due_end_date: DateTime, due_start_date: DateTime, end_date: DateTime, first: Int, is_overdue: Boolean, last: Int, latest_acct_provider_is_overdue: Boolean, latest_acct_provider_status: INVOICE_STATUS, organization_id: String, skip: Int, sorting: [SortingFieldSchema!], start_date: DateTime, status: INVOICE_STATUS, take: Int, token: String!, unique_code: String!): OrganizationInvoiceSummary!
+  unconnectedCustomerOrganizationInvoiceSummary(after: ConnectionCursor, before: ConnectionCursor, currency: CURRENCY, customer_name: String, due_end_date: DateTime, due_start_date: DateTime, end_date: DateTime, first: Int, is_overdue: Boolean, last: Int, latest_acct_provider_is_overdue: Boolean, latest_acct_provider_status: INVOICE_STATUS, organization_id: String, skip: Int, sorting: [SortingFieldSchema!], start_date: DateTime, statement_session_token: String, status: INVOICE_STATUS, take: Int, token: String!, unique_code: String!): OrganizationInvoiceSummary!
   unconnectedCustomerOrganizationProject(organization_id: String, organization_project_id: String!, token: String!, unique_code: String!): OrganizationProject!
   unconnectedCustomerOrganizationProjects(after: ConnectionCursor, before: ConnectionCursor, canceled: Boolean, completed: Boolean, ended: Boolean, first: Int, last: Int, name: String, organization_id: String, skip: Int, sorting: [SortingFieldSchema!], started: Boolean, take: Int, token: String!, unique_code: String!): OrganizationProjectPaginationConnection!
-  unconnectedCustomerOrganizationStatement(after: ConnectionCursor, before: ConnectionCursor, currency: CURRENCY, due_end_date: DateTime, due_start_date: DateTime, end_date: DateTime, first: Int, is_overdue: Boolean, last: Int, organization_id: String, skip: Int, sorting: [SortingFieldSchema!], start_date: DateTime, take: Int, token: String!, type: STATEMENT_LINE_TYPE, unique_code: String!): OrganizationCustomerStatement!
+  unconnectedCustomerOrganizationStatement(after: ConnectionCursor, before: ConnectionCursor, currency: CURRENCY, due_end_date: DateTime, due_start_date: DateTime, end_date: DateTime, first: Int, is_overdue: Boolean, last: Int, organization_id: String, skip: Int, sorting: [SortingFieldSchema!], start_date: DateTime, statement_session_token: String, take: Int, token: String!, type: STATEMENT_LINE_TYPE, unique_code: String!): OrganizationCustomerStatement!
   unconnectedCustomerOrganizationStatementLine(organization_customer_statement_line_id: Int, organization_id: String, organization_invoice_id: String, organization_invoice_transaction_id: String, token: String!, unique_code: String!): OrganizationCustomerStatementLineData!
   user: User!
   userCustomerOrganization(organization_id: String!, organization_vendor_id: String!): OrganizationConnection!
   userCustomerOrganizationInvoice(organization_id: String!, organization_invoice_id: String!, organization_vendor_id: String!): OrganizationInvoice!
-  userCustomerOrganizationInvoiceSummary(after: ConnectionCursor, before: ConnectionCursor, currency: CURRENCY, customer_name: String, due_end_date: DateTime, due_start_date: DateTime, end_date: DateTime, first: Int, is_overdue: Boolean, last: Int, latest_acct_provider_is_overdue: Boolean, latest_acct_provider_status: INVOICE_STATUS, organization_id: String!, organization_vendor_id: String!, skip: Int, sorting: [SortingFieldSchema!], start_date: DateTime, status: INVOICE_STATUS, take: Int): OrganizationInvoiceSummary!
+  userCustomerOrganizationInvoiceSummary(after: ConnectionCursor, before: ConnectionCursor, currency: CURRENCY, customer_name: String, due_end_date: DateTime, due_start_date: DateTime, end_date: DateTime, first: Int, is_overdue: Boolean, last: Int, latest_acct_provider_is_overdue: Boolean, latest_acct_provider_status: INVOICE_STATUS, organization_id: String!, organization_vendor_id: String!, skip: Int, sorting: [SortingFieldSchema!], start_date: DateTime, statement_session_token: String, status: INVOICE_STATUS, take: Int): OrganizationInvoiceSummary!
   userCustomerOrganizationInvoices(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, organization_id: String!, organization_vendor_id: String!, skip: Int, sorting: [SortingFieldSchema!], take: Int): OrganizationInvoicePaginationConnection!
   userCustomerOrganizationProject(organization_id: String!, organization_project_id: String!, organization_vendor_id: String!): OrganizationProject!
   userCustomerOrganizationProjects(after: ConnectionCursor, before: ConnectionCursor, canceled: Boolean, completed: Boolean, ended: Boolean, first: Int, last: Int, name: String, organization_id: String!, organization_vendor_id: String!, skip: Int, sorting: [SortingFieldSchema!], started: Boolean, take: Int): OrganizationProjectPaginationConnection!
-  userCustomerOrganizationStatement(after: ConnectionCursor, before: ConnectionCursor, currency: CURRENCY, due_end_date: DateTime, due_start_date: DateTime, end_date: DateTime, first: Int, is_overdue: Boolean, last: Int, organization_id: String!, organization_vendor_id: String!, skip: Int, sorting: [SortingFieldSchema!], start_date: DateTime, take: Int, type: STATEMENT_LINE_TYPE): OrganizationCustomerStatement!
+  userCustomerOrganizationStatement(after: ConnectionCursor, before: ConnectionCursor, currency: CURRENCY, due_end_date: DateTime, due_start_date: DateTime, end_date: DateTime, first: Int, is_overdue: Boolean, last: Int, organization_id: String!, organization_vendor_id: String!, skip: Int, sorting: [SortingFieldSchema!], start_date: DateTime, statement_session_token: String, take: Int, type: STATEMENT_LINE_TYPE): OrganizationCustomerStatement!
   userCustomerOrganizationStatementLine(organization_customer_statement_line_id: Int, organization_id: String!, organization_invoice_id: String, organization_invoice_transaction_id: String, organization_vendor_id: String!): OrganizationCustomerStatementLineData!
   userCustomerOrganizations(organization_id: String!): [OrganizationConnection!]!
   userOrganization(organization_id: String!): Organization!
@@ -2186,6 +2228,8 @@ type Query {
   userOrganizationReceivingMethods(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, organization_id: String!, skip: Int, take: Int): [OrganizationReceivingMethod!]!
   userOrganizationReminderSetting(organization_id: String!, organization_reminder_setting_id: String!): OrganizationReminderSetting!
   userOrganizationReminderSettings(after: ConnectionCursor, before: ConnectionCursor, due_date_mode: REMINDER_DUE_DATE_MODE, first: Int, last: Int, organization_customer_id: String, organization_id: String!, organization_invoice_id: String, organization_project_id: String, skip: Int, sorting: [SortingFieldSchema!], take: Int): OrganizationReminderSettingPaginationConnection!
+  userOrganizationStatementLog(organization_customer_statement_log_id: String!, organization_id: String!): OrganizationCustomerStatementLog!
+  userOrganizationStatementLogs(access_type: STATEMENT_ACCESS_TYPE, after: ConnectionCursor, before: ConnectionCursor, end_date: DateTime, first: Int, last: Int, organization_customer_id: String, organization_id: String!, skip: Int, sorting: [SortingFieldSchema!], start_date: DateTime, take: Int): OrganizationCustomerStatementLogPaginationConnection!
   userOrganizationSubscription(organization_id: String!, organization_subscription_id: String!): OrganizationSubscription!
   userOrganizationSubscriptionDefaultPricingSetup(organization_coupon_id: String, organization_id: String!): OrganizationSubscriptionDefaultPricing!
   userOrganizationSubscriptions(after: ConnectionCursor, before: ConnectionCursor, canceled: Boolean, contains_item: ORGANIZATION_SUBSCRIPTION_ITEM, expired: Boolean, first: Int, has_error: Boolean, has_outdated_price: Boolean, last: Int, organization_coupon_id: String, organization_id: String!, organization_payment_method_id: String, price_tier: ORGANIZATION_SUBSCRIPTION_PRICE_TIER, provider: ORGANIZATION_SUBSCRIPTION_PROVIDER, provider_plan_code: String, provider_status: ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS, provider_subscription_code: String, renew_interval: ORGANIZATION_SUBSCRIPTION_RENEW_INTERVAL, skip: Int, sorting: [SortingFieldSchema!], started: Boolean, status: ORGANIZATION_SUBSCRIPTION_STATUS, take: Int): OrganizationSubscriptionPaginationConnection!
@@ -2230,6 +2274,11 @@ enum REMINDER_REPEAT_MODE {
 enum SORT_ORDER {
   ASC
   DESC
+}
+
+enum STATEMENT_ACCESS_TYPE {
+  CONNECTED_CUSTOMER
+  UNCONNECTED_CUSTOMER
 }
 
 enum STATEMENT_LINE_TYPE {
