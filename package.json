@@ -1,7 +1,7 @@
 {
   "name": "@accru/client",
   "private": false,
-  "version": "0.17.0",
+  "version": "0.17.1",
   "description": "SDK client for Accru API",
   "license": "MIT",
   "author": "Luiz Felipe Laviola <luiz@laviola.dev>",

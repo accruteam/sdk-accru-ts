@@ -1,5 +1,11 @@
 # @accru/client
 
+## 0.17.1
+
+### Patch Changes
+
+- 774191d: add missing skipped data on sync fragment
+
 ## 0.17.0
 
 ### Minor Changes
