@@ -99,6 +99,7 @@ export const ACCT_PROVIDER_SYNC_FRAGMENT = gql(`
     finished_at
     failed_at
     succeeded_at
+    skipped_at
 
     read_success
     read_failure
