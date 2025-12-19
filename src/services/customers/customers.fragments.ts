@@ -165,3 +165,43 @@ export const ORGANIZATION_CUSTOMER_STATEMENT_LOG_FRAGMENT = gql(`
     location_longitude
   }
 `);
+
+export const ORGANIZATION_CUSTOMER_NOTIFICATION_FRAGMENT = gql(`
+  fragment OrganizationCustomerNotificationFragment on Notification {
+    id
+    channel
+    feature_type
+    feature_code
+    target
+    message
+    language
+
+    created_at
+    updated_at
+    sent_at
+    opened_at
+    failed_at
+    canceled_at
+
+    notification_provider
+    provider_code
+    provider_response
+
+    sender_type
+    sender_id
+    sender_name
+    sender_target_entity_id
+    sender_target_entity_type
+
+    recipient_id
+    recipient_type
+    
+    related_entity_id
+    related_entity_type
+
+    checksum_md5
+    resend_delay_seconds
+    version
+    channel_payload
+  }
+`);
