@@ -14,12 +14,15 @@ import {
   GET_ALL_CUSTOMERS_QUERY,
   GET_CUSTOMER_QUERY,
 } from './customers.queries';
+import CustomerNotifications from './customerNotifications.service';
 import CustomerStatementLogs from './customerStatementLogs.service';
 
 export default class Customers {
+  public readonly notifications: CustomerNotifications;
   public readonly statementLogs: CustomerStatementLogs;
 
   constructor(private apolloClient: ApolloClient<unknown>) {
+    this.notifications = new CustomerNotifications(apolloClient);
     this.statementLogs = new CustomerStatementLogs(apolloClient);
   }
 

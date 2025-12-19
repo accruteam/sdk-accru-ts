@@ -497,9 +497,115 @@ type Mutation {
   userUpdateData(data: UserUpdateDataSchema!): User!
 }
 
+enum NOTIFICATION_CHANNEL {
+  EMAIL
+  SMS
+}
+
 enum NOTIFICATION_EMAIL_COPY_MODE {
   BCC
   TO
+}
+
+enum NOTIFICATION_FEATURE_TYPE {
+  ORGANIZATION_ACCT_PROVIDER_APP_DISCONNECTED
+  ORGANIZATION_ACCT_PROVIDER_CONNECTION_EXPIRED
+  ORGANIZATION_ACCT_PROVIDER_CONNECTION_SUCCESS
+  ORGANIZATION_ACCT_PROVIDER_CONNECTION_WITHOUT_CONFIG
+  ORGANIZATION_ACCT_PROVIDER_ORG_DISCONNECTED
+  ORGANIZATION_CONNECTION_ACCEPTED
+  ORGANIZATION_CONNECTION_INVITE
+  ORGANIZATION_CUSTOMER_INVOICE
+  ORGANIZATION_CUSTOMER_STATEMENT
+  ORGANIZATION_EMAIL_CHANGED
+  ORGANIZATION_EMAIL_VERIFICATION
+  ORGANIZATION_GENERIC_INVITE
+  ORGANIZATION_INVITE_COLLABORATOR
+  ORGANIZATION_INVOICE_MULTIPLE_REMINDER_DUE
+  ORGANIZATION_INVOICE_MULTIPLE_REMINDER_OVERDUE
+  ORGANIZATION_INVOICE_REMINDER
+  ORGANIZATION_INVOICE_SINGLE_REMINDER_DUE_TODAY
+  ORGANIZATION_INVOICE_SINGLE_REMINDER_DUE_X_DAYS
+  ORGANIZATION_INVOICE_SINGLE_REMINDER_OVERDUE_X_DAYS
+  ORGANIZATION_PROJECT_CHANGE_REQUEST_ACTION
+  ORGANIZATION_PROJECT_CHANGE_REQUEST_PUBLISHED
+  ORGANIZATION_UNCONNECTED_CUSTOMER_PROJECT_ACTION_VERIFICATION
+  ORGANIZATION_UNCONNECTED_CUSTOMER_STATEMENT
+  USER_CREATED
+  USER_EMAIL_CHANGED
+  USER_EMAIL_VERIFICATION
+  USER_PASSWORD_CHANGED
+  USER_PASSWORD_CHANGE_VERIFICATION
+  USER_PASSWORD_RESET
+  USER_PASSWORD_RESET_VERIFICATION
+  USER_PHONE_NUMBER_CHANGED
+  USER_PHONE_NUMBER_REMOVED
+  USER_PHONE_VERIFICATION
+  USER_SIGN_UP_EMAIL_VERIFICATION
+}
+
+enum NOTIFICATION_PROVIDER {
+  EMAIL_CUSTOMER_IO
+  PENDING
+  SMS_AWS_SNS
+}
+
+enum NOTIFICATION_RELATED_ENTITY_TYPE {
+  ORGANIZATION_CONNECTION
+  ORGANIZATION_INVOICE
+  ORGANIZATION_PROJECT_CHANGE_REQUEST
+}
+
+enum NOTIFICATION_SENDER_TARGET_ENTITY_TYPE {
+  ORGANIZATION_CUSTOMER
+}
+
+enum NOTIFICATION_SENDER_TYPE {
+  ORGANIZATION
+  SYSTEM
+}
+
+type Notification {
+  canceled_at: DateTime
+  channel: NOTIFICATION_CHANNEL!
+  channel_payload: JSON
+  checksum_md5: String!
+  created_at: DateTime!
+  failed_at: DateTime
+  feature_code: String!
+  feature_type: NOTIFICATION_FEATURE_TYPE!
+  id: ID!
+  language: String!
+  message: String
+  notification_provider: NOTIFICATION_PROVIDER!
+  opened_at: DateTime
+  provider_code: String
+  provider_response: JSON
+  recipient_id: String
+  recipient_type: RECIPIENT_TYPE!
+  related_entity_id: String
+  related_entity_type: NOTIFICATION_RELATED_ENTITY_TYPE
+  resend_delay_seconds: Float!
+  sender_id: String
+  sender_name: String
+  sender_target_entity_id: String
+  sender_target_entity_type: NOTIFICATION_SENDER_TARGET_ENTITY_TYPE
+  sender_type: NOTIFICATION_SENDER_TYPE!
+  sent_at: DateTime
+  target: String!
+  updated_at: DateTime!
+  version: Int
+}
+
+type NotificationPaginationConnection {
+  edges: [NotificationPaginationEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type NotificationPaginationEdge {
+  cursor: ConnectionCursor!
+  node: Notification!
 }
 
 type NuveiTransactionProviderPreTransactionData {
@@ -2209,6 +2315,8 @@ type Query {
   userOrganizationCustomer(organization_customer_id: String!, organization_id: String!): OrganizationCustomer!
   userOrganizationCustomerContact(organization_customer_contact_id: String!, organization_customer_id: String!, organization_id: String!): OrganizationCustomerContact!
   userOrganizationCustomerContacts(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, name: String, organization_customer_id: String!, organization_id: String!, skip: Int, sorting: [SortingFieldSchema!], take: Int): OrganizationCustomerContactPaginationConnection!
+  userOrganizationCustomerNotification(notification_id: String!, organization_id: String!): Notification!
+  userOrganizationCustomerNotifications(after: ConnectionCursor, before: ConnectionCursor, channel: NOTIFICATION_CHANNEL, feature_code: String, feature_type: NOTIFICATION_FEATURE_TYPE, first: Int, last: Int, organization_customer_id: String, organization_id: String!, related_entity_id: String, related_entity_type: NOTIFICATION_RELATED_ENTITY_TYPE, skip: Int, sorting: [SortingFieldSchema!], take: Int): NotificationPaginationConnection!
   userOrganizationCustomerStatement(after: ConnectionCursor, before: ConnectionCursor, currency: CURRENCY, due_end_date: DateTime, due_start_date: DateTime, end_date: DateTime, first: Int, is_overdue: Boolean, last: Int, organization_customer_id: String!, organization_id: String!, skip: Int, sorting: [SortingFieldSchema!], start_date: DateTime, take: Int, type: STATEMENT_LINE_TYPE): OrganizationCustomerStatement!
   userOrganizationCustomerStatementLine(organization_customer_id: String!, organization_customer_statement_line_id: Int, organization_id: String!, organization_invoice_id: String, organization_invoice_transaction_id: String): OrganizationCustomerStatementLineData!
   userOrganizationCustomerStatementLineGetPDF(acct_provider: ACCT_PROVIDER, organization_customer_id: String!, organization_customer_statement_line_id: Int!, organization_id: String!): String!

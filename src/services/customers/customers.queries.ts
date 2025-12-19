@@ -134,3 +134,79 @@ export const GET_CUSTOMER_STATEMENT_LOG_QUERY = gql(`
     }
   }
 `);
+
+export const GET_CUSTOMER_NOTIFICATIONS_QUERY = gql(`
+  query UserOrganizationCustomerNotifications(
+    $organizationId: String!
+
+    $organizationCustomerId: String
+    $channel: NOTIFICATION_CHANNEL
+
+    $featureType: NOTIFICATION_FEATURE_TYPE
+    $featureCode: String
+    
+    $relatedEntityId: String
+    $relatedEntityType: NOTIFICATION_RELATED_ENTITY_TYPE
+
+    $after: ConnectionCursor
+    $first: Int
+
+    $before: ConnectionCursor
+    $last: Int
+
+    $skip: Int
+    $take: Int
+
+    $sorting: [SortingFieldSchema!]
+  ) {
+    userOrganizationCustomerNotifications(
+      organization_id: $organizationId
+
+      channel: $channel
+      feature_type: $featureType
+      feature_code: $featureCode
+      organization_customer_id: $organizationCustomerId
+      related_entity_id: $relatedEntityId
+      related_entity_type: $relatedEntityType
+
+      after: $after
+      first: $first
+
+      before: $before
+      last: $last
+
+      skip: $skip
+      take: $take
+
+      sorting: $sorting
+    ) {
+      totalCount
+      edges {
+        cursor
+        node {
+          ...OrganizationCustomerNotificationFragment
+        }
+      }
+      pageInfo {
+        startCursor
+        endCursor
+        hasPreviousPage
+        hasNextPage
+      }
+    }
+  }
+`);
+
+export const GET_CUSTOMER_NOTIFICATION_QUERY = gql(`
+  query UserOrganizationCustomerNotification(
+    $organizationId: String!
+    $notificationId: String!
+  ) {
+    userOrganizationCustomerNotification(
+      organization_id: $organizationId
+      notification_id: $notificationId
+    ) {
+      ...OrganizationCustomerNotificationFragment
+    }
+  }
+`);
