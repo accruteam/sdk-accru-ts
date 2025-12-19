@@ -1,5 +1,11 @@
 # @accru/client
 
+## 0.18.1
+
+### Patch Changes
+
+- 316fb71: update schema drop admin fields from query
+
 ## 0.18.0
 
 ### Minor Changes
