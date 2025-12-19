@@ -1,5 +1,11 @@
 # @accru/client
 
+## 0.18.0
+
+### Minor Changes
+
+- e9a7a24: update schema
+
 ## 0.17.1
 
 ### Patch Changes
