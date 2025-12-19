@@ -185,7 +185,6 @@ export const ORGANIZATION_CUSTOMER_NOTIFICATION_FRAGMENT = gql(`
 
     notification_provider
     provider_code
-    provider_response
 
     sender_type
     sender_id
@@ -202,6 +201,5 @@ export const ORGANIZATION_CUSTOMER_NOTIFICATION_FRAGMENT = gql(`
     checksum_md5
     resend_delay_seconds
     version
-    channel_payload
   }
 `);
