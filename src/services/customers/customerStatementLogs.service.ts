@@ -1,4 +1,4 @@
-import { ApolloClient } from '@apollo/client/core';
+import type { AccruClientContext } from '@/types/context.types';
 import {
   UserOrganizationStatementLogQuery,
   UserOrganizationStatementLogQueryVariables,
@@ -16,25 +16,25 @@ import {
 } from './customers.queries';
 
 export default class CustomerStatementLogs {
-  constructor(private apolloClient: ApolloClient<unknown>) {}
+  constructor(private context: AccruClientContext) {}
 
   public get = async (
     variables: UserOrganizationStatementLogsQueryVariables,
   ): Promise<ListResponse<Res<UserOrganizationStatementLogsQuery>>> => {
-    const { data } = await this.apolloClient.query({
+    const { data } = await this.context.apolloClient.query({
       query: GET_CUSTOMER_STATEMENT_LOGS_QUERY,
       variables,
     });
-    return processResponseAsList(data.userOrganizationStatementLogs);
+    return processResponseAsList(data!.userOrganizationStatementLogs);
   };
 
   public getOne = async (
     variables: UserOrganizationStatementLogQueryVariables,
   ): Promise<Res<UserOrganizationStatementLogQuery>> => {
-    const { data } = await this.apolloClient.query({
+    const { data } = await this.context.apolloClient.query({
       query: GET_CUSTOMER_STATEMENT_LOG_QUERY,
       variables,
     });
-    return data.userOrganizationStatementLog;
+    return data!.userOrganizationStatementLog;
   };
 }

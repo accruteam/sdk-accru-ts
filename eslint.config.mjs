@@ -17,7 +17,13 @@ const compat = new FlatCompat({
 });
 
 export default defineConfig([
-  globalIgnores(['**/*.js', '**/dist', '**/.yalc', 'src/api/gql/**/*']),
+  globalIgnores([
+    '**/*.js',
+    '**/dist',
+    '**/.yalc',
+    '**/.tsup/**',
+    'src/api/gql/**/*',
+  ]),
   {
     extends: compat.extends(
       'airbnb-base',

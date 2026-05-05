@@ -18,7 +18,7 @@ import {
   UserOrganizationSubscriptionVerifyCouponMutation,
   UserOrganizationSubscriptionVerifyCouponMutationVariables,
 } from '@api/gql/graphql';
-import { ApolloClient } from '@apollo/client/core';
+import type { AccruClientContext } from '@/types/context.types';
 import { Res } from '@utils/response.type';
 import {
   ListResponse,
@@ -37,49 +37,45 @@ import {
 } from './subscriptions.queries';
 
 export default class Subscriptions {
-  private apolloClient: ApolloClient<unknown>;
-
-  constructor(apolloClient: ApolloClient<unknown>) {
-    this.apolloClient = apolloClient;
-  }
+  constructor(private context: AccruClientContext) {}
 
   public get = async (
     variables: UserOrganizationSubscriptionsQueryVariables,
   ): Promise<ListResponse<Res<UserOrganizationSubscriptionsQuery>>> => {
-    const { data } = await this.apolloClient.query({
+    const { data } = await this.context.apolloClient.query({
       query: ORGANIZATION_SUBSCRIPTION_GET_MANY_QUERY,
       variables,
     });
 
-    return processResponseAsList(data.userOrganizationSubscriptions);
+    return processResponseAsList(data!.userOrganizationSubscriptions);
   };
 
   public getOne = async (
     variables: UserOrganizationSubscriptionQueryVariables,
   ): Promise<Res<UserOrganizationSubscriptionQuery>> => {
-    const { data } = await this.apolloClient.query({
+    const { data } = await this.context.apolloClient.query({
       query: ORGANIZATION_SUBSCRIPTION_GET_ONE_QUERY,
       variables,
     });
 
-    return data.userOrganizationSubscription;
+    return data!.userOrganizationSubscription;
   };
 
   public getDefaultPricing = async (
     variables: UserOrganizationSubscriptionDefaultPricingSetupQueryVariables,
   ): Promise<Res<UserOrganizationSubscriptionDefaultPricingSetupQuery>> => {
-    const { data } = await this.apolloClient.query({
+    const { data } = await this.context.apolloClient.query({
       query: ORGANIZATION_SUBSCRIPTION_GET_DEFAULT_PRICING_QUERY,
       variables,
     });
 
-    return data.userOrganizationSubscriptionDefaultPricingSetup;
+    return data!.userOrganizationSubscriptionDefaultPricingSetup;
   };
 
   public verifyCoupon = async (
     variables: UserOrganizationSubscriptionVerifyCouponMutationVariables,
   ): Promise<Res<UserOrganizationSubscriptionVerifyCouponMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: ORGANIZATION_SUBSCRIPTION_VERIFY_COUPON_MUTATION,
       variables,
     });
@@ -90,7 +86,7 @@ export default class Subscriptions {
   public calculatePricing = async (
     variables: UserOrganizationSubscriptionCalculatePricingMutationVariables,
   ): Promise<Res<UserOrganizationSubscriptionCalculatePricingMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: ORGANIZATION_SUBSCRIPTION_CALCULATE_PRICING_MUTATION,
       variables,
     });
@@ -103,7 +99,7 @@ export default class Subscriptions {
   ): Promise<
     Res<UserOrganizationSubscriptionGetPrePurchaseTransactionDataMutation>
   > => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: ORGANIZATION_SUBSCRIPTION_GET_PRE_TRANSACTION_DATA_MUTATION,
       variables,
     });
@@ -114,7 +110,7 @@ export default class Subscriptions {
   public startPurchase = async (
     variables: UserOrganizationSubscriptionStartPurchaseMutationVariables,
   ): Promise<Res<UserOrganizationSubscriptionStartPurchaseMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: ORGANIZATION_SUBSCRIPTION_START_PURCHASE_MUTATION,
       variables,
     });
@@ -125,7 +121,7 @@ export default class Subscriptions {
   public completePurchase = async (
     variables: UserOrganizationSubscriptionCompletePurchaseMutationVariables,
   ): Promise<Res<UserOrganizationSubscriptionCompletePurchaseMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: ORGANIZATION_SUBSCRIPTION_COMPLETE_PURCHASE,
       variables,
     });
@@ -136,7 +132,7 @@ export default class Subscriptions {
   public cancel = async (
     variables: UserOrganizationSubscriptionCancelMutationVariables,
   ): Promise<Res<UserOrganizationSubscriptionCancelMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: ORGANIZATION_SUBSCRIPTION_CANCEL_MUTATION,
       variables,
     });

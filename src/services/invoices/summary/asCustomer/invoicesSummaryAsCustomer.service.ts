@@ -11,7 +11,7 @@ import {
   processResponseAsList,
   ChildrenEdgeListResponse,
 } from '@utils/processResponseAsList';
-import { ApolloClient } from '@apollo/client';
+import type { AccruClientContext } from '@/types/context.types';
 import {
   INVOICES_SUMMARY_AS_CUSTOMER_GET_PDF_MUTATION,
   INVOICES_SUMMARY_AS_CUSTOMER_GET_SUMMARY_QUERY,
@@ -19,23 +19,23 @@ import {
 } from './invoicesSummaryAsCustomer.queries';
 
 export default class InvoicesSummaryAsCustomer {
-  constructor(private apolloClient: ApolloClient<unknown>) {}
+  constructor(private context: AccruClientContext) {}
 
   public get = async (
     variables: UserCustomerOrganizationInvoiceSummaryQueryVariables,
   ): Promise<
     ChildrenEdgeListResponse<Res<UserCustomerOrganizationInvoiceSummaryQuery>>
   > => {
-    const { data } = await this.apolloClient.query({
+    const { data } = await this.context.apolloClient.query({
       query: INVOICES_SUMMARY_AS_CUSTOMER_GET_SUMMARY_QUERY,
       fetchPolicy: 'no-cache',
       variables,
     });
 
     return {
-      ...data.userCustomerOrganizationInvoiceSummary,
+      ...data!.userCustomerOrganizationInvoiceSummary,
       ...processResponseAsList(
-        data.userCustomerOrganizationInvoiceSummary.data,
+        data!.userCustomerOrganizationInvoiceSummary.data,
       ),
     };
   };
@@ -43,18 +43,18 @@ export default class InvoicesSummaryAsCustomer {
   public getOne = async (
     variables: UserCustomerOrganizationInvoiceQueryVariables,
   ): Promise<Res<UserCustomerOrganizationInvoiceQuery>> => {
-    const { data } = await this.apolloClient.query({
+    const { data } = await this.context.apolloClient.query({
       query: INVOICES_SUMMARY_AS_CUSTOMER_GET_ONE_INVOICE_QUERY,
       variables,
     });
 
-    return data.userCustomerOrganizationInvoice;
+    return data!.userCustomerOrganizationInvoice;
   };
 
   public getPdf = async (
     variables: UserCustomerOrganizationInvoiceGetPDFMutationVariables,
   ): Promise<Res<UserCustomerOrganizationInvoiceGetPDFMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: INVOICES_SUMMARY_AS_CUSTOMER_GET_PDF_MUTATION,
       variables,
     });

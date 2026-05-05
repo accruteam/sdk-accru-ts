@@ -11,7 +11,7 @@ import {
   processResponseAsList,
   ChildrenEdgeListResponse,
 } from '@utils/processResponseAsList';
-import { ApolloClient } from '@apollo/client';
+import type { AccruClientContext } from '@/types/context.types';
 import {
   INVOICES_SUMMARY_AS_VENDOR_GET_PDF_MUTATION,
   INVOICES_SUMMARY_AS_VENDOR_GET_SUMMARY_QUERY,
@@ -19,40 +19,40 @@ import {
 } from './invoicesSummaryAsVendor.queries';
 
 export default class InvoicesSummaryAsVendor {
-  constructor(private apolloClient: ApolloClient<unknown>) {}
+  constructor(private context: AccruClientContext) {}
 
   public get = async (
     variables: UserOrganizationInvoiceSummaryQueryVariables,
   ): Promise<
     ChildrenEdgeListResponse<Res<UserOrganizationInvoiceSummaryQuery>>
   > => {
-    const { data } = await this.apolloClient.query({
+    const { data } = await this.context.apolloClient.query({
       query: INVOICES_SUMMARY_AS_VENDOR_GET_SUMMARY_QUERY,
       fetchPolicy: 'no-cache',
       variables,
     });
 
     return {
-      ...data.userOrganizationInvoiceSummary,
-      ...processResponseAsList(data.userOrganizationInvoiceSummary.data),
+      ...data!.userOrganizationInvoiceSummary,
+      ...processResponseAsList(data!.userOrganizationInvoiceSummary.data),
     };
   };
 
   public getOne = async (
     variables: UserOrganizationInvoiceQueryVariables,
   ): Promise<Res<UserOrganizationInvoiceQuery>> => {
-    const { data } = await this.apolloClient.query({
+    const { data } = await this.context.apolloClient.query({
       query: INVOICES_SUMMARY_AS_VENDOR_GET_ONE_INVOICE_QUERY,
       variables,
     });
 
-    return data.userOrganizationInvoice;
+    return data!.userOrganizationInvoice;
   };
 
   public getPdf = async (
     variables: UserOrganizationInvoiceGetPDFMutationVariables,
   ): Promise<Res<UserOrganizationInvoiceGetPDFMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: INVOICES_SUMMARY_AS_VENDOR_GET_PDF_MUTATION,
       variables,
     });

@@ -1,4 +1,4 @@
-import { ApolloClient, QueryOptions } from '@apollo/client/core';
+import type { AccruClientContext } from '@/types/context.types';
 import {
   UserCustomerOrganizationProjectChangeRequestAcceptMutation,
   UserCustomerOrganizationProjectChangeRequestAcceptMutationVariables,
@@ -31,32 +31,28 @@ import {
 } from './projects.queries';
 
 export default class AsCustomerProjects {
-  constructor(private readonly apolloClient: ApolloClient<unknown>) {}
+  constructor(private readonly context: AccruClientContext) {}
 
   public get = async (
     variables: UserCustomerOrganizationProjectsQueryVariables,
-    apolloClientOptions?: QueryOptions,
   ): Promise<ListResponse<Res<UserCustomerOrganizationProjectsQuery>>> => {
-    const { data } = await this.apolloClient.query({
-      ...apolloClientOptions,
+    const { data } = await this.context.apolloClient.query({
       query: ORGANIZATION_PROJECT_GET_MANY_AS_CUSTOMER_QUERY,
       variables,
     });
 
-    return processResponseAsList(data.userCustomerOrganizationProjects);
+    return processResponseAsList(data!.userCustomerOrganizationProjects);
   };
 
   public getOne = async (
     variables: UserCustomerOrganizationProjectQueryVariables,
-    apolloClientOptions?: QueryOptions,
   ): Promise<Res<UserCustomerOrganizationProjectQuery>> => {
-    const { data } = await this.apolloClient.query({
-      ...apolloClientOptions,
+    const { data } = await this.context.apolloClient.query({
       query: ORGANIZATION_PROJECT_GET_ONE_AS_CUSTOMER_QUERY,
       variables,
     });
 
-    return data.userCustomerOrganizationProject;
+    return data!.userCustomerOrganizationProject;
   };
 
   public createChangeRequest = async (
@@ -64,7 +60,7 @@ export default class AsCustomerProjects {
   ): Promise<
     Res<UserCustomerOrganizationProjectChangeRequestCreateMutation>
   > => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: ORGANIZATION_PROJECT_CHANGE_REQUEST_CREATE_AS_CUSTOMER_MUTATION,
       variables,
     });
@@ -77,7 +73,7 @@ export default class AsCustomerProjects {
   ): Promise<
     Res<UserCustomerOrganizationProjectChangeRequestUpdateMutation>
   > => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: ORGANIZATION_PROJECT_CHANGE_REQUEST_UPDATE_AS_CUSTOMER_MUTATION,
       variables,
     });
@@ -90,7 +86,7 @@ export default class AsCustomerProjects {
   ): Promise<
     Res<UserCustomerOrganizationProjectChangeRequestCancelMutation>
   > => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: ORGANIZATION_PROJECT_CHANGE_REQUEST_CANCEL_AS_CUSTOMER_MUTATION,
       variables,
     });
@@ -103,7 +99,7 @@ export default class AsCustomerProjects {
   ): Promise<
     Res<UserCustomerOrganizationProjectChangeRequestAcceptMutation>
   > => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: ORGANIZATION_PROJECT_CHANGE_REQUEST_ACCEPT_AS_CUSTOMER_MUTATION,
       variables,
     });
@@ -116,7 +112,7 @@ export default class AsCustomerProjects {
   ): Promise<
     Res<UserCustomerOrganizationProjectChangeRequestRejectMutation>
   > => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: ORGANIZATION_PROJECT_CHANGE_REQUEST_REJECT_AS_CUSTOMER_MUTATION,
       variables,
     });

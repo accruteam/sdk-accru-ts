@@ -1,4 +1,4 @@
-import { ApolloClient } from '@apollo/client/core';
+import type { AccruClientContext } from '@/types/context.types';
 import {
   UserOrganizationInvoiceTransactionGetPDFMutation,
   UserOrganizationInvoiceTransactionGetPDFMutationVariables,
@@ -7,12 +7,12 @@ import { Res } from '@utils/response.type';
 import { GET_TRANSACTION_PDF_MUTATION } from './transactions.queries';
 
 export default class Transactions {
-  constructor(private apolloClient: ApolloClient<unknown>) {}
+  constructor(private context: AccruClientContext) {}
 
   public getAcctProviderPDF = async (
     variables: UserOrganizationInvoiceTransactionGetPDFMutationVariables,
   ): Promise<Res<UserOrganizationInvoiceTransactionGetPDFMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: GET_TRANSACTION_PDF_MUTATION,
       variables,
     });

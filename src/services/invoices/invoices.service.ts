@@ -1,4 +1,4 @@
-import { ApolloClient } from '@apollo/client/core';
+import type { AccruClientContext } from '@/types/context.types';
 import {
   UserOrganizationCustomerSendInvoiceEmailMutation,
   UserOrganizationCustomerSendInvoiceEmailMutationVariables,
@@ -22,8 +22,8 @@ import InvoicesSummary from './summary/invoicesSummary.service';
 export default class Invoices {
   public readonly summary: InvoicesSummary;
 
-  constructor(private apolloClient: ApolloClient<unknown>) {
-    this.summary = new InvoicesSummary(this.apolloClient);
+  constructor(private context: AccruClientContext) {
+    this.summary = new InvoicesSummary(this.context);
   }
 
   public get = async (
@@ -31,33 +31,33 @@ export default class Invoices {
   ): Promise<
     ChildrenEdgeListResponse<Res<UserOrganizationInvoiceSummaryQuery>>
   > => {
-    const { data } = await this.apolloClient.query({
+    const { data } = await this.context.apolloClient.query({
       query: INVOICES_SUMMARY_AS_VENDOR_GET_SUMMARY_QUERY,
       fetchPolicy: 'no-cache',
       variables,
     });
 
     return {
-      ...data.userOrganizationInvoiceSummary,
-      ...processResponseAsList(data.userOrganizationInvoiceSummary.data),
+      ...data!.userOrganizationInvoiceSummary,
+      ...processResponseAsList(data!.userOrganizationInvoiceSummary.data),
     };
   };
 
   public getOne = async (
     variables: UserOrganizationInvoiceQueryVariables,
   ): Promise<Res<UserOrganizationInvoiceQuery>> => {
-    const { data } = await this.apolloClient.query({
+    const { data } = await this.context.apolloClient.query({
       query: INVOICES_SUMMARY_AS_VENDOR_GET_ONE_INVOICE_QUERY,
       variables,
     });
 
-    return data.userOrganizationInvoice;
+    return data!.userOrganizationInvoice;
   };
 
   public sendEmail = async (
     variables: UserOrganizationCustomerSendInvoiceEmailMutationVariables,
   ): Promise<Res<UserOrganizationCustomerSendInvoiceEmailMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: SEND_INVOICE_EMAIL_MUTATION,
       variables,
     });

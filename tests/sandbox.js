@@ -8,10 +8,9 @@ function deepLog(obj) {
 }
 
 async function createAccruClient() {
-  const token = await getAuthToken();
   return new AccruClient({
-    token,
-    baseUrl: process.env.BACKEND_GRAPHQL_ENDPOINT,
+    getAuthToken,
+    url: process.env.BACKEND_GRAPHQL_ENDPOINT,
   });
 }
 
