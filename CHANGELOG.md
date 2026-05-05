@@ -1,5 +1,11 @@
 # @accru/client
 
+## 0.19.1
+
+### Patch Changes
+
+- b4ff596: update build settings
+
 ## 0.19.0
 
 ### Minor Changes
