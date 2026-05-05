@@ -28,6 +28,7 @@ const config: CodegenConfig = {
       },
       config: {
         namingConvention: 'keep',
+        enumType: 'native',
         scalars: {
           BigInt: 'bigint',
         },
