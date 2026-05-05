@@ -11,7 +11,7 @@ import {
   processResponseAsList,
   ChildrenEdgeListResponse,
 } from '@utils/processResponseAsList';
-import { ApolloClient } from '@apollo/client';
+import type { AccruClientContext } from '@/types/context.types';
 import {
   INVOICES_SUMMARY_AS_UNCONNECTED_CUSTOMER_GET_PDF_MUTATION,
   INVOICES_SUMMARY_AS_UNCONNECTED_CUSTOMER_GET_SUMMARY_QUERY,
@@ -19,7 +19,7 @@ import {
 } from './invoicesSummaryAsUnconnectedCustomer.queries';
 
 export default class InvoicesSummaryAsUnconnectedCustomer {
-  constructor(private apolloClient: ApolloClient<unknown>) {}
+  constructor(private context: AccruClientContext) {}
 
   public get = async (
     variables: UnconnectedCustomerOrganizationInvoiceSummaryQueryVariables,
@@ -28,16 +28,16 @@ export default class InvoicesSummaryAsUnconnectedCustomer {
       Res<UnconnectedCustomerOrganizationInvoiceSummaryQuery>
     >
   > => {
-    const { data } = await this.apolloClient.query({
+    const { data } = await this.context.apolloClient.query({
       query: INVOICES_SUMMARY_AS_UNCONNECTED_CUSTOMER_GET_SUMMARY_QUERY,
       fetchPolicy: 'no-cache',
       variables,
     });
 
     return {
-      ...data.unconnectedCustomerOrganizationInvoiceSummary,
+      ...data!.unconnectedCustomerOrganizationInvoiceSummary,
       ...processResponseAsList(
-        data.unconnectedCustomerOrganizationInvoiceSummary.data,
+        data!.unconnectedCustomerOrganizationInvoiceSummary.data,
       ),
     };
   };
@@ -45,18 +45,18 @@ export default class InvoicesSummaryAsUnconnectedCustomer {
   public getOne = async (
     variables: UnconnectedCustomerOrganizationInvoiceQueryVariables,
   ): Promise<Res<UnconnectedCustomerOrganizationInvoiceQuery>> => {
-    const { data } = await this.apolloClient.query({
+    const { data } = await this.context.apolloClient.query({
       query: INVOICES_SUMMARY_AS_UNCONNECTED_CUSTOMER_GET_ONE_INVOICE_QUERY,
       variables,
     });
 
-    return data.unconnectedCustomerOrganizationInvoice;
+    return data!.unconnectedCustomerOrganizationInvoice;
   };
 
   public getPdf = async (
     variables: UnconnectedCustomerOrganizationInvoiceGetPDFMutationVariables,
   ): Promise<Res<UnconnectedCustomerOrganizationInvoiceGetPDFMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: INVOICES_SUMMARY_AS_UNCONNECTED_CUSTOMER_GET_PDF_MUTATION,
       variables,
     });

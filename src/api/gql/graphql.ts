@@ -1,6403 +1,2344 @@
 /* eslint-disable */
-import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
-export type Maybe<T> = T | null;
-export type InputMaybe<T> = T | null | undefined;
-export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
+/** Internal type. DO NOT USE DIRECTLY. */
+type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
+/** Internal type. DO NOT USE DIRECTLY. */
 export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
-/** All built-in and custom scalars, mapped to their actual values */
-export type Scalars = {
-  ID: { input: string; output: string; }
-  String: { input: string; output: string; }
-  Boolean: { input: boolean; output: boolean; }
-  Int: { input: number; output: number; }
-  Float: { input: number; output: number; }
-  /** The `BigInt` scalar type represents non-fractional signed whole numeric values. */
-  BigInt: { input: bigint; output: bigint; }
-  /** Cursor for pagination */
-  ConnectionCursor: { input: any; output: any; }
-  /** The javascript `Date` as string. Type represents date and time as the ISO Date string. */
-  DateTime: { input: any; output: any; }
-  /** The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf). */
-  JSON: { input: any; output: any; }
-};
-
-export enum ACCT_PROVIDER {
-  QUICKBOOKS = 'QUICKBOOKS'
-}
-
-export enum AUTH_PROVIDER {
-  FIREBASE = 'FIREBASE'
-}
-
-export type AccruPayTransactionProviderPreTransactionData = {
-  __typename?: 'AccruPayTransactionProviderPreTransactionData';
-  environment: Scalars['String']['output'];
-  merchant_id: Scalars['String']['output'];
-  merchant_site_id: Scalars['String']['output'];
-  transaction_provider: TRANSACTION_PROVIDER;
-};
-
-export enum BILL_STATUS {
-  OPEN = 'OPEN',
-  PAID = 'PAID'
-}
-
-export type BatchItemError = {
-  __typename?: 'BatchItemError';
-  code: Scalars['String']['output'];
-  details?: Maybe<Scalars['JSON']['output']>;
-  message: Scalars['String']['output'];
-};
-
-export type BatchItemResult = {
-  __typename?: 'BatchItemResult';
-  data?: Maybe<Scalars['JSON']['output']>;
-  error?: Maybe<BatchItemError>;
-  id: Scalars['String']['output'];
-  success: Scalars['Boolean']['output'];
-};
-
-export type BatchOperationResult = {
-  __typename?: 'BatchOperationResult';
-  failureCount: Scalars['Int']['output'];
-  results: Array<BatchItemResult>;
-  successCount: Scalars['Int']['output'];
-  total: Scalars['Int']['output'];
-};
-
-export enum COUNTRY_ISO_3 {
-  ABW = 'ABW',
-  AFG = 'AFG',
-  AGO = 'AGO',
-  AIA = 'AIA',
-  ALA = 'ALA',
-  ALB = 'ALB',
-  AND = 'AND',
-  ARE = 'ARE',
-  ARG = 'ARG',
-  ARM = 'ARM',
-  ASM = 'ASM',
-  ATA = 'ATA',
-  ATF = 'ATF',
-  ATG = 'ATG',
-  AUS = 'AUS',
-  AUT = 'AUT',
-  AZE = 'AZE',
-  BDI = 'BDI',
-  BEL = 'BEL',
-  BEN = 'BEN',
-  BES = 'BES',
-  BFA = 'BFA',
-  BGD = 'BGD',
-  BGR = 'BGR',
-  BHR = 'BHR',
-  BHS = 'BHS',
-  BIH = 'BIH',
-  BLM = 'BLM',
-  BLR = 'BLR',
-  BLZ = 'BLZ',
-  BMU = 'BMU',
-  BOL = 'BOL',
-  BRA = 'BRA',
-  BRB = 'BRB',
-  BRN = 'BRN',
-  BTN = 'BTN',
-  BVT = 'BVT',
-  BWA = 'BWA',
-  CAF = 'CAF',
-  CAN = 'CAN',
-  CCK = 'CCK',
-  CHE = 'CHE',
-  CHL = 'CHL',
-  CHN = 'CHN',
-  CIV = 'CIV',
-  CMR = 'CMR',
-  COD = 'COD',
-  COG = 'COG',
-  COK = 'COK',
-  COL = 'COL',
-  COM = 'COM',
-  CPV = 'CPV',
-  CRI = 'CRI',
-  CUB = 'CUB',
-  CUW = 'CUW',
-  CXR = 'CXR',
-  CYM = 'CYM',
-  CYP = 'CYP',
-  CZE = 'CZE',
-  DEU = 'DEU',
-  DJI = 'DJI',
-  DMA = 'DMA',
-  DNK = 'DNK',
-  DOM = 'DOM',
-  DZA = 'DZA',
-  ECU = 'ECU',
-  EGY = 'EGY',
-  ERI = 'ERI',
-  ESH = 'ESH',
-  ESP = 'ESP',
-  EST = 'EST',
-  ETH = 'ETH',
-  FIN = 'FIN',
-  FJI = 'FJI',
-  FLK = 'FLK',
-  FRA = 'FRA',
-  FRO = 'FRO',
-  FSM = 'FSM',
-  GAB = 'GAB',
-  GBR = 'GBR',
-  GEO = 'GEO',
-  GGY = 'GGY',
-  GHA = 'GHA',
-  GIB = 'GIB',
-  GIN = 'GIN',
-  GLP = 'GLP',
-  GMB = 'GMB',
-  GNB = 'GNB',
-  GNQ = 'GNQ',
-  GRC = 'GRC',
-  GRD = 'GRD',
-  GRL = 'GRL',
-  GTM = 'GTM',
-  GUF = 'GUF',
-  GUM = 'GUM',
-  GUY = 'GUY',
-  HKG = 'HKG',
-  HMD = 'HMD',
-  HND = 'HND',
-  HRV = 'HRV',
-  HTI = 'HTI',
-  HUN = 'HUN',
-  IDN = 'IDN',
-  IMN = 'IMN',
-  IND = 'IND',
-  IOT = 'IOT',
-  IRL = 'IRL',
-  IRN = 'IRN',
-  IRQ = 'IRQ',
-  ISL = 'ISL',
-  ISR = 'ISR',
-  ITA = 'ITA',
-  JAM = 'JAM',
-  JEY = 'JEY',
-  JOR = 'JOR',
-  JPN = 'JPN',
-  KAZ = 'KAZ',
-  KEN = 'KEN',
-  KGZ = 'KGZ',
-  KHM = 'KHM',
-  KIR = 'KIR',
-  KNA = 'KNA',
-  KOR = 'KOR',
-  KWT = 'KWT',
-  LAO = 'LAO',
-  LBN = 'LBN',
-  LBR = 'LBR',
-  LBY = 'LBY',
-  LCA = 'LCA',
-  LIE = 'LIE',
-  LKA = 'LKA',
-  LSO = 'LSO',
-  LTU = 'LTU',
-  LUX = 'LUX',
-  LVA = 'LVA',
-  MAC = 'MAC',
-  MAF = 'MAF',
-  MAR = 'MAR',
-  MCO = 'MCO',
-  MDA = 'MDA',
-  MDG = 'MDG',
-  MDV = 'MDV',
-  MEX = 'MEX',
-  MHL = 'MHL',
-  MKD = 'MKD',
-  MLI = 'MLI',
-  MLT = 'MLT',
-  MMR = 'MMR',
-  MNE = 'MNE',
-  MNG = 'MNG',
-  MNP = 'MNP',
-  MOZ = 'MOZ',
-  MRT = 'MRT',
-  MSR = 'MSR',
-  MTQ = 'MTQ',
-  MUS = 'MUS',
-  MWI = 'MWI',
-  MYS = 'MYS',
-  MYT = 'MYT',
-  NAM = 'NAM',
-  NCL = 'NCL',
-  NER = 'NER',
-  NFK = 'NFK',
-  NGA = 'NGA',
-  NIC = 'NIC',
-  NIU = 'NIU',
-  NLD = 'NLD',
-  NOR = 'NOR',
-  NPL = 'NPL',
-  NRU = 'NRU',
-  NZL = 'NZL',
-  OMN = 'OMN',
-  PAK = 'PAK',
-  PAN = 'PAN',
-  PCN = 'PCN',
-  PER = 'PER',
-  PHL = 'PHL',
-  PLW = 'PLW',
-  PNG = 'PNG',
-  POL = 'POL',
-  PRI = 'PRI',
-  PRK = 'PRK',
-  PRT = 'PRT',
-  PRY = 'PRY',
-  PSE = 'PSE',
-  PYF = 'PYF',
-  QAT = 'QAT',
-  REU = 'REU',
-  ROU = 'ROU',
-  RUS = 'RUS',
-  RWA = 'RWA',
-  SAU = 'SAU',
-  SDN = 'SDN',
-  SEN = 'SEN',
-  SGP = 'SGP',
-  SGS = 'SGS',
-  SHN = 'SHN',
-  SJM = 'SJM',
-  SLB = 'SLB',
-  SLE = 'SLE',
-  SLV = 'SLV',
-  SMR = 'SMR',
-  SOM = 'SOM',
-  SPM = 'SPM',
-  SRB = 'SRB',
-  SSD = 'SSD',
-  STP = 'STP',
-  SUR = 'SUR',
-  SVK = 'SVK',
-  SVN = 'SVN',
-  SWE = 'SWE',
-  SWZ = 'SWZ',
-  SXM = 'SXM',
-  SYC = 'SYC',
-  SYR = 'SYR',
-  TCA = 'TCA',
-  TCD = 'TCD',
-  TGO = 'TGO',
-  THA = 'THA',
-  TJK = 'TJK',
-  TKL = 'TKL',
-  TKM = 'TKM',
-  TLS = 'TLS',
-  TON = 'TON',
-  TTO = 'TTO',
-  TUN = 'TUN',
-  TUR = 'TUR',
-  TUV = 'TUV',
-  TWN = 'TWN',
-  TZA = 'TZA',
-  UGA = 'UGA',
-  UKR = 'UKR',
-  UMI = 'UMI',
-  URY = 'URY',
-  USA = 'USA',
-  UZB = 'UZB',
-  VAT = 'VAT',
-  VCT = 'VCT',
-  VEN = 'VEN',
-  VGB = 'VGB',
-  VIR = 'VIR',
-  VNM = 'VNM',
-  VUT = 'VUT',
-  WLF = 'WLF',
-  WSM = 'WSM',
-  YEM = 'YEM',
-  ZAF = 'ZAF',
-  ZMB = 'ZMB',
-  ZWE = 'ZWE'
-}
-
-export enum CURRENCY {
-  EUR = 'EUR',
-  USD = 'USD'
-}
-
-export type File = {
-  __typename?: 'File';
-  allow_public_access: Scalars['Boolean']['output'];
-  archived_at?: Maybe<Scalars['DateTime']['output']>;
-  checksum_md5: Scalars['String']['output'];
-  checksum_sha256: Scalars['String']['output'];
-  created_at: Scalars['DateTime']['output'];
-  extension: Scalars['String']['output'];
-  filename: Scalars['String']['output'];
-  id: Scalars['ID']['output'];
-  mime_type: MIME_TYPE;
-  payload: Scalars['JSON']['output'];
-  public_url?: Maybe<Scalars['String']['output']>;
-  public_url_expires_at?: Maybe<Scalars['DateTime']['output']>;
-  recipient_id?: Maybe<Scalars['String']['output']>;
-  recipient_type: RECIPIENT_TYPE;
-  size: Scalars['Int']['output'];
-  storage_provider: STORAGE_PROVIDER;
-  type: Scalars['String']['output'];
-  updated_at: Scalars['DateTime']['output'];
-};
-
-export enum INVOICE_STATUS {
-  OPEN = 'OPEN',
-  PAID = 'PAID'
-}
-
-export enum MIME_TYPE {
-  JPEG = 'JPEG',
-  OTHER = 'OTHER',
-  PDF = 'PDF',
-  PNG = 'PNG'
-}
-
-export type Mutation = {
-  __typename?: 'Mutation';
-  adminClearCache: Scalars['DateTime']['output'];
-  adminOrganizationAcctProviderDelete: Scalars['DateTime']['output'];
-  adminOrganizationAcctProviderSynchronize: Scalars['DateTime']['output'];
-  adminOrganizationAcctProviderSynchronizeAll: Scalars['Int']['output'];
-  adminOrganizationArchive: Organization;
-  adminOrganizationBillProcess: Scalars['Int']['output'];
-  adminOrganizationBillTransactionProcess: Scalars['Int']['output'];
-  adminOrganizationCouponCreate: OrganizationCoupon;
-  adminOrganizationCouponDelete: OrganizationCoupon;
-  adminOrganizationCustomerProcess: Scalars['Int']['output'];
-  adminOrganizationCustomerStatementRecalculate: Scalars['DateTime']['output'];
-  adminOrganizationDelete: Organization;
-  adminOrganizationInvoiceProcess: Scalars['Int']['output'];
-  adminOrganizationInvoiceTransactionProcess: Scalars['Int']['output'];
-  adminOrganizationManualSubscriptionAddonsSetup: OrganizationSubscription;
-  adminOrganizationManualSubscriptionCancel: OrganizationSubscription;
-  adminOrganizationManualSubscriptionModuleSetup: OrganizationSubscription;
-  adminOrganizationManualSubscriptionPlanSetup: OrganizationSubscription;
-  adminOrganizationSubscriptionProviderCancelSubscription: OrganizationSubscription;
-  adminOrganizationSubscriptionProviderRefreshSettings: Scalars['DateTime']['output'];
-  adminOrganizationSubscriptionProviderRefreshSubscription: OrganizationSubscription;
-  adminOrganizationVendorProcess: Scalars['Int']['output'];
-  adminUserDelete: User;
-  unauthorizedUserOrganizationAcctProviderConnCheckConnection: Scalars['DateTime']['output'];
-  unconnectedCustomerOrganizationInvoiceGetPDF: Scalars['String']['output'];
-  unconnectedCustomerOrganizationProjectChangeRequestAccept: OrganizationProjectChangeRequest;
-  unconnectedCustomerOrganizationProjectChangeRequestActionRequestToken: Scalars['DateTime']['output'];
-  unconnectedCustomerOrganizationProjectChangeRequestReject: OrganizationProjectChangeRequest;
-  unconnectedCustomerOrganizationStatementLineGetPDF: Scalars['String']['output'];
-  unconnectedCustomerOrganizationStatementRequestToken: Scalars['DateTime']['output'];
-  unconnectedCustomerSynchronize: Scalars['DateTime']['output'];
-  userAcctProviderExchangeToken: Scalars['String']['output'];
-  userAcctProviderGetOAuthUrl: Scalars['String']['output'];
-  userAndOrganizationAcctProviderExchangeToken: OrganizationAcctProviderTokenExchange;
-  userAndOrganizationAcctProviderGetOAuthUrl: Scalars['String']['output'];
-  userCreateReferralCode: User;
-  userCustomerOrganizationInvoiceCreateSyncBill: OrganizationBill;
-  userCustomerOrganizationInvoiceGetPDF: Scalars['String']['output'];
-  userCustomerOrganizationProjectChangeRequestAccept: OrganizationProjectChangeRequest;
-  userCustomerOrganizationProjectChangeRequestCancel: OrganizationProjectChangeRequest;
-  userCustomerOrganizationProjectChangeRequestCreate: OrganizationProjectChangeRequest;
-  userCustomerOrganizationProjectChangeRequestReject: OrganizationProjectChangeRequest;
-  userCustomerOrganizationProjectChangeRequestUpdate: OrganizationProjectChangeRequest;
-  userCustomerOrganizationStatementLineGetPDF: Scalars['String']['output'];
-  userCustomerOrganizationSynchronize: Scalars['DateTime']['output'];
-  userEmailVerifyOrChangeFinish: User;
-  userEmailVerifyOrChangeStart: Scalars['DateTime']['output'];
-  userHandleLoginAttempt: Scalars['DateTime']['output'];
-  userOrganizationAcctProviderConnCheckConnection: OrganizationAcctProviderConn;
-  userOrganizationAcctProviderConnDelete: OrganizationAcctProviderConn;
-  userOrganizationAcctProviderConnDisconnect: OrganizationAcctProviderConn;
-  userOrganizationAcctProviderConnUpdate: OrganizationAcctProviderConn;
-  userOrganizationAcctProviderConnect: OrganizationAcctProviderConn;
-  userOrganizationAcctProviderGetOAuthUrl: Scalars['String']['output'];
-  userOrganizationAcctProviderSynchronize: Scalars['DateTime']['output'];
-  userOrganizationBillConnLock: OrganizationBill;
-  userOrganizationBillConnSync: OrganizationBill;
-  userOrganizationBillConnUnlock: OrganizationBill;
-  userOrganizationBillCreate: OrganizationBill;
-  userOrganizationBillDelete: Array<OrganizationBill>;
-  userOrganizationBillFileDelete: OrganizationBill;
-  userOrganizationBillManualPaymentCreate: OrganizationBill;
-  userOrganizationBillManualPaymentDelete: OrganizationBill;
-  userOrganizationBillUpdate: OrganizationBill;
-  userOrganizationCollaboratorDelete: OrganizationUser;
-  userOrganizationCollaboratorUpdate: OrganizationUser;
-  userOrganizationConnectionAccept: OrganizationConnection;
-  userOrganizationConnectionInviteCustomer: OrganizationConnection;
-  userOrganizationConnectionInviteVendor: OrganizationConnection;
-  userOrganizationConnectionReject: OrganizationConnection;
-  userOrganizationCreate: Organization;
-  userOrganizationCustomerConnLock: OrganizationCustomer;
-  userOrganizationCustomerConnSync: OrganizationCustomer;
-  userOrganizationCustomerConnUnlock: OrganizationCustomer;
-  userOrganizationCustomerContactCreate: OrganizationCustomerContact;
-  userOrganizationCustomerContactDelete: OrganizationCustomerContact;
-  userOrganizationCustomerContactUpdate: OrganizationCustomerContact;
-  userOrganizationCustomerCreate: OrganizationCustomer;
-  userOrganizationCustomerGetStatementLink: Scalars['String']['output'];
-  userOrganizationCustomerSendInvoiceEmail: BatchOperationResult;
-  userOrganizationCustomerSendStatementEmail: BatchOperationResult;
-  userOrganizationCustomerSynchronize: Array<Scalars['String']['output']>;
-  userOrganizationCustomerUniqueCodeUpdate: OrganizationCustomer;
-  userOrganizationCustomerUpdate: OrganizationCustomer;
-  userOrganizationDelete: Organization;
-  userOrganizationEmailVerifyOrChangeFinish: Organization;
-  userOrganizationEmailVerifyOrChangeStart: Scalars['DateTime']['output'];
-  userOrganizationInviteCollaboratorCancel: OrganizationInvite;
-  userOrganizationInviteCollaboratorCreate: OrganizationInvite;
-  userOrganizationInviteCollaboratorResend: OrganizationInvite;
-  userOrganizationInviteReject: OrganizationInvite;
-  userOrganizationInvoiceCreate: OrganizationInvoice;
-  userOrganizationInvoiceDelete: Array<OrganizationInvoice>;
-  userOrganizationInvoiceFileDelete: OrganizationInvoice;
-  userOrganizationInvoiceGetPDF: Scalars['String']['output'];
-  userOrganizationInvoiceManualPaymentCreate: OrganizationInvoice;
-  userOrganizationInvoiceManualPaymentDelete: OrganizationInvoice;
-  userOrganizationInvoiceTransactionGetPDF: Scalars['String']['output'];
-  userOrganizationInvoiceUpdate: OrganizationInvoice;
-  userOrganizationLeave: OrganizationUser;
-  userOrganizationLogoPictureRemove: Organization;
-  userOrganizationProjectChangeRequestAccept: OrganizationProjectChangeRequest;
-  userOrganizationProjectChangeRequestCancel: OrganizationProjectChangeRequest;
-  userOrganizationProjectChangeRequestCreate: OrganizationProjectChangeRequest;
-  userOrganizationProjectChangeRequestReject: OrganizationProjectChangeRequest;
-  userOrganizationProjectChangeRequestUpdate: OrganizationProjectChangeRequest;
-  userOrganizationProjectCreate: OrganizationProject;
-  userOrganizationProjectDelete: OrganizationProject;
-  userOrganizationProjectUpdate: OrganizationProject;
-  userOrganizationReceivingMethodDelete: OrganizationReceivingMethod;
-  userOrganizationReceivingMethodUpdate: OrganizationReceivingMethod;
-  userOrganizationReminderSettingCreate: OrganizationReminderSetting;
-  userOrganizationReminderSettingDelete: OrganizationReminderSetting;
-  userOrganizationReminderSettingGlobalUpdate: Organization;
-  userOrganizationReminderSettingUpdate: OrganizationReminderSetting;
-  userOrganizationSendGenericInviteMail: Scalars['DateTime']['output'];
-  userOrganizationSubscriptionCalculatePricing: OrganizationSubscriptionCalculatedPricing;
-  userOrganizationSubscriptionCancel: OrganizationSubscription;
-  userOrganizationSubscriptionCompletePurchase: OrganizationSubscription;
-  userOrganizationSubscriptionGetPrePurchaseTransactionData: OrganizationTransactionPreTransactionData;
-  userOrganizationSubscriptionStartPurchase: OrganizationSubscriptionTransaction;
-  userOrganizationSubscriptionVerifyCoupon: OrganizationCoupon;
-  userOrganizationUniqueCodeUpdate: Organization;
-  userOrganizationUniqueNameUpdate: Organization;
-  userOrganizationUpdate: Organization;
-  userOrganizationUserInviteAccept: OrganizationUser;
-  userOrganizationVendorConnLock: OrganizationVendor;
-  userOrganizationVendorConnSync: OrganizationVendor;
-  userOrganizationVendorConnUnlock: OrganizationVendor;
-  userOrganizationVendorContactCreate: OrganizationVendorContact;
-  userOrganizationVendorContactDelete: OrganizationVendorContact;
-  userOrganizationVendorContactUpdate: OrganizationVendorContact;
-  userOrganizationVendorCreate: OrganizationVendor;
-  userOrganizationVendorUniqueCodeUpdate: OrganizationVendor;
-  userOrganizationVendorUpdate: OrganizationVendor;
-  userPasswordChangeFinish: Scalars['String']['output'];
-  userPasswordChangeStart: Scalars['DateTime']['output'];
-  userPasswordResetFinish: Scalars['String']['output'];
-  userPasswordResetStart: Scalars['String']['output'];
-  userPhoneNumberRemove: User;
-  userPhoneNumberVerifyOrChangeFinish: User;
-  userPhoneNumberVerifyOrChangeStart: Scalars['DateTime']['output'];
-  userProfilePictureRemove: User;
-  userSessionsClose: UserAuthProviderConn;
-  userSignUpWithEmailFinish: Scalars['String']['output'];
-  userSignUpWithEmailStart: Scalars['DateTime']['output'];
-  userSignUpWithEmailVerify: Scalars['DateTime']['output'];
-  userUpdateData: User;
-};
-
-
-export type MutationadminOrganizationAcctProviderDeleteArgs = {
-  acct_provider: ACCT_PROVIDER;
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type MutationadminOrganizationAcctProviderSynchronizeArgs = {
-  acct_provider: ACCT_PROVIDER;
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type MutationadminOrganizationAcctProviderSynchronizeAllArgs = {
-  acct_provider?: InputMaybe<ACCT_PROVIDER>;
-};
-
-
-export type MutationadminOrganizationArchiveArgs = {
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type MutationadminOrganizationBillProcessArgs = {
-  organization_bill_id?: InputMaybe<Scalars['String']['input']>;
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type MutationadminOrganizationBillTransactionProcessArgs = {
-  organization_bill_transaction_id?: InputMaybe<Scalars['String']['input']>;
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type MutationadminOrganizationCouponCreateArgs = {
-  data: OrganizationCouponCreateSchema;
-};
-
-
-export type MutationadminOrganizationCouponDeleteArgs = {
-  organization_coupon_id: Scalars['String']['input'];
-};
-
-
-export type MutationadminOrganizationCustomerProcessArgs = {
-  organization_customer_id?: InputMaybe<Scalars['String']['input']>;
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type MutationadminOrganizationCustomerStatementRecalculateArgs = {
-  organization_customer_id?: InputMaybe<Scalars['String']['input']>;
-  organization_id?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-export type MutationadminOrganizationDeleteArgs = {
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type MutationadminOrganizationInvoiceProcessArgs = {
-  organization_id: Scalars['String']['input'];
-  organization_invoice_id?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-export type MutationadminOrganizationInvoiceTransactionProcessArgs = {
-  organization_id: Scalars['String']['input'];
-  organization_invoice_transaction_id?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-export type MutationadminOrganizationManualSubscriptionAddonsSetupArgs = {
-  data: OrganizationManualSubscriptionAddonsSetupSchema;
-};
-
-
-export type MutationadminOrganizationManualSubscriptionCancelArgs = {
-  organization_subscription_id: Scalars['String']['input'];
-};
-
-
-export type MutationadminOrganizationManualSubscriptionModuleSetupArgs = {
-  data: OrganizationManualSubscriptionModuleSetupSchema;
-};
-
-
-export type MutationadminOrganizationManualSubscriptionPlanSetupArgs = {
-  data: OrganizationManualSubscriptionPlanSetupSchema;
-};
-
-
-export type MutationadminOrganizationSubscriptionProviderCancelSubscriptionArgs = {
-  organization_subscription_id: Scalars['String']['input'];
-};
-
-
-export type MutationadminOrganizationSubscriptionProviderRefreshSettingsArgs = {
-  provider: ORGANIZATION_SUBSCRIPTION_PROVIDER;
-};
-
-
-export type MutationadminOrganizationSubscriptionProviderRefreshSubscriptionArgs = {
-  organization_subscription_id: Scalars['String']['input'];
-};
-
-
-export type MutationadminOrganizationVendorProcessArgs = {
-  organization_id: Scalars['String']['input'];
-  organization_vendor_id?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-export type MutationadminUserDeleteArgs = {
-  user_id: Scalars['String']['input'];
-};
-
-
-export type MutationunauthorizedUserOrganizationAcctProviderConnCheckConnectionArgs = {
-  acct_provider: ACCT_PROVIDER;
-  acct_provider_conn_code: Scalars['String']['input'];
-};
-
-
-export type MutationunconnectedCustomerOrganizationInvoiceGetPDFArgs = {
-  acct_provider?: InputMaybe<ACCT_PROVIDER>;
-  organization_id?: InputMaybe<Scalars['String']['input']>;
-  organization_invoice_id: Scalars['String']['input'];
-  token: Scalars['String']['input'];
-  unique_code: Scalars['String']['input'];
-};
-
-
-export type MutationunconnectedCustomerOrganizationProjectChangeRequestAcceptArgs = {
-  organization_id?: InputMaybe<Scalars['String']['input']>;
-  organization_project_change_request_id: Scalars['String']['input'];
-  organization_project_id: Scalars['String']['input'];
-  token: Scalars['String']['input'];
-  unique_code: Scalars['String']['input'];
-  verification_code: Scalars['String']['input'];
-};
-
-
-export type MutationunconnectedCustomerOrganizationProjectChangeRequestActionRequestTokenArgs = {
-  organization_id?: InputMaybe<Scalars['String']['input']>;
-  organization_project_change_request_id: Scalars['String']['input'];
-  organization_project_id: Scalars['String']['input'];
-  token: Scalars['String']['input'];
-  unique_code: Scalars['String']['input'];
-};
-
-
-export type MutationunconnectedCustomerOrganizationProjectChangeRequestRejectArgs = {
-  organization_id?: InputMaybe<Scalars['String']['input']>;
-  organization_project_change_request_id: Scalars['String']['input'];
-  organization_project_id: Scalars['String']['input'];
-  token: Scalars['String']['input'];
-  unique_code: Scalars['String']['input'];
-  verification_code: Scalars['String']['input'];
-};
-
-
-export type MutationunconnectedCustomerOrganizationStatementLineGetPDFArgs = {
-  acct_provider?: InputMaybe<ACCT_PROVIDER>;
-  organization_customer_statement_line_id: Scalars['Int']['input'];
-  organization_id?: InputMaybe<Scalars['String']['input']>;
-  token: Scalars['String']['input'];
-  unique_code: Scalars['String']['input'];
-};
-
-
-export type MutationunconnectedCustomerOrganizationStatementRequestTokenArgs = {
-  unique_code: Scalars['String']['input'];
-};
-
-
-export type MutationunconnectedCustomerSynchronizeArgs = {
-  organization_id?: InputMaybe<Scalars['String']['input']>;
-  token: Scalars['String']['input'];
-  unique_code: Scalars['String']['input'];
-};
-
-
-export type MutationuserAcctProviderExchangeTokenArgs = {
-  acct_provider: ACCT_PROVIDER;
-  authorization_token: Scalars['String']['input'];
-};
-
-
-export type MutationuserAcctProviderGetOAuthUrlArgs = {
-  acct_provider: ACCT_PROVIDER;
-};
-
-
-export type MutationuserAndOrganizationAcctProviderExchangeTokenArgs = {
-  acct_provider: ACCT_PROVIDER;
-  authorization_token: Scalars['String']['input'];
-  referred_by_code?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-export type MutationuserAndOrganizationAcctProviderGetOAuthUrlArgs = {
-  acct_provider: ACCT_PROVIDER;
-};
-
-
-export type MutationuserCustomerOrganizationInvoiceCreateSyncBillArgs = {
-  organization_id: Scalars['String']['input'];
-  organization_invoice_id: Scalars['String']['input'];
-  organization_vendor_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserCustomerOrganizationInvoiceGetPDFArgs = {
-  acct_provider?: InputMaybe<ACCT_PROVIDER>;
-  organization_id: Scalars['String']['input'];
-  organization_invoice_id: Scalars['String']['input'];
-  organization_vendor_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserCustomerOrganizationProjectChangeRequestAcceptArgs = {
-  organization_id: Scalars['String']['input'];
-  organization_project_change_request_id: Scalars['String']['input'];
-  organization_project_id: Scalars['String']['input'];
-  organization_vendor_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserCustomerOrganizationProjectChangeRequestCancelArgs = {
-  organization_id: Scalars['String']['input'];
-  organization_project_change_request_id: Scalars['String']['input'];
-  organization_project_id: Scalars['String']['input'];
-  organization_vendor_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserCustomerOrganizationProjectChangeRequestCreateArgs = {
-  data: OrganizationProjectChangeRequestUpsertSchema;
-  organization_id: Scalars['String']['input'];
-  organization_project_id: Scalars['String']['input'];
-  organization_vendor_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserCustomerOrganizationProjectChangeRequestRejectArgs = {
-  organization_id: Scalars['String']['input'];
-  organization_project_change_request_id: Scalars['String']['input'];
-  organization_project_id: Scalars['String']['input'];
-  organization_vendor_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserCustomerOrganizationProjectChangeRequestUpdateArgs = {
-  data: OrganizationProjectChangeRequestUpsertSchema;
-  organization_id: Scalars['String']['input'];
-  organization_project_change_request_id: Scalars['String']['input'];
-  organization_project_id: Scalars['String']['input'];
-  organization_vendor_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserCustomerOrganizationStatementLineGetPDFArgs = {
-  acct_provider?: InputMaybe<ACCT_PROVIDER>;
-  organization_customer_statement_line_id: Scalars['Int']['input'];
-  organization_id: Scalars['String']['input'];
-  organization_vendor_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserCustomerOrganizationSynchronizeArgs = {
-  organization_id: Scalars['String']['input'];
-  organization_vendor_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserEmailVerifyOrChangeFinishArgs = {
-  data: UserEmailVerifyOrChangeFinishSchema;
-};
-
-
-export type MutationuserEmailVerifyOrChangeStartArgs = {
-  data: UserEmailVerifyOrChangeStartSchema;
-};
-
-
-export type MutationuserHandleLoginAttemptArgs = {
-  email: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationAcctProviderConnCheckConnectionArgs = {
-  acct_provider: ACCT_PROVIDER;
-  acct_provider_conn_code: Scalars['String']['input'];
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationAcctProviderConnDeleteArgs = {
-  acct_provider: ACCT_PROVIDER;
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationAcctProviderConnDisconnectArgs = {
-  acct_provider: ACCT_PROVIDER;
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationAcctProviderConnUpdateArgs = {
-  acct_provider: ACCT_PROVIDER;
-  data: UserOrganizationAcctProviderConnUpdateSchema;
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationAcctProviderConnectArgs = {
-  acct_provider: ACCT_PROVIDER;
-  automatic_pull_enabled: Scalars['Boolean']['input'];
-  organization_id: Scalars['String']['input'];
-  url: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationAcctProviderGetOAuthUrlArgs = {
-  acct_provider: ACCT_PROVIDER;
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationAcctProviderSynchronizeArgs = {
-  acct_provider: ACCT_PROVIDER;
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationBillConnLockArgs = {
-  organization_bill_id: Scalars['String']['input'];
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationBillConnSyncArgs = {
-  organization_bill_id: Scalars['String']['input'];
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationBillConnUnlockArgs = {
-  organization_bill_id: Scalars['String']['input'];
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationBillCreateArgs = {
-  data: UserOrganizationBillSchema;
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationBillDeleteArgs = {
-  organization_bill_ids: Array<Scalars['String']['input']>;
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationBillFileDeleteArgs = {
-  organization_bill_id: Scalars['String']['input'];
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationBillManualPaymentCreateArgs = {
-  data: UserOrganizationBillManualPaymentCreateSchema;
-  organization_bill_id: Scalars['String']['input'];
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationBillManualPaymentDeleteArgs = {
-  organization_bill_id: Scalars['String']['input'];
-  organization_bill_transaction_id: Scalars['String']['input'];
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationBillUpdateArgs = {
-  data: UserOrganizationBillSchema;
-  organization_bill_id: Scalars['String']['input'];
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationCollaboratorDeleteArgs = {
-  organization_id: Scalars['String']['input'];
-  organization_user_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationCollaboratorUpdateArgs = {
-  data: UserOrganizationCollaboratorUpdateSchema;
-  organization_id: Scalars['String']['input'];
-  organization_user_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationConnectionAcceptArgs = {
-  organization_connection_id: Scalars['String']['input'];
-  organization_id: Scalars['String']['input'];
-  organization_target_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationConnectionInviteCustomerArgs = {
-  organization_customer_id: Scalars['String']['input'];
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationConnectionInviteVendorArgs = {
-  organization_id: Scalars['String']['input'];
-  organization_vendor_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationConnectionRejectArgs = {
-  organization_connection_id: Scalars['String']['input'];
-  organization_id: Scalars['String']['input'];
-  organization_target_id?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-export type MutationuserOrganizationCreateArgs = {
-  data: UserOrganizationCreateSchema;
-};
-
-
-export type MutationuserOrganizationCustomerConnLockArgs = {
-  organization_customer_id: Scalars['String']['input'];
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationCustomerConnSyncArgs = {
-  organization_customer_id: Scalars['String']['input'];
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationCustomerConnUnlockArgs = {
-  organization_customer_id: Scalars['String']['input'];
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationCustomerContactCreateArgs = {
-  data: UserOrganizationCustomerContactCreateSchema;
-  organization_customer_id: Scalars['String']['input'];
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationCustomerContactDeleteArgs = {
-  organization_customer_contact_id: Scalars['String']['input'];
-  organization_customer_id: Scalars['String']['input'];
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationCustomerContactUpdateArgs = {
-  data: UserOrganizationCustomerContactUpdateSchema;
-  organization_customer_contact_id: Scalars['String']['input'];
-  organization_customer_id: Scalars['String']['input'];
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationCustomerCreateArgs = {
-  data: UserOrganizationCustomerSchema;
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationCustomerGetStatementLinkArgs = {
-  expires_at?: InputMaybe<Scalars['DateTime']['input']>;
-  organization_customer_id: Scalars['String']['input'];
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationCustomerSendInvoiceEmailArgs = {
-  organization_id: Scalars['String']['input'];
-  targets: Array<UserOrganizationCustomerSendInvoiceEmailSchema>;
-};
-
-
-export type MutationuserOrganizationCustomerSendStatementEmailArgs = {
-  organization_id: Scalars['String']['input'];
-  targets: Array<UserOrganizationCustomerSendStatementEmailSchema>;
-};
-
-
-export type MutationuserOrganizationCustomerSynchronizeArgs = {
-  organization_customer_id: Scalars['String']['input'];
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationCustomerUniqueCodeUpdateArgs = {
-  organization_customer_id: Scalars['String']['input'];
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationCustomerUpdateArgs = {
-  data: UserOrganizationCustomerSchema;
-  organization_customer_id: Scalars['String']['input'];
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationDeleteArgs = {
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationEmailVerifyOrChangeFinishArgs = {
-  data: UserOrganizationEmailVerifyOrChangeFinishSchema;
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationEmailVerifyOrChangeStartArgs = {
-  data: UserOrganizationEmailVerifyOrChangeStartSchema;
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationInviteCollaboratorCancelArgs = {
-  organization_id: Scalars['String']['input'];
-  organization_invite_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationInviteCollaboratorCreateArgs = {
-  data: UserOrganizationInviteCollaboratorCreateSchema;
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationInviteCollaboratorResendArgs = {
-  organization_id: Scalars['String']['input'];
-  organization_invite_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationInviteRejectArgs = {
-  code: Scalars['String']['input'];
-  organization_id: Scalars['String']['input'];
-  organization_invite_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationInvoiceCreateArgs = {
-  data: UserOrganizationInvoiceSchema;
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationInvoiceDeleteArgs = {
-  organization_id: Scalars['String']['input'];
-  organization_invoice_ids: Array<Scalars['String']['input']>;
-};
-
-
-export type MutationuserOrganizationInvoiceFileDeleteArgs = {
-  organization_id: Scalars['String']['input'];
-  organization_invoice_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationInvoiceGetPDFArgs = {
-  acct_provider?: InputMaybe<ACCT_PROVIDER>;
-  organization_id: Scalars['String']['input'];
-  organization_invoice_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationInvoiceManualPaymentCreateArgs = {
-  data: UserOrganizationInvoiceManualPaymentCreateSchema;
-  organization_id: Scalars['String']['input'];
-  organization_invoice_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationInvoiceManualPaymentDeleteArgs = {
-  organization_id: Scalars['String']['input'];
-  organization_invoice_id: Scalars['String']['input'];
-  organization_invoice_transaction_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationInvoiceTransactionGetPDFArgs = {
-  acct_provider?: InputMaybe<ACCT_PROVIDER>;
-  organization_id: Scalars['String']['input'];
-  organization_invoice_transaction_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationInvoiceUpdateArgs = {
-  data: UserOrganizationInvoiceSchema;
-  organization_id: Scalars['String']['input'];
-  organization_invoice_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationLeaveArgs = {
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationLogoPictureRemoveArgs = {
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationProjectChangeRequestAcceptArgs = {
-  organization_id: Scalars['String']['input'];
-  organization_project_change_request_id: Scalars['String']['input'];
-  organization_project_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationProjectChangeRequestCancelArgs = {
-  organization_id: Scalars['String']['input'];
-  organization_project_change_request_id: Scalars['String']['input'];
-  organization_project_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationProjectChangeRequestCreateArgs = {
-  data: OrganizationProjectChangeRequestUpsertSchema;
-  organization_id: Scalars['String']['input'];
-  organization_project_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationProjectChangeRequestRejectArgs = {
-  organization_id: Scalars['String']['input'];
-  organization_project_change_request_id: Scalars['String']['input'];
-  organization_project_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationProjectChangeRequestUpdateArgs = {
-  data: OrganizationProjectChangeRequestUpsertSchema;
-  organization_id: Scalars['String']['input'];
-  organization_project_change_request_id: Scalars['String']['input'];
-  organization_project_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationProjectCreateArgs = {
-  data: UserOrganizationProjectCreateSchema;
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationProjectDeleteArgs = {
-  organization_id: Scalars['String']['input'];
-  organization_project_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationProjectUpdateArgs = {
-  data: UserOrganizationProjectUpdateSchema;
-  organization_id: Scalars['String']['input'];
-  organization_project_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationReceivingMethodDeleteArgs = {
-  organization_id: Scalars['String']['input'];
-  organization_receiving_method_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationReceivingMethodUpdateArgs = {
-  data: UserOrganizationReceivingMethodUpdateSchema;
-  organization_id: Scalars['String']['input'];
-  organization_receiving_method_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationReminderSettingCreateArgs = {
-  data: UserOrganizationReminderSettingSchema;
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationReminderSettingDeleteArgs = {
-  organization_id: Scalars['String']['input'];
-  organization_reminder_setting_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationReminderSettingGlobalUpdateArgs = {
-  organization_id: Scalars['String']['input'];
-  setting_allow_invoice_due_snooze_reminders?: InputMaybe<Scalars['Boolean']['input']>;
-  setting_allow_invoice_overdue_snooze_reminders?: InputMaybe<Scalars['Boolean']['input']>;
-  setting_send_invoice_due_reminders?: InputMaybe<Scalars['Boolean']['input']>;
-  setting_send_invoice_overdue_reminders?: InputMaybe<Scalars['Boolean']['input']>;
-};
-
-
-export type MutationuserOrganizationReminderSettingUpdateArgs = {
-  data: UserOrganizationReminderSettingSchema;
-  organization_id: Scalars['String']['input'];
-  organization_reminder_setting_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationSendGenericInviteMailArgs = {
-  email: Scalars['String']['input'];
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationSubscriptionCalculatePricingArgs = {
-  data: UserOrganizationSubscriptionCalculatePricingSchema;
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationSubscriptionCancelArgs = {
-  organization_id: Scalars['String']['input'];
-  organization_subscription_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationSubscriptionCompletePurchaseArgs = {
-  organization_id: Scalars['String']['input'];
-  organization_subscription_id: Scalars['String']['input'];
-  organization_subscription_transaction_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationSubscriptionGetPrePurchaseTransactionDataArgs = {
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationSubscriptionStartPurchaseArgs = {
-  data: UserOrganizationSubscriptionStartPurchaseSchema;
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationSubscriptionVerifyCouponArgs = {
-  code: Scalars['String']['input'];
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationUniqueCodeUpdateArgs = {
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationUniqueNameUpdateArgs = {
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationUpdateArgs = {
-  data: UserOrganizationUpdateSchema;
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationUserInviteAcceptArgs = {
-  code: Scalars['String']['input'];
-  organization_id: Scalars['String']['input'];
-  organization_invite_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationVendorConnLockArgs = {
-  organization_id: Scalars['String']['input'];
-  organization_vendor_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationVendorConnSyncArgs = {
-  organization_id: Scalars['String']['input'];
-  organization_vendor_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationVendorConnUnlockArgs = {
-  organization_id: Scalars['String']['input'];
-  organization_vendor_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationVendorContactCreateArgs = {
-  data: UserOrganizationVendorContactCreateSchema;
-  organization_id: Scalars['String']['input'];
-  organization_vendor_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationVendorContactDeleteArgs = {
-  organization_id: Scalars['String']['input'];
-  organization_vendor_contact_id: Scalars['String']['input'];
-  organization_vendor_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationVendorContactUpdateArgs = {
-  data: UserOrganizationVendorContactUpdateSchema;
-  organization_id: Scalars['String']['input'];
-  organization_vendor_contact_id: Scalars['String']['input'];
-  organization_vendor_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationVendorCreateArgs = {
-  data: UserOrganizationVendorSchema;
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationVendorUniqueCodeUpdateArgs = {
-  organization_id: Scalars['String']['input'];
-  organization_vendor_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserOrganizationVendorUpdateArgs = {
-  data: UserOrganizationVendorSchema;
-  organization_id: Scalars['String']['input'];
-  organization_vendor_id: Scalars['String']['input'];
-};
-
-
-export type MutationuserPasswordChangeFinishArgs = {
-  data: UserPasswordChangeFinishSchema;
-};
-
-
-export type MutationuserPasswordChangeStartArgs = {
-  data: UserPasswordChangeStartSchema;
-};
-
-
-export type MutationuserPasswordResetFinishArgs = {
-  data: UserPasswordResetFinishSchema;
-};
-
-
-export type MutationuserPasswordResetStartArgs = {
-  data: UserPasswordResetStartSchema;
-};
-
-
-export type MutationuserPhoneNumberVerifyOrChangeFinishArgs = {
-  data: UserPhoneNumberVerifyOrChangeFinishSchema;
-};
-
-
-export type MutationuserPhoneNumberVerifyOrChangeStartArgs = {
-  data: UserPhoneNumberVerifyOrChangeStartSchema;
-};
-
-
-export type MutationuserSignUpWithEmailFinishArgs = {
-  data: UserSignUpWithEmailFinishSchema;
-};
-
-
-export type MutationuserSignUpWithEmailStartArgs = {
-  data: UserSignUpWithEmailStartSchema;
-};
-
-
-export type MutationuserSignUpWithEmailVerifyArgs = {
-  data: UserSignUpWithEmailVerifySchema;
-};
-
-
-export type MutationuserUpdateDataArgs = {
-  data: UserUpdateDataSchema;
-};
-
-export enum NOTIFICATION_CHANNEL {
-  EMAIL = 'EMAIL',
-  SMS = 'SMS'
-}
-
-export enum NOTIFICATION_EMAIL_COPY_MODE {
-  BCC = 'BCC',
-  TO = 'TO'
-}
-
-export enum NOTIFICATION_FEATURE_TYPE {
-  ORGANIZATION_ACCT_PROVIDER_APP_DISCONNECTED = 'ORGANIZATION_ACCT_PROVIDER_APP_DISCONNECTED',
-  ORGANIZATION_ACCT_PROVIDER_CONNECTION_EXPIRED = 'ORGANIZATION_ACCT_PROVIDER_CONNECTION_EXPIRED',
-  ORGANIZATION_ACCT_PROVIDER_CONNECTION_SUCCESS = 'ORGANIZATION_ACCT_PROVIDER_CONNECTION_SUCCESS',
-  ORGANIZATION_ACCT_PROVIDER_CONNECTION_WITHOUT_CONFIG = 'ORGANIZATION_ACCT_PROVIDER_CONNECTION_WITHOUT_CONFIG',
-  ORGANIZATION_ACCT_PROVIDER_ORG_DISCONNECTED = 'ORGANIZATION_ACCT_PROVIDER_ORG_DISCONNECTED',
-  ORGANIZATION_CONNECTION_ACCEPTED = 'ORGANIZATION_CONNECTION_ACCEPTED',
-  ORGANIZATION_CONNECTION_INVITE = 'ORGANIZATION_CONNECTION_INVITE',
-  ORGANIZATION_CUSTOMER_INVOICE = 'ORGANIZATION_CUSTOMER_INVOICE',
-  ORGANIZATION_CUSTOMER_STATEMENT = 'ORGANIZATION_CUSTOMER_STATEMENT',
-  ORGANIZATION_EMAIL_CHANGED = 'ORGANIZATION_EMAIL_CHANGED',
-  ORGANIZATION_EMAIL_VERIFICATION = 'ORGANIZATION_EMAIL_VERIFICATION',
-  ORGANIZATION_GENERIC_INVITE = 'ORGANIZATION_GENERIC_INVITE',
-  ORGANIZATION_INVITE_COLLABORATOR = 'ORGANIZATION_INVITE_COLLABORATOR',
-  ORGANIZATION_INVOICE_MULTIPLE_REMINDER_DUE = 'ORGANIZATION_INVOICE_MULTIPLE_REMINDER_DUE',
-  ORGANIZATION_INVOICE_MULTIPLE_REMINDER_OVERDUE = 'ORGANIZATION_INVOICE_MULTIPLE_REMINDER_OVERDUE',
-  ORGANIZATION_INVOICE_REMINDER = 'ORGANIZATION_INVOICE_REMINDER',
-  ORGANIZATION_INVOICE_SINGLE_REMINDER_DUE_TODAY = 'ORGANIZATION_INVOICE_SINGLE_REMINDER_DUE_TODAY',
-  ORGANIZATION_INVOICE_SINGLE_REMINDER_DUE_X_DAYS = 'ORGANIZATION_INVOICE_SINGLE_REMINDER_DUE_X_DAYS',
-  ORGANIZATION_INVOICE_SINGLE_REMINDER_OVERDUE_X_DAYS = 'ORGANIZATION_INVOICE_SINGLE_REMINDER_OVERDUE_X_DAYS',
-  ORGANIZATION_PROJECT_CHANGE_REQUEST_ACTION = 'ORGANIZATION_PROJECT_CHANGE_REQUEST_ACTION',
-  ORGANIZATION_PROJECT_CHANGE_REQUEST_PUBLISHED = 'ORGANIZATION_PROJECT_CHANGE_REQUEST_PUBLISHED',
-  ORGANIZATION_UNCONNECTED_CUSTOMER_PROJECT_ACTION_VERIFICATION = 'ORGANIZATION_UNCONNECTED_CUSTOMER_PROJECT_ACTION_VERIFICATION',
-  ORGANIZATION_UNCONNECTED_CUSTOMER_STATEMENT = 'ORGANIZATION_UNCONNECTED_CUSTOMER_STATEMENT',
-  USER_CREATED = 'USER_CREATED',
-  USER_EMAIL_CHANGED = 'USER_EMAIL_CHANGED',
-  USER_EMAIL_VERIFICATION = 'USER_EMAIL_VERIFICATION',
-  USER_PASSWORD_CHANGED = 'USER_PASSWORD_CHANGED',
-  USER_PASSWORD_CHANGE_VERIFICATION = 'USER_PASSWORD_CHANGE_VERIFICATION',
-  USER_PASSWORD_RESET = 'USER_PASSWORD_RESET',
-  USER_PASSWORD_RESET_VERIFICATION = 'USER_PASSWORD_RESET_VERIFICATION',
-  USER_PHONE_NUMBER_CHANGED = 'USER_PHONE_NUMBER_CHANGED',
-  USER_PHONE_NUMBER_REMOVED = 'USER_PHONE_NUMBER_REMOVED',
-  USER_PHONE_VERIFICATION = 'USER_PHONE_VERIFICATION',
-  USER_SIGN_UP_EMAIL_VERIFICATION = 'USER_SIGN_UP_EMAIL_VERIFICATION'
-}
-
-export enum NOTIFICATION_PROVIDER {
-  EMAIL_CUSTOMER_IO = 'EMAIL_CUSTOMER_IO',
-  PENDING = 'PENDING',
-  SMS_AWS_SNS = 'SMS_AWS_SNS'
-}
-
-export enum NOTIFICATION_RELATED_ENTITY_TYPE {
-  ORGANIZATION_CONNECTION = 'ORGANIZATION_CONNECTION',
-  ORGANIZATION_INVOICE = 'ORGANIZATION_INVOICE',
-  ORGANIZATION_PROJECT_CHANGE_REQUEST = 'ORGANIZATION_PROJECT_CHANGE_REQUEST'
-}
-
-export enum NOTIFICATION_SENDER_TARGET_ENTITY_TYPE {
-  ORGANIZATION_CUSTOMER = 'ORGANIZATION_CUSTOMER'
-}
-
-export enum NOTIFICATION_SENDER_TYPE {
-  ORGANIZATION = 'ORGANIZATION',
-  SYSTEM = 'SYSTEM'
-}
-
-export type Notification = {
-  __typename?: 'Notification';
-  canceled_at?: Maybe<Scalars['DateTime']['output']>;
-  channel: NOTIFICATION_CHANNEL;
-  channel_payload?: Maybe<Scalars['JSON']['output']>;
-  checksum_md5: Scalars['String']['output'];
-  created_at: Scalars['DateTime']['output'];
-  failed_at?: Maybe<Scalars['DateTime']['output']>;
-  feature_code: Scalars['String']['output'];
-  feature_type: NOTIFICATION_FEATURE_TYPE;
-  id: Scalars['ID']['output'];
-  language: Scalars['String']['output'];
-  message?: Maybe<Scalars['String']['output']>;
-  notification_provider: NOTIFICATION_PROVIDER;
-  opened_at?: Maybe<Scalars['DateTime']['output']>;
-  provider_code?: Maybe<Scalars['String']['output']>;
-  provider_response?: Maybe<Scalars['JSON']['output']>;
-  recipient_id?: Maybe<Scalars['String']['output']>;
-  recipient_type: RECIPIENT_TYPE;
-  related_entity_id?: Maybe<Scalars['String']['output']>;
-  related_entity_type?: Maybe<NOTIFICATION_RELATED_ENTITY_TYPE>;
-  resend_delay_seconds: Scalars['Float']['output'];
-  sender_id?: Maybe<Scalars['String']['output']>;
-  sender_name?: Maybe<Scalars['String']['output']>;
-  sender_target_entity_id?: Maybe<Scalars['String']['output']>;
-  sender_target_entity_type?: Maybe<NOTIFICATION_SENDER_TARGET_ENTITY_TYPE>;
-  sender_type: NOTIFICATION_SENDER_TYPE;
-  sent_at?: Maybe<Scalars['DateTime']['output']>;
-  target: Scalars['String']['output'];
-  updated_at: Scalars['DateTime']['output'];
-  version?: Maybe<Scalars['Int']['output']>;
-};
-
-export type NotificationPaginationConnection = {
-  __typename?: 'NotificationPaginationConnection';
-  edges: Array<NotificationPaginationEdge>;
-  pageInfo: PageInfo;
-  totalCount: Scalars['Int']['output'];
-};
-
-export type NotificationPaginationEdge = {
-  __typename?: 'NotificationPaginationEdge';
-  cursor: Scalars['ConnectionCursor']['output'];
-  node: Notification;
-};
-
-export type NuveiTransactionProviderPreTransactionData = {
-  __typename?: 'NuveiTransactionProviderPreTransactionData';
-  environment: Scalars['String']['output'];
-  merchant_id: Scalars['String']['output'];
-  merchant_site_id: Scalars['String']['output'];
-  transaction_provider: TRANSACTION_PROVIDER;
-};
-
-export enum ORGANIZATION_ACCT_PROVIDER_CONN_STATUS {
-  CONNECTED = 'CONNECTED',
-  DISCONNECTED = 'DISCONNECTED',
-  EXPIRED = 'EXPIRED'
-}
-
-export enum ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_MODE {
-  AUTOMATIC = 'AUTOMATIC',
-  MANUAL = 'MANUAL',
-  SCHEDULED = 'SCHEDULED'
-}
-
-export enum ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_SCOPE {
-  COMPLETE = 'COMPLETE',
-  CUSTOMER = 'CUSTOMER'
-}
-
-export enum ORGANIZATION_ACCT_PROVIDER_TOKEN_EXCHANGE_STATUS {
-  ACCT_PROVIDER_CONNECTED_TO_DIFFERENT_ORGANIZATION = 'ACCT_PROVIDER_CONNECTED_TO_DIFFERENT_ORGANIZATION',
-  COMPLETED = 'COMPLETED',
-  DIFFERENT_ACCOUNTING_PROVIDER_ALREADY_CONNECTED = 'DIFFERENT_ACCOUNTING_PROVIDER_ALREADY_CONNECTED',
-  ORGANIZATION_ALREADY_EXISTS = 'ORGANIZATION_ALREADY_EXISTS'
-}
-
-export enum ORGANIZATION_CONNECTION_STATUS {
-  ACCEPTED = 'ACCEPTED',
-  INVITED = 'INVITED',
-  REJECTED = 'REJECTED'
-}
-
-export enum ORGANIZATION_COUPON_CAMPAIGN {
-  FOUNDING_FIRST_1OO_ORGANIZATIONS = 'FOUNDING_FIRST_1OO_ORGANIZATIONS',
-  RANDOM_ADMIN_GIVEAWAY = 'RANDOM_ADMIN_GIVEAWAY'
-}
-
-export enum ORGANIZATION_COUPON_CATEGORY {
-  ORGANIZATION_SUBSCRIPTION = 'ORGANIZATION_SUBSCRIPTION'
-}
-
-export enum ORGANIZATION_COUPON_STATUS {
-  ACTIVATED = 'ACTIVATED',
-  AVAILABLE = 'AVAILABLE',
-  EXPIRED = 'EXPIRED'
-}
-
-export enum ORGANIZATION_COUPON_SUBDIVISION {
-  ORGANIZATION_SUBSCRIPTION_FOUNDING_PRICING_TIER = 'ORGANIZATION_SUBSCRIPTION_FOUNDING_PRICING_TIER'
-}
-
-export enum ORGANIZATION_INVITE_STATUS {
-  ACCEPTED = 'ACCEPTED',
-  CANCELED = 'CANCELED',
-  EXPIRED = 'EXPIRED',
-  OPEN = 'OPEN',
-  REJECTED = 'REJECTED'
-}
-
-export enum ORGANIZATION_PAYMENT_METHOD_BOUND_MODE {
-  SYSTEM_SUBSCRIPTION_PAYMENT = 'SYSTEM_SUBSCRIPTION_PAYMENT',
-  VENDOR_RECEIVING_METHOD_PAYMENT = 'VENDOR_RECEIVING_METHOD_PAYMENT'
-}
-
-export enum ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE {
-  CUSTOMER = 'CUSTOMER',
-  VENDOR = 'VENDOR'
-}
-
-export enum ORGANIZATION_SUBSCRIPTION_ADDON_ITEM {
-  ADDITIONAL_USERS_ADDON = 'ADDITIONAL_USERS_ADDON'
-}
-
-export enum ORGANIZATION_SUBSCRIPTION_BASE_ITEM {
-  BASIC_PLAN = 'BASIC_PLAN',
-  FREE_PLAN = 'FREE_PLAN',
-  PROJECTS_MODULE = 'PROJECTS_MODULE',
-  PRO_PLAN = 'PRO_PLAN'
-}
-
-export enum ORGANIZATION_SUBSCRIPTION_ITEM {
-  ADDITIONAL_USERS_ADDON = 'ADDITIONAL_USERS_ADDON',
-  BASIC_PLAN = 'BASIC_PLAN',
-  FREE_PLAN = 'FREE_PLAN',
-  PROJECTS_MODULE = 'PROJECTS_MODULE',
-  PRO_PLAN = 'PRO_PLAN'
-}
-
-export enum ORGANIZATION_SUBSCRIPTION_ITEM_CATEGORY {
-  ADDON = 'ADDON',
-  MODULE = 'MODULE',
-  PLAN = 'PLAN'
-}
-
-export enum ORGANIZATION_SUBSCRIPTION_ITEM_CLASSIFICATION {
-  ADDON = 'ADDON',
-  BASE = 'BASE'
-}
-
-export enum ORGANIZATION_SUBSCRIPTION_ITEM_STATUS {
-  ACTIVE = 'ACTIVE',
-  CANCELED = 'CANCELED'
-}
-
-export enum ORGANIZATION_SUBSCRIPTION_MODULE_ITEM {
-  PROJECTS_MODULE = 'PROJECTS_MODULE'
-}
-
-export enum ORGANIZATION_SUBSCRIPTION_PAYMENT_STATUS {
-  CURRENT = 'CURRENT',
-  OVERDUE = 'OVERDUE',
-  PENDING = 'PENDING',
-  REQUIRES_ACTION = 'REQUIRES_ACTION'
-}
-
-export enum ORGANIZATION_SUBSCRIPTION_PLAN_ITEM {
-  BASIC_PLAN = 'BASIC_PLAN',
-  FREE_PLAN = 'FREE_PLAN',
-  PRO_PLAN = 'PRO_PLAN'
-}
-
-export enum ORGANIZATION_SUBSCRIPTION_PRICE_TIER {
-  FOUNDING = 'FOUNDING',
-  STANDARD = 'STANDARD'
-}
-
-export enum ORGANIZATION_SUBSCRIPTION_PROVIDER {
-  ACCRUPAY = 'ACCRUPAY',
-  MANUAL = 'MANUAL',
-  NUVEI = 'NUVEI'
-}
-
-export enum ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS {
-  ACTIVE = 'ACTIVE',
-  CANCELED = 'CANCELED',
-  EXPIRED = 'EXPIRED',
-  INACTIVE = 'INACTIVE',
-  INITIALIZING = 'INITIALIZING'
-}
-
-export enum ORGANIZATION_SUBSCRIPTION_RENEW_INTERVAL {
-  MONTHLY = 'MONTHLY',
-  YEARLY = 'YEARLY'
-}
-
-export enum ORGANIZATION_SUBSCRIPTION_STATUS {
-  ACTIVE = 'ACTIVE',
-  CANCELED = 'CANCELED',
-  INACTIVE = 'INACTIVE',
-  INITIALIZING = 'INITIALIZING'
-}
-
-export enum ORGANIZATION_SUBSCRIPTION_TRANSACTION_PROCEDURE {
-  CHANGE = 'CHANGE',
-  PURCHASE = 'PURCHASE',
-  RENEWAL = 'RENEWAL'
-}
-
-export enum ORGANIZATION_USER_ROLE {
-  ADMIN = 'ADMIN',
-  EDITOR = 'EDITOR',
-  OWNER = 'OWNER',
-  VIEWER = 'VIEWER'
-}
-
-export type Organization = {
-  __typename?: 'Organization';
-  acct_provider_conns?: Maybe<OrganizationAcctProviderConnPaginationConnection>;
-  address_city?: Maybe<Scalars['String']['output']>;
-  address_country_code_iso_3?: Maybe<COUNTRY_ISO_3>;
-  address_lat?: Maybe<Scalars['Float']['output']>;
-  address_line_1?: Maybe<Scalars['String']['output']>;
-  address_line_2?: Maybe<Scalars['String']['output']>;
-  address_lng?: Maybe<Scalars['Float']['output']>;
-  address_number?: Maybe<Scalars['String']['output']>;
-  address_state?: Maybe<Scalars['String']['output']>;
-  address_zip_code?: Maybe<Scalars['String']['output']>;
-  archived_at?: Maybe<Scalars['DateTime']['output']>;
-  business_address_city?: Maybe<Scalars['String']['output']>;
-  business_address_country_code_iso_3?: Maybe<COUNTRY_ISO_3>;
-  business_address_lat?: Maybe<Scalars['Float']['output']>;
-  business_address_line_1?: Maybe<Scalars['String']['output']>;
-  business_address_line_2?: Maybe<Scalars['String']['output']>;
-  business_address_lng?: Maybe<Scalars['Float']['output']>;
-  business_address_number?: Maybe<Scalars['String']['output']>;
-  business_address_state?: Maybe<Scalars['String']['output']>;
-  business_address_zip_code?: Maybe<Scalars['String']['output']>;
-  business_industry?: Maybe<Scalars['String']['output']>;
-  business_name?: Maybe<Scalars['String']['output']>;
-  business_number_of_employees?: Maybe<Scalars['Int']['output']>;
-  business_tax_code?: Maybe<Scalars['String']['output']>;
-  business_tax_code_type?: Maybe<TAX_TYPE>;
-  created_at: Scalars['DateTime']['output'];
-  current_email_verification_id?: Maybe<Scalars['String']['output']>;
-  current_phone_number_verification_id?: Maybe<Scalars['String']['output']>;
-  email: Scalars['String']['output'];
-  id: Scalars['ID']['output'];
-  language?: Maybe<Scalars['String']['output']>;
-  logo_picture_file?: Maybe<File>;
-  logo_picture_file_id?: Maybe<Scalars['String']['output']>;
-  name: Scalars['String']['output'];
-  phone_number?: Maybe<Scalars['String']['output']>;
-  primary_contact_name?: Maybe<Scalars['String']['output']>;
-  referred_by_code?: Maybe<Scalars['String']['output']>;
-  setting_allow_invoice_due_snooze_reminders?: Maybe<Scalars['Boolean']['output']>;
-  setting_allow_invoice_overdue_snooze_reminders?: Maybe<Scalars['Boolean']['output']>;
-  setting_customer_email_copy_mode?: Maybe<NOTIFICATION_EMAIL_COPY_MODE>;
-  /** @deprecated Use `setting_customer_email_copy_mode` instead */
-  setting_receive_customer_notification_mode?: Maybe<NOTIFICATION_EMAIL_COPY_MODE>;
-  setting_send_invoice_due_reminders?: Maybe<Scalars['Boolean']['output']>;
-  setting_send_invoice_overdue_reminders?: Maybe<Scalars['Boolean']['output']>;
-  subscription_data?: Maybe<OrganizationSubscriptionData>;
-  /** @deprecated Use subscription_data.subscription_level instead */
-  subscription_level?: Maybe<Scalars['Int']['output']>;
-  timezone?: Maybe<Scalars['String']['output']>;
-  track_first_invoice_email_sent_at?: Maybe<Scalars['DateTime']['output']>;
-  unique_code: Scalars['String']['output'];
-  unique_name: Scalars['String']['output'];
-  updated_at: Scalars['DateTime']['output'];
-  website?: Maybe<Scalars['String']['output']>;
-};
-
-
-export type Organizationacct_provider_connsArgs = {
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema>>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export type OrganizationAcctProviderConn = {
-  __typename?: 'OrganizationAcctProviderConn';
-  acct_provider: ACCT_PROVIDER;
-  address_city?: Maybe<Scalars['String']['output']>;
-  address_country_code_iso_3?: Maybe<COUNTRY_ISO_3>;
-  address_lat?: Maybe<Scalars['Float']['output']>;
-  address_line_1?: Maybe<Scalars['String']['output']>;
-  address_line_2?: Maybe<Scalars['String']['output']>;
-  address_lng?: Maybe<Scalars['Float']['output']>;
-  address_number?: Maybe<Scalars['String']['output']>;
-  address_state?: Maybe<Scalars['String']['output']>;
-  address_zip_code?: Maybe<Scalars['String']['output']>;
-  automatic_pull_enabled: Scalars['Boolean']['output'];
-  bill_add_url?: Maybe<Scalars['String']['output']>;
-  business_address_city?: Maybe<Scalars['String']['output']>;
-  business_address_country_code_iso_3?: Maybe<COUNTRY_ISO_3>;
-  business_address_lat?: Maybe<Scalars['Float']['output']>;
-  business_address_line_1?: Maybe<Scalars['String']['output']>;
-  business_address_line_2?: Maybe<Scalars['String']['output']>;
-  business_address_lng?: Maybe<Scalars['Float']['output']>;
-  business_address_number?: Maybe<Scalars['String']['output']>;
-  business_address_state?: Maybe<Scalars['String']['output']>;
-  business_address_zip_code?: Maybe<Scalars['String']['output']>;
-  business_industry?: Maybe<Scalars['String']['output']>;
-  business_name?: Maybe<Scalars['String']['output']>;
-  business_number_of_employees?: Maybe<Scalars['Int']['output']>;
-  business_tax_code?: Maybe<Scalars['String']['output']>;
-  business_tax_code_type?: Maybe<TAX_TYPE>;
-  code: Scalars['String']['output'];
-  conn_expires_at: Scalars['DateTime']['output'];
-  created_at: Scalars['DateTime']['output'];
-  customer_add_url?: Maybe<Scalars['String']['output']>;
-  disconnected_at?: Maybe<Scalars['DateTime']['output']>;
-  email?: Maybe<Scalars['String']['output']>;
-  id: Scalars['ID']['output'];
-  invoice_add_url?: Maybe<Scalars['String']['output']>;
-  language?: Maybe<Scalars['String']['output']>;
-  last_conn_at?: Maybe<Scalars['DateTime']['output']>;
-  last_successful_sync_at?: Maybe<Scalars['DateTime']['output']>;
-  last_successful_sync_id?: Maybe<Scalars['String']['output']>;
-  last_sync_at?: Maybe<Scalars['DateTime']['output']>;
-  last_sync_id?: Maybe<Scalars['String']['output']>;
-  last_sync_succeeded?: Maybe<Scalars['Boolean']['output']>;
-  name?: Maybe<Scalars['String']['output']>;
-  organization_id: Scalars['String']['output'];
-  payload?: Maybe<Scalars['JSON']['output']>;
-  phone_number?: Maybe<Scalars['String']['output']>;
-  primary_contact_name?: Maybe<Scalars['String']['output']>;
-  status: ORGANIZATION_ACCT_PROVIDER_CONN_STATUS;
-  synchronizations: OrganizationAcctProviderConnSynchronizationPaginationConnection;
-  timezone?: Maybe<Scalars['String']['output']>;
-  updated_at: Scalars['DateTime']['output'];
-  url?: Maybe<Scalars['String']['output']>;
-  vendor_add_url?: Maybe<Scalars['String']['output']>;
-  website_url?: Maybe<Scalars['String']['output']>;
-};
-
-
-export type OrganizationAcctProviderConnsynchronizationsArgs = {
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  failed?: InputMaybe<Scalars['Boolean']['input']>;
-  finished?: InputMaybe<Scalars['Boolean']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  scope?: InputMaybe<ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_SCOPE>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  skipped?: InputMaybe<Scalars['Boolean']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema>>;
-  succeeded?: InputMaybe<Scalars['Boolean']['input']>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export type OrganizationAcctProviderConnPaginationConnection = {
-  __typename?: 'OrganizationAcctProviderConnPaginationConnection';
-  edges: Array<OrganizationAcctProviderConnPaginationEdge>;
-  pageInfo: PageInfo;
-  totalCount: Scalars['Int']['output'];
-};
-
-export type OrganizationAcctProviderConnPaginationEdge = {
-  __typename?: 'OrganizationAcctProviderConnPaginationEdge';
-  cursor: Scalars['ConnectionCursor']['output'];
-  node: OrganizationAcctProviderConn;
-};
-
-export type OrganizationAcctProviderConnSynchronization = {
-  __typename?: 'OrganizationAcctProviderConnSynchronization';
-  create_failure: Scalars['Int']['output'];
-  create_success: Scalars['Int']['output'];
-  created_at: Scalars['DateTime']['output'];
-  data?: Maybe<OrganizationAcctProviderConnSynchronizationData>;
-  delete_failure: Scalars['Int']['output'];
-  delete_success: Scalars['Int']['output'];
-  error?: Maybe<Scalars['String']['output']>;
-  errors: Array<Scalars['String']['output']>;
-  failed_at?: Maybe<Scalars['DateTime']['output']>;
-  finished_at?: Maybe<Scalars['DateTime']['output']>;
-  force?: Maybe<Scalars['Boolean']['output']>;
-  id: Scalars['ID']['output'];
-  mode: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_MODE;
-  organization_acct_provider_conn_id: Scalars['String']['output'];
-  organization_id: Scalars['String']['output'];
-  payload?: Maybe<Scalars['JSON']['output']>;
-  process_failure: Scalars['Int']['output'];
-  process_success: Scalars['Int']['output'];
-  provider: ACCT_PROVIDER;
-  read_failure: Scalars['Int']['output'];
-  read_success: Scalars['Int']['output'];
-  scope: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_SCOPE;
-  scope_description?: Maybe<Scalars['String']['output']>;
-  scope_id?: Maybe<Scalars['String']['output']>;
-  skipped: Scalars['Int']['output'];
-  skipped_at?: Maybe<Scalars['DateTime']['output']>;
-  started_at?: Maybe<Scalars['DateTime']['output']>;
-  succeeded_at?: Maybe<Scalars['DateTime']['output']>;
-  update_failure: Scalars['Int']['output'];
-  update_success: Scalars['Int']['output'];
-  updated_at: Scalars['DateTime']['output'];
-  warnings: Array<Scalars['String']['output']>;
-};
-
-export type OrganizationAcctProviderConnSynchronizationData = {
-  __typename?: 'OrganizationAcctProviderConnSynchronizationData';
-  bill?: Maybe<OrganizationAcctProviderConnSynchronizationEntity>;
-  bill_transaction?: Maybe<OrganizationAcctProviderConnSynchronizationEntity>;
-  customer?: Maybe<OrganizationAcctProviderConnSynchronizationEntity>;
-  invoice?: Maybe<OrganizationAcctProviderConnSynchronizationEntity>;
-  invoice_transaction?: Maybe<OrganizationAcctProviderConnSynchronizationEntity>;
-  vendor?: Maybe<OrganizationAcctProviderConnSynchronizationEntity>;
-};
-
-export type OrganizationAcctProviderConnSynchronizationEntity = {
-  __typename?: 'OrganizationAcctProviderConnSynchronizationEntity';
-  count: OrganizationAcctProviderConnSynchronizationEntityCount;
-  items?: Maybe<Scalars['JSON']['output']>;
-};
-
-export type OrganizationAcctProviderConnSynchronizationEntityCount = {
-  __typename?: 'OrganizationAcctProviderConnSynchronizationEntityCount';
-  create_failure: Scalars['Int']['output'];
-  create_success: Scalars['Int']['output'];
-  delete_failure: Scalars['Int']['output'];
-  delete_success: Scalars['Int']['output'];
-  process_failure: Scalars['Int']['output'];
-  process_success: Scalars['Int']['output'];
-  read_failure: Scalars['Int']['output'];
-  read_success: Scalars['Int']['output'];
-  skipped: Scalars['Int']['output'];
-  update_failure: Scalars['Int']['output'];
-  update_success: Scalars['Int']['output'];
-};
-
-export type OrganizationAcctProviderConnSynchronizationPaginationConnection = {
-  __typename?: 'OrganizationAcctProviderConnSynchronizationPaginationConnection';
-  edges: Array<OrganizationAcctProviderConnSynchronizationPaginationEdge>;
-  pageInfo: PageInfo;
-  totalCount: Scalars['Int']['output'];
-};
-
-export type OrganizationAcctProviderConnSynchronizationPaginationEdge = {
-  __typename?: 'OrganizationAcctProviderConnSynchronizationPaginationEdge';
-  cursor: Scalars['ConnectionCursor']['output'];
-  node: OrganizationAcctProviderConnSynchronization;
-};
-
-export type OrganizationAcctProviderTokenExchange = {
-  __typename?: 'OrganizationAcctProviderTokenExchange';
-  organization?: Maybe<Organization>;
-  status: ORGANIZATION_ACCT_PROVIDER_TOKEN_EXCHANGE_STATUS;
-  token: Scalars['String']['output'];
-  user: User;
-};
-
-export type OrganizationBill = {
-  __typename?: 'OrganizationBill';
-  amount: Scalars['BigInt']['output'];
-  /** The open amount for this bill. Balance 0 represents bill fully paid. */
-  balance?: Maybe<Scalars['BigInt']['output']>;
-  bill_date: Scalars['DateTime']['output'];
-  conn_linked_invoice_id?: Maybe<Scalars['String']['output']>;
-  conn_locked_data_at?: Maybe<Scalars['DateTime']['output']>;
-  created_at: Scalars['DateTime']['output'];
-  currency_code: CURRENCY;
-  description?: Maybe<Scalars['String']['output']>;
-  discount_amount: Scalars['BigInt']['output'];
-  due_date: Scalars['DateTime']['output'];
-  file?: Maybe<File>;
-  file_id?: Maybe<Scalars['String']['output']>;
-  /** @deprecated Use `provider_errors` and `provider_warnings` instead */
-  has_sync_errors?: Maybe<Scalars['Boolean']['output']>;
-  history: OrganizationBillHistoryPaginationConnection;
-  id: Scalars['ID']['output'];
-  is_overdue?: Maybe<Scalars['Boolean']['output']>;
-  last_successful_sync_at?: Maybe<Scalars['DateTime']['output']>;
-  last_successful_sync_id?: Maybe<Scalars['String']['output']>;
-  last_sync_at?: Maybe<Scalars['DateTime']['output']>;
-  last_sync_id?: Maybe<Scalars['String']['output']>;
-  last_sync_succeeded?: Maybe<Scalars['Boolean']['output']>;
-  latest_acct_provider_balance?: Maybe<Scalars['BigInt']['output']>;
-  latest_acct_provider_is_overdue?: Maybe<Scalars['Boolean']['output']>;
-  latest_acct_provider_status?: Maybe<BILL_STATUS>;
-  number?: Maybe<Scalars['String']['output']>;
-  organization: Organization;
-  organization_acct_provider_conn_id: Scalars['String']['output'];
-  organization_id: Scalars['String']['output'];
-  organization_project?: Maybe<OrganizationProject>;
-  organization_project_id?: Maybe<Scalars['String']['output']>;
-  organization_vendor: OrganizationVendor;
-  organization_vendor_id: Scalars['String']['output'];
-  paid_amount?: Maybe<Scalars['BigInt']['output']>;
-  paid_at?: Maybe<Scalars['DateTime']['output']>;
-  payload?: Maybe<Scalars['JSON']['output']>;
-  provider: ACCT_PROVIDER;
-  provider_code: Scalars['String']['output'];
-  provider_errors: Array<Scalars['String']['output']>;
-  provider_url?: Maybe<Scalars['String']['output']>;
-  provider_warnings: Array<Scalars['String']['output']>;
-  status?: Maybe<BILL_STATUS>;
-  tax_amount: Scalars['BigInt']['output'];
-  total_amount: Scalars['BigInt']['output'];
-  transaction_links?: Maybe<Array<OrganizationBillTransactionLink>>;
-  unique_code: Scalars['String']['output'];
-  updated_at: Scalars['DateTime']['output'];
-  vendor_address_city?: Maybe<Scalars['String']['output']>;
-  vendor_address_country_code_iso_3?: Maybe<COUNTRY_ISO_3>;
-  vendor_address_lat?: Maybe<Scalars['Float']['output']>;
-  vendor_address_line_1?: Maybe<Scalars['String']['output']>;
-  vendor_address_line_2?: Maybe<Scalars['String']['output']>;
-  vendor_address_lng?: Maybe<Scalars['Float']['output']>;
-  vendor_address_number?: Maybe<Scalars['String']['output']>;
-  vendor_address_state?: Maybe<Scalars['String']['output']>;
-  vendor_address_zip_code?: Maybe<Scalars['String']['output']>;
-  vendor_email?: Maybe<Scalars['String']['output']>;
-};
-
-
-export type OrganizationBillhistoryArgs = {
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema>>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export type OrganizationBillHistory = {
-  __typename?: 'OrganizationBillHistory';
-  created_at: Scalars['DateTime']['output'];
-  id: Scalars['ID']['output'];
-  organization_bill_id: Scalars['String']['output'];
-  payload?: Maybe<Scalars['JSON']['output']>;
-  updated_at: Scalars['DateTime']['output'];
-};
-
-export type OrganizationBillHistoryPaginationConnection = {
-  __typename?: 'OrganizationBillHistoryPaginationConnection';
-  edges: Array<OrganizationBillHistoryPaginationEdge>;
-  pageInfo: PageInfo;
-  totalCount: Scalars['Int']['output'];
-};
-
-export type OrganizationBillHistoryPaginationEdge = {
-  __typename?: 'OrganizationBillHistoryPaginationEdge';
-  cursor: Scalars['ConnectionCursor']['output'];
-  node: OrganizationBillHistory;
-};
-
-export type OrganizationBillPaginationConnection = {
-  __typename?: 'OrganizationBillPaginationConnection';
-  edges: Array<OrganizationBillPaginationEdge>;
-  pageInfo: PageInfo;
-  totalCount: Scalars['Int']['output'];
-};
-
-export type OrganizationBillPaginationEdge = {
-  __typename?: 'OrganizationBillPaginationEdge';
-  cursor: Scalars['ConnectionCursor']['output'];
-  node: OrganizationBill;
-};
-
-export type OrganizationBillSummary = {
-  __typename?: 'OrganizationBillSummary';
-  acct_provider?: Maybe<ACCT_PROVIDER>;
-  balance: Scalars['BigInt']['output'];
-  currency?: Maybe<CURRENCY>;
-  /** Represents the balance as of the end of today (UTC), excluding future invoices. Will be null if customer is not provided. */
-  current_balance?: Maybe<Scalars['BigInt']['output']>;
-  customer_organization: Organization;
-  customer_organization_id: Scalars['String']['output'];
-  customer_organization_vendor?: Maybe<OrganizationVendor>;
-  customer_organization_vendor_id?: Maybe<Scalars['String']['output']>;
-  data: OrganizationBillPaginationConnection;
-  due_end_date?: Maybe<Scalars['DateTime']['output']>;
-  due_start_date?: Maybe<Scalars['DateTime']['output']>;
-  end_date?: Maybe<Scalars['DateTime']['output']>;
-  has_mismatching_balance?: Maybe<Scalars['Boolean']['output']>;
-  has_sync_errors?: Maybe<Scalars['Boolean']['output']>;
-  is_acct_provider_connected?: Maybe<Scalars['Boolean']['output']>;
-  last_sync_at?: Maybe<Scalars['DateTime']['output']>;
-  latest_acct_provider_balance?: Maybe<Scalars['BigInt']['output']>;
-  latest_acct_provider_one_to_thirty_days_due_amount?: Maybe<Scalars['BigInt']['output']>;
-  latest_acct_provider_sixty_plus_days_due_amount?: Maybe<Scalars['BigInt']['output']>;
-  latest_acct_provider_thirty_one_to_sixty_days_due_amount?: Maybe<Scalars['BigInt']['output']>;
-  one_to_thirty_days_due_amount?: Maybe<Scalars['BigInt']['output']>;
-  overdue_amount: Scalars['BigInt']['output'];
-  paid_amount: Scalars['BigInt']['output'];
-  sixty_plus_days_due_amount?: Maybe<Scalars['BigInt']['output']>;
-  start_date?: Maybe<Scalars['DateTime']['output']>;
-  status?: Maybe<BILL_STATUS>;
-  thirty_one_to_sixty_days_due_amount?: Maybe<Scalars['BigInt']['output']>;
-  total_amount: Scalars['BigInt']['output'];
-  total_open_bill_count: Scalars['Int']['output'];
-  total_overdue_bill_count: Scalars['Int']['output'];
-  vendor_organization?: Maybe<Organization>;
-  vendor_organization_id?: Maybe<Scalars['String']['output']>;
-};
-
-export type OrganizationBillTransaction = {
-  __typename?: 'OrganizationBillTransaction';
-  amount: Scalars['BigInt']['output'];
-  created_at: Scalars['DateTime']['output'];
-  currency_code: CURRENCY;
-  customer_organization_acct_provider_conn_id: Scalars['String']['output'];
-  customer_organization_id: Scalars['String']['output'];
-  customer_organization_payment_method_id: Scalars['String']['output'];
-  customer_organization_vendor_id: Scalars['String']['output'];
-  due_date: Scalars['DateTime']['output'];
-  failed_at?: Maybe<Scalars['DateTime']['output']>;
-  /** @deprecated Use `provider_errors` and `provider_warnings` instead */
-  has_sync_errors?: Maybe<Scalars['Boolean']['output']>;
-  id: Scalars['ID']['output'];
-  last_successful_sync_at?: Maybe<Scalars['DateTime']['output']>;
-  last_successful_sync_id?: Maybe<Scalars['String']['output']>;
-  last_sync_at?: Maybe<Scalars['DateTime']['output']>;
-  last_sync_id?: Maybe<Scalars['String']['output']>;
-  last_sync_succeeded?: Maybe<Scalars['Boolean']['output']>;
-  links: Array<OrganizationBillTransactionLink>;
-  payment_method: PAYMENT_METHOD;
-  payment_method_code: Scalars['String']['output'];
-  provider: ACCT_PROVIDER;
-  provider_code: Scalars['String']['output'];
-  provider_errors: Array<Scalars['String']['output']>;
-  provider_transaction_code: Scalars['String']['output'];
-  provider_url?: Maybe<Scalars['String']['output']>;
-  provider_warnings: Array<Scalars['String']['output']>;
-  reverted_at?: Maybe<Scalars['DateTime']['output']>;
-  started_at?: Maybe<Scalars['DateTime']['output']>;
-  status?: Maybe<TRANSACTION_STATUS>;
-  succeeded_at?: Maybe<Scalars['DateTime']['output']>;
-  transaction_code: Scalars['String']['output'];
-  transaction_date: Scalars['DateTime']['output'];
-  transaction_provider: TRANSACTION_PROVIDER;
-  updated_at: Scalars['DateTime']['output'];
-};
-
-export type OrganizationBillTransactionLink = {
-  __typename?: 'OrganizationBillTransactionLink';
-  amount: Scalars['BigInt']['output'];
-  created_at: Scalars['DateTime']['output'];
-  id: Scalars['ID']['output'];
-  organization_bill_id: Scalars['String']['output'];
-  organization_bill_transaction: OrganizationBillTransaction;
-  organization_bill_transaction_id: Scalars['String']['output'];
-  updated_at: Scalars['DateTime']['output'];
-};
-
-export type OrganizationConnection = {
-  __typename?: 'OrganizationConnection';
-  created_at: Scalars['DateTime']['output'];
-  customer_conn_status?: Maybe<ORGANIZATION_CONNECTION_STATUS>;
-  customer_conn_status_at?: Maybe<Scalars['DateTime']['output']>;
-  customer_organization_email?: Maybe<Scalars['String']['output']>;
-  customer_organization_id?: Maybe<Scalars['String']['output']>;
-  customer_organization_name?: Maybe<Scalars['String']['output']>;
-  customer_target_vendor_email?: Maybe<Scalars['String']['output']>;
-  customer_target_vendor_id?: Maybe<Scalars['String']['output']>;
-  customer_target_vendor_name?: Maybe<Scalars['String']['output']>;
-  id: Scalars['ID']['output'];
-  is_connected: Scalars['Boolean']['output'];
-  is_valid: Scalars['Boolean']['output'];
-  updated_at: Scalars['DateTime']['output'];
-  vendor_conn_status?: Maybe<ORGANIZATION_CONNECTION_STATUS>;
-  vendor_conn_status_at?: Maybe<Scalars['DateTime']['output']>;
-  vendor_organization_email?: Maybe<Scalars['String']['output']>;
-  vendor_organization_id?: Maybe<Scalars['String']['output']>;
-  vendor_organization_name?: Maybe<Scalars['String']['output']>;
-  vendor_target_customer_email?: Maybe<Scalars['String']['output']>;
-  vendor_target_customer_id?: Maybe<Scalars['String']['output']>;
-  vendor_target_customer_name?: Maybe<Scalars['String']['output']>;
-};
-
-export type OrganizationConnectionPaginationConnection = {
-  __typename?: 'OrganizationConnectionPaginationConnection';
-  edges: Array<OrganizationConnectionPaginationEdge>;
-  pageInfo: PageInfo;
-  totalCount: Scalars['Int']['output'];
-};
-
-export type OrganizationConnectionPaginationEdge = {
-  __typename?: 'OrganizationConnectionPaginationEdge';
-  cursor: Scalars['ConnectionCursor']['output'];
-  node: OrganizationConnection;
-};
-
-export type OrganizationCoupon = {
-  __typename?: 'OrganizationCoupon';
-  activated_at?: Maybe<Scalars['DateTime']['output']>;
-  archived_at?: Maybe<Scalars['DateTime']['output']>;
-  campaign: ORGANIZATION_COUPON_CAMPAIGN;
-  category: ORGANIZATION_COUPON_CATEGORY;
-  category_description?: Maybe<Scalars['String']['output']>;
-  created_at: Scalars['DateTime']['output'];
-  expires_at?: Maybe<Scalars['DateTime']['output']>;
-  id: Scalars['ID']['output'];
-  is_activation_unlimited: Scalars['Boolean']['output'];
-  organization_id?: Maybe<Scalars['String']['output']>;
-  status: ORGANIZATION_COUPON_STATUS;
-  subdivision: ORGANIZATION_COUPON_SUBDIVISION;
-  subdivision_description?: Maybe<Scalars['String']['output']>;
-  updated_at: Scalars['DateTime']['output'];
-};
-
-export type OrganizationCouponCreateSchema = {
-  campaign: ORGANIZATION_COUPON_CAMPAIGN;
-  category: ORGANIZATION_COUPON_CATEGORY;
-  expires_at?: InputMaybe<Scalars['DateTime']['input']>;
-  is_activation_unlimited: Scalars['Boolean']['input'];
-  organization_id?: InputMaybe<Scalars['String']['input']>;
-  subdivision: ORGANIZATION_COUPON_SUBDIVISION;
-};
-
-export type OrganizationCouponPaginationConnection = {
-  __typename?: 'OrganizationCouponPaginationConnection';
-  edges: Array<OrganizationCouponPaginationEdge>;
-  pageInfo: PageInfo;
-  totalCount: Scalars['Int']['output'];
-};
-
-export type OrganizationCouponPaginationEdge = {
-  __typename?: 'OrganizationCouponPaginationEdge';
-  cursor: Scalars['ConnectionCursor']['output'];
-  node: OrganizationCoupon;
-};
-
-export type OrganizationCustomer = {
-  __typename?: 'OrganizationCustomer';
-  address_city?: Maybe<Scalars['String']['output']>;
-  address_country_code_iso_3?: Maybe<COUNTRY_ISO_3>;
-  address_lat?: Maybe<Scalars['Float']['output']>;
-  address_line_1?: Maybe<Scalars['String']['output']>;
-  address_line_2?: Maybe<Scalars['String']['output']>;
-  address_lng?: Maybe<Scalars['Float']['output']>;
-  address_number?: Maybe<Scalars['String']['output']>;
-  address_state?: Maybe<Scalars['String']['output']>;
-  address_zip_code?: Maybe<Scalars['String']['output']>;
-  balance?: Maybe<Scalars['BigInt']['output']>;
-  conn_locked_data_at?: Maybe<Scalars['DateTime']['output']>;
-  connection?: Maybe<OrganizationConnection>;
-  contacts: Array<OrganizationCustomerContact>;
-  created_at: Scalars['DateTime']['output'];
-  email?: Maybe<Scalars['String']['output']>;
-  /** @deprecated Use `provider_errors` and `provider_warnings` instead */
-  has_sync_errors?: Maybe<Scalars['Boolean']['output']>;
-  id: Scalars['ID']['output'];
-  invoice_summary: OrganizationInvoiceSummary;
-  is_active: Scalars['Boolean']['output'];
-  language?: Maybe<Scalars['String']['output']>;
-  last_successful_sync_at?: Maybe<Scalars['DateTime']['output']>;
-  last_successful_sync_id?: Maybe<Scalars['String']['output']>;
-  last_sync_at?: Maybe<Scalars['DateTime']['output']>;
-  last_sync_id?: Maybe<Scalars['String']['output']>;
-  last_sync_succeeded?: Maybe<Scalars['Boolean']['output']>;
-  latest_acct_provider_balance?: Maybe<Scalars['BigInt']['output']>;
-  name: Scalars['String']['output'];
-  organization: Organization;
-  organization_acct_provider_conn_id: Scalars['String']['output'];
-  organization_id: Scalars['String']['output'];
-  overdue_amount?: Maybe<Scalars['BigInt']['output']>;
-  phone_number?: Maybe<Scalars['String']['output']>;
-  provider: ACCT_PROVIDER;
-  provider_code: Scalars['String']['output'];
-  provider_errors: Array<Scalars['String']['output']>;
-  provider_url?: Maybe<Scalars['String']['output']>;
-  provider_warnings: Array<Scalars['String']['output']>;
-  statement: OrganizationCustomerStatement;
-  tax_code?: Maybe<Scalars['String']['output']>;
-  tax_code_type?: Maybe<TAX_TYPE>;
-  timezone?: Maybe<Scalars['String']['output']>;
-  unique_code: Scalars['String']['output'];
-  updated_at: Scalars['DateTime']['output'];
-};
-
-
-export type OrganizationCustomerinvoice_summaryArgs = {
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  currency?: InputMaybe<CURRENCY>;
-  customer_name?: InputMaybe<Scalars['String']['input']>;
-  due_end_date?: InputMaybe<Scalars['DateTime']['input']>;
-  due_start_date?: InputMaybe<Scalars['DateTime']['input']>;
-  end_date?: InputMaybe<Scalars['DateTime']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  is_overdue?: InputMaybe<Scalars['Boolean']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  latest_acct_provider_is_overdue?: InputMaybe<Scalars['Boolean']['input']>;
-  latest_acct_provider_status?: InputMaybe<INVOICE_STATUS>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema>>;
-  start_date?: InputMaybe<Scalars['DateTime']['input']>;
-  status?: InputMaybe<INVOICE_STATUS>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type OrganizationCustomerstatementArgs = {
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  currency?: InputMaybe<CURRENCY>;
-  due_end_date?: InputMaybe<Scalars['DateTime']['input']>;
-  due_start_date?: InputMaybe<Scalars['DateTime']['input']>;
-  end_date?: InputMaybe<Scalars['DateTime']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  is_overdue?: InputMaybe<Scalars['Boolean']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema>>;
-  start_date?: InputMaybe<Scalars['DateTime']['input']>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-  type?: InputMaybe<STATEMENT_LINE_TYPE>;
-};
-
-export type OrganizationCustomerContact = {
-  __typename?: 'OrganizationCustomerContact';
-  created_at: Scalars['DateTime']['output'];
-  email: Scalars['String']['output'];
-  email_copy_mode?: Maybe<NOTIFICATION_EMAIL_COPY_MODE>;
-  id: Scalars['ID']['output'];
-  is_default: Scalars['Boolean']['output'];
-  name: Scalars['String']['output'];
-  organization_customer_id: Scalars['String']['output'];
-  phone_number?: Maybe<Scalars['String']['output']>;
-  receive_invoice_reminders?: Maybe<Scalars['Boolean']['output']>;
-  /** @deprecated Use `receive_invoice_reminders` instead */
-  send_invoice_reminders?: Maybe<Scalars['Boolean']['output']>;
-  updated_at: Scalars['DateTime']['output'];
-};
-
-export type OrganizationCustomerContactPaginationConnection = {
-  __typename?: 'OrganizationCustomerContactPaginationConnection';
-  edges: Array<OrganizationCustomerContactPaginationEdge>;
-  pageInfo: PageInfo;
-  totalCount: Scalars['Int']['output'];
-};
-
-export type OrganizationCustomerContactPaginationEdge = {
-  __typename?: 'OrganizationCustomerContactPaginationEdge';
-  cursor: Scalars['ConnectionCursor']['output'];
-  node: OrganizationCustomerContact;
-};
-
-export type OrganizationCustomerPaginationConnection = {
-  __typename?: 'OrganizationCustomerPaginationConnection';
-  edges: Array<OrganizationCustomerPaginationEdge>;
-  pageInfo: PageInfo;
-  totalCount: Scalars['Int']['output'];
-};
-
-export type OrganizationCustomerPaginationEdge = {
-  __typename?: 'OrganizationCustomerPaginationEdge';
-  cursor: Scalars['ConnectionCursor']['output'];
-  node: OrganizationCustomer;
-};
-
-export type OrganizationCustomerStatement = {
-  __typename?: 'OrganizationCustomerStatement';
-  acct_provider?: Maybe<ACCT_PROVIDER>;
-  balance: Scalars['BigInt']['output'];
-  currency?: Maybe<CURRENCY>;
-  /** Represents the balance as of the end of today (UTC), excluding future invoices. */
-  current_balance: Scalars['BigInt']['output'];
-  customer_organization?: Maybe<Organization>;
-  customer_organization_id?: Maybe<Scalars['String']['output']>;
-  data: OrganizationCustomerStatementLineDataPaginationConnection;
-  due_end_date?: Maybe<Scalars['DateTime']['output']>;
-  due_start_date?: Maybe<Scalars['DateTime']['output']>;
-  end_date?: Maybe<Scalars['DateTime']['output']>;
-  has_mismatching_balance?: Maybe<Scalars['Boolean']['output']>;
-  has_sync_errors?: Maybe<Scalars['Boolean']['output']>;
-  is_acct_provider_connected?: Maybe<Scalars['Boolean']['output']>;
-  last_sync_at?: Maybe<Scalars['DateTime']['output']>;
-  latest_acct_provider_balance?: Maybe<Scalars['BigInt']['output']>;
-  latest_acct_provider_one_to_thirty_days_due_amount?: Maybe<Scalars['BigInt']['output']>;
-  latest_acct_provider_sixty_plus_days_due_amount?: Maybe<Scalars['BigInt']['output']>;
-  latest_acct_provider_thirty_one_to_sixty_days_due_amount?: Maybe<Scalars['BigInt']['output']>;
-  one_to_thirty_days_due_amount?: Maybe<Scalars['BigInt']['output']>;
-  overdue_amount: Scalars['BigInt']['output'];
-  paid_amount: Scalars['BigInt']['output'];
-  sixty_plus_days_due_amount?: Maybe<Scalars['BigInt']['output']>;
-  start_date?: Maybe<Scalars['DateTime']['output']>;
-  statement_session_token?: Maybe<Scalars['String']['output']>;
-  thirty_one_to_sixty_days_due_amount?: Maybe<Scalars['BigInt']['output']>;
-  total_amount: Scalars['BigInt']['output'];
-  total_open_invoice_count: Scalars['Int']['output'];
-  total_overdue_invoice_count: Scalars['Int']['output'];
-  vendor_organization: Organization;
-  vendor_organization_customer: OrganizationCustomer;
-  vendor_organization_customer_id: Scalars['String']['output'];
-  vendor_organization_id: Scalars['String']['output'];
-};
-
-export type OrganizationCustomerStatementInvoiceLine = {
-  __typename?: 'OrganizationCustomerStatementInvoiceLine';
-  amount: Scalars['BigInt']['output'];
-  code?: Maybe<Scalars['String']['output']>;
-  created_at: Scalars['DateTime']['output'];
-  currency_code: CURRENCY;
-  date: Scalars['DateTime']['output'];
-  due_date: Scalars['DateTime']['output'];
-  id: Scalars['ID']['output'];
-  invoice_status: Scalars['String']['output'];
-  organization_customer_id: Scalars['String']['output'];
-  organization_invoice: OrganizationCustomerStatementInvoiceLineData;
-  organization_invoice_id: Scalars['String']['output'];
-  paid_amount: Scalars['BigInt']['output'];
-  running_balance: Scalars['BigInt']['output'];
-  type: STATEMENT_LINE_TYPE;
-  updated_at: Scalars['DateTime']['output'];
-};
-
-export type OrganizationCustomerStatementInvoiceLineData = {
-  __typename?: 'OrganizationCustomerStatementInvoiceLineData';
-  amount: Scalars['BigInt']['output'];
-  /** The open amount for this invoice. Balance 0 represents invoice fully paid. */
-  balance?: Maybe<Scalars['BigInt']['output']>;
-  created_at: Scalars['DateTime']['output'];
-  currency_code: CURRENCY;
-  customer_address_city?: Maybe<Scalars['String']['output']>;
-  customer_address_country_code_iso_3?: Maybe<COUNTRY_ISO_3>;
-  customer_address_lat?: Maybe<Scalars['Float']['output']>;
-  customer_address_line_1?: Maybe<Scalars['String']['output']>;
-  customer_address_line_2?: Maybe<Scalars['String']['output']>;
-  customer_address_lng?: Maybe<Scalars['Float']['output']>;
-  customer_address_number?: Maybe<Scalars['String']['output']>;
-  customer_address_state?: Maybe<Scalars['String']['output']>;
-  customer_address_zip_code?: Maybe<Scalars['String']['output']>;
-  customer_email?: Maybe<Scalars['String']['output']>;
-  description?: Maybe<Scalars['String']['output']>;
-  discount_amount: Scalars['BigInt']['output'];
-  due_date: Scalars['DateTime']['output'];
-  email_sent_at?: Maybe<Scalars['DateTime']['output']>;
-  file_id?: Maybe<Scalars['String']['output']>;
-  id: Scalars['ID']['output'];
-  invoice_date: Scalars['DateTime']['output'];
-  last_successful_sync_at?: Maybe<Scalars['DateTime']['output']>;
-  last_successful_sync_id?: Maybe<Scalars['String']['output']>;
-  last_sync_at?: Maybe<Scalars['DateTime']['output']>;
-  last_sync_id?: Maybe<Scalars['String']['output']>;
-  last_sync_succeeded?: Maybe<Scalars['Boolean']['output']>;
-  latest_acct_provider_balance?: Maybe<Scalars['BigInt']['output']>;
-  latest_acct_provider_status?: Maybe<INVOICE_STATUS>;
-  number?: Maybe<Scalars['String']['output']>;
-  organization_acct_provider_conn_id: Scalars['String']['output'];
-  organization_customer_id: Scalars['String']['output'];
-  organization_id: Scalars['String']['output'];
-  organization_project_id?: Maybe<Scalars['String']['output']>;
-  paid_amount?: Maybe<Scalars['BigInt']['output']>;
-  paid_at?: Maybe<Scalars['DateTime']['output']>;
-  payload?: Maybe<Scalars['JSON']['output']>;
-  payment_options: Array<OrganizationInvoicePaymentOption>;
-  provider: ACCT_PROVIDER;
-  provider_code: Scalars['String']['output'];
-  provider_errors: Array<Scalars['String']['output']>;
-  provider_url?: Maybe<Scalars['String']['output']>;
-  provider_warnings: Array<Scalars['String']['output']>;
-  status?: Maybe<INVOICE_STATUS>;
-  tax_amount: Scalars['BigInt']['output'];
-  total_amount: Scalars['BigInt']['output'];
-  unique_code: Scalars['String']['output'];
-  updated_at: Scalars['DateTime']['output'];
-  view_url?: Maybe<Scalars['String']['output']>;
-};
-
-export type OrganizationCustomerStatementLineData = OrganizationCustomerStatementInvoiceLine | OrganizationCustomerStatementTransactionLine;
-
-export type OrganizationCustomerStatementLineDataPaginationConnection = {
-  __typename?: 'OrganizationCustomerStatementLineDataPaginationConnection';
-  edges: Array<OrganizationCustomerStatementLineDataPaginationEdge>;
-  pageInfo: PageInfo;
-  totalCount: Scalars['Int']['output'];
-};
-
-export type OrganizationCustomerStatementLineDataPaginationEdge = {
-  __typename?: 'OrganizationCustomerStatementLineDataPaginationEdge';
-  cursor: Scalars['ConnectionCursor']['output'];
-  node: OrganizationCustomerStatementLineData;
-};
-
-export type OrganizationCustomerStatementLog = {
-  __typename?: 'OrganizationCustomerStatementLog';
-  access_type: STATEMENT_ACCESS_TYPE;
-  agent_info_browser_name?: Maybe<Scalars['String']['output']>;
-  agent_info_browser_version?: Maybe<Scalars['String']['output']>;
-  agent_info_ip: Scalars['String']['output'];
-  agent_info_is_desktop?: Maybe<Scalars['Boolean']['output']>;
-  agent_info_is_mobile?: Maybe<Scalars['Boolean']['output']>;
-  agent_info_os?: Maybe<Scalars['String']['output']>;
-  created_at: Scalars['DateTime']['output'];
-  customer_organization_id?: Maybe<Scalars['String']['output']>;
-  id: Scalars['ID']['output'];
-  last_activity_at: Scalars['DateTime']['output'];
-  location_city?: Maybe<Scalars['String']['output']>;
-  location_country?: Maybe<Scalars['String']['output']>;
-  location_latitude?: Maybe<Scalars['Float']['output']>;
-  location_longitude?: Maybe<Scalars['Float']['output']>;
-  location_region?: Maybe<Scalars['String']['output']>;
-  location_timezone?: Maybe<Scalars['String']['output']>;
-  organization_customer_id: Scalars['String']['output'];
-  organization_customer_name?: Maybe<Scalars['String']['output']>;
-  statement_current_balance?: Maybe<Scalars['BigInt']['output']>;
-  statement_session_token: Scalars['String']['output'];
-  statement_total_open_invoice_count?: Maybe<Scalars['Int']['output']>;
-  statement_total_overdue_invoice_count?: Maybe<Scalars['Int']['output']>;
-  updated_at: Scalars['DateTime']['output'];
-  user_id?: Maybe<Scalars['String']['output']>;
-  vendor_organization_id: Scalars['String']['output'];
-};
-
-export type OrganizationCustomerStatementLogPaginationConnection = {
-  __typename?: 'OrganizationCustomerStatementLogPaginationConnection';
-  edges: Array<OrganizationCustomerStatementLogPaginationEdge>;
-  pageInfo: PageInfo;
-  totalCount: Scalars['Int']['output'];
-};
-
-export type OrganizationCustomerStatementLogPaginationEdge = {
-  __typename?: 'OrganizationCustomerStatementLogPaginationEdge';
-  cursor: Scalars['ConnectionCursor']['output'];
-  node: OrganizationCustomerStatementLog;
-};
-
-export type OrganizationCustomerStatementTransactionLine = {
-  __typename?: 'OrganizationCustomerStatementTransactionLine';
-  amount: Scalars['BigInt']['output'];
-  code?: Maybe<Scalars['String']['output']>;
-  created_at: Scalars['DateTime']['output'];
-  currency_code: CURRENCY;
-  date: Scalars['DateTime']['output'];
-  due_date: Scalars['DateTime']['output'];
-  id: Scalars['ID']['output'];
-  organization_customer_id: Scalars['String']['output'];
-  organization_invoice_transaction: OrganizationCustomerStatementTransactionLineData;
-  organization_invoice_transaction_id: Scalars['String']['output'];
-  paid_amount: Scalars['BigInt']['output'];
-  running_balance: Scalars['BigInt']['output'];
-  transaction_status: Scalars['String']['output'];
-  type: STATEMENT_LINE_TYPE;
-  updated_at: Scalars['DateTime']['output'];
-};
-
-export type OrganizationCustomerStatementTransactionLineData = {
-  __typename?: 'OrganizationCustomerStatementTransactionLineData';
-  amount: Scalars['BigInt']['output'];
-  created_at: Scalars['DateTime']['output'];
-  currency_code: CURRENCY;
-  due_date: Scalars['DateTime']['output'];
-  failed_at?: Maybe<Scalars['DateTime']['output']>;
-  id: Scalars['ID']['output'];
-  last_successful_sync_at?: Maybe<Scalars['DateTime']['output']>;
-  last_successful_sync_id?: Maybe<Scalars['String']['output']>;
-  last_sync_at?: Maybe<Scalars['DateTime']['output']>;
-  last_sync_id?: Maybe<Scalars['String']['output']>;
-  last_sync_succeeded?: Maybe<Scalars['Boolean']['output']>;
-  links: Array<OrganizationInvoiceTransactionLink>;
-  payment_method: PAYMENT_METHOD;
-  payment_method_code: Scalars['String']['output'];
-  provider: ACCT_PROVIDER;
-  provider_code: Scalars['String']['output'];
-  provider_errors: Array<Scalars['String']['output']>;
-  provider_transaction_code: Scalars['String']['output'];
-  provider_url?: Maybe<Scalars['String']['output']>;
-  provider_warnings: Array<Scalars['String']['output']>;
-  reverted_at?: Maybe<Scalars['DateTime']['output']>;
-  started_at?: Maybe<Scalars['DateTime']['output']>;
-  status?: Maybe<TRANSACTION_STATUS>;
-  succeeded_at?: Maybe<Scalars['DateTime']['output']>;
-  transaction_code: Scalars['String']['output'];
-  transaction_date: Scalars['DateTime']['output'];
-  transaction_provider: TRANSACTION_PROVIDER;
-  unapplied_amount: Scalars['BigInt']['output'];
-  updated_at: Scalars['DateTime']['output'];
-  vendor_organization_acct_provider_conn_id: Scalars['String']['output'];
-  vendor_organization_customer_id: Scalars['String']['output'];
-  vendor_organization_id: Scalars['String']['output'];
-  vendor_organization_receiving_method_id: Scalars['String']['output'];
-};
-
-export type OrganizationInvite = {
-  __typename?: 'OrganizationInvite';
-  accepted_at?: Maybe<Scalars['DateTime']['output']>;
-  canceled_at?: Maybe<Scalars['DateTime']['output']>;
-  code: Scalars['String']['output'];
-  created_at: Scalars['DateTime']['output'];
-  created_by_user: User;
-  created_by_user_id: Scalars['String']['output'];
-  email: Scalars['String']['output'];
-  expires_at: Scalars['DateTime']['output'];
-  id: Scalars['ID']['output'];
-  organization: Organization;
-  organization_id: Scalars['String']['output'];
-  payload?: Maybe<Scalars['JSON']['output']>;
-  rejected_at?: Maybe<Scalars['DateTime']['output']>;
-  role: ORGANIZATION_USER_ROLE;
-  status: ORGANIZATION_INVITE_STATUS;
-  updated_at: Scalars['DateTime']['output'];
-};
-
-export type OrganizationInvitePaginationConnection = {
-  __typename?: 'OrganizationInvitePaginationConnection';
-  edges: Array<OrganizationInvitePaginationEdge>;
-  pageInfo: PageInfo;
-  totalCount: Scalars['Int']['output'];
-};
-
-export type OrganizationInvitePaginationEdge = {
-  __typename?: 'OrganizationInvitePaginationEdge';
-  cursor: Scalars['ConnectionCursor']['output'];
-  node: OrganizationInvite;
-};
-
-export type OrganizationInvoice = {
-  __typename?: 'OrganizationInvoice';
-  amount: Scalars['BigInt']['output'];
-  /** The open amount for this invoice. Balance 0 represents invoice fully paid. */
-  balance?: Maybe<Scalars['BigInt']['output']>;
-  created_at: Scalars['DateTime']['output'];
-  currency_code: CURRENCY;
-  customer_address_city?: Maybe<Scalars['String']['output']>;
-  customer_address_country_code_iso_3?: Maybe<COUNTRY_ISO_3>;
-  customer_address_lat?: Maybe<Scalars['Float']['output']>;
-  customer_address_line_1?: Maybe<Scalars['String']['output']>;
-  customer_address_line_2?: Maybe<Scalars['String']['output']>;
-  customer_address_lng?: Maybe<Scalars['Float']['output']>;
-  customer_address_number?: Maybe<Scalars['String']['output']>;
-  customer_address_state?: Maybe<Scalars['String']['output']>;
-  customer_address_zip_code?: Maybe<Scalars['String']['output']>;
-  customer_email?: Maybe<Scalars['String']['output']>;
-  description?: Maybe<Scalars['String']['output']>;
-  discount_amount: Scalars['BigInt']['output'];
-  due_date: Scalars['DateTime']['output'];
-  email_sent_at?: Maybe<Scalars['DateTime']['output']>;
-  file?: Maybe<File>;
-  file_id?: Maybe<Scalars['String']['output']>;
-  /** @deprecated Use `provider_errors` and `provider_warnings` instead */
-  has_sync_errors?: Maybe<Scalars['Boolean']['output']>;
-  history: OrganizationInvoiceHistoryPaginationConnection;
-  id: Scalars['ID']['output'];
-  invoice_date: Scalars['DateTime']['output'];
-  is_overdue?: Maybe<Scalars['Boolean']['output']>;
-  last_successful_sync_at?: Maybe<Scalars['DateTime']['output']>;
-  last_successful_sync_id?: Maybe<Scalars['String']['output']>;
-  last_sync_at?: Maybe<Scalars['DateTime']['output']>;
-  last_sync_id?: Maybe<Scalars['String']['output']>;
-  last_sync_succeeded?: Maybe<Scalars['Boolean']['output']>;
-  latest_acct_provider_balance?: Maybe<Scalars['BigInt']['output']>;
-  latest_acct_provider_is_overdue?: Maybe<Scalars['Boolean']['output']>;
-  latest_acct_provider_status?: Maybe<INVOICE_STATUS>;
-  number?: Maybe<Scalars['String']['output']>;
-  organization: Organization;
-  organization_acct_provider_conn_id: Scalars['String']['output'];
-  organization_customer: OrganizationCustomer;
-  organization_customer_id: Scalars['String']['output'];
-  organization_id: Scalars['String']['output'];
-  organization_project?: Maybe<OrganizationProject>;
-  organization_project_id?: Maybe<Scalars['String']['output']>;
-  paid_amount?: Maybe<Scalars['BigInt']['output']>;
-  paid_at?: Maybe<Scalars['DateTime']['output']>;
-  payload?: Maybe<Scalars['JSON']['output']>;
-  payment_options: Array<OrganizationInvoicePaymentOption>;
-  provider: ACCT_PROVIDER;
-  provider_code: Scalars['String']['output'];
-  provider_errors: Array<Scalars['String']['output']>;
-  provider_url?: Maybe<Scalars['String']['output']>;
-  provider_warnings: Array<Scalars['String']['output']>;
-  status?: Maybe<INVOICE_STATUS>;
-  tax_amount: Scalars['BigInt']['output'];
-  total_amount: Scalars['BigInt']['output'];
-  transaction_links?: Maybe<Array<OrganizationInvoiceTransactionLink>>;
-  unique_code: Scalars['String']['output'];
-  updated_at: Scalars['DateTime']['output'];
-  view_url?: Maybe<Scalars['String']['output']>;
-};
-
-
-export type OrganizationInvoicehistoryArgs = {
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema>>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export type OrganizationInvoiceHistory = {
-  __typename?: 'OrganizationInvoiceHistory';
-  created_at: Scalars['DateTime']['output'];
-  id: Scalars['ID']['output'];
-  organization_invoice_id: Scalars['String']['output'];
-  payload?: Maybe<Scalars['JSON']['output']>;
-  updated_at: Scalars['DateTime']['output'];
-};
-
-export type OrganizationInvoiceHistoryPaginationConnection = {
-  __typename?: 'OrganizationInvoiceHistoryPaginationConnection';
-  edges: Array<OrganizationInvoiceHistoryPaginationEdge>;
-  pageInfo: PageInfo;
-  totalCount: Scalars['Int']['output'];
-};
-
-export type OrganizationInvoiceHistoryPaginationEdge = {
-  __typename?: 'OrganizationInvoiceHistoryPaginationEdge';
-  cursor: Scalars['ConnectionCursor']['output'];
-  node: OrganizationInvoiceHistory;
-};
-
-export type OrganizationInvoicePaginationConnection = {
-  __typename?: 'OrganizationInvoicePaginationConnection';
-  edges: Array<OrganizationInvoicePaginationEdge>;
-  pageInfo: PageInfo;
-  totalCount: Scalars['Int']['output'];
-};
-
-export type OrganizationInvoicePaginationEdge = {
-  __typename?: 'OrganizationInvoicePaginationEdge';
-  cursor: Scalars['ConnectionCursor']['output'];
-  node: OrganizationInvoice;
-};
-
-export type OrganizationInvoicePaymentOption = {
-  __typename?: 'OrganizationInvoicePaymentOption';
-  method: PAYMENT_METHOD;
-  payload?: Maybe<Scalars['JSON']['output']>;
-  url?: Maybe<Scalars['String']['output']>;
-};
-
-export type OrganizationInvoiceSummary = {
-  __typename?: 'OrganizationInvoiceSummary';
-  acct_provider?: Maybe<ACCT_PROVIDER>;
-  balance: Scalars['BigInt']['output'];
-  currency?: Maybe<CURRENCY>;
-  /** Represents the balance as of the end of today (UTC), excluding future invoices. Will be null if customer is not provided. */
-  current_balance?: Maybe<Scalars['BigInt']['output']>;
-  customer_organization?: Maybe<Organization>;
-  customer_organization_id?: Maybe<Scalars['String']['output']>;
-  data: OrganizationInvoicePaginationConnection;
-  due_end_date?: Maybe<Scalars['DateTime']['output']>;
-  due_start_date?: Maybe<Scalars['DateTime']['output']>;
-  end_date?: Maybe<Scalars['DateTime']['output']>;
-  has_mismatching_balance?: Maybe<Scalars['Boolean']['output']>;
-  has_sync_errors?: Maybe<Scalars['Boolean']['output']>;
-  is_acct_provider_connected?: Maybe<Scalars['Boolean']['output']>;
-  last_sync_at?: Maybe<Scalars['DateTime']['output']>;
-  latest_acct_provider_balance?: Maybe<Scalars['BigInt']['output']>;
-  latest_acct_provider_one_to_thirty_days_due_amount?: Maybe<Scalars['BigInt']['output']>;
-  latest_acct_provider_sixty_plus_days_due_amount?: Maybe<Scalars['BigInt']['output']>;
-  latest_acct_provider_thirty_one_to_sixty_days_due_amount?: Maybe<Scalars['BigInt']['output']>;
-  one_to_thirty_days_due_amount?: Maybe<Scalars['BigInt']['output']>;
-  overdue_amount: Scalars['BigInt']['output'];
-  paid_amount: Scalars['BigInt']['output'];
-  sixty_plus_days_due_amount?: Maybe<Scalars['BigInt']['output']>;
-  start_date?: Maybe<Scalars['DateTime']['output']>;
-  statement_session_token?: Maybe<Scalars['String']['output']>;
-  status?: Maybe<INVOICE_STATUS>;
-  thirty_one_to_sixty_days_due_amount?: Maybe<Scalars['BigInt']['output']>;
-  total_amount: Scalars['BigInt']['output'];
-  total_open_invoice_count: Scalars['Int']['output'];
-  total_overdue_invoice_count: Scalars['Int']['output'];
-  vendor_organization: Organization;
-  vendor_organization_customer?: Maybe<OrganizationCustomer>;
-  vendor_organization_customer_id?: Maybe<Scalars['String']['output']>;
-  vendor_organization_id: Scalars['String']['output'];
-};
-
-export type OrganizationInvoiceTransaction = {
-  __typename?: 'OrganizationInvoiceTransaction';
-  amount: Scalars['BigInt']['output'];
-  created_at: Scalars['DateTime']['output'];
-  currency_code: CURRENCY;
-  due_date: Scalars['DateTime']['output'];
-  failed_at?: Maybe<Scalars['DateTime']['output']>;
-  /** @deprecated Use `provider_errors` and `provider_warnings` instead */
-  has_sync_errors?: Maybe<Scalars['Boolean']['output']>;
-  id: Scalars['ID']['output'];
-  last_successful_sync_at?: Maybe<Scalars['DateTime']['output']>;
-  last_successful_sync_id?: Maybe<Scalars['String']['output']>;
-  last_sync_at?: Maybe<Scalars['DateTime']['output']>;
-  last_sync_id?: Maybe<Scalars['String']['output']>;
-  last_sync_succeeded?: Maybe<Scalars['Boolean']['output']>;
-  links: Array<OrganizationInvoiceTransactionLink>;
-  payment_method: PAYMENT_METHOD;
-  payment_method_code: Scalars['String']['output'];
-  provider: ACCT_PROVIDER;
-  provider_code: Scalars['String']['output'];
-  provider_errors: Array<Scalars['String']['output']>;
-  provider_transaction_code: Scalars['String']['output'];
-  provider_url?: Maybe<Scalars['String']['output']>;
-  provider_warnings: Array<Scalars['String']['output']>;
-  reverted_at?: Maybe<Scalars['DateTime']['output']>;
-  started_at?: Maybe<Scalars['DateTime']['output']>;
-  status?: Maybe<TRANSACTION_STATUS>;
-  succeeded_at?: Maybe<Scalars['DateTime']['output']>;
-  transaction_code: Scalars['String']['output'];
-  transaction_date: Scalars['DateTime']['output'];
-  transaction_provider: TRANSACTION_PROVIDER;
-  unapplied_amount: Scalars['BigInt']['output'];
-  updated_at: Scalars['DateTime']['output'];
-  vendor_organization_acct_provider_conn_id: Scalars['String']['output'];
-  vendor_organization_customer_id: Scalars['String']['output'];
-  vendor_organization_id: Scalars['String']['output'];
-  vendor_organization_receiving_method_id: Scalars['String']['output'];
-};
-
-export type OrganizationInvoiceTransactionLink = {
-  __typename?: 'OrganizationInvoiceTransactionLink';
-  amount: Scalars['BigInt']['output'];
-  created_at: Scalars['DateTime']['output'];
-  id: Scalars['ID']['output'];
-  organization_invoice_id: Scalars['String']['output'];
-  organization_invoice_transaction: OrganizationInvoiceTransaction;
-  organization_invoice_transaction_id: Scalars['String']['output'];
-  updated_at: Scalars['DateTime']['output'];
-};
-
-export type OrganizationManualSubscriptionAddonsSetupSchema = {
-  addons: Array<OrganizationManualSubscriptionSetupAddonSchema>;
-  ends_at?: InputMaybe<Scalars['DateTime']['input']>;
-  organization_id: Scalars['String']['input'];
-};
-
-export type OrganizationManualSubscriptionModuleSetupSchema = {
-  ends_at?: InputMaybe<Scalars['DateTime']['input']>;
-  module: ORGANIZATION_SUBSCRIPTION_MODULE_ITEM;
-  organization_id: Scalars['String']['input'];
-};
-
-export type OrganizationManualSubscriptionPlanSetupSchema = {
-  ends_at?: InputMaybe<Scalars['DateTime']['input']>;
-  organization_id: Scalars['String']['input'];
-  plan: ORGANIZATION_SUBSCRIPTION_PLAN_ITEM;
-};
-
-export type OrganizationManualSubscriptionSetupAddonSchema = {
-  addon: ORGANIZATION_SUBSCRIPTION_ADDON_ITEM;
-  quantity: Scalars['Float']['input'];
-};
-
-export type OrganizationPaginationConnection = {
-  __typename?: 'OrganizationPaginationConnection';
-  edges: Array<OrganizationPaginationEdge>;
-  pageInfo: PageInfo;
-  totalCount: Scalars['Int']['output'];
-};
-
-export type OrganizationPaginationEdge = {
-  __typename?: 'OrganizationPaginationEdge';
-  cursor: Scalars['ConnectionCursor']['output'];
-  node: Organization;
-};
-
-export type OrganizationPaymentMethod = {
-  __typename?: 'OrganizationPaymentMethod';
-  archived_at?: Maybe<Scalars['DateTime']['output']>;
-  billing_address_city?: Maybe<Scalars['String']['output']>;
-  billing_address_country_code_iso_3?: Maybe<COUNTRY_ISO_3>;
-  billing_address_line_1?: Maybe<Scalars['String']['output']>;
-  billing_address_line_2?: Maybe<Scalars['String']['output']>;
-  billing_address_number?: Maybe<Scalars['String']['output']>;
-  billing_address_state?: Maybe<Scalars['String']['output']>;
-  billing_address_zip_code?: Maybe<Scalars['String']['output']>;
-  billing_email?: Maybe<Scalars['String']['output']>;
-  billing_first_name?: Maybe<Scalars['String']['output']>;
-  billing_last_name?: Maybe<Scalars['String']['output']>;
-  billing_phone_number?: Maybe<Scalars['String']['output']>;
-  bound_id?: Maybe<Scalars['String']['output']>;
-  bound_mode?: Maybe<ORGANIZATION_PAYMENT_METHOD_BOUND_MODE>;
-  created_at: Scalars['DateTime']['output'];
-  id: Scalars['ID']['output'];
-  is_default: Scalars['Boolean']['output'];
-  is_enabled: Scalars['Boolean']['output'];
-  organization_id: Scalars['String']['output'];
-  payment_method: PAYMENT_METHOD;
-  payment_method_info?: Maybe<OrganizationPaymentMethodInfo>;
-  payment_provider: PAYMENT_PROVIDER;
-  updated_at: Scalars['DateTime']['output'];
-};
-
-export type OrganizationPaymentMethodCreditCardInfo = {
-  __typename?: 'OrganizationPaymentMethodCreditCardInfo';
-  card_brand?: Maybe<Scalars['String']['output']>;
-  card_number_masked?: Maybe<Scalars['String']['output']>;
-  type: PAYMENT_METHOD;
-};
-
-export type OrganizationPaymentMethodGenericInfo = {
-  __typename?: 'OrganizationPaymentMethodGenericInfo';
-  type: PAYMENT_METHOD;
-};
-
-export type OrganizationPaymentMethodInfo = OrganizationPaymentMethodCreditCardInfo | OrganizationPaymentMethodGenericInfo;
-
-export type OrganizationProject = {
-  __typename?: 'OrganizationProject';
-  archived_at?: Maybe<Scalars['DateTime']['output']>;
-  budget_amount: Scalars['BigInt']['output'];
-  budget_currency_code: CURRENCY;
-  canceled_at?: Maybe<Scalars['DateTime']['output']>;
-  change_requests: OrganizationProjectChangeRequestPaginationConnection;
-  completed_at?: Maybe<Scalars['DateTime']['output']>;
-  contract_url?: Maybe<Scalars['String']['output']>;
-  created_at: Scalars['DateTime']['output'];
-  description?: Maybe<Scalars['String']['output']>;
-  ends_at?: Maybe<Scalars['DateTime']['output']>;
-  id: Scalars['ID']['output'];
-  name: Scalars['String']['output'];
-  organization: Organization;
-  organization_customer: OrganizationCustomer;
-  organization_customer_id: Scalars['String']['output'];
-  organization_id: Scalars['String']['output'];
-  starts_at?: Maybe<Scalars['DateTime']['output']>;
-  status: PROJECT_STATUS;
-  updated_at: Scalars['DateTime']['output'];
-};
-
-
-export type OrganizationProjectchange_requestsArgs = {
-  accepted?: InputMaybe<Scalars['Boolean']['input']>;
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  canceled?: InputMaybe<Scalars['Boolean']['input']>;
-  expired?: InputMaybe<Scalars['Boolean']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  organization_project_change_request_id?: InputMaybe<Scalars['String']['input']>;
-  published?: InputMaybe<Scalars['Boolean']['input']>;
-  rejected?: InputMaybe<Scalars['Boolean']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema>>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export type OrganizationProjectChange = {
-  __typename?: 'OrganizationProjectChange';
-  created_at: Scalars['DateTime']['output'];
-  id: Scalars['ID']['output'];
-  organization_project_change_request_id: Scalars['String']['output'];
-  previous_budget_amount: Scalars['BigInt']['output'];
-  previous_ends_at?: Maybe<Scalars['DateTime']['output']>;
-  previous_name: Scalars['String']['output'];
-  previous_starts_at?: Maybe<Scalars['DateTime']['output']>;
-  updated_at: Scalars['DateTime']['output'];
-};
-
-export type OrganizationProjectChangeRequest = {
-  __typename?: 'OrganizationProjectChangeRequest';
-  accepted_at?: Maybe<Scalars['DateTime']['output']>;
-  budget_amount: Scalars['BigInt']['output'];
-  canceled_at?: Maybe<Scalars['DateTime']['output']>;
-  contract_url?: Maybe<Scalars['String']['output']>;
-  created_at: Scalars['DateTime']['output'];
-  created_by_user_id?: Maybe<Scalars['String']['output']>;
-  created_by_user_name: Scalars['String']['output'];
-  created_side: ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE;
-  ends_at?: Maybe<Scalars['DateTime']['output']>;
-  expires_at?: Maybe<Scalars['DateTime']['output']>;
-  finished_by_user_id?: Maybe<Scalars['String']['output']>;
-  finished_by_user_name?: Maybe<Scalars['String']['output']>;
-  finished_side?: Maybe<ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE>;
-  id: Scalars['ID']['output'];
-  name: Scalars['String']['output'];
-  organization_project_change?: Maybe<OrganizationProjectChange>;
-  organization_project_id: Scalars['String']['output'];
-  payload: Scalars['JSON']['output'];
-  published_at?: Maybe<Scalars['DateTime']['output']>;
-  rejected_at?: Maybe<Scalars['DateTime']['output']>;
-  sequence_number: Scalars['Int']['output'];
-  starts_at?: Maybe<Scalars['DateTime']['output']>;
-  status: PROJECT_CHANGE_REQUEST_STATUS;
-  updated_at: Scalars['DateTime']['output'];
-};
-
-export type OrganizationProjectChangeRequestPaginationConnection = {
-  __typename?: 'OrganizationProjectChangeRequestPaginationConnection';
-  edges: Array<OrganizationProjectChangeRequestPaginationEdge>;
-  pageInfo: PageInfo;
-  totalCount: Scalars['Int']['output'];
-};
-
-export type OrganizationProjectChangeRequestPaginationEdge = {
-  __typename?: 'OrganizationProjectChangeRequestPaginationEdge';
-  cursor: Scalars['ConnectionCursor']['output'];
-  node: OrganizationProjectChangeRequest;
-};
+import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
+export type ACCT_PROVIDER =
+  | 'QUICKBOOKS';
+
+export type BILL_STATUS =
+  | 'OPEN'
+  | 'PAID';
+
+export type COUNTRY_ISO_3 =
+  | 'ABW'
+  | 'AFG'
+  | 'AGO'
+  | 'AIA'
+  | 'ALA'
+  | 'ALB'
+  | 'AND'
+  | 'ARE'
+  | 'ARG'
+  | 'ARM'
+  | 'ASM'
+  | 'ATA'
+  | 'ATF'
+  | 'ATG'
+  | 'AUS'
+  | 'AUT'
+  | 'AZE'
+  | 'BDI'
+  | 'BEL'
+  | 'BEN'
+  | 'BES'
+  | 'BFA'
+  | 'BGD'
+  | 'BGR'
+  | 'BHR'
+  | 'BHS'
+  | 'BIH'
+  | 'BLM'
+  | 'BLR'
+  | 'BLZ'
+  | 'BMU'
+  | 'BOL'
+  | 'BRA'
+  | 'BRB'
+  | 'BRN'
+  | 'BTN'
+  | 'BVT'
+  | 'BWA'
+  | 'CAF'
+  | 'CAN'
+  | 'CCK'
+  | 'CHE'
+  | 'CHL'
+  | 'CHN'
+  | 'CIV'
+  | 'CMR'
+  | 'COD'
+  | 'COG'
+  | 'COK'
+  | 'COL'
+  | 'COM'
+  | 'CPV'
+  | 'CRI'
+  | 'CUB'
+  | 'CUW'
+  | 'CXR'
+  | 'CYM'
+  | 'CYP'
+  | 'CZE'
+  | 'DEU'
+  | 'DJI'
+  | 'DMA'
+  | 'DNK'
+  | 'DOM'
+  | 'DZA'
+  | 'ECU'
+  | 'EGY'
+  | 'ERI'
+  | 'ESH'
+  | 'ESP'
+  | 'EST'
+  | 'ETH'
+  | 'FIN'
+  | 'FJI'
+  | 'FLK'
+  | 'FRA'
+  | 'FRO'
+  | 'FSM'
+  | 'GAB'
+  | 'GBR'
+  | 'GEO'
+  | 'GGY'
+  | 'GHA'
+  | 'GIB'
+  | 'GIN'
+  | 'GLP'
+  | 'GMB'
+  | 'GNB'
+  | 'GNQ'
+  | 'GRC'
+  | 'GRD'
+  | 'GRL'
+  | 'GTM'
+  | 'GUF'
+  | 'GUM'
+  | 'GUY'
+  | 'HKG'
+  | 'HMD'
+  | 'HND'
+  | 'HRV'
+  | 'HTI'
+  | 'HUN'
+  | 'IDN'
+  | 'IMN'
+  | 'IND'
+  | 'IOT'
+  | 'IRL'
+  | 'IRN'
+  | 'IRQ'
+  | 'ISL'
+  | 'ISR'
+  | 'ITA'
+  | 'JAM'
+  | 'JEY'
+  | 'JOR'
+  | 'JPN'
+  | 'KAZ'
+  | 'KEN'
+  | 'KGZ'
+  | 'KHM'
+  | 'KIR'
+  | 'KNA'
+  | 'KOR'
+  | 'KWT'
+  | 'LAO'
+  | 'LBN'
+  | 'LBR'
+  | 'LBY'
+  | 'LCA'
+  | 'LIE'
+  | 'LKA'
+  | 'LSO'
+  | 'LTU'
+  | 'LUX'
+  | 'LVA'
+  | 'MAC'
+  | 'MAF'
+  | 'MAR'
+  | 'MCO'
+  | 'MDA'
+  | 'MDG'
+  | 'MDV'
+  | 'MEX'
+  | 'MHL'
+  | 'MKD'
+  | 'MLI'
+  | 'MLT'
+  | 'MMR'
+  | 'MNE'
+  | 'MNG'
+  | 'MNP'
+  | 'MOZ'
+  | 'MRT'
+  | 'MSR'
+  | 'MTQ'
+  | 'MUS'
+  | 'MWI'
+  | 'MYS'
+  | 'MYT'
+  | 'NAM'
+  | 'NCL'
+  | 'NER'
+  | 'NFK'
+  | 'NGA'
+  | 'NIC'
+  | 'NIU'
+  | 'NLD'
+  | 'NOR'
+  | 'NPL'
+  | 'NRU'
+  | 'NZL'
+  | 'OMN'
+  | 'PAK'
+  | 'PAN'
+  | 'PCN'
+  | 'PER'
+  | 'PHL'
+  | 'PLW'
+  | 'PNG'
+  | 'POL'
+  | 'PRI'
+  | 'PRK'
+  | 'PRT'
+  | 'PRY'
+  | 'PSE'
+  | 'PYF'
+  | 'QAT'
+  | 'REU'
+  | 'ROU'
+  | 'RUS'
+  | 'RWA'
+  | 'SAU'
+  | 'SDN'
+  | 'SEN'
+  | 'SGP'
+  | 'SGS'
+  | 'SHN'
+  | 'SJM'
+  | 'SLB'
+  | 'SLE'
+  | 'SLV'
+  | 'SMR'
+  | 'SOM'
+  | 'SPM'
+  | 'SRB'
+  | 'SSD'
+  | 'STP'
+  | 'SUR'
+  | 'SVK'
+  | 'SVN'
+  | 'SWE'
+  | 'SWZ'
+  | 'SXM'
+  | 'SYC'
+  | 'SYR'
+  | 'TCA'
+  | 'TCD'
+  | 'TGO'
+  | 'THA'
+  | 'TJK'
+  | 'TKL'
+  | 'TKM'
+  | 'TLS'
+  | 'TON'
+  | 'TTO'
+  | 'TUN'
+  | 'TUR'
+  | 'TUV'
+  | 'TWN'
+  | 'TZA'
+  | 'UGA'
+  | 'UKR'
+  | 'UMI'
+  | 'URY'
+  | 'USA'
+  | 'UZB'
+  | 'VAT'
+  | 'VCT'
+  | 'VEN'
+  | 'VGB'
+  | 'VIR'
+  | 'VNM'
+  | 'VUT'
+  | 'WLF'
+  | 'WSM'
+  | 'YEM'
+  | 'ZAF'
+  | 'ZMB'
+  | 'ZWE';
+
+export type CURRENCY =
+  | 'EUR'
+  | 'USD';
+
+export type INVOICE_STATUS =
+  | 'OPEN'
+  | 'PAID';
+
+export type NOTIFICATION_CHANNEL =
+  | 'EMAIL'
+  | 'SMS';
+
+export type NOTIFICATION_EMAIL_COPY_MODE =
+  | 'BCC'
+  | 'TO';
+
+export type NOTIFICATION_FEATURE_TYPE =
+  | 'ORGANIZATION_ACCT_PROVIDER_APP_DISCONNECTED'
+  | 'ORGANIZATION_ACCT_PROVIDER_CONNECTION_EXPIRED'
+  | 'ORGANIZATION_ACCT_PROVIDER_CONNECTION_SUCCESS'
+  | 'ORGANIZATION_ACCT_PROVIDER_CONNECTION_WITHOUT_CONFIG'
+  | 'ORGANIZATION_ACCT_PROVIDER_ORG_DISCONNECTED'
+  | 'ORGANIZATION_CONNECTION_ACCEPTED'
+  | 'ORGANIZATION_CONNECTION_INVITE'
+  | 'ORGANIZATION_CUSTOMER_INVOICE'
+  | 'ORGANIZATION_CUSTOMER_STATEMENT'
+  | 'ORGANIZATION_EMAIL_CHANGED'
+  | 'ORGANIZATION_EMAIL_VERIFICATION'
+  | 'ORGANIZATION_GENERIC_INVITE'
+  | 'ORGANIZATION_INVITE_COLLABORATOR'
+  | 'ORGANIZATION_INVOICE_DUE_REMINDER'
+  | 'ORGANIZATION_INVOICE_MULTIPLE_REMINDER_DUE'
+  | 'ORGANIZATION_INVOICE_MULTIPLE_REMINDER_OVERDUE'
+  | 'ORGANIZATION_INVOICE_OVERDUE_REMINDER'
+  | 'ORGANIZATION_INVOICE_SINGLE_REMINDER_DUE_TODAY'
+  | 'ORGANIZATION_INVOICE_SINGLE_REMINDER_DUE_X_DAYS'
+  | 'ORGANIZATION_INVOICE_SINGLE_REMINDER_OVERDUE_X_DAYS'
+  | 'ORGANIZATION_PROJECT_CHANGE_REQUEST_ACTION'
+  | 'ORGANIZATION_PROJECT_CHANGE_REQUEST_PUBLISHED'
+  | 'ORGANIZATION_REMINDER_BLOCKED_ACCT_DISCONNECTED'
+  | 'ORGANIZATION_REMINDER_BLOCKED_STALE_SYNC'
+  | 'ORGANIZATION_UNCONNECTED_CUSTOMER_PROJECT_ACTION_VERIFICATION'
+  | 'ORGANIZATION_UNCONNECTED_CUSTOMER_STATEMENT'
+  | 'USER_CREATED'
+  | 'USER_EMAIL_CHANGED'
+  | 'USER_EMAIL_VERIFICATION'
+  | 'USER_PASSWORD_CHANGED'
+  | 'USER_PASSWORD_CHANGE_VERIFICATION'
+  | 'USER_PASSWORD_RESET'
+  | 'USER_PASSWORD_RESET_VERIFICATION'
+  | 'USER_PHONE_NUMBER_CHANGED'
+  | 'USER_PHONE_NUMBER_REMOVED'
+  | 'USER_PHONE_VERIFICATION'
+  | 'USER_SIGN_UP_EMAIL_VERIFICATION';
+
+export type NOTIFICATION_PROVIDER =
+  | 'EMAIL_CUSTOMER_IO'
+  | 'PENDING'
+  | 'SMS_AWS_SNS';
+
+export type NOTIFICATION_RELATED_ENTITY_TYPE =
+  | 'ORGANIZATION_CONNECTION'
+  | 'ORGANIZATION_INVOICE'
+  | 'ORGANIZATION_PROJECT_CHANGE_REQUEST';
+
+export type NOTIFICATION_SENDER_TARGET_ENTITY_TYPE =
+  | 'ORGANIZATION_CUSTOMER';
+
+export type NOTIFICATION_SENDER_TYPE =
+  | 'ORGANIZATION'
+  | 'SYSTEM';
+
+export type ORGANIZATION_ACCT_PROVIDER_CONN_STATUS =
+  | 'CONNECTED'
+  | 'DISCONNECTED'
+  | 'EXPIRED';
+
+export type ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_MODE =
+  | 'AUTOMATIC'
+  | 'MANUAL'
+  | 'SCHEDULED';
+
+export type ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_SCOPE =
+  | 'COMPLETE'
+  | 'CUSTOMER';
+
+export type ORGANIZATION_ACCT_PROVIDER_TOKEN_EXCHANGE_STATUS =
+  | 'ACCT_PROVIDER_CONNECTED_TO_DIFFERENT_ORGANIZATION'
+  | 'COMPLETED'
+  | 'DIFFERENT_ACCOUNTING_PROVIDER_ALREADY_CONNECTED'
+  | 'ORGANIZATION_ALREADY_EXISTS';
+
+export type ORGANIZATION_CONNECTION_STATUS =
+  | 'ACCEPTED'
+  | 'INVITED'
+  | 'REJECTED';
+
+export type ORGANIZATION_COUPON_CAMPAIGN =
+  | 'FOUNDING_FIRST_1OO_ORGANIZATIONS'
+  | 'RANDOM_ADMIN_GIVEAWAY';
+
+export type ORGANIZATION_COUPON_CATEGORY =
+  | 'ORGANIZATION_SUBSCRIPTION';
+
+export type ORGANIZATION_COUPON_STATUS =
+  | 'ACTIVATED'
+  | 'AVAILABLE'
+  | 'EXPIRED';
+
+export type ORGANIZATION_COUPON_SUBDIVISION =
+  | 'ORGANIZATION_SUBSCRIPTION_FOUNDING_PRICING_TIER';
+
+export type ORGANIZATION_PAYMENT_METHOD_BOUND_MODE =
+  | 'SYSTEM_SUBSCRIPTION_PAYMENT'
+  | 'VENDOR_RECEIVING_METHOD_PAYMENT';
+
+export type ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE =
+  | 'CUSTOMER'
+  | 'VENDOR';
+
+export type ORGANIZATION_SUBSCRIPTION_ADDON_ITEM =
+  | 'ADDITIONAL_USERS_ADDON';
+
+export type ORGANIZATION_SUBSCRIPTION_BASE_ITEM =
+  | 'BASIC_PLAN'
+  | 'FREE_PLAN'
+  | 'PROJECTS_MODULE'
+  | 'PRO_PLAN';
+
+export type ORGANIZATION_SUBSCRIPTION_ITEM =
+  | 'ADDITIONAL_USERS_ADDON'
+  | 'BASIC_PLAN'
+  | 'FREE_PLAN'
+  | 'PROJECTS_MODULE'
+  | 'PRO_PLAN';
+
+export type ORGANIZATION_SUBSCRIPTION_ITEM_CATEGORY =
+  | 'ADDON'
+  | 'MODULE'
+  | 'PLAN';
+
+export type ORGANIZATION_SUBSCRIPTION_ITEM_CLASSIFICATION =
+  | 'ADDON'
+  | 'BASE';
+
+export type ORGANIZATION_SUBSCRIPTION_ITEM_STATUS =
+  | 'ACTIVE'
+  | 'CANCELED';
+
+export type ORGANIZATION_SUBSCRIPTION_PAYMENT_STATUS =
+  | 'CURRENT'
+  | 'OVERDUE'
+  | 'PENDING'
+  | 'REQUIRES_ACTION';
+
+export type ORGANIZATION_SUBSCRIPTION_PRICE_TIER =
+  | 'FOUNDING'
+  | 'STANDARD';
+
+export type ORGANIZATION_SUBSCRIPTION_PROVIDER =
+  | 'ACCRUPAY'
+  | 'MANUAL'
+  | 'NUVEI';
+
+export type ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS =
+  | 'ACTIVE'
+  | 'CANCELED'
+  | 'EXPIRED'
+  | 'INACTIVE'
+  | 'INITIALIZING';
+
+export type ORGANIZATION_SUBSCRIPTION_RENEW_INTERVAL =
+  | 'MONTHLY'
+  | 'YEARLY';
+
+export type ORGANIZATION_SUBSCRIPTION_STATUS =
+  | 'ACTIVE'
+  | 'CANCELED'
+  | 'INACTIVE'
+  | 'INITIALIZING';
+
+export type ORGANIZATION_SUBSCRIPTION_TRANSACTION_PROCEDURE =
+  | 'CHANGE'
+  | 'PURCHASE'
+  | 'RENEWAL';
+
+export type ORGANIZATION_USER_ROLE =
+  | 'ADMIN'
+  | 'EDITOR'
+  | 'OWNER'
+  | 'VIEWER';
 
 export type OrganizationProjectChangeRequestUpsertSchema = {
-  budget_amount: Scalars['BigInt']['input'];
-  change_request_expires_at?: InputMaybe<Scalars['DateTime']['input']>;
-  contract_url?: InputMaybe<Scalars['String']['input']>;
-  ends_at?: InputMaybe<Scalars['DateTime']['input']>;
-  name: Scalars['String']['input'];
-  publish?: InputMaybe<Scalars['Boolean']['input']>;
-  starts_at?: InputMaybe<Scalars['DateTime']['input']>;
-};
-
-export type OrganizationProjectPaginationConnection = {
-  __typename?: 'OrganizationProjectPaginationConnection';
-  edges: Array<OrganizationProjectPaginationEdge>;
-  pageInfo: PageInfo;
-  totalCount: Scalars['Int']['output'];
-};
-
-export type OrganizationProjectPaginationEdge = {
-  __typename?: 'OrganizationProjectPaginationEdge';
-  cursor: Scalars['ConnectionCursor']['output'];
-  node: OrganizationProject;
-};
-
-export type OrganizationReceivingMethod = {
-  __typename?: 'OrganizationReceivingMethod';
-  archived_at?: Maybe<Scalars['DateTime']['output']>;
-  created_at: Scalars['DateTime']['output'];
-  id: Scalars['ID']['output'];
-  is_default: Scalars['Boolean']['output'];
-  is_enabled: Scalars['Boolean']['output'];
-  organization_id: Scalars['String']['output'];
-  receiving_method: RECEIVING_METHOD;
-  receiving_provider: RECEIVING_PROVIDER;
-  updated_at: Scalars['DateTime']['output'];
-};
-
-export type OrganizationReminderSetting = {
-  __typename?: 'OrganizationReminderSetting';
-  created_at: Scalars['DateTime']['output'];
-  days_amount: Scalars['Int']['output'];
-  due_date_mode: REMINDER_DUE_DATE_MODE;
-  id: Scalars['ID']['output'];
-  organization_customer_id?: Maybe<Scalars['String']['output']>;
-  organization_id: Scalars['String']['output'];
-  organization_invoice_id?: Maybe<Scalars['String']['output']>;
-  organization_project_id?: Maybe<Scalars['String']['output']>;
-  payload?: Maybe<Scalars['JSON']['output']>;
-  repeat_mode?: Maybe<REMINDER_REPEAT_MODE>;
-  repeat_value?: Maybe<Scalars['Int']['output']>;
-  selected_hour: Scalars['Int']['output'];
-  updated_at: Scalars['DateTime']['output'];
-};
-
-export type OrganizationReminderSettingPaginationConnection = {
-  __typename?: 'OrganizationReminderSettingPaginationConnection';
-  edges: Array<OrganizationReminderSettingPaginationEdge>;
-  pageInfo: PageInfo;
-  totalCount: Scalars['Int']['output'];
-};
-
-export type OrganizationReminderSettingPaginationEdge = {
-  __typename?: 'OrganizationReminderSettingPaginationEdge';
-  cursor: Scalars['ConnectionCursor']['output'];
-  node: OrganizationReminderSetting;
-};
-
-export type OrganizationSubscription = {
-  __typename?: 'OrganizationSubscription';
-  canceled_at?: Maybe<Scalars['DateTime']['output']>;
-  created_at: Scalars['DateTime']['output'];
-  current_period_ends_at?: Maybe<Scalars['DateTime']['output']>;
-  current_period_starts_at?: Maybe<Scalars['DateTime']['output']>;
-  has_outdated_price: Scalars['Boolean']['output'];
-  id: Scalars['ID']['output'];
-  items: Array<OrganizationSubscriptionItem>;
-  next_payment_at?: Maybe<Scalars['DateTime']['output']>;
-  organization_coupon_id?: Maybe<Scalars['String']['output']>;
-  organization_id: Scalars['String']['output'];
-  organization_payment_method: OrganizationPaymentMethod;
-  organization_payment_method_id: Scalars['String']['output'];
-  payment_status?: Maybe<ORGANIZATION_SUBSCRIPTION_PAYMENT_STATUS>;
-  price_currency: CURRENCY;
-  price_tier: ORGANIZATION_SUBSCRIPTION_PRICE_TIER;
-  price_total_amount: Scalars['BigInt']['output'];
-  provider: ORGANIZATION_SUBSCRIPTION_PROVIDER;
-  provider_error?: Maybe<Scalars['String']['output']>;
-  provider_last_verified_at?: Maybe<Scalars['DateTime']['output']>;
-  provider_plan_code?: Maybe<Scalars['String']['output']>;
-  provider_status: ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS;
-  provider_subscription_code?: Maybe<Scalars['String']['output']>;
-  renew_interval: ORGANIZATION_SUBSCRIPTION_RENEW_INTERVAL;
-  status: ORGANIZATION_SUBSCRIPTION_STATUS;
-  transactions: Array<OrganizationSubscriptionTransaction>;
-  updated_at: Scalars['DateTime']['output'];
-};
-
-export type OrganizationSubscriptionCalculatedPricing = {
-  __typename?: 'OrganizationSubscriptionCalculatedPricing';
-  organization_coupon?: Maybe<OrganizationCoupon>;
-  organization_coupon_id?: Maybe<Scalars['String']['output']>;
-  organization_id: Scalars['String']['output'];
-  original_price_total_amount: Scalars['BigInt']['output'];
-  price_currency: CURRENCY;
-  price_tier: ORGANIZATION_SUBSCRIPTION_PRICE_TIER;
-  price_total_amount: Scalars['BigInt']['output'];
-  provider: ORGANIZATION_SUBSCRIPTION_PROVIDER;
-  renew_interval: ORGANIZATION_SUBSCRIPTION_RENEW_INTERVAL;
-  selected_addon_items: Array<OrganizationSubscriptionCalculatedPricingAddonItem>;
-  selected_base_item: OrganizationSubscriptionCalculatedPricingBaseItem;
-};
-
-export type OrganizationSubscriptionCalculatedPricingAddonItem = {
-  __typename?: 'OrganizationSubscriptionCalculatedPricingAddonItem';
-  item_type: ORGANIZATION_SUBSCRIPTION_ADDON_ITEM;
-  original_unit_price: Scalars['BigInt']['output'];
-  quantity: Scalars['Int']['output'];
-  unit_price: Scalars['BigInt']['output'];
-};
-
-export type OrganizationSubscriptionCalculatedPricingBaseItem = {
-  __typename?: 'OrganizationSubscriptionCalculatedPricingBaseItem';
-  category: ORGANIZATION_SUBSCRIPTION_ITEM_CATEGORY;
-  item_type: ORGANIZATION_SUBSCRIPTION_BASE_ITEM;
-  original_unit_price: Scalars['BigInt']['output'];
-  unit_price: Scalars['BigInt']['output'];
-};
-
-export type OrganizationSubscriptionData = {
-  __typename?: 'OrganizationSubscriptionData';
-  active_addons: Array<OrganizationSubscriptionItem>;
-  active_modules: Array<OrganizationSubscriptionItem>;
-  active_plans: Array<OrganizationSubscriptionItem>;
-  active_subscriptions: Array<OrganizationSubscription>;
-  organization_user_seats: Scalars['Int']['output'];
-  requires_provider_refresh: Scalars['Boolean']['output'];
-  requires_user_action: Scalars['Boolean']['output'];
-  subscription_level: Scalars['Int']['output'];
-};
-
-export type OrganizationSubscriptionDefaultPricing = {
-  __typename?: 'OrganizationSubscriptionDefaultPricing';
-  options: Array<OrganizationSubscriptionDefaultPricingRenewIntervalOption>;
-  organization_coupon?: Maybe<OrganizationCoupon>;
-  organization_coupon_id?: Maybe<Scalars['String']['output']>;
-  organization_id: Scalars['String']['output'];
-  price_currency: CURRENCY;
-  price_tier: ORGANIZATION_SUBSCRIPTION_PRICE_TIER;
-};
-
-export type OrganizationSubscriptionDefaultPricingOption = {
-  __typename?: 'OrganizationSubscriptionDefaultPricingOption';
-  available_addon_items: Array<OrganizationSubscriptionDefaultPricingOptionAddonItem>;
-  base_item: OrganizationSubscriptionDefaultPricingOptionBaseItem;
-};
-
-export type OrganizationSubscriptionDefaultPricingOptionAddonItem = {
-  __typename?: 'OrganizationSubscriptionDefaultPricingOptionAddonItem';
-  is_purchase_available: Scalars['Boolean']['output'];
-  item_type: ORGANIZATION_SUBSCRIPTION_ADDON_ITEM;
-  original_unit_price: Scalars['BigInt']['output'];
-  unit_price: Scalars['BigInt']['output'];
-};
-
-export type OrganizationSubscriptionDefaultPricingOptionBaseItem = {
-  __typename?: 'OrganizationSubscriptionDefaultPricingOptionBaseItem';
-  additional_organization_seats: Scalars['Int']['output'];
-  category: ORGANIZATION_SUBSCRIPTION_ITEM_CATEGORY;
-  current_item_active_until?: Maybe<Scalars['DateTime']['output']>;
-  current_item_pending_purchase_subscription?: Maybe<OrganizationSubscription>;
-  current_item_subscription?: Maybe<OrganizationSubscription>;
-  is_purchase_available: Scalars['Boolean']['output'];
-  item_type: ORGANIZATION_SUBSCRIPTION_BASE_ITEM;
-  original_unit_price: Scalars['BigInt']['output'];
-  unit_price: Scalars['BigInt']['output'];
-};
-
-export type OrganizationSubscriptionDefaultPricingRenewIntervalOption = {
-  __typename?: 'OrganizationSubscriptionDefaultPricingRenewIntervalOption';
-  options: Array<OrganizationSubscriptionDefaultPricingOption>;
-  renew_interval: ORGANIZATION_SUBSCRIPTION_RENEW_INTERVAL;
-};
-
-export type OrganizationSubscriptionItem = {
-  __typename?: 'OrganizationSubscriptionItem';
-  canceled_at?: Maybe<Scalars['DateTime']['output']>;
-  category: ORGANIZATION_SUBSCRIPTION_ITEM_CATEGORY;
-  classification: ORGANIZATION_SUBSCRIPTION_ITEM_CLASSIFICATION;
-  created_at: Scalars['DateTime']['output'];
-  id: Scalars['ID']['output'];
-  item_type: ORGANIZATION_SUBSCRIPTION_ITEM;
-  organization_subscription_id: Scalars['String']['output'];
-  quantity: Scalars['Int']['output'];
-  started_at?: Maybe<Scalars['DateTime']['output']>;
-  status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS;
-  unit_price: Scalars['BigInt']['output'];
-  updated_at: Scalars['DateTime']['output'];
-};
-
-export type OrganizationSubscriptionPaginationConnection = {
-  __typename?: 'OrganizationSubscriptionPaginationConnection';
-  edges: Array<OrganizationSubscriptionPaginationEdge>;
-  pageInfo: PageInfo;
-  totalCount: Scalars['Int']['output'];
-};
-
-export type OrganizationSubscriptionPaginationEdge = {
-  __typename?: 'OrganizationSubscriptionPaginationEdge';
-  cursor: Scalars['ConnectionCursor']['output'];
-  node: OrganizationSubscription;
-};
-
-export type OrganizationSubscriptionTransaction = {
-  __typename?: 'OrganizationSubscriptionTransaction';
-  amount: Scalars['BigInt']['output'];
-  created_at: Scalars['DateTime']['output'];
-  currency: CURRENCY;
-  due_date: Scalars['DateTime']['output'];
-  failed_at?: Maybe<Scalars['DateTime']['output']>;
-  id: Scalars['ID']['output'];
-  organization_payment_method: OrganizationPaymentMethod;
-  organization_payment_method_id: Scalars['String']['output'];
-  organization_subscription_id: Scalars['String']['output'];
-  period_ends_at?: Maybe<Scalars['DateTime']['output']>;
-  period_sequence?: Maybe<Scalars['Int']['output']>;
-  period_starts_at?: Maybe<Scalars['DateTime']['output']>;
-  procedure: ORGANIZATION_SUBSCRIPTION_TRANSACTION_PROCEDURE;
-  provider_error?: Maybe<Scalars['String']['output']>;
-  provider_transaction_code: Scalars['String']['output'];
-  reverted_at?: Maybe<Scalars['DateTime']['output']>;
-  started_at?: Maybe<Scalars['DateTime']['output']>;
-  status: TRANSACTION_STATUS;
-  subscription_item_ids: Array<Scalars['String']['output']>;
-  succeeded_at?: Maybe<Scalars['DateTime']['output']>;
-  transaction_code: Scalars['String']['output'];
-  transaction_date: Scalars['DateTime']['output'];
-  transaction_provider: TRANSACTION_PROVIDER;
-  updated_at: Scalars['DateTime']['output'];
-};
-
-export type OrganizationSubscriptionTransactionPaginationConnection = {
-  __typename?: 'OrganizationSubscriptionTransactionPaginationConnection';
-  edges: Array<OrganizationSubscriptionTransactionPaginationEdge>;
-  pageInfo: PageInfo;
-  totalCount: Scalars['Int']['output'];
-};
-
-export type OrganizationSubscriptionTransactionPaginationEdge = {
-  __typename?: 'OrganizationSubscriptionTransactionPaginationEdge';
-  cursor: Scalars['ConnectionCursor']['output'];
-  node: OrganizationSubscriptionTransaction;
+  budget_amount: bigint;
+  change_request_expires_at?: unknown;
+  contract_url?: string | null | undefined;
+  ends_at?: unknown;
+  name: string;
+  publish?: boolean | null | undefined;
+  starts_at?: unknown;
 };
 
 export type OrganizationTransactionBillingAddressSchema = {
-  billing_address_city?: InputMaybe<Scalars['String']['input']>;
+  billing_address_city?: string | null | undefined;
   billing_address_country_code_iso_3: COUNTRY_ISO_3;
-  billing_address_line_1?: InputMaybe<Scalars['String']['input']>;
-  billing_address_line_2?: InputMaybe<Scalars['String']['input']>;
-  billing_address_number?: InputMaybe<Scalars['String']['input']>;
-  billing_address_state?: InputMaybe<Scalars['String']['input']>;
-  billing_address_zip_code?: InputMaybe<Scalars['String']['input']>;
-  billing_email: Scalars['String']['input'];
-  billing_first_name: Scalars['String']['input'];
-  billing_last_name: Scalars['String']['input'];
-  billing_phone_number?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type OrganizationTransactionPreTransactionData = AccruPayTransactionProviderPreTransactionData | NuveiTransactionProviderPreTransactionData;
-
-export type OrganizationUser = {
-  __typename?: 'OrganizationUser';
-  created_at: Scalars['DateTime']['output'];
-  customer_email_copy_mode?: Maybe<NOTIFICATION_EMAIL_COPY_MODE>;
-  id: Scalars['ID']['output'];
-  is_current_organization_user_seat_available?: Maybe<Scalars['Boolean']['output']>;
-  organization: Organization;
-  organization_id: Scalars['String']['output'];
-  payload?: Maybe<Scalars['JSON']['output']>;
-  /** @deprecated Use `customer_email_copy_mode` instead */
-  receive_customer_notification_mode?: Maybe<NOTIFICATION_EMAIL_COPY_MODE>;
-  receive_invoice_reminders: Scalars['Boolean']['output'];
-  role: ORGANIZATION_USER_ROLE;
-  updated_at: Scalars['DateTime']['output'];
-  user?: Maybe<User>;
-  user_id: Scalars['String']['output'];
-};
-
-export type OrganizationVendor = {
-  __typename?: 'OrganizationVendor';
-  address_city?: Maybe<Scalars['String']['output']>;
-  address_country_code_iso_3?: Maybe<COUNTRY_ISO_3>;
-  address_lat?: Maybe<Scalars['Float']['output']>;
-  address_line_1?: Maybe<Scalars['String']['output']>;
-  address_line_2?: Maybe<Scalars['String']['output']>;
-  address_lng?: Maybe<Scalars['Float']['output']>;
-  address_number?: Maybe<Scalars['String']['output']>;
-  address_state?: Maybe<Scalars['String']['output']>;
-  address_zip_code?: Maybe<Scalars['String']['output']>;
-  balance?: Maybe<Scalars['BigInt']['output']>;
-  bill_summary: OrganizationBillSummary;
-  conn_locked_data_at?: Maybe<Scalars['DateTime']['output']>;
-  connection?: Maybe<OrganizationConnection>;
-  contacts: Array<OrganizationVendorContact>;
-  created_at: Scalars['DateTime']['output'];
-  email?: Maybe<Scalars['String']['output']>;
-  /** @deprecated Use `provider_errors` and `provider_warnings` instead */
-  has_sync_errors?: Maybe<Scalars['Boolean']['output']>;
-  id: Scalars['ID']['output'];
-  is_active: Scalars['Boolean']['output'];
-  language?: Maybe<Scalars['String']['output']>;
-  last_successful_sync_at?: Maybe<Scalars['DateTime']['output']>;
-  last_successful_sync_id?: Maybe<Scalars['String']['output']>;
-  last_sync_at?: Maybe<Scalars['DateTime']['output']>;
-  last_sync_id?: Maybe<Scalars['String']['output']>;
-  last_sync_succeeded?: Maybe<Scalars['Boolean']['output']>;
-  latest_acct_provider_balance?: Maybe<Scalars['BigInt']['output']>;
-  name: Scalars['String']['output'];
-  organization: Organization;
-  organization_acct_provider_conn_id: Scalars['String']['output'];
-  organization_id: Scalars['String']['output'];
-  overdue_amount?: Maybe<Scalars['BigInt']['output']>;
-  phone_number?: Maybe<Scalars['String']['output']>;
-  provider: ACCT_PROVIDER;
-  provider_code: Scalars['String']['output'];
-  provider_errors: Array<Scalars['String']['output']>;
-  provider_url?: Maybe<Scalars['String']['output']>;
-  provider_warnings: Array<Scalars['String']['output']>;
-  tax_code?: Maybe<Scalars['String']['output']>;
-  tax_code_type?: Maybe<TAX_TYPE>;
-  timezone?: Maybe<Scalars['String']['output']>;
-  unique_code: Scalars['String']['output'];
-  updated_at: Scalars['DateTime']['output'];
-};
-
-
-export type OrganizationVendorbill_summaryArgs = {
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  currency?: InputMaybe<CURRENCY>;
-  due_end_date?: InputMaybe<Scalars['DateTime']['input']>;
-  due_start_date?: InputMaybe<Scalars['DateTime']['input']>;
-  end_date?: InputMaybe<Scalars['DateTime']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  is_overdue?: InputMaybe<Scalars['Boolean']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  latest_acct_provider_is_overdue?: InputMaybe<Scalars['Boolean']['input']>;
-  latest_acct_provider_status?: InputMaybe<BILL_STATUS>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema>>;
-  start_date?: InputMaybe<Scalars['DateTime']['input']>;
-  status?: InputMaybe<BILL_STATUS>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export type OrganizationVendorContact = {
-  __typename?: 'OrganizationVendorContact';
-  created_at: Scalars['DateTime']['output'];
-  email: Scalars['String']['output'];
-  id: Scalars['ID']['output'];
-  is_default: Scalars['Boolean']['output'];
-  name: Scalars['String']['output'];
-  organization_vendor_id: Scalars['String']['output'];
-  phone_number?: Maybe<Scalars['String']['output']>;
-  updated_at: Scalars['DateTime']['output'];
-};
-
-export type OrganizationVendorContactPaginationConnection = {
-  __typename?: 'OrganizationVendorContactPaginationConnection';
-  edges: Array<OrganizationVendorContactPaginationEdge>;
-  pageInfo: PageInfo;
-  totalCount: Scalars['Int']['output'];
-};
-
-export type OrganizationVendorContactPaginationEdge = {
-  __typename?: 'OrganizationVendorContactPaginationEdge';
-  cursor: Scalars['ConnectionCursor']['output'];
-  node: OrganizationVendorContact;
-};
-
-export type OrganizationVendorPaginationConnection = {
-  __typename?: 'OrganizationVendorPaginationConnection';
-  edges: Array<OrganizationVendorPaginationEdge>;
-  pageInfo: PageInfo;
-  totalCount: Scalars['Int']['output'];
-};
-
-export type OrganizationVendorPaginationEdge = {
-  __typename?: 'OrganizationVendorPaginationEdge';
-  cursor: Scalars['ConnectionCursor']['output'];
-  node: OrganizationVendor;
-};
-
-export enum PAYMENT_METHOD {
-  CARD = 'CARD',
-  CHECK = 'CHECK',
-  MANUAL = 'MANUAL',
-  QUICKBOOKS = 'QUICKBOOKS',
-  SYNC = 'SYNC'
-}
-
-export enum PAYMENT_PROVIDER {
-  ACCRUPAY = 'ACCRUPAY',
-  MANUAL = 'MANUAL',
-  NUVEI = 'NUVEI',
-  QUICKBOOKS = 'QUICKBOOKS'
-}
-
-export enum PROJECT_CHANGE_REQUEST_STATUS {
-  ACCEPTED = 'ACCEPTED',
-  CANCELED = 'CANCELED',
-  DRAFT = 'DRAFT',
-  EXPIRED = 'EXPIRED',
-  PUBLISHED = 'PUBLISHED',
-  REJECTED = 'REJECTED'
-}
-
-export enum PROJECT_STATUS {
-  ACTIVE = 'ACTIVE',
-  CANCELED = 'CANCELED',
-  COMPLETED = 'COMPLETED',
-  EXPIRED = 'EXPIRED',
-  WAITING = 'WAITING'
-}
-
-export type PageInfo = {
-  __typename?: 'PageInfo';
-  endCursor?: Maybe<Scalars['String']['output']>;
-  hasNextPage: Scalars['Boolean']['output'];
-  hasPreviousPage: Scalars['Boolean']['output'];
-  startCursor?: Maybe<Scalars['String']['output']>;
-};
-
-export type Query = {
-  __typename?: 'Query';
-  adminOrganizationAcctProviderSynchronizations: OrganizationAcctProviderConnSynchronizationPaginationConnection;
-  adminOrganizationCoupon: OrganizationCoupon;
-  adminOrganizationCoupons: OrganizationCouponPaginationConnection;
-  adminOrganizationManualSubscription: OrganizationSubscription;
-  adminOrganizationManualSubscriptions: OrganizationSubscriptionPaginationConnection;
-  adminOrganizationSubscription: OrganizationSubscription;
-  adminOrganizationSubscriptionTransaction: OrganizationSubscriptionTransaction;
-  adminOrganizationSubscriptionTransactions: OrganizationSubscriptionTransactionPaginationConnection;
-  adminOrganizationSubscriptions: OrganizationSubscriptionPaginationConnection;
-  adminOrganizations: OrganizationPaginationConnection;
-  adminUsers: UserPaginationConnection;
-  session: Session;
-  unauthorizedUserOrganizationUserInvite: UnauthorizedUserOrganizationUserInviteResponse;
-  unconnectedCustomerOrganizationInvoice: OrganizationInvoice;
-  unconnectedCustomerOrganizationInvoiceSummary: OrganizationInvoiceSummary;
-  unconnectedCustomerOrganizationProject: OrganizationProject;
-  unconnectedCustomerOrganizationProjects: OrganizationProjectPaginationConnection;
-  unconnectedCustomerOrganizationStatement: OrganizationCustomerStatement;
-  unconnectedCustomerOrganizationStatementLine: OrganizationCustomerStatementLineData;
-  user: User;
-  userCustomerOrganization: OrganizationConnection;
-  userCustomerOrganizationInvoice: OrganizationInvoice;
-  userCustomerOrganizationInvoiceSummary: OrganizationInvoiceSummary;
-  userCustomerOrganizationInvoices: OrganizationInvoicePaginationConnection;
-  userCustomerOrganizationProject: OrganizationProject;
-  userCustomerOrganizationProjects: OrganizationProjectPaginationConnection;
-  userCustomerOrganizationStatement: OrganizationCustomerStatement;
-  userCustomerOrganizationStatementLine: OrganizationCustomerStatementLineData;
-  userCustomerOrganizations: Array<OrganizationConnection>;
-  userOrganization: Organization;
-  userOrganizationAcctProvider: OrganizationAcctProviderConn;
-  userOrganizationAcctProviderSynchronization: OrganizationAcctProviderConnSynchronization;
-  userOrganizationAcctProviderSynchronizations: OrganizationAcctProviderConnSynchronizationPaginationConnection;
-  userOrganizationAcctProviders: OrganizationAcctProviderConnPaginationConnection;
-  userOrganizationBill: OrganizationBill;
-  userOrganizationBillSummary: OrganizationBillSummary;
-  userOrganizationBillTransaction: OrganizationBillTransaction;
-  userOrganizationBillTransactions: Array<OrganizationBillTransaction>;
-  userOrganizationBills: OrganizationBillPaginationConnection;
-  userOrganizationCollaborator: OrganizationUser;
-  userOrganizationCollaborators: Array<OrganizationUser>;
-  userOrganizationConnection: OrganizationConnection;
-  userOrganizationConnections: OrganizationConnectionPaginationConnection;
-  userOrganizationCustomer: OrganizationCustomer;
-  userOrganizationCustomerContact: OrganizationCustomerContact;
-  userOrganizationCustomerContacts: OrganizationCustomerContactPaginationConnection;
-  userOrganizationCustomerNotification: Notification;
-  userOrganizationCustomerNotifications: NotificationPaginationConnection;
-  userOrganizationCustomerStatement: OrganizationCustomerStatement;
-  userOrganizationCustomerStatementLine: OrganizationCustomerStatementLineData;
-  userOrganizationCustomerStatementLineGetPDF: Scalars['String']['output'];
-  userOrganizationCustomers: OrganizationCustomerPaginationConnection;
-  userOrganizationInviteCollaborator: OrganizationInvite;
-  userOrganizationInviteCollaborators: OrganizationInvitePaginationConnection;
-  userOrganizationInvoice: OrganizationInvoice;
-  userOrganizationInvoiceSummary: OrganizationInvoiceSummary;
-  userOrganizationInvoiceTransaction: OrganizationInvoiceTransaction;
-  userOrganizationInvoiceTransactions: Array<OrganizationInvoiceTransaction>;
-  userOrganizationInvoices: OrganizationInvoicePaginationConnection;
-  userOrganizationPaymentMethod: OrganizationPaymentMethod;
-  userOrganizationPaymentMethods: Array<OrganizationPaymentMethod>;
-  userOrganizationProject: OrganizationProject;
-  userOrganizationProjects: OrganizationProjectPaginationConnection;
-  userOrganizationReceivingMethod: OrganizationReceivingMethod;
-  userOrganizationReceivingMethods: Array<OrganizationReceivingMethod>;
-  userOrganizationReminderSetting: OrganizationReminderSetting;
-  userOrganizationReminderSettings: OrganizationReminderSettingPaginationConnection;
-  userOrganizationStatementLog: OrganizationCustomerStatementLog;
-  userOrganizationStatementLogs: OrganizationCustomerStatementLogPaginationConnection;
-  userOrganizationSubscription: OrganizationSubscription;
-  userOrganizationSubscriptionDefaultPricingSetup: OrganizationSubscriptionDefaultPricing;
-  userOrganizationSubscriptions: OrganizationSubscriptionPaginationConnection;
-  userOrganizationUserInvite: OrganizationInvite;
-  userOrganizationUserInvites: OrganizationInvitePaginationConnection;
-  userOrganizationVendor: OrganizationVendor;
-  userOrganizationVendorContact: OrganizationVendorContact;
-  userOrganizationVendorContacts: OrganizationVendorContactPaginationConnection;
-  userOrganizationVendors: OrganizationVendorPaginationConnection;
-  userOrganizations: Array<Organization>;
-};
-
-
-export type QueryadminOrganizationAcctProviderSynchronizationsArgs = {
-  acct_provider?: InputMaybe<ACCT_PROVIDER>;
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  failed?: InputMaybe<Scalars['Boolean']['input']>;
-  finished?: InputMaybe<Scalars['Boolean']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  organization_id: Scalars['String']['input'];
-  scope?: InputMaybe<ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_SCOPE>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  skipped?: InputMaybe<Scalars['Boolean']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema>>;
-  succeeded?: InputMaybe<Scalars['Boolean']['input']>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type QueryadminOrganizationCouponArgs = {
-  organization_coupon_id: Scalars['String']['input'];
-};
-
-
-export type QueryadminOrganizationCouponsArgs = {
-  activated?: InputMaybe<Scalars['Boolean']['input']>;
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  campaign?: InputMaybe<ORGANIZATION_COUPON_CAMPAIGN>;
-  category?: InputMaybe<ORGANIZATION_COUPON_CATEGORY>;
-  code?: InputMaybe<Scalars['String']['input']>;
-  expired?: InputMaybe<Scalars['Boolean']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  is_activation_unlimited?: InputMaybe<Scalars['Boolean']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  organization_id?: InputMaybe<Scalars['String']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema>>;
-  subdivision?: InputMaybe<ORGANIZATION_COUPON_SUBDIVISION>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type QueryadminOrganizationManualSubscriptionArgs = {
-  organization_subscription_id: Scalars['String']['input'];
-};
-
-
-export type QueryadminOrganizationManualSubscriptionsArgs = {
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  canceled?: InputMaybe<Scalars['Boolean']['input']>;
-  contains_item?: InputMaybe<ORGANIZATION_SUBSCRIPTION_ITEM>;
-  expired?: InputMaybe<Scalars['Boolean']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  has_error?: InputMaybe<Scalars['Boolean']['input']>;
-  has_outdated_price?: InputMaybe<Scalars['Boolean']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  organization_coupon_id?: InputMaybe<Scalars['String']['input']>;
-  organization_payment_method_id?: InputMaybe<Scalars['String']['input']>;
-  price_tier?: InputMaybe<ORGANIZATION_SUBSCRIPTION_PRICE_TIER>;
-  provider_plan_code?: InputMaybe<Scalars['String']['input']>;
-  provider_status?: InputMaybe<ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS>;
-  provider_subscription_code?: InputMaybe<Scalars['String']['input']>;
-  renew_interval?: InputMaybe<ORGANIZATION_SUBSCRIPTION_RENEW_INTERVAL>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema>>;
-  started?: InputMaybe<Scalars['Boolean']['input']>;
-  status?: InputMaybe<ORGANIZATION_SUBSCRIPTION_STATUS>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type QueryadminOrganizationSubscriptionArgs = {
-  organization_subscription_id: Scalars['String']['input'];
-};
-
-
-export type QueryadminOrganizationSubscriptionTransactionArgs = {
-  organization_subscription_transaction_id: Scalars['String']['input'];
-};
-
-
-export type QueryadminOrganizationSubscriptionTransactionsArgs = {
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  failed?: InputMaybe<Scalars['Boolean']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  organization_id?: InputMaybe<Scalars['String']['input']>;
-  organization_payment_method_id?: InputMaybe<Scalars['String']['input']>;
-  organization_subscription_id?: InputMaybe<Scalars['String']['input']>;
-  procedure?: InputMaybe<ORGANIZATION_SUBSCRIPTION_TRANSACTION_PROCEDURE>;
-  provider_transaction_code?: InputMaybe<Scalars['String']['input']>;
-  reverted?: InputMaybe<Scalars['Boolean']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema>>;
-  started?: InputMaybe<Scalars['Boolean']['input']>;
-  succeeded?: InputMaybe<Scalars['Boolean']['input']>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-  transaction_code?: InputMaybe<Scalars['String']['input']>;
-  transaction_end_date?: InputMaybe<Scalars['DateTime']['input']>;
-  transaction_provider?: InputMaybe<TRANSACTION_PROVIDER>;
-  transaction_start_date?: InputMaybe<Scalars['DateTime']['input']>;
-};
-
-
-export type QueryadminOrganizationSubscriptionsArgs = {
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  canceled?: InputMaybe<Scalars['Boolean']['input']>;
-  contains_item?: InputMaybe<ORGANIZATION_SUBSCRIPTION_ITEM>;
-  expired?: InputMaybe<Scalars['Boolean']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  has_error?: InputMaybe<Scalars['Boolean']['input']>;
-  has_outdated_price?: InputMaybe<Scalars['Boolean']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  organization_coupon_id?: InputMaybe<Scalars['String']['input']>;
-  organization_payment_method_id?: InputMaybe<Scalars['String']['input']>;
-  price_tier?: InputMaybe<ORGANIZATION_SUBSCRIPTION_PRICE_TIER>;
-  provider?: InputMaybe<ORGANIZATION_SUBSCRIPTION_PROVIDER>;
-  provider_plan_code?: InputMaybe<Scalars['String']['input']>;
-  provider_status?: InputMaybe<ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS>;
-  provider_subscription_code?: InputMaybe<Scalars['String']['input']>;
-  renew_interval?: InputMaybe<ORGANIZATION_SUBSCRIPTION_RENEW_INTERVAL>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema>>;
-  started?: InputMaybe<Scalars['Boolean']['input']>;
-  status?: InputMaybe<ORGANIZATION_SUBSCRIPTION_STATUS>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type QueryadminOrganizationsArgs = {
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  email?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  id?: InputMaybe<Scalars['String']['input']>;
-  include_archived?: InputMaybe<Scalars['Boolean']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  name?: InputMaybe<Scalars['String']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema>>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type QueryadminUsersArgs = {
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  email?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  first_name?: InputMaybe<Scalars['String']['input']>;
-  id?: InputMaybe<Scalars['String']['input']>;
-  include_archived?: InputMaybe<Scalars['Boolean']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  last_name?: InputMaybe<Scalars['String']['input']>;
-  phone_number?: InputMaybe<Scalars['String']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema>>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type QueryunauthorizedUserOrganizationUserInviteArgs = {
-  code: Scalars['String']['input'];
-  email: Scalars['String']['input'];
-  organization_id: Scalars['String']['input'];
-  organization_invite_id: Scalars['String']['input'];
-};
-
-
-export type QueryunconnectedCustomerOrganizationInvoiceArgs = {
-  acct_provider?: InputMaybe<ACCT_PROVIDER>;
-  organization_id?: InputMaybe<Scalars['String']['input']>;
-  organization_invoice_id: Scalars['String']['input'];
-  token: Scalars['String']['input'];
-  unique_code: Scalars['String']['input'];
-};
-
-
-export type QueryunconnectedCustomerOrganizationInvoiceSummaryArgs = {
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  currency?: InputMaybe<CURRENCY>;
-  customer_name?: InputMaybe<Scalars['String']['input']>;
-  due_end_date?: InputMaybe<Scalars['DateTime']['input']>;
-  due_start_date?: InputMaybe<Scalars['DateTime']['input']>;
-  end_date?: InputMaybe<Scalars['DateTime']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  is_overdue?: InputMaybe<Scalars['Boolean']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  latest_acct_provider_is_overdue?: InputMaybe<Scalars['Boolean']['input']>;
-  latest_acct_provider_status?: InputMaybe<INVOICE_STATUS>;
-  organization_id?: InputMaybe<Scalars['String']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema>>;
-  start_date?: InputMaybe<Scalars['DateTime']['input']>;
-  statement_session_token?: InputMaybe<Scalars['String']['input']>;
-  status?: InputMaybe<INVOICE_STATUS>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-  token: Scalars['String']['input'];
-  unique_code: Scalars['String']['input'];
-};
-
-
-export type QueryunconnectedCustomerOrganizationProjectArgs = {
-  organization_id?: InputMaybe<Scalars['String']['input']>;
-  organization_project_id: Scalars['String']['input'];
-  token: Scalars['String']['input'];
-  unique_code: Scalars['String']['input'];
-};
-
-
-export type QueryunconnectedCustomerOrganizationProjectsArgs = {
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  canceled?: InputMaybe<Scalars['Boolean']['input']>;
-  completed?: InputMaybe<Scalars['Boolean']['input']>;
-  ended?: InputMaybe<Scalars['Boolean']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  name?: InputMaybe<Scalars['String']['input']>;
-  organization_id?: InputMaybe<Scalars['String']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema>>;
-  started?: InputMaybe<Scalars['Boolean']['input']>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-  token: Scalars['String']['input'];
-  unique_code: Scalars['String']['input'];
-};
-
-
-export type QueryunconnectedCustomerOrganizationStatementArgs = {
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  currency?: InputMaybe<CURRENCY>;
-  due_end_date?: InputMaybe<Scalars['DateTime']['input']>;
-  due_start_date?: InputMaybe<Scalars['DateTime']['input']>;
-  end_date?: InputMaybe<Scalars['DateTime']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  is_overdue?: InputMaybe<Scalars['Boolean']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  organization_id?: InputMaybe<Scalars['String']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema>>;
-  start_date?: InputMaybe<Scalars['DateTime']['input']>;
-  statement_session_token?: InputMaybe<Scalars['String']['input']>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-  token: Scalars['String']['input'];
-  type?: InputMaybe<STATEMENT_LINE_TYPE>;
-  unique_code: Scalars['String']['input'];
-};
-
-
-export type QueryunconnectedCustomerOrganizationStatementLineArgs = {
-  organization_customer_statement_line_id?: InputMaybe<Scalars['Int']['input']>;
-  organization_id?: InputMaybe<Scalars['String']['input']>;
-  organization_invoice_id?: InputMaybe<Scalars['String']['input']>;
-  organization_invoice_transaction_id?: InputMaybe<Scalars['String']['input']>;
-  token: Scalars['String']['input'];
-  unique_code: Scalars['String']['input'];
-};
-
-
-export type QueryuserCustomerOrganizationArgs = {
-  organization_id: Scalars['String']['input'];
-  organization_vendor_id: Scalars['String']['input'];
-};
-
-
-export type QueryuserCustomerOrganizationInvoiceArgs = {
-  organization_id: Scalars['String']['input'];
-  organization_invoice_id: Scalars['String']['input'];
-  organization_vendor_id: Scalars['String']['input'];
-};
-
-
-export type QueryuserCustomerOrganizationInvoiceSummaryArgs = {
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  currency?: InputMaybe<CURRENCY>;
-  customer_name?: InputMaybe<Scalars['String']['input']>;
-  due_end_date?: InputMaybe<Scalars['DateTime']['input']>;
-  due_start_date?: InputMaybe<Scalars['DateTime']['input']>;
-  end_date?: InputMaybe<Scalars['DateTime']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  is_overdue?: InputMaybe<Scalars['Boolean']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  latest_acct_provider_is_overdue?: InputMaybe<Scalars['Boolean']['input']>;
-  latest_acct_provider_status?: InputMaybe<INVOICE_STATUS>;
-  organization_id: Scalars['String']['input'];
-  organization_vendor_id: Scalars['String']['input'];
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema>>;
-  start_date?: InputMaybe<Scalars['DateTime']['input']>;
-  statement_session_token?: InputMaybe<Scalars['String']['input']>;
-  status?: InputMaybe<INVOICE_STATUS>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type QueryuserCustomerOrganizationInvoicesArgs = {
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  organization_id: Scalars['String']['input'];
-  organization_vendor_id: Scalars['String']['input'];
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema>>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type QueryuserCustomerOrganizationProjectArgs = {
-  organization_id: Scalars['String']['input'];
-  organization_project_id: Scalars['String']['input'];
-  organization_vendor_id: Scalars['String']['input'];
-};
-
-
-export type QueryuserCustomerOrganizationProjectsArgs = {
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  canceled?: InputMaybe<Scalars['Boolean']['input']>;
-  completed?: InputMaybe<Scalars['Boolean']['input']>;
-  ended?: InputMaybe<Scalars['Boolean']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  name?: InputMaybe<Scalars['String']['input']>;
-  organization_id: Scalars['String']['input'];
-  organization_vendor_id: Scalars['String']['input'];
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema>>;
-  started?: InputMaybe<Scalars['Boolean']['input']>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type QueryuserCustomerOrganizationStatementArgs = {
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  currency?: InputMaybe<CURRENCY>;
-  due_end_date?: InputMaybe<Scalars['DateTime']['input']>;
-  due_start_date?: InputMaybe<Scalars['DateTime']['input']>;
-  end_date?: InputMaybe<Scalars['DateTime']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  is_overdue?: InputMaybe<Scalars['Boolean']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  organization_id: Scalars['String']['input'];
-  organization_vendor_id: Scalars['String']['input'];
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema>>;
-  start_date?: InputMaybe<Scalars['DateTime']['input']>;
-  statement_session_token?: InputMaybe<Scalars['String']['input']>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-  type?: InputMaybe<STATEMENT_LINE_TYPE>;
-};
-
-
-export type QueryuserCustomerOrganizationStatementLineArgs = {
-  organization_customer_statement_line_id?: InputMaybe<Scalars['Int']['input']>;
-  organization_id: Scalars['String']['input'];
-  organization_invoice_id?: InputMaybe<Scalars['String']['input']>;
-  organization_invoice_transaction_id?: InputMaybe<Scalars['String']['input']>;
-  organization_vendor_id: Scalars['String']['input'];
-};
-
-
-export type QueryuserCustomerOrganizationsArgs = {
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type QueryuserOrganizationArgs = {
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type QueryuserOrganizationAcctProviderArgs = {
-  organization_acct_provider_conn_id: Scalars['String']['input'];
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type QueryuserOrganizationAcctProviderSynchronizationArgs = {
-  organization_acct_provider_conn_synchronization_id: Scalars['String']['input'];
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type QueryuserOrganizationAcctProviderSynchronizationsArgs = {
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  failed?: InputMaybe<Scalars['Boolean']['input']>;
-  finished?: InputMaybe<Scalars['Boolean']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  organization_acct_provider_conn_id?: InputMaybe<Scalars['String']['input']>;
-  organization_id: Scalars['String']['input'];
-  scope?: InputMaybe<ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_SCOPE>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  skipped?: InputMaybe<Scalars['Boolean']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema>>;
-  succeeded?: InputMaybe<Scalars['Boolean']['input']>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type QueryuserOrganizationAcctProvidersArgs = {
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  organization_id: Scalars['String']['input'];
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema>>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type QueryuserOrganizationBillArgs = {
-  organization_bill_id: Scalars['String']['input'];
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type QueryuserOrganizationBillSummaryArgs = {
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  currency?: InputMaybe<CURRENCY>;
-  due_end_date?: InputMaybe<Scalars['DateTime']['input']>;
-  due_start_date?: InputMaybe<Scalars['DateTime']['input']>;
-  end_date?: InputMaybe<Scalars['DateTime']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  is_overdue?: InputMaybe<Scalars['Boolean']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  latest_acct_provider_is_overdue?: InputMaybe<Scalars['Boolean']['input']>;
-  latest_acct_provider_status?: InputMaybe<BILL_STATUS>;
-  organization_id: Scalars['String']['input'];
-  organization_vendor_id?: InputMaybe<Scalars['String']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema>>;
-  start_date?: InputMaybe<Scalars['DateTime']['input']>;
-  status?: InputMaybe<BILL_STATUS>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type QueryuserOrganizationBillTransactionArgs = {
-  organization_bill_transaction_id: Scalars['String']['input'];
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type QueryuserOrganizationBillTransactionsArgs = {
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  organization_id: Scalars['String']['input'];
-  organization_payment_method_id?: InputMaybe<Scalars['String']['input']>;
-  organization_vendor_id?: InputMaybe<Scalars['String']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type QueryuserOrganizationBillsArgs = {
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  is_overdue?: InputMaybe<Scalars['Boolean']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  latest_acct_provider_is_overdue?: InputMaybe<Scalars['Boolean']['input']>;
-  latest_acct_provider_status?: InputMaybe<BILL_STATUS>;
-  number?: InputMaybe<Scalars['String']['input']>;
-  organization_id: Scalars['String']['input'];
-  organization_project_id?: InputMaybe<Scalars['String']['input']>;
-  organization_vendor_id?: InputMaybe<Scalars['String']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema>>;
-  status?: InputMaybe<BILL_STATUS>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-  unique_code?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-export type QueryuserOrganizationCollaboratorArgs = {
-  organization_id: Scalars['String']['input'];
-  organization_user_id: Scalars['String']['input'];
-};
-
-
-export type QueryuserOrganizationCollaboratorsArgs = {
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type QueryuserOrganizationConnectionArgs = {
-  organization_connection_id: Scalars['String']['input'];
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type QueryuserOrganizationConnectionsArgs = {
-  organization_id: Scalars['String']['input'];
-  status?: InputMaybe<ORGANIZATION_CONNECTION_STATUS>;
-};
-
-
-export type QueryuserOrganizationCustomerArgs = {
-  organization_customer_id: Scalars['String']['input'];
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type QueryuserOrganizationCustomerContactArgs = {
-  organization_customer_contact_id: Scalars['String']['input'];
-  organization_customer_id: Scalars['String']['input'];
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type QueryuserOrganizationCustomerContactsArgs = {
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  name?: InputMaybe<Scalars['String']['input']>;
-  organization_customer_id: Scalars['String']['input'];
-  organization_id: Scalars['String']['input'];
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema>>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type QueryuserOrganizationCustomerNotificationArgs = {
-  notification_id: Scalars['String']['input'];
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type QueryuserOrganizationCustomerNotificationsArgs = {
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  channel?: InputMaybe<NOTIFICATION_CHANNEL>;
-  feature_code?: InputMaybe<Scalars['String']['input']>;
-  feature_type?: InputMaybe<NOTIFICATION_FEATURE_TYPE>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  organization_customer_id?: InputMaybe<Scalars['String']['input']>;
-  organization_id: Scalars['String']['input'];
-  related_entity_id?: InputMaybe<Scalars['String']['input']>;
-  related_entity_type?: InputMaybe<NOTIFICATION_RELATED_ENTITY_TYPE>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema>>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type QueryuserOrganizationCustomerStatementArgs = {
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  currency?: InputMaybe<CURRENCY>;
-  due_end_date?: InputMaybe<Scalars['DateTime']['input']>;
-  due_start_date?: InputMaybe<Scalars['DateTime']['input']>;
-  end_date?: InputMaybe<Scalars['DateTime']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  is_overdue?: InputMaybe<Scalars['Boolean']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  organization_customer_id: Scalars['String']['input'];
-  organization_id: Scalars['String']['input'];
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema>>;
-  start_date?: InputMaybe<Scalars['DateTime']['input']>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-  type?: InputMaybe<STATEMENT_LINE_TYPE>;
-};
-
-
-export type QueryuserOrganizationCustomerStatementLineArgs = {
-  organization_customer_id: Scalars['String']['input'];
-  organization_customer_statement_line_id?: InputMaybe<Scalars['Int']['input']>;
-  organization_id: Scalars['String']['input'];
-  organization_invoice_id?: InputMaybe<Scalars['String']['input']>;
-  organization_invoice_transaction_id?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-export type QueryuserOrganizationCustomerStatementLineGetPDFArgs = {
-  acct_provider?: InputMaybe<ACCT_PROVIDER>;
-  organization_customer_id: Scalars['String']['input'];
-  organization_customer_statement_line_id: Scalars['Int']['input'];
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type QueryuserOrganizationCustomersArgs = {
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  name?: InputMaybe<Scalars['String']['input']>;
-  organization_id: Scalars['String']['input'];
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema>>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type QueryuserOrganizationInviteCollaboratorArgs = {
-  organization_id: Scalars['String']['input'];
-  organization_invite_id: Scalars['String']['input'];
-};
-
-
-export type QueryuserOrganizationInviteCollaboratorsArgs = {
-  accepted?: InputMaybe<Scalars['Boolean']['input']>;
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  canceled?: InputMaybe<Scalars['Boolean']['input']>;
-  expired?: InputMaybe<Scalars['Boolean']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  organization_id: Scalars['String']['input'];
-  rejected?: InputMaybe<Scalars['Boolean']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema>>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type QueryuserOrganizationInvoiceArgs = {
-  organization_id: Scalars['String']['input'];
-  organization_invoice_id: Scalars['String']['input'];
-};
-
-
-export type QueryuserOrganizationInvoiceSummaryArgs = {
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  currency?: InputMaybe<CURRENCY>;
-  customer_name?: InputMaybe<Scalars['String']['input']>;
-  due_end_date?: InputMaybe<Scalars['DateTime']['input']>;
-  due_start_date?: InputMaybe<Scalars['DateTime']['input']>;
-  end_date?: InputMaybe<Scalars['DateTime']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  is_overdue?: InputMaybe<Scalars['Boolean']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  latest_acct_provider_is_overdue?: InputMaybe<Scalars['Boolean']['input']>;
-  latest_acct_provider_status?: InputMaybe<INVOICE_STATUS>;
-  organization_customer_id?: InputMaybe<Scalars['String']['input']>;
-  organization_id: Scalars['String']['input'];
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema>>;
-  start_date?: InputMaybe<Scalars['DateTime']['input']>;
-  status?: InputMaybe<INVOICE_STATUS>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type QueryuserOrganizationInvoiceTransactionArgs = {
-  organization_id: Scalars['String']['input'];
-  organization_invoice_transaction_id: Scalars['String']['input'];
-};
-
-
-export type QueryuserOrganizationInvoiceTransactionsArgs = {
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  organization_customer_id?: InputMaybe<Scalars['String']['input']>;
-  organization_id: Scalars['String']['input'];
-  organization_receiving_method_id?: InputMaybe<Scalars['String']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type QueryuserOrganizationInvoicesArgs = {
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  customer_name?: InputMaybe<Scalars['String']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  is_overdue?: InputMaybe<Scalars['Boolean']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  latest_acct_provider_is_overdue?: InputMaybe<Scalars['Boolean']['input']>;
-  latest_acct_provider_status?: InputMaybe<INVOICE_STATUS>;
-  number?: InputMaybe<Scalars['String']['input']>;
-  organization_customer_id?: InputMaybe<Scalars['String']['input']>;
-  organization_id: Scalars['String']['input'];
-  organization_project_id?: InputMaybe<Scalars['String']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema>>;
-  status?: InputMaybe<INVOICE_STATUS>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-  unique_code?: InputMaybe<Scalars['String']['input']>;
-};
-
-
-export type QueryuserOrganizationPaymentMethodArgs = {
-  organization_id: Scalars['String']['input'];
-  organization_payment_method_id: Scalars['String']['input'];
-};
-
-
-export type QueryuserOrganizationPaymentMethodsArgs = {
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  organization_id: Scalars['String']['input'];
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type QueryuserOrganizationProjectArgs = {
-  organization_id: Scalars['String']['input'];
-  organization_project_id: Scalars['String']['input'];
-};
-
-
-export type QueryuserOrganizationProjectsArgs = {
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  canceled?: InputMaybe<Scalars['Boolean']['input']>;
-  completed?: InputMaybe<Scalars['Boolean']['input']>;
-  ended?: InputMaybe<Scalars['Boolean']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  name?: InputMaybe<Scalars['String']['input']>;
-  organization_customer_id?: InputMaybe<Scalars['String']['input']>;
-  organization_id: Scalars['String']['input'];
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema>>;
-  started?: InputMaybe<Scalars['Boolean']['input']>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type QueryuserOrganizationReceivingMethodArgs = {
-  organization_id: Scalars['String']['input'];
-  organization_receiving_method_id: Scalars['String']['input'];
-};
-
-
-export type QueryuserOrganizationReceivingMethodsArgs = {
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  organization_id: Scalars['String']['input'];
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type QueryuserOrganizationReminderSettingArgs = {
-  organization_id: Scalars['String']['input'];
-  organization_reminder_setting_id: Scalars['String']['input'];
-};
-
-
-export type QueryuserOrganizationReminderSettingsArgs = {
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  due_date_mode?: InputMaybe<REMINDER_DUE_DATE_MODE>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  organization_customer_id?: InputMaybe<Scalars['String']['input']>;
-  organization_id: Scalars['String']['input'];
-  organization_invoice_id?: InputMaybe<Scalars['String']['input']>;
-  organization_project_id?: InputMaybe<Scalars['String']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema>>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type QueryuserOrganizationStatementLogArgs = {
-  organization_customer_statement_log_id: Scalars['String']['input'];
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type QueryuserOrganizationStatementLogsArgs = {
-  access_type?: InputMaybe<STATEMENT_ACCESS_TYPE>;
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  end_date?: InputMaybe<Scalars['DateTime']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  organization_customer_id?: InputMaybe<Scalars['String']['input']>;
-  organization_id: Scalars['String']['input'];
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema>>;
-  start_date?: InputMaybe<Scalars['DateTime']['input']>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type QueryuserOrganizationSubscriptionArgs = {
-  organization_id: Scalars['String']['input'];
-  organization_subscription_id: Scalars['String']['input'];
-};
-
-
-export type QueryuserOrganizationSubscriptionDefaultPricingSetupArgs = {
-  organization_coupon_id?: InputMaybe<Scalars['String']['input']>;
-  organization_id: Scalars['String']['input'];
-};
-
-
-export type QueryuserOrganizationSubscriptionsArgs = {
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  canceled?: InputMaybe<Scalars['Boolean']['input']>;
-  contains_item?: InputMaybe<ORGANIZATION_SUBSCRIPTION_ITEM>;
-  expired?: InputMaybe<Scalars['Boolean']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  has_error?: InputMaybe<Scalars['Boolean']['input']>;
-  has_outdated_price?: InputMaybe<Scalars['Boolean']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  organization_coupon_id?: InputMaybe<Scalars['String']['input']>;
-  organization_id: Scalars['String']['input'];
-  organization_payment_method_id?: InputMaybe<Scalars['String']['input']>;
-  price_tier?: InputMaybe<ORGANIZATION_SUBSCRIPTION_PRICE_TIER>;
-  provider?: InputMaybe<ORGANIZATION_SUBSCRIPTION_PROVIDER>;
-  provider_plan_code?: InputMaybe<Scalars['String']['input']>;
-  provider_status?: InputMaybe<ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS>;
-  provider_subscription_code?: InputMaybe<Scalars['String']['input']>;
-  renew_interval?: InputMaybe<ORGANIZATION_SUBSCRIPTION_RENEW_INTERVAL>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema>>;
-  started?: InputMaybe<Scalars['Boolean']['input']>;
-  status?: InputMaybe<ORGANIZATION_SUBSCRIPTION_STATUS>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type QueryuserOrganizationUserInviteArgs = {
-  organization_invite_id: Scalars['String']['input'];
-};
-
-
-export type QueryuserOrganizationUserInvitesArgs = {
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema>>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type QueryuserOrganizationVendorArgs = {
-  organization_id: Scalars['String']['input'];
-  organization_vendor_id: Scalars['String']['input'];
-};
-
-
-export type QueryuserOrganizationVendorContactArgs = {
-  organization_id: Scalars['String']['input'];
-  organization_vendor_contact_id: Scalars['String']['input'];
-  organization_vendor_id: Scalars['String']['input'];
-};
-
-
-export type QueryuserOrganizationVendorContactsArgs = {
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  name?: InputMaybe<Scalars['String']['input']>;
-  organization_id: Scalars['String']['input'];
-  organization_vendor_id: Scalars['String']['input'];
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema>>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type QueryuserOrganizationVendorsArgs = {
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  name?: InputMaybe<Scalars['String']['input']>;
-  organization_id: Scalars['String']['input'];
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema>>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-};
-
-
-export type QueryuserOrganizationsArgs = {
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-};
-
-export enum RECEIVING_METHOD {
-  ACH = 'ACH',
-  DEBIT_CARD = 'DEBIT_CARD',
-  MANUAL = 'MANUAL',
-  QUICKBOOKS = 'QUICKBOOKS'
-}
-
-export enum RECEIVING_PROVIDER {
-  MANUAL = 'MANUAL',
-  QUICKBOOKS = 'QUICKBOOKS'
-}
-
-export enum RECIPIENT_TYPE {
-  ORGANIZATION = 'ORGANIZATION',
-  OTHER = 'OTHER',
-  USER = 'USER'
-}
-
-export enum REMINDER_DUE_DATE_MODE {
-  AFTER = 'AFTER',
-  BEFORE = 'BEFORE'
-}
-
-export enum REMINDER_REPEAT_MODE {
-  DAILY = 'DAILY',
-  MONTHLY = 'MONTHLY',
-  WEEKLY = 'WEEKLY'
-}
-
-export enum SORT_ORDER {
-  ASC = 'ASC',
-  DESC = 'DESC'
-}
-
-export enum STATEMENT_ACCESS_TYPE {
-  CONNECTED_CUSTOMER = 'CONNECTED_CUSTOMER',
-  UNCONNECTED_CUSTOMER = 'UNCONNECTED_CUSTOMER'
-}
-
-export enum STATEMENT_LINE_TYPE {
-  INVOICE = 'INVOICE',
-  TRANSACTION = 'TRANSACTION'
-}
-
-export enum STORAGE_PROVIDER {
-  GOOGLE_CLOUD_STORAGE = 'GOOGLE_CLOUD_STORAGE'
-}
-
-export type Session = {
-  __typename?: 'Session';
-  user: User;
-  user_auth_provider_conn: UserAuthProviderConn;
-  user_session: UserSession;
-};
+  billing_address_line_1?: string | null | undefined;
+  billing_address_line_2?: string | null | undefined;
+  billing_address_number?: string | null | undefined;
+  billing_address_state?: string | null | undefined;
+  billing_address_zip_code?: string | null | undefined;
+  billing_email: string;
+  billing_first_name: string;
+  billing_last_name: string;
+  billing_phone_number?: string | null | undefined;
+};
+
+export type PAYMENT_METHOD =
+  | 'CARD'
+  | 'CHECK'
+  | 'MANUAL'
+  | 'QUICKBOOKS'
+  | 'SYNC';
+
+export type PAYMENT_PROVIDER =
+  | 'ACCRUPAY'
+  | 'MANUAL'
+  | 'NUVEI'
+  | 'QUICKBOOKS';
+
+export type PROJECT_CHANGE_REQUEST_STATUS =
+  | 'ACCEPTED'
+  | 'CANCELED'
+  | 'DRAFT'
+  | 'EXPIRED'
+  | 'PUBLISHED'
+  | 'REJECTED';
+
+export type PROJECT_STATUS =
+  | 'ACTIVE'
+  | 'CANCELED'
+  | 'COMPLETED'
+  | 'EXPIRED'
+  | 'WAITING';
+
+export type RECIPIENT_TYPE =
+  | 'ORGANIZATION'
+  | 'OTHER'
+  | 'USER';
+
+export type REMINDER_DUE_DATE_MODE =
+  | 'AFTER'
+  | 'BEFORE';
+
+export type REMINDER_REPEAT_MODE =
+  | 'DAILY'
+  | 'MONTHLY'
+  | 'WEEKLY';
+
+export type SORT_ORDER =
+  | 'ASC'
+  | 'DESC';
+
+export type STATEMENT_ACCESS_TYPE =
+  | 'CONNECTED_CUSTOMER'
+  | 'UNCONNECTED_CUSTOMER';
+
+export type STATEMENT_LINE_TYPE =
+  | 'INVOICE'
+  | 'TRANSACTION';
 
 export type SortingFieldSchema = {
-  field: Scalars['String']['input'];
+  field: string;
   order: SORT_ORDER;
 };
 
-export enum TAX_TYPE {
-  ATIN = 'ATIN',
-  EIN = 'EIN',
-  ITIN = 'ITIN',
-  PTIN = 'PTIN',
-  SSN = 'SSN'
-}
+export type TAX_TYPE =
+  | 'ATIN'
+  | 'EIN'
+  | 'ITIN'
+  | 'PTIN'
+  | 'SSN';
 
-export enum TRANSACTION_PROVIDER {
-  ACCRUPAY = 'ACCRUPAY',
-  MANUAL = 'MANUAL',
-  NUVEI = 'NUVEI',
-  QUICKBOOKS = 'QUICKBOOKS'
-}
+export type TRANSACTION_PROVIDER =
+  | 'ACCRUPAY'
+  | 'MANUAL'
+  | 'NUVEI'
+  | 'QUICKBOOKS';
 
-export enum TRANSACTION_STATUS {
-  EXPIRED = 'EXPIRED',
-  FAILED = 'FAILED',
-  PENDING = 'PENDING',
-  REVERTED = 'REVERTED',
-  STARTED = 'STARTED',
-  SUCCEEDED = 'SUCCEEDED'
-}
-
-export type UnauthorizedUserOrganizationUserInviteResponse = {
-  __typename?: 'UnauthorizedUserOrganizationUserInviteResponse';
-  invited_by?: Maybe<Scalars['String']['output']>;
-  organization_id: Scalars['String']['output'];
-  organization_name: Scalars['String']['output'];
-  target_account_exists: Scalars['Boolean']['output'];
-};
-
-export type User = {
-  __typename?: 'User';
-  archived_at?: Maybe<Scalars['DateTime']['output']>;
-  created_at: Scalars['DateTime']['output'];
-  current_email_verification_id?: Maybe<Scalars['String']['output']>;
-  current_phone_number_verification_id?: Maybe<Scalars['String']['output']>;
-  email: Scalars['String']['output'];
-  first_name?: Maybe<Scalars['String']['output']>;
-  id: Scalars['ID']['output'];
-  is_admin: Scalars['Boolean']['output'];
-  language?: Maybe<Scalars['String']['output']>;
-  last_name?: Maybe<Scalars['String']['output']>;
-  organizations?: Maybe<Array<Maybe<OrganizationUser>>>;
-  phone_number?: Maybe<Scalars['String']['output']>;
-  profile_picture_file?: Maybe<File>;
-  profile_picture_file_id?: Maybe<Scalars['String']['output']>;
-  referral_code?: Maybe<Scalars['String']['output']>;
-  timezone?: Maybe<Scalars['String']['output']>;
-  updated_at: Scalars['DateTime']['output'];
-};
-
-export type UserAuthProviderConn = {
-  __typename?: 'UserAuthProviderConn';
-  auth_provider: AUTH_PROVIDER;
-  code: Scalars['String']['output'];
-  created_at: Scalars['DateTime']['output'];
-  disconnected_at?: Maybe<Scalars['DateTime']['output']>;
-  id: Scalars['ID']['output'];
-  payload: Scalars['JSON']['output'];
-  updated_at: Scalars['DateTime']['output'];
-  user_id: Scalars['String']['output'];
-};
+export type TRANSACTION_STATUS =
+  | 'EXPIRED'
+  | 'FAILED'
+  | 'PENDING'
+  | 'REVERTED'
+  | 'STARTED'
+  | 'SUCCEEDED';
 
 export type UserEmailVerifyOrChangeFinishSchema = {
-  email: Scalars['String']['input'];
-  verification_code: Scalars['String']['input'];
+  email: string;
+  verification_code: string;
 };
 
 export type UserEmailVerifyOrChangeStartSchema = {
-  email: Scalars['String']['input'];
+  email: string;
 };
 
 export type UserOrganizationAcctProviderConnUpdateSchema = {
-  automatic_pull_enabled: Scalars['Boolean']['input'];
-};
-
-export type UserOrganizationBillManualPaymentCreateSchema = {
-  amount: Scalars['BigInt']['input'];
-  currency_code: CURRENCY;
-};
-
-export type UserOrganizationBillSchema = {
-  amount: Scalars['BigInt']['input'];
-  bill_date: Scalars['DateTime']['input'];
-  currency_code: CURRENCY;
-  description: Scalars['String']['input'];
-  discount_amount: Scalars['BigInt']['input'];
-  due_date: Scalars['DateTime']['input'];
-  number?: InputMaybe<Scalars['String']['input']>;
-  organization_project_id?: InputMaybe<Scalars['String']['input']>;
-  organization_vendor_id: Scalars['String']['input'];
-  total_amount: Scalars['BigInt']['input'];
+  automatic_pull_enabled: boolean;
 };
 
 export type UserOrganizationCollaboratorUpdateSchema = {
-  customer_email_copy_mode?: InputMaybe<NOTIFICATION_EMAIL_COPY_MODE>;
-  receive_invoice_reminders: Scalars['Boolean']['input'];
+  customer_email_copy_mode?: NOTIFICATION_EMAIL_COPY_MODE | null | undefined;
+  receive_invoice_reminders: boolean;
   role: ORGANIZATION_USER_ROLE;
 };
 
 export type UserOrganizationCreateSchema = {
-  address_city?: InputMaybe<Scalars['String']['input']>;
-  address_country_code_iso_3?: InputMaybe<COUNTRY_ISO_3>;
-  address_line_1?: InputMaybe<Scalars['String']['input']>;
-  address_line_2?: InputMaybe<Scalars['String']['input']>;
-  address_number?: InputMaybe<Scalars['String']['input']>;
-  address_state?: InputMaybe<Scalars['String']['input']>;
-  address_zip_code?: InputMaybe<Scalars['String']['input']>;
-  business_industry?: InputMaybe<Scalars['String']['input']>;
-  business_number_of_employees?: InputMaybe<Scalars['Int']['input']>;
-  email: Scalars['String']['input'];
-  language?: InputMaybe<Scalars['String']['input']>;
-  name: Scalars['String']['input'];
-  phone_number?: InputMaybe<Scalars['String']['input']>;
-  primary_contact_name?: InputMaybe<Scalars['String']['input']>;
-  referred_by_code?: InputMaybe<Scalars['String']['input']>;
-  setting_customer_email_copy_mode?: InputMaybe<NOTIFICATION_EMAIL_COPY_MODE>;
-  timezone?: InputMaybe<Scalars['String']['input']>;
-  website?: InputMaybe<Scalars['String']['input']>;
+  address_city?: string | null | undefined;
+  address_country_code_iso_3?: COUNTRY_ISO_3 | null | undefined;
+  address_line_1?: string | null | undefined;
+  address_line_2?: string | null | undefined;
+  address_number?: string | null | undefined;
+  address_state?: string | null | undefined;
+  address_zip_code?: string | null | undefined;
+  business_industry?: string | null | undefined;
+  business_number_of_employees?: number | null | undefined;
+  email: string;
+  language?: string | null | undefined;
+  name: string;
+  phone_number?: string | null | undefined;
+  primary_contact_name?: string | null | undefined;
+  referred_by_code?: string | null | undefined;
+  setting_customer_email_copy_mode?: NOTIFICATION_EMAIL_COPY_MODE | null | undefined;
+  timezone?: string | null | undefined;
+  website?: string | null | undefined;
 };
 
 export type UserOrganizationCustomerContactCreateSchema = {
-  email: Scalars['String']['input'];
-  email_copy_mode?: InputMaybe<NOTIFICATION_EMAIL_COPY_MODE>;
-  is_default: Scalars['Boolean']['input'];
-  name: Scalars['String']['input'];
-  phone_number?: InputMaybe<Scalars['String']['input']>;
-  receive_invoice_reminders: Scalars['Boolean']['input'];
+  email: string;
+  email_copy_mode?: NOTIFICATION_EMAIL_COPY_MODE | null | undefined;
+  is_default: boolean;
+  name: string;
+  phone_number?: string | null | undefined;
+  receive_invoice_reminders: boolean;
 };
 
 export type UserOrganizationCustomerContactUpdateSchema = {
-  email: Scalars['String']['input'];
-  email_copy_mode?: InputMaybe<NOTIFICATION_EMAIL_COPY_MODE>;
-  is_default: Scalars['Boolean']['input'];
-  name: Scalars['String']['input'];
-  phone_number?: InputMaybe<Scalars['String']['input']>;
-  receive_invoice_reminders: Scalars['Boolean']['input'];
-};
-
-export type UserOrganizationCustomerSchema = {
-  address_city?: InputMaybe<Scalars['String']['input']>;
-  address_country_code_iso_3?: InputMaybe<COUNTRY_ISO_3>;
-  address_line_1?: InputMaybe<Scalars['String']['input']>;
-  address_line_2?: InputMaybe<Scalars['String']['input']>;
-  address_number?: InputMaybe<Scalars['String']['input']>;
-  address_state?: InputMaybe<Scalars['String']['input']>;
-  address_zip_code?: InputMaybe<Scalars['String']['input']>;
-  email: Scalars['String']['input'];
-  is_active: Scalars['Boolean']['input'];
-  language?: InputMaybe<Scalars['String']['input']>;
-  name: Scalars['String']['input'];
-  phone_number?: InputMaybe<Scalars['String']['input']>;
-  tax_code?: InputMaybe<Scalars['String']['input']>;
-  tax_code_type?: InputMaybe<TAX_TYPE>;
-  timezone?: InputMaybe<Scalars['String']['input']>;
+  email: string;
+  email_copy_mode?: NOTIFICATION_EMAIL_COPY_MODE | null | undefined;
+  is_default: boolean;
+  name: string;
+  phone_number?: string | null | undefined;
+  receive_invoice_reminders: boolean;
 };
 
 export type UserOrganizationCustomerSendInvoiceEmailSchema = {
-  contact_ids: Array<Scalars['String']['input']>;
-  organization_invoice_id: Scalars['String']['input'];
-  send_to_base_customer_email?: InputMaybe<Scalars['Boolean']['input']>;
-  send_to_primary_contact?: InputMaybe<Scalars['Boolean']['input']>;
+  contact_ids: Array<string>;
+  organization_invoice_id: string;
+  send_to_base_customer_email?: boolean | null | undefined;
+  send_to_primary_contact?: boolean | null | undefined;
 };
 
 export type UserOrganizationCustomerSendStatementEmailSchema = {
-  contact_ids: Array<Scalars['String']['input']>;
-  organization_customer_id: Scalars['String']['input'];
-  send_to_base_customer_email?: InputMaybe<Scalars['Boolean']['input']>;
-  send_to_primary_contact?: InputMaybe<Scalars['Boolean']['input']>;
+  contact_ids: Array<string>;
+  organization_customer_id: string;
+  send_to_base_customer_email?: boolean | null | undefined;
+  send_to_primary_contact?: boolean | null | undefined;
 };
 
 export type UserOrganizationEmailVerifyOrChangeFinishSchema = {
-  email: Scalars['String']['input'];
-  verification_code: Scalars['String']['input'];
+  email: string;
+  verification_code: string;
 };
 
 export type UserOrganizationEmailVerifyOrChangeStartSchema = {
-  email: Scalars['String']['input'];
+  email: string;
 };
 
 export type UserOrganizationInviteCollaboratorCreateSchema = {
-  email: Scalars['String']['input'];
+  email: string;
   role: ORGANIZATION_USER_ROLE;
 };
 
-export type UserOrganizationInvoiceManualPaymentCreateSchema = {
-  amount: Scalars['BigInt']['input'];
-  currency_code: CURRENCY;
-};
-
-export type UserOrganizationInvoiceSchema = {
-  amount: Scalars['BigInt']['input'];
-  currency_code: CURRENCY;
-  description: Scalars['String']['input'];
-  discount_amount: Scalars['BigInt']['input'];
-  due_date: Scalars['DateTime']['input'];
-  invoice_date: Scalars['DateTime']['input'];
-  number?: InputMaybe<Scalars['String']['input']>;
-  organization_customer_id: Scalars['String']['input'];
-  organization_project_id?: InputMaybe<Scalars['String']['input']>;
-  total_amount: Scalars['BigInt']['input'];
-};
-
 export type UserOrganizationProjectCreateSchema = {
-  budget_amount: Scalars['BigInt']['input'];
+  budget_amount: bigint;
   budget_currency_code: CURRENCY;
-  contract_url?: InputMaybe<Scalars['String']['input']>;
-  description?: InputMaybe<Scalars['String']['input']>;
-  ends_at?: InputMaybe<Scalars['DateTime']['input']>;
-  name: Scalars['String']['input'];
-  organization_customer_id: Scalars['String']['input'];
-  starts_at?: InputMaybe<Scalars['DateTime']['input']>;
+  contract_url?: string | null | undefined;
+  description?: string | null | undefined;
+  ends_at?: unknown;
+  name: string;
+  organization_customer_id: string;
+  starts_at?: unknown;
 };
 
 export type UserOrganizationProjectUpdateSchema = {
-  canceled_at?: InputMaybe<Scalars['DateTime']['input']>;
-  completed_at?: InputMaybe<Scalars['DateTime']['input']>;
-  contract_url?: InputMaybe<Scalars['String']['input']>;
-  description?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type UserOrganizationReceivingMethodUpdateSchema = {
-  is_default: Scalars['Boolean']['input'];
-  is_enabled: Scalars['Boolean']['input'];
+  canceled_at?: unknown;
+  completed_at?: unknown;
+  contract_url?: string | null | undefined;
+  description?: string | null | undefined;
 };
 
 export type UserOrganizationReminderSettingSchema = {
-  days_amount: Scalars['Int']['input'];
+  days_amount: number;
   due_date_mode: REMINDER_DUE_DATE_MODE;
-  organization_customer_id?: InputMaybe<Scalars['String']['input']>;
-  organization_invoice_id?: InputMaybe<Scalars['String']['input']>;
-  organization_project_id?: InputMaybe<Scalars['String']['input']>;
-  repeat_mode?: InputMaybe<REMINDER_REPEAT_MODE>;
-  repeat_value?: InputMaybe<Scalars['Int']['input']>;
-  selected_hour: Scalars['Int']['input'];
+  organization_customer_id?: string | null | undefined;
+  organization_invoice_id?: string | null | undefined;
+  organization_project_id?: string | null | undefined;
+  repeat_mode?: REMINDER_REPEAT_MODE | null | undefined;
+  repeat_value?: number | null | undefined;
+  selected_hour: number;
 };
 
 export type UserOrganizationSubscriptionCalculatePricingAddonItemSchema = {
   item_type: ORGANIZATION_SUBSCRIPTION_ADDON_ITEM;
-  quantity: Scalars['Int']['input'];
+  quantity: number;
 };
 
 export type UserOrganizationSubscriptionCalculatePricingSchema = {
   currency: CURRENCY;
-  organization_coupon_id?: InputMaybe<Scalars['String']['input']>;
+  organization_coupon_id?: string | null | undefined;
   renew_interval: ORGANIZATION_SUBSCRIPTION_RENEW_INTERVAL;
   selected_addon_items: Array<UserOrganizationSubscriptionCalculatePricingAddonItemSchema>;
   selected_base_item: ORGANIZATION_SUBSCRIPTION_BASE_ITEM;
 };
 
 export type UserOrganizationSubscriptionStartPurchaseSchema = {
-  billing_address?: InputMaybe<OrganizationTransactionBillingAddressSchema>;
-  calculated_total_amount: Scalars['BigInt']['input'];
+  billing_address?: OrganizationTransactionBillingAddressSchema | null | undefined;
+  calculated_total_amount: bigint;
   currency: CURRENCY;
-  organization_coupon_id?: InputMaybe<Scalars['String']['input']>;
+  organization_coupon_id?: string | null | undefined;
   renew_interval: ORGANIZATION_SUBSCRIPTION_RENEW_INTERVAL;
   selected_addon_items: Array<UserOrganizationSubscriptionCalculatePricingAddonItemSchema>;
   selected_base_item: ORGANIZATION_SUBSCRIPTION_BASE_ITEM;
 };
 
 export type UserOrganizationUpdateSchema = {
-  address_city?: InputMaybe<Scalars['String']['input']>;
-  address_country_code_iso_3?: InputMaybe<COUNTRY_ISO_3>;
-  address_line_1?: InputMaybe<Scalars['String']['input']>;
-  address_line_2?: InputMaybe<Scalars['String']['input']>;
-  address_number?: InputMaybe<Scalars['String']['input']>;
-  address_state?: InputMaybe<Scalars['String']['input']>;
-  address_zip_code?: InputMaybe<Scalars['String']['input']>;
-  business_industry?: InputMaybe<Scalars['String']['input']>;
-  business_number_of_employees?: InputMaybe<Scalars['Int']['input']>;
-  language?: InputMaybe<Scalars['String']['input']>;
-  name?: InputMaybe<Scalars['String']['input']>;
-  phone_number?: InputMaybe<Scalars['String']['input']>;
-  primary_contact_name?: InputMaybe<Scalars['String']['input']>;
-  setting_customer_email_copy_mode?: InputMaybe<NOTIFICATION_EMAIL_COPY_MODE>;
-  timezone?: InputMaybe<Scalars['String']['input']>;
-  website?: InputMaybe<Scalars['String']['input']>;
+  address_city?: string | null | undefined;
+  address_country_code_iso_3?: COUNTRY_ISO_3 | null | undefined;
+  address_line_1?: string | null | undefined;
+  address_line_2?: string | null | undefined;
+  address_number?: string | null | undefined;
+  address_state?: string | null | undefined;
+  address_zip_code?: string | null | undefined;
+  business_industry?: string | null | undefined;
+  business_number_of_employees?: number | null | undefined;
+  language?: string | null | undefined;
+  name?: string | null | undefined;
+  phone_number?: string | null | undefined;
+  primary_contact_name?: string | null | undefined;
+  setting_customer_email_copy_mode?: NOTIFICATION_EMAIL_COPY_MODE | null | undefined;
+  timezone?: string | null | undefined;
+  website?: string | null | undefined;
 };
 
 export type UserOrganizationVendorContactCreateSchema = {
-  email: Scalars['String']['input'];
-  is_default: Scalars['Boolean']['input'];
-  name: Scalars['String']['input'];
-  phone_number?: InputMaybe<Scalars['String']['input']>;
+  email: string;
+  is_default: boolean;
+  name: string;
+  phone_number?: string | null | undefined;
 };
 
 export type UserOrganizationVendorContactUpdateSchema = {
-  email: Scalars['String']['input'];
-  is_default: Scalars['Boolean']['input'];
-  name: Scalars['String']['input'];
-  phone_number?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type UserOrganizationVendorSchema = {
-  address_city?: InputMaybe<Scalars['String']['input']>;
-  address_country_code_iso_3?: InputMaybe<COUNTRY_ISO_3>;
-  address_line_1?: InputMaybe<Scalars['String']['input']>;
-  address_line_2?: InputMaybe<Scalars['String']['input']>;
-  address_number?: InputMaybe<Scalars['String']['input']>;
-  address_state?: InputMaybe<Scalars['String']['input']>;
-  address_zip_code?: InputMaybe<Scalars['String']['input']>;
-  email: Scalars['String']['input'];
-  is_active: Scalars['Boolean']['input'];
-  language?: InputMaybe<Scalars['String']['input']>;
-  name: Scalars['String']['input'];
-  phone_number?: InputMaybe<Scalars['String']['input']>;
-  tax_code?: InputMaybe<Scalars['String']['input']>;
-  tax_code_type?: InputMaybe<TAX_TYPE>;
-  timezone?: InputMaybe<Scalars['String']['input']>;
-};
-
-export type UserPaginationConnection = {
-  __typename?: 'UserPaginationConnection';
-  edges: Array<UserPaginationEdge>;
-  pageInfo: PageInfo;
-  totalCount: Scalars['Int']['output'];
-};
-
-export type UserPaginationEdge = {
-  __typename?: 'UserPaginationEdge';
-  cursor: Scalars['ConnectionCursor']['output'];
-  node: User;
+  email: string;
+  is_default: boolean;
+  name: string;
+  phone_number?: string | null | undefined;
 };
 
 export type UserPasswordChangeFinishSchema = {
-  new_password: Scalars['String']['input'];
-  verification_code: Scalars['String']['input'];
+  new_password: string;
+  verification_code: string;
 };
 
 export type UserPasswordChangeStartSchema = {
-  current_password?: InputMaybe<Scalars['String']['input']>;
+  current_password?: string | null | undefined;
 };
 
 export type UserPasswordResetFinishSchema = {
-  email: Scalars['String']['input'];
-  new_password: Scalars['String']['input'];
-  user_id: Scalars['String']['input'];
-  verification_code: Scalars['String']['input'];
+  email: string;
+  new_password: string;
+  user_id: string;
+  verification_code: string;
 };
 
 export type UserPasswordResetStartSchema = {
-  email: Scalars['String']['input'];
+  email: string;
 };
 
 export type UserPhoneNumberVerifyOrChangeFinishSchema = {
-  phone_number: Scalars['String']['input'];
-  verification_code: Scalars['String']['input'];
+  phone_number: string;
+  verification_code: string;
 };
 
 export type UserPhoneNumberVerifyOrChangeStartSchema = {
-  phone_number: Scalars['String']['input'];
-};
-
-export type UserSession = {
-  __typename?: 'UserSession';
-  access_token: Scalars['String']['output'];
-  access_token_expires_at: Scalars['DateTime']['output'];
-  canceled_at?: Maybe<Scalars['DateTime']['output']>;
-  created_at: Scalars['DateTime']['output'];
-  id: Scalars['ID']['output'];
-  payload: Scalars['JSON']['output'];
-  refresh_token?: Maybe<Scalars['String']['output']>;
-  refresh_token_expires_at?: Maybe<Scalars['DateTime']['output']>;
-  updated_at: Scalars['DateTime']['output'];
-  user_auth_provider_conn: UserAuthProviderConn;
-  user_auth_provider_conn_id: Scalars['String']['output'];
+  phone_number: string;
 };
 
 export type UserSignUpWithEmailFinishSchema = {
-  email: Scalars['String']['input'];
-  password: Scalars['String']['input'];
-  verification_code: Scalars['String']['input'];
+  email: string;
+  password: string;
+  verification_code: string;
 };
 
 export type UserSignUpWithEmailStartSchema = {
-  email: Scalars['String']['input'];
+  email: string;
 };
 
 export type UserSignUpWithEmailVerifySchema = {
-  email: Scalars['String']['input'];
-  verification_code: Scalars['String']['input'];
+  email: string;
+  verification_code: string;
 };
 
 export type UserUpdateDataSchema = {
-  first_name: Scalars['String']['input'];
-  language: Scalars['String']['input'];
-  last_name: Scalars['String']['input'];
-  timezone: Scalars['String']['input'];
+  first_name: string;
+  language: string;
+  last_name: string;
+  timezone: string;
 };
 
-export type OrganizationAcctProviderConnFragmentFragment = { __typename?: 'OrganizationAcctProviderConn', id: string, acct_provider: ACCT_PROVIDER, code: string, url?: string | null, payload?: any | null, customer_add_url?: string | null, invoice_add_url?: string | null, vendor_add_url?: string | null, bill_add_url?: string | null, name?: string | null, email?: string | null, phone_number?: string | null, website_url?: string | null, primary_contact_name?: string | null, business_name?: string | null, business_industry?: string | null, business_number_of_employees?: number | null, timezone?: string | null, language?: string | null, business_tax_code_type?: TAX_TYPE | null, business_tax_code?: string | null, address_line_1?: string | null, address_number?: string | null, address_line_2?: string | null, address_city?: string | null, address_state?: string | null, address_zip_code?: string | null, address_country_code_iso_3?: COUNTRY_ISO_3 | null, address_lat?: number | null, address_lng?: number | null, business_address_line_1?: string | null, business_address_number?: string | null, business_address_line_2?: string | null, business_address_city?: string | null, business_address_state?: string | null, business_address_zip_code?: string | null, business_address_country_code_iso_3?: COUNTRY_ISO_3 | null, business_address_lat?: number | null, business_address_lng?: number | null, automatic_pull_enabled: boolean, status: ORGANIZATION_ACCT_PROVIDER_CONN_STATUS, disconnected_at?: any | null, conn_expires_at: any, organization_id: string, last_conn_at?: any | null, last_successful_sync_id?: string | null, last_successful_sync_at?: any | null, last_sync_succeeded?: boolean | null, last_sync_id?: string | null, last_sync_at?: any | null, created_at: any, updated_at: any, synchronizations: { __typename?: 'OrganizationAcctProviderConnSynchronizationPaginationConnection', edges: Array<{ __typename?: 'OrganizationAcctProviderConnSynchronizationPaginationEdge', node: { __typename?: 'OrganizationAcctProviderConnSynchronization', id: string, mode: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_MODE, force?: boolean | null, provider: ACCT_PROVIDER, errors: Array<string>, warnings: Array<string>, started_at?: any | null, finished_at?: any | null, failed_at?: any | null, succeeded_at?: any | null, skipped_at?: any | null, read_success: number, read_failure: number, skipped: number, create_success: number, create_failure: number, update_success: number, update_failure: number, delete_failure: number, delete_success: number, process_failure: number, process_success: number, created_at: any, updated_at: any, scope: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_SCOPE, scope_id?: string | null, scope_description?: string | null, organization_id: string, organization_acct_provider_conn_id: string, data?: { __typename?: 'OrganizationAcctProviderConnSynchronizationData', customer?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, invoice?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, invoice_transaction?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, vendor?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, bill?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, bill_transaction?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null } | null } }> } };
+export type ApolloClientTestQueryQueryVariables = Exact<{ [key: string]: never; }>;
 
-export type OrganizationAcctProviderConnSynchronizationFragmentFragment = { __typename?: 'OrganizationAcctProviderConnSynchronization', id: string, mode: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_MODE, force?: boolean | null, provider: ACCT_PROVIDER, errors: Array<string>, warnings: Array<string>, started_at?: any | null, finished_at?: any | null, failed_at?: any | null, succeeded_at?: any | null, skipped_at?: any | null, read_success: number, read_failure: number, skipped: number, create_success: number, create_failure: number, update_success: number, update_failure: number, delete_failure: number, delete_success: number, process_failure: number, process_success: number, created_at: any, updated_at: any, scope: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_SCOPE, scope_id?: string | null, scope_description?: string | null, organization_id: string, organization_acct_provider_conn_id: string, data?: { __typename?: 'OrganizationAcctProviderConnSynchronizationData', customer?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, invoice?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, invoice_transaction?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, vendor?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, bill?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, bill_transaction?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null } | null };
+
+export type ApolloClientTestQueryQuery = { __typename: 'Query' };
+
+export type OrganizationAcctProviderConnFragmentFragment = { id: string, acct_provider: ACCT_PROVIDER, code: string, url: string | null, payload: unknown, customer_add_url: string | null, invoice_add_url: string | null, vendor_add_url: string | null, bill_add_url: string | null, name: string | null, email: string | null, phone_number: string | null, website_url: string | null, primary_contact_name: string | null, business_name: string | null, business_industry: string | null, business_number_of_employees: number | null, timezone: string | null, language: string | null, business_tax_code_type: TAX_TYPE | null, business_tax_code: string | null, address_line_1: string | null, address_number: string | null, address_line_2: string | null, address_city: string | null, address_state: string | null, address_zip_code: string | null, address_country_code_iso_3: COUNTRY_ISO_3 | null, address_lat: number | null, address_lng: number | null, business_address_line_1: string | null, business_address_number: string | null, business_address_line_2: string | null, business_address_city: string | null, business_address_state: string | null, business_address_zip_code: string | null, business_address_country_code_iso_3: COUNTRY_ISO_3 | null, business_address_lat: number | null, business_address_lng: number | null, automatic_pull_enabled: boolean, status: ORGANIZATION_ACCT_PROVIDER_CONN_STATUS, disconnected_at: unknown, conn_expires_at: unknown, organization_id: string, last_conn_at: unknown, last_successful_sync_id: string | null, last_successful_sync_at: unknown, last_sync_succeeded: boolean | null, last_sync_id: string | null, last_sync_at: unknown, created_at: unknown, updated_at: unknown, synchronizations: { edges: Array<{ node: { id: string, mode: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_MODE, force: boolean | null, provider: ACCT_PROVIDER, errors: Array<string>, warnings: Array<string>, started_at: unknown, finished_at: unknown, failed_at: unknown, succeeded_at: unknown, skipped_at: unknown, read_success: number, read_failure: number, skipped: number, create_success: number, create_failure: number, update_success: number, update_failure: number, delete_failure: number, delete_success: number, process_failure: number, process_success: number, created_at: unknown, updated_at: unknown, scope: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_SCOPE, scope_id: string | null, scope_description: string | null, organization_id: string, organization_acct_provider_conn_id: string, data: { customer: { items: unknown } | null, invoice: { items: unknown } | null, invoice_transaction: { items: unknown } | null, vendor: { items: unknown } | null, bill: { items: unknown } | null, bill_transaction: { items: unknown } | null } | null } }> } };
+
+export type OrganizationAcctProviderConnSynchronizationFragmentFragment = { id: string, mode: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_MODE, force: boolean | null, provider: ACCT_PROVIDER, errors: Array<string>, warnings: Array<string>, started_at: unknown, finished_at: unknown, failed_at: unknown, succeeded_at: unknown, skipped_at: unknown, read_success: number, read_failure: number, skipped: number, create_success: number, create_failure: number, update_success: number, update_failure: number, delete_failure: number, delete_success: number, process_failure: number, process_success: number, created_at: unknown, updated_at: unknown, scope: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_SCOPE, scope_id: string | null, scope_description: string | null, organization_id: string, organization_acct_provider_conn_id: string, data: { customer: { items: unknown } | null, invoice: { items: unknown } | null, invoice_transaction: { items: unknown } | null, vendor: { items: unknown } | null, bill: { items: unknown } | null, bill_transaction: { items: unknown } | null } | null };
 
 export type UserOrganizationAcctProviderConnDisconnectMutationVariables = Exact<{
-  organizationId: Scalars['String']['input'];
+  organizationId: string;
   accountProvider: ACCT_PROVIDER;
 }>;
 
 
-export type UserOrganizationAcctProviderConnDisconnectMutation = { __typename?: 'Mutation', userOrganizationAcctProviderConnDisconnect: { __typename?: 'OrganizationAcctProviderConn', id: string, acct_provider: ACCT_PROVIDER, code: string, url?: string | null, payload?: any | null, customer_add_url?: string | null, invoice_add_url?: string | null, vendor_add_url?: string | null, bill_add_url?: string | null, name?: string | null, email?: string | null, phone_number?: string | null, website_url?: string | null, primary_contact_name?: string | null, business_name?: string | null, business_industry?: string | null, business_number_of_employees?: number | null, timezone?: string | null, language?: string | null, business_tax_code_type?: TAX_TYPE | null, business_tax_code?: string | null, address_line_1?: string | null, address_number?: string | null, address_line_2?: string | null, address_city?: string | null, address_state?: string | null, address_zip_code?: string | null, address_country_code_iso_3?: COUNTRY_ISO_3 | null, address_lat?: number | null, address_lng?: number | null, business_address_line_1?: string | null, business_address_number?: string | null, business_address_line_2?: string | null, business_address_city?: string | null, business_address_state?: string | null, business_address_zip_code?: string | null, business_address_country_code_iso_3?: COUNTRY_ISO_3 | null, business_address_lat?: number | null, business_address_lng?: number | null, automatic_pull_enabled: boolean, status: ORGANIZATION_ACCT_PROVIDER_CONN_STATUS, disconnected_at?: any | null, conn_expires_at: any, organization_id: string, last_conn_at?: any | null, last_successful_sync_id?: string | null, last_successful_sync_at?: any | null, last_sync_succeeded?: boolean | null, last_sync_id?: string | null, last_sync_at?: any | null, created_at: any, updated_at: any, synchronizations: { __typename?: 'OrganizationAcctProviderConnSynchronizationPaginationConnection', edges: Array<{ __typename?: 'OrganizationAcctProviderConnSynchronizationPaginationEdge', node: { __typename?: 'OrganizationAcctProviderConnSynchronization', id: string, mode: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_MODE, force?: boolean | null, provider: ACCT_PROVIDER, errors: Array<string>, warnings: Array<string>, started_at?: any | null, finished_at?: any | null, failed_at?: any | null, succeeded_at?: any | null, skipped_at?: any | null, read_success: number, read_failure: number, skipped: number, create_success: number, create_failure: number, update_success: number, update_failure: number, delete_failure: number, delete_success: number, process_failure: number, process_success: number, created_at: any, updated_at: any, scope: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_SCOPE, scope_id?: string | null, scope_description?: string | null, organization_id: string, organization_acct_provider_conn_id: string, data?: { __typename?: 'OrganizationAcctProviderConnSynchronizationData', customer?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, invoice?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, invoice_transaction?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, vendor?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, bill?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, bill_transaction?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null } | null } }> } } };
+export type UserOrganizationAcctProviderConnDisconnectMutation = { userOrganizationAcctProviderConnDisconnect: { id: string, acct_provider: ACCT_PROVIDER, code: string, url: string | null, payload: unknown, customer_add_url: string | null, invoice_add_url: string | null, vendor_add_url: string | null, bill_add_url: string | null, name: string | null, email: string | null, phone_number: string | null, website_url: string | null, primary_contact_name: string | null, business_name: string | null, business_industry: string | null, business_number_of_employees: number | null, timezone: string | null, language: string | null, business_tax_code_type: TAX_TYPE | null, business_tax_code: string | null, address_line_1: string | null, address_number: string | null, address_line_2: string | null, address_city: string | null, address_state: string | null, address_zip_code: string | null, address_country_code_iso_3: COUNTRY_ISO_3 | null, address_lat: number | null, address_lng: number | null, business_address_line_1: string | null, business_address_number: string | null, business_address_line_2: string | null, business_address_city: string | null, business_address_state: string | null, business_address_zip_code: string | null, business_address_country_code_iso_3: COUNTRY_ISO_3 | null, business_address_lat: number | null, business_address_lng: number | null, automatic_pull_enabled: boolean, status: ORGANIZATION_ACCT_PROVIDER_CONN_STATUS, disconnected_at: unknown, conn_expires_at: unknown, organization_id: string, last_conn_at: unknown, last_successful_sync_id: string | null, last_successful_sync_at: unknown, last_sync_succeeded: boolean | null, last_sync_id: string | null, last_sync_at: unknown, created_at: unknown, updated_at: unknown, synchronizations: { edges: Array<{ node: { id: string, mode: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_MODE, force: boolean | null, provider: ACCT_PROVIDER, errors: Array<string>, warnings: Array<string>, started_at: unknown, finished_at: unknown, failed_at: unknown, succeeded_at: unknown, skipped_at: unknown, read_success: number, read_failure: number, skipped: number, create_success: number, create_failure: number, update_success: number, update_failure: number, delete_failure: number, delete_success: number, process_failure: number, process_success: number, created_at: unknown, updated_at: unknown, scope: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_SCOPE, scope_id: string | null, scope_description: string | null, organization_id: string, organization_acct_provider_conn_id: string, data: { customer: { items: unknown } | null, invoice: { items: unknown } | null, invoice_transaction: { items: unknown } | null, vendor: { items: unknown } | null, bill: { items: unknown } | null, bill_transaction: { items: unknown } | null } | null } }> } } };
 
 export type UserOrganizationAcctProviderConnUpdateMutationVariables = Exact<{
-  organizationId: Scalars['String']['input'];
+  organizationId: string;
   accountProvider: ACCT_PROVIDER;
   data: UserOrganizationAcctProviderConnUpdateSchema;
 }>;
 
 
-export type UserOrganizationAcctProviderConnUpdateMutation = { __typename?: 'Mutation', userOrganizationAcctProviderConnUpdate: { __typename?: 'OrganizationAcctProviderConn', id: string, acct_provider: ACCT_PROVIDER, code: string, url?: string | null, payload?: any | null, customer_add_url?: string | null, invoice_add_url?: string | null, vendor_add_url?: string | null, bill_add_url?: string | null, name?: string | null, email?: string | null, phone_number?: string | null, website_url?: string | null, primary_contact_name?: string | null, business_name?: string | null, business_industry?: string | null, business_number_of_employees?: number | null, timezone?: string | null, language?: string | null, business_tax_code_type?: TAX_TYPE | null, business_tax_code?: string | null, address_line_1?: string | null, address_number?: string | null, address_line_2?: string | null, address_city?: string | null, address_state?: string | null, address_zip_code?: string | null, address_country_code_iso_3?: COUNTRY_ISO_3 | null, address_lat?: number | null, address_lng?: number | null, business_address_line_1?: string | null, business_address_number?: string | null, business_address_line_2?: string | null, business_address_city?: string | null, business_address_state?: string | null, business_address_zip_code?: string | null, business_address_country_code_iso_3?: COUNTRY_ISO_3 | null, business_address_lat?: number | null, business_address_lng?: number | null, automatic_pull_enabled: boolean, status: ORGANIZATION_ACCT_PROVIDER_CONN_STATUS, disconnected_at?: any | null, conn_expires_at: any, organization_id: string, last_conn_at?: any | null, last_successful_sync_id?: string | null, last_successful_sync_at?: any | null, last_sync_succeeded?: boolean | null, last_sync_id?: string | null, last_sync_at?: any | null, created_at: any, updated_at: any, synchronizations: { __typename?: 'OrganizationAcctProviderConnSynchronizationPaginationConnection', edges: Array<{ __typename?: 'OrganizationAcctProviderConnSynchronizationPaginationEdge', node: { __typename?: 'OrganizationAcctProviderConnSynchronization', id: string, mode: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_MODE, force?: boolean | null, provider: ACCT_PROVIDER, errors: Array<string>, warnings: Array<string>, started_at?: any | null, finished_at?: any | null, failed_at?: any | null, succeeded_at?: any | null, skipped_at?: any | null, read_success: number, read_failure: number, skipped: number, create_success: number, create_failure: number, update_success: number, update_failure: number, delete_failure: number, delete_success: number, process_failure: number, process_success: number, created_at: any, updated_at: any, scope: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_SCOPE, scope_id?: string | null, scope_description?: string | null, organization_id: string, organization_acct_provider_conn_id: string, data?: { __typename?: 'OrganizationAcctProviderConnSynchronizationData', customer?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, invoice?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, invoice_transaction?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, vendor?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, bill?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, bill_transaction?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null } | null } }> } } };
+export type UserOrganizationAcctProviderConnUpdateMutation = { userOrganizationAcctProviderConnUpdate: { id: string, acct_provider: ACCT_PROVIDER, code: string, url: string | null, payload: unknown, customer_add_url: string | null, invoice_add_url: string | null, vendor_add_url: string | null, bill_add_url: string | null, name: string | null, email: string | null, phone_number: string | null, website_url: string | null, primary_contact_name: string | null, business_name: string | null, business_industry: string | null, business_number_of_employees: number | null, timezone: string | null, language: string | null, business_tax_code_type: TAX_TYPE | null, business_tax_code: string | null, address_line_1: string | null, address_number: string | null, address_line_2: string | null, address_city: string | null, address_state: string | null, address_zip_code: string | null, address_country_code_iso_3: COUNTRY_ISO_3 | null, address_lat: number | null, address_lng: number | null, business_address_line_1: string | null, business_address_number: string | null, business_address_line_2: string | null, business_address_city: string | null, business_address_state: string | null, business_address_zip_code: string | null, business_address_country_code_iso_3: COUNTRY_ISO_3 | null, business_address_lat: number | null, business_address_lng: number | null, automatic_pull_enabled: boolean, status: ORGANIZATION_ACCT_PROVIDER_CONN_STATUS, disconnected_at: unknown, conn_expires_at: unknown, organization_id: string, last_conn_at: unknown, last_successful_sync_id: string | null, last_successful_sync_at: unknown, last_sync_succeeded: boolean | null, last_sync_id: string | null, last_sync_at: unknown, created_at: unknown, updated_at: unknown, synchronizations: { edges: Array<{ node: { id: string, mode: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_MODE, force: boolean | null, provider: ACCT_PROVIDER, errors: Array<string>, warnings: Array<string>, started_at: unknown, finished_at: unknown, failed_at: unknown, succeeded_at: unknown, skipped_at: unknown, read_success: number, read_failure: number, skipped: number, create_success: number, create_failure: number, update_success: number, update_failure: number, delete_failure: number, delete_success: number, process_failure: number, process_success: number, created_at: unknown, updated_at: unknown, scope: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_SCOPE, scope_id: string | null, scope_description: string | null, organization_id: string, organization_acct_provider_conn_id: string, data: { customer: { items: unknown } | null, invoice: { items: unknown } | null, invoice_transaction: { items: unknown } | null, vendor: { items: unknown } | null, bill: { items: unknown } | null, bill_transaction: { items: unknown } | null } | null } }> } } };
 
 export type UserOrganizationAcctProviderConnectMutationVariables = Exact<{
-  organizationId: Scalars['String']['input'];
+  organizationId: string;
   accountProvider: ACCT_PROVIDER;
-  url: Scalars['String']['input'];
-  automaticPull: Scalars['Boolean']['input'];
+  url: string;
+  automaticPull: boolean;
 }>;
 
 
-export type UserOrganizationAcctProviderConnectMutation = { __typename?: 'Mutation', userOrganizationAcctProviderConnect: { __typename?: 'OrganizationAcctProviderConn', id: string, acct_provider: ACCT_PROVIDER, code: string, url?: string | null, payload?: any | null, customer_add_url?: string | null, invoice_add_url?: string | null, vendor_add_url?: string | null, bill_add_url?: string | null, name?: string | null, email?: string | null, phone_number?: string | null, website_url?: string | null, primary_contact_name?: string | null, business_name?: string | null, business_industry?: string | null, business_number_of_employees?: number | null, timezone?: string | null, language?: string | null, business_tax_code_type?: TAX_TYPE | null, business_tax_code?: string | null, address_line_1?: string | null, address_number?: string | null, address_line_2?: string | null, address_city?: string | null, address_state?: string | null, address_zip_code?: string | null, address_country_code_iso_3?: COUNTRY_ISO_3 | null, address_lat?: number | null, address_lng?: number | null, business_address_line_1?: string | null, business_address_number?: string | null, business_address_line_2?: string | null, business_address_city?: string | null, business_address_state?: string | null, business_address_zip_code?: string | null, business_address_country_code_iso_3?: COUNTRY_ISO_3 | null, business_address_lat?: number | null, business_address_lng?: number | null, automatic_pull_enabled: boolean, status: ORGANIZATION_ACCT_PROVIDER_CONN_STATUS, disconnected_at?: any | null, conn_expires_at: any, organization_id: string, last_conn_at?: any | null, last_successful_sync_id?: string | null, last_successful_sync_at?: any | null, last_sync_succeeded?: boolean | null, last_sync_id?: string | null, last_sync_at?: any | null, created_at: any, updated_at: any, synchronizations: { __typename?: 'OrganizationAcctProviderConnSynchronizationPaginationConnection', edges: Array<{ __typename?: 'OrganizationAcctProviderConnSynchronizationPaginationEdge', node: { __typename?: 'OrganizationAcctProviderConnSynchronization', id: string, mode: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_MODE, force?: boolean | null, provider: ACCT_PROVIDER, errors: Array<string>, warnings: Array<string>, started_at?: any | null, finished_at?: any | null, failed_at?: any | null, succeeded_at?: any | null, skipped_at?: any | null, read_success: number, read_failure: number, skipped: number, create_success: number, create_failure: number, update_success: number, update_failure: number, delete_failure: number, delete_success: number, process_failure: number, process_success: number, created_at: any, updated_at: any, scope: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_SCOPE, scope_id?: string | null, scope_description?: string | null, organization_id: string, organization_acct_provider_conn_id: string, data?: { __typename?: 'OrganizationAcctProviderConnSynchronizationData', customer?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, invoice?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, invoice_transaction?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, vendor?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, bill?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, bill_transaction?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null } | null } }> } } };
+export type UserOrganizationAcctProviderConnectMutation = { userOrganizationAcctProviderConnect: { id: string, acct_provider: ACCT_PROVIDER, code: string, url: string | null, payload: unknown, customer_add_url: string | null, invoice_add_url: string | null, vendor_add_url: string | null, bill_add_url: string | null, name: string | null, email: string | null, phone_number: string | null, website_url: string | null, primary_contact_name: string | null, business_name: string | null, business_industry: string | null, business_number_of_employees: number | null, timezone: string | null, language: string | null, business_tax_code_type: TAX_TYPE | null, business_tax_code: string | null, address_line_1: string | null, address_number: string | null, address_line_2: string | null, address_city: string | null, address_state: string | null, address_zip_code: string | null, address_country_code_iso_3: COUNTRY_ISO_3 | null, address_lat: number | null, address_lng: number | null, business_address_line_1: string | null, business_address_number: string | null, business_address_line_2: string | null, business_address_city: string | null, business_address_state: string | null, business_address_zip_code: string | null, business_address_country_code_iso_3: COUNTRY_ISO_3 | null, business_address_lat: number | null, business_address_lng: number | null, automatic_pull_enabled: boolean, status: ORGANIZATION_ACCT_PROVIDER_CONN_STATUS, disconnected_at: unknown, conn_expires_at: unknown, organization_id: string, last_conn_at: unknown, last_successful_sync_id: string | null, last_successful_sync_at: unknown, last_sync_succeeded: boolean | null, last_sync_id: string | null, last_sync_at: unknown, created_at: unknown, updated_at: unknown, synchronizations: { edges: Array<{ node: { id: string, mode: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_MODE, force: boolean | null, provider: ACCT_PROVIDER, errors: Array<string>, warnings: Array<string>, started_at: unknown, finished_at: unknown, failed_at: unknown, succeeded_at: unknown, skipped_at: unknown, read_success: number, read_failure: number, skipped: number, create_success: number, create_failure: number, update_success: number, update_failure: number, delete_failure: number, delete_success: number, process_failure: number, process_success: number, created_at: unknown, updated_at: unknown, scope: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_SCOPE, scope_id: string | null, scope_description: string | null, organization_id: string, organization_acct_provider_conn_id: string, data: { customer: { items: unknown } | null, invoice: { items: unknown } | null, invoice_transaction: { items: unknown } | null, vendor: { items: unknown } | null, bill: { items: unknown } | null, bill_transaction: { items: unknown } | null } | null } }> } } };
 
 export type UserOrganizationAcctProviderGetOAuthUrlMutationVariables = Exact<{
-  organizationId: Scalars['String']['input'];
+  organizationId: string;
   accountProvider: ACCT_PROVIDER;
 }>;
 
 
-export type UserOrganizationAcctProviderGetOAuthUrlMutation = { __typename?: 'Mutation', userOrganizationAcctProviderGetOAuthUrl: string };
+export type UserOrganizationAcctProviderGetOAuthUrlMutation = { userOrganizationAcctProviderGetOAuthUrl: string };
 
 export type UserOrganizationAcctProviderSynchronizeMutationVariables = Exact<{
-  organizationId: Scalars['String']['input'];
+  organizationId: string;
   accountProvider: ACCT_PROVIDER;
 }>;
 
 
-export type UserOrganizationAcctProviderSynchronizeMutation = { __typename?: 'Mutation', userOrganizationAcctProviderSynchronize: any };
+export type UserOrganizationAcctProviderSynchronizeMutation = { userOrganizationAcctProviderSynchronize: unknown };
 
 export type UserOrganizationAcctProvidersQueryVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema> | SortingFieldSchema>;
+  organizationId: string;
+  after?: unknown;
+  first?: number | null | undefined;
+  before?: unknown;
+  last?: number | null | undefined;
+  skip?: number | null | undefined;
+  take?: number | null | undefined;
+  sorting?: Array<SortingFieldSchema> | SortingFieldSchema | null | undefined;
 }>;
 
 
-export type UserOrganizationAcctProvidersQuery = { __typename?: 'Query', userOrganizationAcctProviders: { __typename?: 'OrganizationAcctProviderConnPaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationAcctProviderConnPaginationEdge', cursor: any, node: { __typename?: 'OrganizationAcctProviderConn', id: string, acct_provider: ACCT_PROVIDER, code: string, url?: string | null, payload?: any | null, customer_add_url?: string | null, invoice_add_url?: string | null, vendor_add_url?: string | null, bill_add_url?: string | null, name?: string | null, email?: string | null, phone_number?: string | null, website_url?: string | null, primary_contact_name?: string | null, business_name?: string | null, business_industry?: string | null, business_number_of_employees?: number | null, timezone?: string | null, language?: string | null, business_tax_code_type?: TAX_TYPE | null, business_tax_code?: string | null, address_line_1?: string | null, address_number?: string | null, address_line_2?: string | null, address_city?: string | null, address_state?: string | null, address_zip_code?: string | null, address_country_code_iso_3?: COUNTRY_ISO_3 | null, address_lat?: number | null, address_lng?: number | null, business_address_line_1?: string | null, business_address_number?: string | null, business_address_line_2?: string | null, business_address_city?: string | null, business_address_state?: string | null, business_address_zip_code?: string | null, business_address_country_code_iso_3?: COUNTRY_ISO_3 | null, business_address_lat?: number | null, business_address_lng?: number | null, automatic_pull_enabled: boolean, status: ORGANIZATION_ACCT_PROVIDER_CONN_STATUS, disconnected_at?: any | null, conn_expires_at: any, organization_id: string, last_conn_at?: any | null, last_successful_sync_id?: string | null, last_successful_sync_at?: any | null, last_sync_succeeded?: boolean | null, last_sync_id?: string | null, last_sync_at?: any | null, created_at: any, updated_at: any, synchronizations: { __typename?: 'OrganizationAcctProviderConnSynchronizationPaginationConnection', edges: Array<{ __typename?: 'OrganizationAcctProviderConnSynchronizationPaginationEdge', node: { __typename?: 'OrganizationAcctProviderConnSynchronization', id: string, mode: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_MODE, force?: boolean | null, provider: ACCT_PROVIDER, errors: Array<string>, warnings: Array<string>, started_at?: any | null, finished_at?: any | null, failed_at?: any | null, succeeded_at?: any | null, skipped_at?: any | null, read_success: number, read_failure: number, skipped: number, create_success: number, create_failure: number, update_success: number, update_failure: number, delete_failure: number, delete_success: number, process_failure: number, process_success: number, created_at: any, updated_at: any, scope: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_SCOPE, scope_id?: string | null, scope_description?: string | null, organization_id: string, organization_acct_provider_conn_id: string, data?: { __typename?: 'OrganizationAcctProviderConnSynchronizationData', customer?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, invoice?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, invoice_transaction?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, vendor?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, bill?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, bill_transaction?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null } | null } }> } } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } };
+export type UserOrganizationAcctProvidersQuery = { userOrganizationAcctProviders: { totalCount: number, edges: Array<{ cursor: unknown, node: { id: string, acct_provider: ACCT_PROVIDER, code: string, url: string | null, payload: unknown, customer_add_url: string | null, invoice_add_url: string | null, vendor_add_url: string | null, bill_add_url: string | null, name: string | null, email: string | null, phone_number: string | null, website_url: string | null, primary_contact_name: string | null, business_name: string | null, business_industry: string | null, business_number_of_employees: number | null, timezone: string | null, language: string | null, business_tax_code_type: TAX_TYPE | null, business_tax_code: string | null, address_line_1: string | null, address_number: string | null, address_line_2: string | null, address_city: string | null, address_state: string | null, address_zip_code: string | null, address_country_code_iso_3: COUNTRY_ISO_3 | null, address_lat: number | null, address_lng: number | null, business_address_line_1: string | null, business_address_number: string | null, business_address_line_2: string | null, business_address_city: string | null, business_address_state: string | null, business_address_zip_code: string | null, business_address_country_code_iso_3: COUNTRY_ISO_3 | null, business_address_lat: number | null, business_address_lng: number | null, automatic_pull_enabled: boolean, status: ORGANIZATION_ACCT_PROVIDER_CONN_STATUS, disconnected_at: unknown, conn_expires_at: unknown, organization_id: string, last_conn_at: unknown, last_successful_sync_id: string | null, last_successful_sync_at: unknown, last_sync_succeeded: boolean | null, last_sync_id: string | null, last_sync_at: unknown, created_at: unknown, updated_at: unknown, synchronizations: { edges: Array<{ node: { id: string, mode: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_MODE, force: boolean | null, provider: ACCT_PROVIDER, errors: Array<string>, warnings: Array<string>, started_at: unknown, finished_at: unknown, failed_at: unknown, succeeded_at: unknown, skipped_at: unknown, read_success: number, read_failure: number, skipped: number, create_success: number, create_failure: number, update_success: number, update_failure: number, delete_failure: number, delete_success: number, process_failure: number, process_success: number, created_at: unknown, updated_at: unknown, scope: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_SCOPE, scope_id: string | null, scope_description: string | null, organization_id: string, organization_acct_provider_conn_id: string, data: { customer: { items: unknown } | null, invoice: { items: unknown } | null, invoice_transaction: { items: unknown } | null, vendor: { items: unknown } | null, bill: { items: unknown } | null, bill_transaction: { items: unknown } | null } | null } }> } } }>, pageInfo: { startCursor: string | null, endCursor: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } };
 
 export type UserOrganizationAcctProviderQueryVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationAcctProviderConnId: Scalars['String']['input'];
+  organizationId: string;
+  organizationAcctProviderConnId: string;
 }>;
 
 
-export type UserOrganizationAcctProviderQuery = { __typename?: 'Query', userOrganizationAcctProvider: { __typename?: 'OrganizationAcctProviderConn', id: string, acct_provider: ACCT_PROVIDER, code: string, url?: string | null, payload?: any | null, customer_add_url?: string | null, invoice_add_url?: string | null, vendor_add_url?: string | null, bill_add_url?: string | null, name?: string | null, email?: string | null, phone_number?: string | null, website_url?: string | null, primary_contact_name?: string | null, business_name?: string | null, business_industry?: string | null, business_number_of_employees?: number | null, timezone?: string | null, language?: string | null, business_tax_code_type?: TAX_TYPE | null, business_tax_code?: string | null, address_line_1?: string | null, address_number?: string | null, address_line_2?: string | null, address_city?: string | null, address_state?: string | null, address_zip_code?: string | null, address_country_code_iso_3?: COUNTRY_ISO_3 | null, address_lat?: number | null, address_lng?: number | null, business_address_line_1?: string | null, business_address_number?: string | null, business_address_line_2?: string | null, business_address_city?: string | null, business_address_state?: string | null, business_address_zip_code?: string | null, business_address_country_code_iso_3?: COUNTRY_ISO_3 | null, business_address_lat?: number | null, business_address_lng?: number | null, automatic_pull_enabled: boolean, status: ORGANIZATION_ACCT_PROVIDER_CONN_STATUS, disconnected_at?: any | null, conn_expires_at: any, organization_id: string, last_conn_at?: any | null, last_successful_sync_id?: string | null, last_successful_sync_at?: any | null, last_sync_succeeded?: boolean | null, last_sync_id?: string | null, last_sync_at?: any | null, created_at: any, updated_at: any, synchronizations: { __typename?: 'OrganizationAcctProviderConnSynchronizationPaginationConnection', edges: Array<{ __typename?: 'OrganizationAcctProviderConnSynchronizationPaginationEdge', node: { __typename?: 'OrganizationAcctProviderConnSynchronization', id: string, mode: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_MODE, force?: boolean | null, provider: ACCT_PROVIDER, errors: Array<string>, warnings: Array<string>, started_at?: any | null, finished_at?: any | null, failed_at?: any | null, succeeded_at?: any | null, skipped_at?: any | null, read_success: number, read_failure: number, skipped: number, create_success: number, create_failure: number, update_success: number, update_failure: number, delete_failure: number, delete_success: number, process_failure: number, process_success: number, created_at: any, updated_at: any, scope: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_SCOPE, scope_id?: string | null, scope_description?: string | null, organization_id: string, organization_acct_provider_conn_id: string, data?: { __typename?: 'OrganizationAcctProviderConnSynchronizationData', customer?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, invoice?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, invoice_transaction?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, vendor?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, bill?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, bill_transaction?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null } | null } }> } } };
+export type UserOrganizationAcctProviderQuery = { userOrganizationAcctProvider: { id: string, acct_provider: ACCT_PROVIDER, code: string, url: string | null, payload: unknown, customer_add_url: string | null, invoice_add_url: string | null, vendor_add_url: string | null, bill_add_url: string | null, name: string | null, email: string | null, phone_number: string | null, website_url: string | null, primary_contact_name: string | null, business_name: string | null, business_industry: string | null, business_number_of_employees: number | null, timezone: string | null, language: string | null, business_tax_code_type: TAX_TYPE | null, business_tax_code: string | null, address_line_1: string | null, address_number: string | null, address_line_2: string | null, address_city: string | null, address_state: string | null, address_zip_code: string | null, address_country_code_iso_3: COUNTRY_ISO_3 | null, address_lat: number | null, address_lng: number | null, business_address_line_1: string | null, business_address_number: string | null, business_address_line_2: string | null, business_address_city: string | null, business_address_state: string | null, business_address_zip_code: string | null, business_address_country_code_iso_3: COUNTRY_ISO_3 | null, business_address_lat: number | null, business_address_lng: number | null, automatic_pull_enabled: boolean, status: ORGANIZATION_ACCT_PROVIDER_CONN_STATUS, disconnected_at: unknown, conn_expires_at: unknown, organization_id: string, last_conn_at: unknown, last_successful_sync_id: string | null, last_successful_sync_at: unknown, last_sync_succeeded: boolean | null, last_sync_id: string | null, last_sync_at: unknown, created_at: unknown, updated_at: unknown, synchronizations: { edges: Array<{ node: { id: string, mode: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_MODE, force: boolean | null, provider: ACCT_PROVIDER, errors: Array<string>, warnings: Array<string>, started_at: unknown, finished_at: unknown, failed_at: unknown, succeeded_at: unknown, skipped_at: unknown, read_success: number, read_failure: number, skipped: number, create_success: number, create_failure: number, update_success: number, update_failure: number, delete_failure: number, delete_success: number, process_failure: number, process_success: number, created_at: unknown, updated_at: unknown, scope: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_SCOPE, scope_id: string | null, scope_description: string | null, organization_id: string, organization_acct_provider_conn_id: string, data: { customer: { items: unknown } | null, invoice: { items: unknown } | null, invoice_transaction: { items: unknown } | null, vendor: { items: unknown } | null, bill: { items: unknown } | null, bill_transaction: { items: unknown } | null } | null } }> } } };
 
 export type UserOrganizationAcctProviderSynchronizationsQueryVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationAcctProviderConnId?: InputMaybe<Scalars['String']['input']>;
-  scope?: InputMaybe<ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_SCOPE>;
-  finished?: InputMaybe<Scalars['Boolean']['input']>;
-  failed?: InputMaybe<Scalars['Boolean']['input']>;
-  succeeded?: InputMaybe<Scalars['Boolean']['input']>;
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema> | SortingFieldSchema>;
+  organizationId: string;
+  organizationAcctProviderConnId?: string | null | undefined;
+  scope?: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_SCOPE | null | undefined;
+  finished?: boolean | null | undefined;
+  failed?: boolean | null | undefined;
+  succeeded?: boolean | null | undefined;
+  after?: unknown;
+  first?: number | null | undefined;
+  before?: unknown;
+  last?: number | null | undefined;
+  skip?: number | null | undefined;
+  take?: number | null | undefined;
+  sorting?: Array<SortingFieldSchema> | SortingFieldSchema | null | undefined;
 }>;
 
 
-export type UserOrganizationAcctProviderSynchronizationsQuery = { __typename?: 'Query', userOrganizationAcctProviderSynchronizations: { __typename?: 'OrganizationAcctProviderConnSynchronizationPaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationAcctProviderConnSynchronizationPaginationEdge', cursor: any, node: { __typename?: 'OrganizationAcctProviderConnSynchronization', id: string, mode: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_MODE, force?: boolean | null, provider: ACCT_PROVIDER, errors: Array<string>, warnings: Array<string>, started_at?: any | null, finished_at?: any | null, failed_at?: any | null, succeeded_at?: any | null, skipped_at?: any | null, read_success: number, read_failure: number, skipped: number, create_success: number, create_failure: number, update_success: number, update_failure: number, delete_failure: number, delete_success: number, process_failure: number, process_success: number, created_at: any, updated_at: any, scope: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_SCOPE, scope_id?: string | null, scope_description?: string | null, organization_id: string, organization_acct_provider_conn_id: string, data?: { __typename?: 'OrganizationAcctProviderConnSynchronizationData', customer?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, invoice?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, invoice_transaction?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, vendor?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, bill?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, bill_transaction?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null } | null } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } };
+export type UserOrganizationAcctProviderSynchronizationsQuery = { userOrganizationAcctProviderSynchronizations: { totalCount: number, edges: Array<{ cursor: unknown, node: { id: string, mode: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_MODE, force: boolean | null, provider: ACCT_PROVIDER, errors: Array<string>, warnings: Array<string>, started_at: unknown, finished_at: unknown, failed_at: unknown, succeeded_at: unknown, skipped_at: unknown, read_success: number, read_failure: number, skipped: number, create_success: number, create_failure: number, update_success: number, update_failure: number, delete_failure: number, delete_success: number, process_failure: number, process_success: number, created_at: unknown, updated_at: unknown, scope: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_SCOPE, scope_id: string | null, scope_description: string | null, organization_id: string, organization_acct_provider_conn_id: string, data: { customer: { items: unknown } | null, invoice: { items: unknown } | null, invoice_transaction: { items: unknown } | null, vendor: { items: unknown } | null, bill: { items: unknown } | null, bill_transaction: { items: unknown } | null } | null } }>, pageInfo: { startCursor: string | null, endCursor: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } };
 
 export type UserOrganizationAcctProviderSynchronizationQueryVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationAcctProviderConnSynchronizationId: Scalars['String']['input'];
+  organizationId: string;
+  organizationAcctProviderConnSynchronizationId: string;
 }>;
 
 
-export type UserOrganizationAcctProviderSynchronizationQuery = { __typename?: 'Query', userOrganizationAcctProviderSynchronization: { __typename?: 'OrganizationAcctProviderConnSynchronization', id: string, mode: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_MODE, force?: boolean | null, provider: ACCT_PROVIDER, errors: Array<string>, warnings: Array<string>, started_at?: any | null, finished_at?: any | null, failed_at?: any | null, succeeded_at?: any | null, skipped_at?: any | null, read_success: number, read_failure: number, skipped: number, create_success: number, create_failure: number, update_success: number, update_failure: number, delete_failure: number, delete_success: number, process_failure: number, process_success: number, created_at: any, updated_at: any, scope: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_SCOPE, scope_id?: string | null, scope_description?: string | null, organization_id: string, organization_acct_provider_conn_id: string, data?: { __typename?: 'OrganizationAcctProviderConnSynchronizationData', customer?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, invoice?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, invoice_transaction?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, vendor?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, bill?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, bill_transaction?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null } | null } };
+export type UserOrganizationAcctProviderSynchronizationQuery = { userOrganizationAcctProviderSynchronization: { id: string, mode: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_MODE, force: boolean | null, provider: ACCT_PROVIDER, errors: Array<string>, warnings: Array<string>, started_at: unknown, finished_at: unknown, failed_at: unknown, succeeded_at: unknown, skipped_at: unknown, read_success: number, read_failure: number, skipped: number, create_success: number, create_failure: number, update_success: number, update_failure: number, delete_failure: number, delete_success: number, process_failure: number, process_success: number, created_at: unknown, updated_at: unknown, scope: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_SCOPE, scope_id: string | null, scope_description: string | null, organization_id: string, organization_acct_provider_conn_id: string, data: { customer: { items: unknown } | null, invoice: { items: unknown } | null, invoice_transaction: { items: unknown } | null, vendor: { items: unknown } | null, bill: { items: unknown } | null, bill_transaction: { items: unknown } | null } | null } };
 
 export type UserOrganizationAcctProviderConnCheckConnectionMutationVariables = Exact<{
-  organizationId: Scalars['String']['input'];
+  organizationId: string;
   acctProvider: ACCT_PROVIDER;
-  acctProviderConnCode: Scalars['String']['input'];
+  acctProviderConnCode: string;
 }>;
 
 
-export type UserOrganizationAcctProviderConnCheckConnectionMutation = { __typename?: 'Mutation', userOrganizationAcctProviderConnCheckConnection: { __typename?: 'OrganizationAcctProviderConn', id: string, acct_provider: ACCT_PROVIDER, code: string, url?: string | null, payload?: any | null, customer_add_url?: string | null, invoice_add_url?: string | null, vendor_add_url?: string | null, bill_add_url?: string | null, name?: string | null, email?: string | null, phone_number?: string | null, website_url?: string | null, primary_contact_name?: string | null, business_name?: string | null, business_industry?: string | null, business_number_of_employees?: number | null, timezone?: string | null, language?: string | null, business_tax_code_type?: TAX_TYPE | null, business_tax_code?: string | null, address_line_1?: string | null, address_number?: string | null, address_line_2?: string | null, address_city?: string | null, address_state?: string | null, address_zip_code?: string | null, address_country_code_iso_3?: COUNTRY_ISO_3 | null, address_lat?: number | null, address_lng?: number | null, business_address_line_1?: string | null, business_address_number?: string | null, business_address_line_2?: string | null, business_address_city?: string | null, business_address_state?: string | null, business_address_zip_code?: string | null, business_address_country_code_iso_3?: COUNTRY_ISO_3 | null, business_address_lat?: number | null, business_address_lng?: number | null, automatic_pull_enabled: boolean, status: ORGANIZATION_ACCT_PROVIDER_CONN_STATUS, disconnected_at?: any | null, conn_expires_at: any, organization_id: string, last_conn_at?: any | null, last_successful_sync_id?: string | null, last_successful_sync_at?: any | null, last_sync_succeeded?: boolean | null, last_sync_id?: string | null, last_sync_at?: any | null, created_at: any, updated_at: any, synchronizations: { __typename?: 'OrganizationAcctProviderConnSynchronizationPaginationConnection', edges: Array<{ __typename?: 'OrganizationAcctProviderConnSynchronizationPaginationEdge', node: { __typename?: 'OrganizationAcctProviderConnSynchronization', id: string, mode: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_MODE, force?: boolean | null, provider: ACCT_PROVIDER, errors: Array<string>, warnings: Array<string>, started_at?: any | null, finished_at?: any | null, failed_at?: any | null, succeeded_at?: any | null, skipped_at?: any | null, read_success: number, read_failure: number, skipped: number, create_success: number, create_failure: number, update_success: number, update_failure: number, delete_failure: number, delete_success: number, process_failure: number, process_success: number, created_at: any, updated_at: any, scope: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_SCOPE, scope_id?: string | null, scope_description?: string | null, organization_id: string, organization_acct_provider_conn_id: string, data?: { __typename?: 'OrganizationAcctProviderConnSynchronizationData', customer?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, invoice?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, invoice_transaction?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, vendor?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, bill?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, bill_transaction?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null } | null } }> } } };
+export type UserOrganizationAcctProviderConnCheckConnectionMutation = { userOrganizationAcctProviderConnCheckConnection: { id: string, acct_provider: ACCT_PROVIDER, code: string, url: string | null, payload: unknown, customer_add_url: string | null, invoice_add_url: string | null, vendor_add_url: string | null, bill_add_url: string | null, name: string | null, email: string | null, phone_number: string | null, website_url: string | null, primary_contact_name: string | null, business_name: string | null, business_industry: string | null, business_number_of_employees: number | null, timezone: string | null, language: string | null, business_tax_code_type: TAX_TYPE | null, business_tax_code: string | null, address_line_1: string | null, address_number: string | null, address_line_2: string | null, address_city: string | null, address_state: string | null, address_zip_code: string | null, address_country_code_iso_3: COUNTRY_ISO_3 | null, address_lat: number | null, address_lng: number | null, business_address_line_1: string | null, business_address_number: string | null, business_address_line_2: string | null, business_address_city: string | null, business_address_state: string | null, business_address_zip_code: string | null, business_address_country_code_iso_3: COUNTRY_ISO_3 | null, business_address_lat: number | null, business_address_lng: number | null, automatic_pull_enabled: boolean, status: ORGANIZATION_ACCT_PROVIDER_CONN_STATUS, disconnected_at: unknown, conn_expires_at: unknown, organization_id: string, last_conn_at: unknown, last_successful_sync_id: string | null, last_successful_sync_at: unknown, last_sync_succeeded: boolean | null, last_sync_id: string | null, last_sync_at: unknown, created_at: unknown, updated_at: unknown, synchronizations: { edges: Array<{ node: { id: string, mode: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_MODE, force: boolean | null, provider: ACCT_PROVIDER, errors: Array<string>, warnings: Array<string>, started_at: unknown, finished_at: unknown, failed_at: unknown, succeeded_at: unknown, skipped_at: unknown, read_success: number, read_failure: number, skipped: number, create_success: number, create_failure: number, update_success: number, update_failure: number, delete_failure: number, delete_success: number, process_failure: number, process_success: number, created_at: unknown, updated_at: unknown, scope: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_SCOPE, scope_id: string | null, scope_description: string | null, organization_id: string, organization_acct_provider_conn_id: string, data: { customer: { items: unknown } | null, invoice: { items: unknown } | null, invoice_transaction: { items: unknown } | null, vendor: { items: unknown } | null, bill: { items: unknown } | null, bill_transaction: { items: unknown } | null } | null } }> } } };
 
 export type UnauthorizedUserOrganizationAcctProviderConnCheckConnectionMutationVariables = Exact<{
   acctProvider: ACCT_PROVIDER;
-  acctProviderConnCode: Scalars['String']['input'];
+  acctProviderConnCode: string;
 }>;
 
 
-export type UnauthorizedUserOrganizationAcctProviderConnCheckConnectionMutation = { __typename?: 'Mutation', unauthorizedUserOrganizationAcctProviderConnCheckConnection: any };
+export type UnauthorizedUserOrganizationAcctProviderConnCheckConnectionMutation = { unauthorizedUserOrganizationAcctProviderConnCheckConnection: unknown };
 
 export type AdminOrganizationsQueryVariables = Exact<{
-  id?: InputMaybe<Scalars['String']['input']>;
-  email?: InputMaybe<Scalars['String']['input']>;
-  name?: InputMaybe<Scalars['String']['input']>;
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema> | SortingFieldSchema>;
+  id?: string | null | undefined;
+  email?: string | null | undefined;
+  name?: string | null | undefined;
+  after?: unknown;
+  first?: number | null | undefined;
+  before?: unknown;
+  last?: number | null | undefined;
+  skip?: number | null | undefined;
+  take?: number | null | undefined;
+  sorting?: Array<SortingFieldSchema> | SortingFieldSchema | null | undefined;
 }>;
 
 
-export type AdminOrganizationsQuery = { __typename?: 'Query', adminOrganizations: { __typename?: 'OrganizationPaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationPaginationEdge', cursor: any, node: { __typename?: 'Organization', id: string, name: string, email: string, website?: string | null, unique_name: string, unique_code: string, phone_number?: string | null, address_line_1?: string | null, address_number?: string | null, address_line_2?: string | null, address_city?: string | null, address_state?: string | null, address_zip_code?: string | null, address_country_code_iso_3?: COUNTRY_ISO_3 | null, address_lat?: number | null, address_lng?: number | null, primary_contact_name?: string | null, business_name?: string | null, business_industry?: string | null, business_number_of_employees?: number | null, business_address_line_1?: string | null, business_address_number?: string | null, business_address_line_2?: string | null, business_address_city?: string | null, business_address_state?: string | null, business_address_zip_code?: string | null, business_address_country_code_iso_3?: COUNTRY_ISO_3 | null, business_address_lat?: number | null, business_address_lng?: number | null, business_tax_code_type?: TAX_TYPE | null, business_tax_code?: string | null, timezone?: string | null, language?: string | null, created_at: any, updated_at: any, logo_picture_file_id?: string | null, setting_customer_email_copy_mode?: NOTIFICATION_EMAIL_COPY_MODE | null, current_email_verification_id?: string | null, current_phone_number_verification_id?: string | null, subscription_level?: number | null, logo_picture_file?: { __typename?: 'File', public_url?: string | null } | null, subscription_data?: { __typename?: 'OrganizationSubscriptionData', subscription_level: number, organization_user_seats: number, requires_user_action: boolean, requires_provider_refresh: boolean, active_subscriptions: Array<{ __typename?: 'OrganizationSubscription', id: string, provider: ORGANIZATION_SUBSCRIPTION_PROVIDER, provider_status: ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS }>, active_plans: Array<{ __typename?: 'OrganizationSubscriptionItem', item_type: ORGANIZATION_SUBSCRIPTION_ITEM, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }>, active_modules: Array<{ __typename?: 'OrganizationSubscriptionItem', item_type: ORGANIZATION_SUBSCRIPTION_ITEM, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }>, active_addons: Array<{ __typename?: 'OrganizationSubscriptionItem', item_type: ORGANIZATION_SUBSCRIPTION_ITEM, quantity: number, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }> } | null, acct_provider_conns?: { __typename?: 'OrganizationAcctProviderConnPaginationConnection', edges: Array<{ __typename?: 'OrganizationAcctProviderConnPaginationEdge', node: { __typename?: 'OrganizationAcctProviderConn', id: string, acct_provider: ACCT_PROVIDER, code: string, url?: string | null, payload?: any | null, customer_add_url?: string | null, invoice_add_url?: string | null, vendor_add_url?: string | null, bill_add_url?: string | null, name?: string | null, email?: string | null, phone_number?: string | null, website_url?: string | null, primary_contact_name?: string | null, business_name?: string | null, business_industry?: string | null, business_number_of_employees?: number | null, timezone?: string | null, language?: string | null, business_tax_code_type?: TAX_TYPE | null, business_tax_code?: string | null, address_line_1?: string | null, address_number?: string | null, address_line_2?: string | null, address_city?: string | null, address_state?: string | null, address_zip_code?: string | null, address_country_code_iso_3?: COUNTRY_ISO_3 | null, address_lat?: number | null, address_lng?: number | null, business_address_line_1?: string | null, business_address_number?: string | null, business_address_line_2?: string | null, business_address_city?: string | null, business_address_state?: string | null, business_address_zip_code?: string | null, business_address_country_code_iso_3?: COUNTRY_ISO_3 | null, business_address_lat?: number | null, business_address_lng?: number | null, automatic_pull_enabled: boolean, status: ORGANIZATION_ACCT_PROVIDER_CONN_STATUS, disconnected_at?: any | null, conn_expires_at: any, organization_id: string, last_conn_at?: any | null, last_successful_sync_id?: string | null, last_successful_sync_at?: any | null, last_sync_succeeded?: boolean | null, last_sync_id?: string | null, last_sync_at?: any | null, created_at: any, updated_at: any, synchronizations: { __typename?: 'OrganizationAcctProviderConnSynchronizationPaginationConnection', edges: Array<{ __typename?: 'OrganizationAcctProviderConnSynchronizationPaginationEdge', node: { __typename?: 'OrganizationAcctProviderConnSynchronization', id: string, mode: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_MODE, force?: boolean | null, provider: ACCT_PROVIDER, errors: Array<string>, warnings: Array<string>, started_at?: any | null, finished_at?: any | null, failed_at?: any | null, succeeded_at?: any | null, skipped_at?: any | null, read_success: number, read_failure: number, skipped: number, create_success: number, create_failure: number, update_success: number, update_failure: number, delete_failure: number, delete_success: number, process_failure: number, process_success: number, created_at: any, updated_at: any, scope: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_SCOPE, scope_id?: string | null, scope_description?: string | null, organization_id: string, organization_acct_provider_conn_id: string, data?: { __typename?: 'OrganizationAcctProviderConnSynchronizationData', customer?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, invoice?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, invoice_transaction?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, vendor?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, bill?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, bill_transaction?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null } | null } }> } } }> } | null } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } };
+export type AdminOrganizationsQuery = { adminOrganizations: { totalCount: number, edges: Array<{ cursor: unknown, node: { id: string, name: string, email: string, website: string | null, unique_name: string, unique_code: string, phone_number: string | null, address_line_1: string | null, address_number: string | null, address_line_2: string | null, address_city: string | null, address_state: string | null, address_zip_code: string | null, address_country_code_iso_3: COUNTRY_ISO_3 | null, address_lat: number | null, address_lng: number | null, primary_contact_name: string | null, business_name: string | null, business_industry: string | null, business_number_of_employees: number | null, business_address_line_1: string | null, business_address_number: string | null, business_address_line_2: string | null, business_address_city: string | null, business_address_state: string | null, business_address_zip_code: string | null, business_address_country_code_iso_3: COUNTRY_ISO_3 | null, business_address_lat: number | null, business_address_lng: number | null, business_tax_code_type: TAX_TYPE | null, business_tax_code: string | null, timezone: string | null, language: string | null, created_at: unknown, updated_at: unknown, logo_picture_file_id: string | null, setting_customer_email_copy_mode: NOTIFICATION_EMAIL_COPY_MODE | null, current_email_verification_id: string | null, current_phone_number_verification_id: string | null, subscription_level: number | null, logo_picture_file: { public_url: string | null } | null, subscription_data: { subscription_level: number, organization_user_seats: number, requires_user_action: boolean, requires_provider_refresh: boolean, active_subscriptions: Array<{ id: string, provider: ORGANIZATION_SUBSCRIPTION_PROVIDER, provider_status: ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS }>, active_plans: Array<{ item_type: ORGANIZATION_SUBSCRIPTION_ITEM, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }>, active_modules: Array<{ item_type: ORGANIZATION_SUBSCRIPTION_ITEM, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }>, active_addons: Array<{ item_type: ORGANIZATION_SUBSCRIPTION_ITEM, quantity: number, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }> } | null, acct_provider_conns: { edges: Array<{ node: { id: string, acct_provider: ACCT_PROVIDER, code: string, url: string | null, payload: unknown, customer_add_url: string | null, invoice_add_url: string | null, vendor_add_url: string | null, bill_add_url: string | null, name: string | null, email: string | null, phone_number: string | null, website_url: string | null, primary_contact_name: string | null, business_name: string | null, business_industry: string | null, business_number_of_employees: number | null, timezone: string | null, language: string | null, business_tax_code_type: TAX_TYPE | null, business_tax_code: string | null, address_line_1: string | null, address_number: string | null, address_line_2: string | null, address_city: string | null, address_state: string | null, address_zip_code: string | null, address_country_code_iso_3: COUNTRY_ISO_3 | null, address_lat: number | null, address_lng: number | null, business_address_line_1: string | null, business_address_number: string | null, business_address_line_2: string | null, business_address_city: string | null, business_address_state: string | null, business_address_zip_code: string | null, business_address_country_code_iso_3: COUNTRY_ISO_3 | null, business_address_lat: number | null, business_address_lng: number | null, automatic_pull_enabled: boolean, status: ORGANIZATION_ACCT_PROVIDER_CONN_STATUS, disconnected_at: unknown, conn_expires_at: unknown, organization_id: string, last_conn_at: unknown, last_successful_sync_id: string | null, last_successful_sync_at: unknown, last_sync_succeeded: boolean | null, last_sync_id: string | null, last_sync_at: unknown, created_at: unknown, updated_at: unknown, synchronizations: { edges: Array<{ node: { id: string, mode: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_MODE, force: boolean | null, provider: ACCT_PROVIDER, errors: Array<string>, warnings: Array<string>, started_at: unknown, finished_at: unknown, failed_at: unknown, succeeded_at: unknown, skipped_at: unknown, read_success: number, read_failure: number, skipped: number, create_success: number, create_failure: number, update_success: number, update_failure: number, delete_failure: number, delete_success: number, process_failure: number, process_success: number, created_at: unknown, updated_at: unknown, scope: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_SCOPE, scope_id: string | null, scope_description: string | null, organization_id: string, organization_acct_provider_conn_id: string, data: { customer: { items: unknown } | null, invoice: { items: unknown } | null, invoice_transaction: { items: unknown } | null, vendor: { items: unknown } | null, bill: { items: unknown } | null, bill_transaction: { items: unknown } | null } | null } }> } } }> } | null } }>, pageInfo: { startCursor: string | null, endCursor: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } };
 
 export type UserSessionsCloseMutationVariables = Exact<{ [key: string]: never; }>;
 
 
-export type UserSessionsCloseMutation = { __typename?: 'Mutation', userSessionsClose: { __typename?: 'UserAuthProviderConn', id: string } };
+export type UserSessionsCloseMutation = { userSessionsClose: { id: string } };
 
 export type UnauthorizedUserOrganizationUserInviteQueryVariables = Exact<{
-  code: Scalars['String']['input'];
-  email: Scalars['String']['input'];
-  organizationId: Scalars['String']['input'];
-  organizationInviteId: Scalars['String']['input'];
+  code: string;
+  email: string;
+  organizationId: string;
+  organizationInviteId: string;
 }>;
 
 
-export type UnauthorizedUserOrganizationUserInviteQuery = { __typename?: 'Query', unauthorizedUserOrganizationUserInvite: { __typename?: 'UnauthorizedUserOrganizationUserInviteResponse', invited_by?: string | null, organization_name: string, organization_id: string, target_account_exists: boolean } };
+export type UnauthorizedUserOrganizationUserInviteQuery = { unauthorizedUserOrganizationUserInvite: { invited_by: string | null, organization_name: string, organization_id: string, target_account_exists: boolean } };
 
 export type UserOrganizationUserInvitesQueryVariables = Exact<{
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema> | SortingFieldSchema>;
+  after?: unknown;
+  first?: number | null | undefined;
+  before?: unknown;
+  last?: number | null | undefined;
+  skip?: number | null | undefined;
+  take?: number | null | undefined;
+  sorting?: Array<SortingFieldSchema> | SortingFieldSchema | null | undefined;
 }>;
 
 
-export type UserOrganizationUserInvitesQuery = { __typename?: 'Query', userOrganizationUserInvites: { __typename?: 'OrganizationInvitePaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationInvitePaginationEdge', cursor: any, node: { __typename?: 'OrganizationInvite', id: string, email: string, role: ORGANIZATION_USER_ROLE, code: string, expires_at: any, accepted_at?: any | null, canceled_at?: any | null, rejected_at?: any | null, created_at: any, updated_at: any, organization_id: string, created_by_user_id: string, organization: { __typename?: 'Organization', id: string, name: string, logo_picture_file?: { __typename?: 'File', public_url?: string | null } | null }, created_by_user: { __typename?: 'User', id: string, first_name?: string | null, last_name?: string | null, email: string, profile_picture_file?: { __typename?: 'File', public_url?: string | null } | null } } }>, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, hasPreviousPage: boolean, startCursor?: string | null, endCursor?: string | null } } };
+export type UserOrganizationUserInvitesQuery = { userOrganizationUserInvites: { totalCount: number, edges: Array<{ cursor: unknown, node: { id: string, email: string, role: ORGANIZATION_USER_ROLE, code: string, expires_at: unknown, accepted_at: unknown, canceled_at: unknown, rejected_at: unknown, created_at: unknown, updated_at: unknown, organization_id: string, created_by_user_id: string, organization: { id: string, name: string, logo_picture_file: { public_url: string | null } | null }, created_by_user: { id: string, first_name: string | null, last_name: string | null, email: string, profile_picture_file: { public_url: string | null } | null } } }>, pageInfo: { hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null, endCursor: string | null } } };
 
 export type UserSignUpWithEmailStartMutationVariables = Exact<{
   data: UserSignUpWithEmailStartSchema;
 }>;
 
 
-export type UserSignUpWithEmailStartMutation = { __typename?: 'Mutation', userSignUpWithEmailStart: any };
+export type UserSignUpWithEmailStartMutation = { userSignUpWithEmailStart: unknown };
 
 export type UserSignUpWithEmailVerifyMutationVariables = Exact<{
   data: UserSignUpWithEmailVerifySchema;
 }>;
 
 
-export type UserSignUpWithEmailVerifyMutation = { __typename?: 'Mutation', userSignUpWithEmailVerify: any };
+export type UserSignUpWithEmailVerifyMutation = { userSignUpWithEmailVerify: unknown };
 
 export type UserOrganizationUserInviteAcceptMutationVariables = Exact<{
-  code: Scalars['String']['input'];
-  organizationInviteId: Scalars['String']['input'];
-  organizationId: Scalars['String']['input'];
+  code: string;
+  organizationInviteId: string;
+  organizationId: string;
 }>;
 
 
-export type UserOrganizationUserInviteAcceptMutation = { __typename?: 'Mutation', userOrganizationUserInviteAccept: { __typename?: 'OrganizationUser', role: ORGANIZATION_USER_ROLE } };
+export type UserOrganizationUserInviteAcceptMutation = { userOrganizationUserInviteAccept: { role: ORGANIZATION_USER_ROLE } };
 
 export type UserSignUpWithEmailFinishSchemaMutationVariables = Exact<{
   data: UserSignUpWithEmailFinishSchema;
 }>;
 
 
-export type UserSignUpWithEmailFinishSchemaMutation = { __typename?: 'Mutation', userSignUpWithEmailFinish: string };
+export type UserSignUpWithEmailFinishSchemaMutation = { userSignUpWithEmailFinish: string };
 
 export type UserPasswordResetStartMutationVariables = Exact<{
   data: UserPasswordResetStartSchema;
 }>;
 
 
-export type UserPasswordResetStartMutation = { __typename?: 'Mutation', userPasswordResetStart: string };
+export type UserPasswordResetStartMutation = { userPasswordResetStart: string };
 
 export type UserPasswordResetFinishMutationVariables = Exact<{
   userPasswordResetFinishData2: UserPasswordResetFinishSchema;
 }>;
 
 
-export type UserPasswordResetFinishMutation = { __typename?: 'Mutation', userPasswordResetFinish: string };
+export type UserPasswordResetFinishMutation = { userPasswordResetFinish: string };
 
 export type UserAcctProviderGetOAuthUrlMutationVariables = Exact<{
   acctProvider: ACCT_PROVIDER;
 }>;
 
 
-export type UserAcctProviderGetOAuthUrlMutation = { __typename?: 'Mutation', userAcctProviderGetOAuthUrl: string };
+export type UserAcctProviderGetOAuthUrlMutation = { userAcctProviderGetOAuthUrl: string };
 
 export type UserAcctProviderExchangeTokenMutationVariables = Exact<{
   acctProvider: ACCT_PROVIDER;
-  authorizationToken: Scalars['String']['input'];
+  authorizationToken: string;
 }>;
 
 
-export type UserAcctProviderExchangeTokenMutation = { __typename?: 'Mutation', userAcctProviderExchangeToken: string };
+export type UserAcctProviderExchangeTokenMutation = { userAcctProviderExchangeToken: string };
 
 export type UserAndOrganizationAcctProviderGetOAuthUrlMutationVariables = Exact<{
   acctProvider: ACCT_PROVIDER;
 }>;
 
 
-export type UserAndOrganizationAcctProviderGetOAuthUrlMutation = { __typename?: 'Mutation', userAndOrganizationAcctProviderGetOAuthUrl: string };
+export type UserAndOrganizationAcctProviderGetOAuthUrlMutation = { userAndOrganizationAcctProviderGetOAuthUrl: string };
 
 export type UserAndOrganizationAcctProviderExchangeTokenMutationVariables = Exact<{
   acctProvider: ACCT_PROVIDER;
-  authorizationToken: Scalars['String']['input'];
-  referredByCode?: InputMaybe<Scalars['String']['input']>;
+  authorizationToken: string;
+  referredByCode?: string | null | undefined;
 }>;
 
 
-export type UserAndOrganizationAcctProviderExchangeTokenMutation = { __typename?: 'Mutation', userAndOrganizationAcctProviderExchangeToken: { __typename?: 'OrganizationAcctProviderTokenExchange', status: ORGANIZATION_ACCT_PROVIDER_TOKEN_EXCHANGE_STATUS, token: string, user: { __typename?: 'User', id: string, email: string, first_name?: string | null, last_name?: string | null, language?: string | null, phone_number?: string | null, timezone?: string | null, is_admin: boolean, referral_code?: string | null, updated_at: any, created_at: any, profile_picture_file?: { __typename?: 'File', public_url?: string | null } | null }, organization?: { __typename?: 'Organization', id: string, name: string, email: string, website?: string | null, unique_name: string, unique_code: string, phone_number?: string | null, address_line_1?: string | null, address_number?: string | null, address_line_2?: string | null, address_city?: string | null, address_state?: string | null, address_zip_code?: string | null, address_country_code_iso_3?: COUNTRY_ISO_3 | null, address_lat?: number | null, address_lng?: number | null, primary_contact_name?: string | null, business_name?: string | null, business_industry?: string | null, business_number_of_employees?: number | null, business_address_line_1?: string | null, business_address_number?: string | null, business_address_line_2?: string | null, business_address_city?: string | null, business_address_state?: string | null, business_address_zip_code?: string | null, business_address_country_code_iso_3?: COUNTRY_ISO_3 | null, business_address_lat?: number | null, business_address_lng?: number | null, business_tax_code_type?: TAX_TYPE | null, business_tax_code?: string | null, timezone?: string | null, language?: string | null, created_at: any, updated_at: any, logo_picture_file_id?: string | null, setting_customer_email_copy_mode?: NOTIFICATION_EMAIL_COPY_MODE | null, current_email_verification_id?: string | null, current_phone_number_verification_id?: string | null, subscription_level?: number | null, logo_picture_file?: { __typename?: 'File', public_url?: string | null } | null, subscription_data?: { __typename?: 'OrganizationSubscriptionData', subscription_level: number, organization_user_seats: number, requires_user_action: boolean, requires_provider_refresh: boolean, active_subscriptions: Array<{ __typename?: 'OrganizationSubscription', id: string, provider: ORGANIZATION_SUBSCRIPTION_PROVIDER, provider_status: ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS }>, active_plans: Array<{ __typename?: 'OrganizationSubscriptionItem', item_type: ORGANIZATION_SUBSCRIPTION_ITEM, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }>, active_modules: Array<{ __typename?: 'OrganizationSubscriptionItem', item_type: ORGANIZATION_SUBSCRIPTION_ITEM, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }>, active_addons: Array<{ __typename?: 'OrganizationSubscriptionItem', item_type: ORGANIZATION_SUBSCRIPTION_ITEM, quantity: number, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }> } | null, acct_provider_conns?: { __typename?: 'OrganizationAcctProviderConnPaginationConnection', edges: Array<{ __typename?: 'OrganizationAcctProviderConnPaginationEdge', node: { __typename?: 'OrganizationAcctProviderConn', id: string, acct_provider: ACCT_PROVIDER, code: string, url?: string | null, payload?: any | null, customer_add_url?: string | null, invoice_add_url?: string | null, vendor_add_url?: string | null, bill_add_url?: string | null, name?: string | null, email?: string | null, phone_number?: string | null, website_url?: string | null, primary_contact_name?: string | null, business_name?: string | null, business_industry?: string | null, business_number_of_employees?: number | null, timezone?: string | null, language?: string | null, business_tax_code_type?: TAX_TYPE | null, business_tax_code?: string | null, address_line_1?: string | null, address_number?: string | null, address_line_2?: string | null, address_city?: string | null, address_state?: string | null, address_zip_code?: string | null, address_country_code_iso_3?: COUNTRY_ISO_3 | null, address_lat?: number | null, address_lng?: number | null, business_address_line_1?: string | null, business_address_number?: string | null, business_address_line_2?: string | null, business_address_city?: string | null, business_address_state?: string | null, business_address_zip_code?: string | null, business_address_country_code_iso_3?: COUNTRY_ISO_3 | null, business_address_lat?: number | null, business_address_lng?: number | null, automatic_pull_enabled: boolean, status: ORGANIZATION_ACCT_PROVIDER_CONN_STATUS, disconnected_at?: any | null, conn_expires_at: any, organization_id: string, last_conn_at?: any | null, last_successful_sync_id?: string | null, last_successful_sync_at?: any | null, last_sync_succeeded?: boolean | null, last_sync_id?: string | null, last_sync_at?: any | null, created_at: any, updated_at: any, synchronizations: { __typename?: 'OrganizationAcctProviderConnSynchronizationPaginationConnection', edges: Array<{ __typename?: 'OrganizationAcctProviderConnSynchronizationPaginationEdge', node: { __typename?: 'OrganizationAcctProviderConnSynchronization', id: string, mode: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_MODE, force?: boolean | null, provider: ACCT_PROVIDER, errors: Array<string>, warnings: Array<string>, started_at?: any | null, finished_at?: any | null, failed_at?: any | null, succeeded_at?: any | null, skipped_at?: any | null, read_success: number, read_failure: number, skipped: number, create_success: number, create_failure: number, update_success: number, update_failure: number, delete_failure: number, delete_success: number, process_failure: number, process_success: number, created_at: any, updated_at: any, scope: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_SCOPE, scope_id?: string | null, scope_description?: string | null, organization_id: string, organization_acct_provider_conn_id: string, data?: { __typename?: 'OrganizationAcctProviderConnSynchronizationData', customer?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, invoice?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, invoice_transaction?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, vendor?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, bill?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, bill_transaction?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null } | null } }> } } }> } | null } | null } };
+export type UserAndOrganizationAcctProviderExchangeTokenMutation = { userAndOrganizationAcctProviderExchangeToken: { status: ORGANIZATION_ACCT_PROVIDER_TOKEN_EXCHANGE_STATUS, token: string, user: { id: string, email: string, first_name: string | null, last_name: string | null, language: string | null, phone_number: string | null, timezone: string | null, is_admin: boolean, referral_code: string | null, updated_at: unknown, created_at: unknown, profile_picture_file: { public_url: string | null } | null }, organization: { id: string, name: string, email: string, website: string | null, unique_name: string, unique_code: string, phone_number: string | null, address_line_1: string | null, address_number: string | null, address_line_2: string | null, address_city: string | null, address_state: string | null, address_zip_code: string | null, address_country_code_iso_3: COUNTRY_ISO_3 | null, address_lat: number | null, address_lng: number | null, primary_contact_name: string | null, business_name: string | null, business_industry: string | null, business_number_of_employees: number | null, business_address_line_1: string | null, business_address_number: string | null, business_address_line_2: string | null, business_address_city: string | null, business_address_state: string | null, business_address_zip_code: string | null, business_address_country_code_iso_3: COUNTRY_ISO_3 | null, business_address_lat: number | null, business_address_lng: number | null, business_tax_code_type: TAX_TYPE | null, business_tax_code: string | null, timezone: string | null, language: string | null, created_at: unknown, updated_at: unknown, logo_picture_file_id: string | null, setting_customer_email_copy_mode: NOTIFICATION_EMAIL_COPY_MODE | null, current_email_verification_id: string | null, current_phone_number_verification_id: string | null, subscription_level: number | null, logo_picture_file: { public_url: string | null } | null, subscription_data: { subscription_level: number, organization_user_seats: number, requires_user_action: boolean, requires_provider_refresh: boolean, active_subscriptions: Array<{ id: string, provider: ORGANIZATION_SUBSCRIPTION_PROVIDER, provider_status: ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS }>, active_plans: Array<{ item_type: ORGANIZATION_SUBSCRIPTION_ITEM, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }>, active_modules: Array<{ item_type: ORGANIZATION_SUBSCRIPTION_ITEM, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }>, active_addons: Array<{ item_type: ORGANIZATION_SUBSCRIPTION_ITEM, quantity: number, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }> } | null, acct_provider_conns: { edges: Array<{ node: { id: string, acct_provider: ACCT_PROVIDER, code: string, url: string | null, payload: unknown, customer_add_url: string | null, invoice_add_url: string | null, vendor_add_url: string | null, bill_add_url: string | null, name: string | null, email: string | null, phone_number: string | null, website_url: string | null, primary_contact_name: string | null, business_name: string | null, business_industry: string | null, business_number_of_employees: number | null, timezone: string | null, language: string | null, business_tax_code_type: TAX_TYPE | null, business_tax_code: string | null, address_line_1: string | null, address_number: string | null, address_line_2: string | null, address_city: string | null, address_state: string | null, address_zip_code: string | null, address_country_code_iso_3: COUNTRY_ISO_3 | null, address_lat: number | null, address_lng: number | null, business_address_line_1: string | null, business_address_number: string | null, business_address_line_2: string | null, business_address_city: string | null, business_address_state: string | null, business_address_zip_code: string | null, business_address_country_code_iso_3: COUNTRY_ISO_3 | null, business_address_lat: number | null, business_address_lng: number | null, automatic_pull_enabled: boolean, status: ORGANIZATION_ACCT_PROVIDER_CONN_STATUS, disconnected_at: unknown, conn_expires_at: unknown, organization_id: string, last_conn_at: unknown, last_successful_sync_id: string | null, last_successful_sync_at: unknown, last_sync_succeeded: boolean | null, last_sync_id: string | null, last_sync_at: unknown, created_at: unknown, updated_at: unknown, synchronizations: { edges: Array<{ node: { id: string, mode: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_MODE, force: boolean | null, provider: ACCT_PROVIDER, errors: Array<string>, warnings: Array<string>, started_at: unknown, finished_at: unknown, failed_at: unknown, succeeded_at: unknown, skipped_at: unknown, read_success: number, read_failure: number, skipped: number, create_success: number, create_failure: number, update_success: number, update_failure: number, delete_failure: number, delete_success: number, process_failure: number, process_success: number, created_at: unknown, updated_at: unknown, scope: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_SCOPE, scope_id: string | null, scope_description: string | null, organization_id: string, organization_acct_provider_conn_id: string, data: { customer: { items: unknown } | null, invoice: { items: unknown } | null, invoice_transaction: { items: unknown } | null, vendor: { items: unknown } | null, bill: { items: unknown } | null, bill_transaction: { items: unknown } | null } | null } }> } } }> } | null } | null } };
 
-export type OrganizationBillFragmentFragment = { __typename?: 'OrganizationBill', id: string, unique_code: string, number?: string | null, provider: ACCT_PROVIDER, provider_code: string, provider_url?: string | null, provider_errors: Array<string>, provider_warnings: Array<string>, last_successful_sync_id?: string | null, last_successful_sync_at?: any | null, last_sync_succeeded?: boolean | null, last_sync_id?: string | null, last_sync_at?: any | null, currency_code: CURRENCY, description?: string | null, amount: bigint, tax_amount: bigint, discount_amount: bigint, total_amount: bigint, bill_date: any, due_date: any, created_at: any, updated_at: any, vendor_email?: string | null, vendor_address_line_1?: string | null, vendor_address_number?: string | null, vendor_address_line_2?: string | null, vendor_address_city?: string | null, vendor_address_state?: string | null, vendor_address_zip_code?: string | null, vendor_address_country_code_iso_3?: COUNTRY_ISO_3 | null, vendor_address_lat?: number | null, vendor_address_lng?: number | null, conn_linked_invoice_id?: string | null, conn_locked_data_at?: any | null, organization_id: string, organization_vendor_id: string, file_id?: string | null, has_sync_errors?: boolean | null, latest_acct_provider_balance?: bigint | null, latest_acct_provider_status?: BILL_STATUS | null, latest_acct_provider_is_overdue?: boolean | null, status?: BILL_STATUS | null, is_overdue?: boolean | null, paid_amount?: bigint | null, paid_at?: any | null, balance?: bigint | null, organization: { __typename?: 'Organization', name: string }, organization_vendor: { __typename?: 'OrganizationVendor', name: string, email?: string | null, balance?: bigint | null }, file?: { __typename?: 'File', public_url?: string | null } | null, transaction_links?: Array<{ __typename?: 'OrganizationBillTransactionLink', id: string, amount: bigint, organization_bill_id: string, created_at: any, updated_at: any, organization_bill_transaction_id: string, organization_bill_transaction: { __typename?: 'OrganizationBillTransaction', id: string } }> | null };
+export type OrganizationBillFragmentFragment = { id: string, unique_code: string, number: string | null, provider: ACCT_PROVIDER, provider_code: string, provider_url: string | null, provider_errors: Array<string>, provider_warnings: Array<string>, last_successful_sync_id: string | null, last_successful_sync_at: unknown, last_sync_succeeded: boolean | null, last_sync_id: string | null, last_sync_at: unknown, currency_code: CURRENCY, description: string | null, amount: bigint, tax_amount: bigint, discount_amount: bigint, total_amount: bigint, bill_date: unknown, due_date: unknown, created_at: unknown, updated_at: unknown, vendor_email: string | null, vendor_address_line_1: string | null, vendor_address_number: string | null, vendor_address_line_2: string | null, vendor_address_city: string | null, vendor_address_state: string | null, vendor_address_zip_code: string | null, vendor_address_country_code_iso_3: COUNTRY_ISO_3 | null, vendor_address_lat: number | null, vendor_address_lng: number | null, conn_linked_invoice_id: string | null, conn_locked_data_at: unknown, organization_id: string, organization_vendor_id: string, file_id: string | null, has_sync_errors: boolean | null, latest_acct_provider_balance: bigint | null, latest_acct_provider_status: BILL_STATUS | null, latest_acct_provider_is_overdue: boolean | null, status: BILL_STATUS | null, is_overdue: boolean | null, paid_amount: bigint | null, paid_at: unknown, balance: bigint | null, organization: { name: string }, organization_vendor: { name: string, email: string | null, balance: bigint | null }, file: { public_url: string | null } | null, transaction_links: Array<{ id: string, amount: bigint, organization_bill_id: string, created_at: unknown, updated_at: unknown, organization_bill_transaction_id: string, organization_bill_transaction: { id: string } }> | null };
 
-export type OrganizationBillSummaryFragmentFragment = { __typename?: 'OrganizationBillSummary', vendor_organization_id?: string | null, customer_organization_vendor_id?: string | null, customer_organization_id: string, status?: BILL_STATUS | null, total_open_bill_count: number, total_overdue_bill_count: number, total_amount: bigint, paid_amount: bigint, overdue_amount: bigint, balance: bigint, start_date?: any | null, end_date?: any | null, due_start_date?: any | null, due_end_date?: any | null, currency?: CURRENCY | null, has_sync_errors?: boolean | null, has_mismatching_balance?: boolean | null, acct_provider?: ACCT_PROVIDER | null, is_acct_provider_connected?: boolean | null, last_sync_at?: any | null, latest_acct_provider_balance?: bigint | null, vendor_organization?: { __typename?: 'Organization', name: string, email: string, phone_number?: string | null, address_line_1?: string | null, address_number?: string | null, address_line_2?: string | null, address_city?: string | null, address_state?: string | null, address_zip_code?: string | null, address_country_code_iso_3?: COUNTRY_ISO_3 | null, address_lat?: number | null, address_lng?: number | null, logo_picture_file?: { __typename?: 'File', public_url?: string | null } | null } | null, customer_organization_vendor?: { __typename?: 'OrganizationVendor', id: string, name: string } | null, customer_organization: { __typename?: 'Organization', id: string, name: string }, data: { __typename?: 'OrganizationBillPaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationBillPaginationEdge', cursor: any, node: { __typename?: 'OrganizationBill', id: string, unique_code: string, number?: string | null, provider: ACCT_PROVIDER, provider_code: string, provider_url?: string | null, provider_errors: Array<string>, provider_warnings: Array<string>, last_successful_sync_id?: string | null, last_successful_sync_at?: any | null, last_sync_succeeded?: boolean | null, last_sync_id?: string | null, last_sync_at?: any | null, currency_code: CURRENCY, description?: string | null, amount: bigint, tax_amount: bigint, discount_amount: bigint, total_amount: bigint, bill_date: any, due_date: any, created_at: any, updated_at: any, vendor_email?: string | null, vendor_address_line_1?: string | null, vendor_address_number?: string | null, vendor_address_line_2?: string | null, vendor_address_city?: string | null, vendor_address_state?: string | null, vendor_address_zip_code?: string | null, vendor_address_country_code_iso_3?: COUNTRY_ISO_3 | null, vendor_address_lat?: number | null, vendor_address_lng?: number | null, conn_linked_invoice_id?: string | null, conn_locked_data_at?: any | null, organization_id: string, organization_vendor_id: string, file_id?: string | null, has_sync_errors?: boolean | null, latest_acct_provider_balance?: bigint | null, latest_acct_provider_status?: BILL_STATUS | null, latest_acct_provider_is_overdue?: boolean | null, status?: BILL_STATUS | null, is_overdue?: boolean | null, paid_amount?: bigint | null, paid_at?: any | null, balance?: bigint | null, organization: { __typename?: 'Organization', name: string }, organization_vendor: { __typename?: 'OrganizationVendor', name: string, email?: string | null, balance?: bigint | null }, file?: { __typename?: 'File', public_url?: string | null } | null, transaction_links?: Array<{ __typename?: 'OrganizationBillTransactionLink', id: string, amount: bigint, organization_bill_id: string, created_at: any, updated_at: any, organization_bill_transaction_id: string, organization_bill_transaction: { __typename?: 'OrganizationBillTransaction', id: string } }> | null } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } };
+export type OrganizationBillSummaryFragmentFragment = { vendor_organization_id: string | null, customer_organization_vendor_id: string | null, customer_organization_id: string, status: BILL_STATUS | null, total_open_bill_count: number, total_overdue_bill_count: number, total_amount: bigint, paid_amount: bigint, overdue_amount: bigint, balance: bigint, start_date: unknown, end_date: unknown, due_start_date: unknown, due_end_date: unknown, currency: CURRENCY | null, has_sync_errors: boolean | null, has_mismatching_balance: boolean | null, acct_provider: ACCT_PROVIDER | null, is_acct_provider_connected: boolean | null, last_sync_at: unknown, latest_acct_provider_balance: bigint | null, vendor_organization: { name: string, email: string, phone_number: string | null, address_line_1: string | null, address_number: string | null, address_line_2: string | null, address_city: string | null, address_state: string | null, address_zip_code: string | null, address_country_code_iso_3: COUNTRY_ISO_3 | null, address_lat: number | null, address_lng: number | null, logo_picture_file: { public_url: string | null } | null } | null, customer_organization_vendor: { id: string, name: string } | null, customer_organization: { id: string, name: string }, data: { totalCount: number, edges: Array<{ cursor: unknown, node: { id: string, unique_code: string, number: string | null, provider: ACCT_PROVIDER, provider_code: string, provider_url: string | null, provider_errors: Array<string>, provider_warnings: Array<string>, last_successful_sync_id: string | null, last_successful_sync_at: unknown, last_sync_succeeded: boolean | null, last_sync_id: string | null, last_sync_at: unknown, currency_code: CURRENCY, description: string | null, amount: bigint, tax_amount: bigint, discount_amount: bigint, total_amount: bigint, bill_date: unknown, due_date: unknown, created_at: unknown, updated_at: unknown, vendor_email: string | null, vendor_address_line_1: string | null, vendor_address_number: string | null, vendor_address_line_2: string | null, vendor_address_city: string | null, vendor_address_state: string | null, vendor_address_zip_code: string | null, vendor_address_country_code_iso_3: COUNTRY_ISO_3 | null, vendor_address_lat: number | null, vendor_address_lng: number | null, conn_linked_invoice_id: string | null, conn_locked_data_at: unknown, organization_id: string, organization_vendor_id: string, file_id: string | null, has_sync_errors: boolean | null, latest_acct_provider_balance: bigint | null, latest_acct_provider_status: BILL_STATUS | null, latest_acct_provider_is_overdue: boolean | null, status: BILL_STATUS | null, is_overdue: boolean | null, paid_amount: bigint | null, paid_at: unknown, balance: bigint | null, organization: { name: string }, organization_vendor: { name: string, email: string | null, balance: bigint | null }, file: { public_url: string | null } | null, transaction_links: Array<{ id: string, amount: bigint, organization_bill_id: string, created_at: unknown, updated_at: unknown, organization_bill_transaction_id: string, organization_bill_transaction: { id: string } }> | null } }>, pageInfo: { startCursor: string | null, endCursor: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } };
 
 export type UserOrganizationBillSummaryQueryVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationVendorId?: InputMaybe<Scalars['String']['input']>;
-  currency?: InputMaybe<CURRENCY>;
-  startDate?: InputMaybe<Scalars['DateTime']['input']>;
-  endDate?: InputMaybe<Scalars['DateTime']['input']>;
-  status?: InputMaybe<BILL_STATUS>;
-  isOverdue?: InputMaybe<Scalars['Boolean']['input']>;
-  latestAcctProviderStatus?: InputMaybe<BILL_STATUS>;
-  latestAcctProviderIsOverdue?: InputMaybe<Scalars['Boolean']['input']>;
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema> | SortingFieldSchema>;
+  organizationId: string;
+  organizationVendorId?: string | null | undefined;
+  currency?: CURRENCY | null | undefined;
+  startDate?: unknown;
+  endDate?: unknown;
+  status?: BILL_STATUS | null | undefined;
+  isOverdue?: boolean | null | undefined;
+  latestAcctProviderStatus?: BILL_STATUS | null | undefined;
+  latestAcctProviderIsOverdue?: boolean | null | undefined;
+  after?: unknown;
+  first?: number | null | undefined;
+  before?: unknown;
+  last?: number | null | undefined;
+  skip?: number | null | undefined;
+  take?: number | null | undefined;
+  sorting?: Array<SortingFieldSchema> | SortingFieldSchema | null | undefined;
 }>;
 
 
-export type UserOrganizationBillSummaryQuery = { __typename?: 'Query', userOrganizationBillSummary: { __typename?: 'OrganizationBillSummary', vendor_organization_id?: string | null, customer_organization_vendor_id?: string | null, customer_organization_id: string, status?: BILL_STATUS | null, total_open_bill_count: number, total_overdue_bill_count: number, total_amount: bigint, paid_amount: bigint, overdue_amount: bigint, balance: bigint, start_date?: any | null, end_date?: any | null, due_start_date?: any | null, due_end_date?: any | null, currency?: CURRENCY | null, has_sync_errors?: boolean | null, has_mismatching_balance?: boolean | null, acct_provider?: ACCT_PROVIDER | null, is_acct_provider_connected?: boolean | null, last_sync_at?: any | null, latest_acct_provider_balance?: bigint | null, vendor_organization?: { __typename?: 'Organization', name: string, email: string, phone_number?: string | null, address_line_1?: string | null, address_number?: string | null, address_line_2?: string | null, address_city?: string | null, address_state?: string | null, address_zip_code?: string | null, address_country_code_iso_3?: COUNTRY_ISO_3 | null, address_lat?: number | null, address_lng?: number | null, logo_picture_file?: { __typename?: 'File', public_url?: string | null } | null } | null, customer_organization_vendor?: { __typename?: 'OrganizationVendor', id: string, name: string } | null, customer_organization: { __typename?: 'Organization', id: string, name: string }, data: { __typename?: 'OrganizationBillPaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationBillPaginationEdge', cursor: any, node: { __typename?: 'OrganizationBill', id: string, unique_code: string, number?: string | null, provider: ACCT_PROVIDER, provider_code: string, provider_url?: string | null, provider_errors: Array<string>, provider_warnings: Array<string>, last_successful_sync_id?: string | null, last_successful_sync_at?: any | null, last_sync_succeeded?: boolean | null, last_sync_id?: string | null, last_sync_at?: any | null, currency_code: CURRENCY, description?: string | null, amount: bigint, tax_amount: bigint, discount_amount: bigint, total_amount: bigint, bill_date: any, due_date: any, created_at: any, updated_at: any, vendor_email?: string | null, vendor_address_line_1?: string | null, vendor_address_number?: string | null, vendor_address_line_2?: string | null, vendor_address_city?: string | null, vendor_address_state?: string | null, vendor_address_zip_code?: string | null, vendor_address_country_code_iso_3?: COUNTRY_ISO_3 | null, vendor_address_lat?: number | null, vendor_address_lng?: number | null, conn_linked_invoice_id?: string | null, conn_locked_data_at?: any | null, organization_id: string, organization_vendor_id: string, file_id?: string | null, has_sync_errors?: boolean | null, latest_acct_provider_balance?: bigint | null, latest_acct_provider_status?: BILL_STATUS | null, latest_acct_provider_is_overdue?: boolean | null, status?: BILL_STATUS | null, is_overdue?: boolean | null, paid_amount?: bigint | null, paid_at?: any | null, balance?: bigint | null, organization: { __typename?: 'Organization', name: string }, organization_vendor: { __typename?: 'OrganizationVendor', name: string, email?: string | null, balance?: bigint | null }, file?: { __typename?: 'File', public_url?: string | null } | null, transaction_links?: Array<{ __typename?: 'OrganizationBillTransactionLink', id: string, amount: bigint, organization_bill_id: string, created_at: any, updated_at: any, organization_bill_transaction_id: string, organization_bill_transaction: { __typename?: 'OrganizationBillTransaction', id: string } }> | null } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } };
+export type UserOrganizationBillSummaryQuery = { userOrganizationBillSummary: { vendor_organization_id: string | null, customer_organization_vendor_id: string | null, customer_organization_id: string, status: BILL_STATUS | null, total_open_bill_count: number, total_overdue_bill_count: number, total_amount: bigint, paid_amount: bigint, overdue_amount: bigint, balance: bigint, start_date: unknown, end_date: unknown, due_start_date: unknown, due_end_date: unknown, currency: CURRENCY | null, has_sync_errors: boolean | null, has_mismatching_balance: boolean | null, acct_provider: ACCT_PROVIDER | null, is_acct_provider_connected: boolean | null, last_sync_at: unknown, latest_acct_provider_balance: bigint | null, vendor_organization: { name: string, email: string, phone_number: string | null, address_line_1: string | null, address_number: string | null, address_line_2: string | null, address_city: string | null, address_state: string | null, address_zip_code: string | null, address_country_code_iso_3: COUNTRY_ISO_3 | null, address_lat: number | null, address_lng: number | null, logo_picture_file: { public_url: string | null } | null } | null, customer_organization_vendor: { id: string, name: string } | null, customer_organization: { id: string, name: string }, data: { totalCount: number, edges: Array<{ cursor: unknown, node: { id: string, unique_code: string, number: string | null, provider: ACCT_PROVIDER, provider_code: string, provider_url: string | null, provider_errors: Array<string>, provider_warnings: Array<string>, last_successful_sync_id: string | null, last_successful_sync_at: unknown, last_sync_succeeded: boolean | null, last_sync_id: string | null, last_sync_at: unknown, currency_code: CURRENCY, description: string | null, amount: bigint, tax_amount: bigint, discount_amount: bigint, total_amount: bigint, bill_date: unknown, due_date: unknown, created_at: unknown, updated_at: unknown, vendor_email: string | null, vendor_address_line_1: string | null, vendor_address_number: string | null, vendor_address_line_2: string | null, vendor_address_city: string | null, vendor_address_state: string | null, vendor_address_zip_code: string | null, vendor_address_country_code_iso_3: COUNTRY_ISO_3 | null, vendor_address_lat: number | null, vendor_address_lng: number | null, conn_linked_invoice_id: string | null, conn_locked_data_at: unknown, organization_id: string, organization_vendor_id: string, file_id: string | null, has_sync_errors: boolean | null, latest_acct_provider_balance: bigint | null, latest_acct_provider_status: BILL_STATUS | null, latest_acct_provider_is_overdue: boolean | null, status: BILL_STATUS | null, is_overdue: boolean | null, paid_amount: bigint | null, paid_at: unknown, balance: bigint | null, organization: { name: string }, organization_vendor: { name: string, email: string | null, balance: bigint | null }, file: { public_url: string | null } | null, transaction_links: Array<{ id: string, amount: bigint, organization_bill_id: string, created_at: unknown, updated_at: unknown, organization_bill_transaction_id: string, organization_bill_transaction: { id: string } }> | null } }>, pageInfo: { startCursor: string | null, endCursor: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } };
 
 export type UserOrganizationBillQueryVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationBillId: Scalars['String']['input'];
+  organizationId: string;
+  organizationBillId: string;
 }>;
 
 
-export type UserOrganizationBillQuery = { __typename?: 'Query', userOrganizationBill: { __typename?: 'OrganizationBill', id: string, unique_code: string, number?: string | null, provider: ACCT_PROVIDER, provider_code: string, provider_url?: string | null, provider_errors: Array<string>, provider_warnings: Array<string>, last_successful_sync_id?: string | null, last_successful_sync_at?: any | null, last_sync_succeeded?: boolean | null, last_sync_id?: string | null, last_sync_at?: any | null, currency_code: CURRENCY, description?: string | null, amount: bigint, tax_amount: bigint, discount_amount: bigint, total_amount: bigint, bill_date: any, due_date: any, created_at: any, updated_at: any, vendor_email?: string | null, vendor_address_line_1?: string | null, vendor_address_number?: string | null, vendor_address_line_2?: string | null, vendor_address_city?: string | null, vendor_address_state?: string | null, vendor_address_zip_code?: string | null, vendor_address_country_code_iso_3?: COUNTRY_ISO_3 | null, vendor_address_lat?: number | null, vendor_address_lng?: number | null, conn_linked_invoice_id?: string | null, conn_locked_data_at?: any | null, organization_id: string, organization_vendor_id: string, file_id?: string | null, has_sync_errors?: boolean | null, latest_acct_provider_balance?: bigint | null, latest_acct_provider_status?: BILL_STATUS | null, latest_acct_provider_is_overdue?: boolean | null, status?: BILL_STATUS | null, is_overdue?: boolean | null, paid_amount?: bigint | null, paid_at?: any | null, balance?: bigint | null, organization: { __typename?: 'Organization', name: string }, organization_vendor: { __typename?: 'OrganizationVendor', name: string, email?: string | null, balance?: bigint | null }, file?: { __typename?: 'File', public_url?: string | null } | null, transaction_links?: Array<{ __typename?: 'OrganizationBillTransactionLink', id: string, amount: bigint, organization_bill_id: string, created_at: any, updated_at: any, organization_bill_transaction_id: string, organization_bill_transaction: { __typename?: 'OrganizationBillTransaction', id: string } }> | null } };
+export type UserOrganizationBillQuery = { userOrganizationBill: { id: string, unique_code: string, number: string | null, provider: ACCT_PROVIDER, provider_code: string, provider_url: string | null, provider_errors: Array<string>, provider_warnings: Array<string>, last_successful_sync_id: string | null, last_successful_sync_at: unknown, last_sync_succeeded: boolean | null, last_sync_id: string | null, last_sync_at: unknown, currency_code: CURRENCY, description: string | null, amount: bigint, tax_amount: bigint, discount_amount: bigint, total_amount: bigint, bill_date: unknown, due_date: unknown, created_at: unknown, updated_at: unknown, vendor_email: string | null, vendor_address_line_1: string | null, vendor_address_number: string | null, vendor_address_line_2: string | null, vendor_address_city: string | null, vendor_address_state: string | null, vendor_address_zip_code: string | null, vendor_address_country_code_iso_3: COUNTRY_ISO_3 | null, vendor_address_lat: number | null, vendor_address_lng: number | null, conn_linked_invoice_id: string | null, conn_locked_data_at: unknown, organization_id: string, organization_vendor_id: string, file_id: string | null, has_sync_errors: boolean | null, latest_acct_provider_balance: bigint | null, latest_acct_provider_status: BILL_STATUS | null, latest_acct_provider_is_overdue: boolean | null, status: BILL_STATUS | null, is_overdue: boolean | null, paid_amount: bigint | null, paid_at: unknown, balance: bigint | null, organization: { name: string }, organization_vendor: { name: string, email: string | null, balance: bigint | null }, file: { public_url: string | null } | null, transaction_links: Array<{ id: string, amount: bigint, organization_bill_id: string, created_at: unknown, updated_at: unknown, organization_bill_transaction_id: string, organization_bill_transaction: { id: string } }> | null } };
 
-export type OrganizationConnectionFragmentFragment = { __typename?: 'OrganizationConnection', id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, vendor_conn_status_at?: any | null, vendor_organization_id?: string | null, vendor_organization_name?: string | null, vendor_organization_email?: string | null, vendor_target_customer_id?: string | null, vendor_target_customer_name?: string | null, vendor_target_customer_email?: string | null, customer_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, customer_conn_status_at?: any | null, customer_organization_id?: string | null, customer_organization_name?: string | null, customer_organization_email?: string | null, customer_target_vendor_id?: string | null, customer_target_vendor_name?: string | null, customer_target_vendor_email?: string | null, created_at: any, updated_at: any };
+export type OrganizationConnectionFragmentFragment = { id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status: ORGANIZATION_CONNECTION_STATUS | null, vendor_conn_status_at: unknown, vendor_organization_id: string | null, vendor_organization_name: string | null, vendor_organization_email: string | null, vendor_target_customer_id: string | null, vendor_target_customer_name: string | null, vendor_target_customer_email: string | null, customer_conn_status: ORGANIZATION_CONNECTION_STATUS | null, customer_conn_status_at: unknown, customer_organization_id: string | null, customer_organization_name: string | null, customer_organization_email: string | null, customer_target_vendor_id: string | null, customer_target_vendor_name: string | null, customer_target_vendor_email: string | null, created_at: unknown, updated_at: unknown };
 
 export type UserOrganizationConnectionsQueryVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  status?: InputMaybe<ORGANIZATION_CONNECTION_STATUS>;
+  organizationId: string;
+  status?: ORGANIZATION_CONNECTION_STATUS | null | undefined;
 }>;
 
 
-export type UserOrganizationConnectionsQuery = { __typename?: 'Query', userOrganizationConnections: { __typename?: 'OrganizationConnectionPaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationConnectionPaginationEdge', cursor: any, node: { __typename?: 'OrganizationConnection', id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, vendor_conn_status_at?: any | null, vendor_organization_id?: string | null, vendor_organization_name?: string | null, vendor_organization_email?: string | null, vendor_target_customer_id?: string | null, vendor_target_customer_name?: string | null, vendor_target_customer_email?: string | null, customer_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, customer_conn_status_at?: any | null, customer_organization_id?: string | null, customer_organization_name?: string | null, customer_organization_email?: string | null, customer_target_vendor_id?: string | null, customer_target_vendor_name?: string | null, customer_target_vendor_email?: string | null, created_at: any, updated_at: any } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } };
+export type UserOrganizationConnectionsQuery = { userOrganizationConnections: { totalCount: number, edges: Array<{ cursor: unknown, node: { id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status: ORGANIZATION_CONNECTION_STATUS | null, vendor_conn_status_at: unknown, vendor_organization_id: string | null, vendor_organization_name: string | null, vendor_organization_email: string | null, vendor_target_customer_id: string | null, vendor_target_customer_name: string | null, vendor_target_customer_email: string | null, customer_conn_status: ORGANIZATION_CONNECTION_STATUS | null, customer_conn_status_at: unknown, customer_organization_id: string | null, customer_organization_name: string | null, customer_organization_email: string | null, customer_target_vendor_id: string | null, customer_target_vendor_name: string | null, customer_target_vendor_email: string | null, created_at: unknown, updated_at: unknown } }>, pageInfo: { startCursor: string | null, endCursor: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } };
 
 export type UserOrganizationConnectionQueryVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationConnectionId: Scalars['String']['input'];
+  organizationId: string;
+  organizationConnectionId: string;
 }>;
 
 
-export type UserOrganizationConnectionQuery = { __typename?: 'Query', userOrganizationConnection: { __typename?: 'OrganizationConnection', id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, vendor_conn_status_at?: any | null, vendor_organization_id?: string | null, vendor_organization_name?: string | null, vendor_organization_email?: string | null, vendor_target_customer_id?: string | null, vendor_target_customer_name?: string | null, vendor_target_customer_email?: string | null, customer_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, customer_conn_status_at?: any | null, customer_organization_id?: string | null, customer_organization_name?: string | null, customer_organization_email?: string | null, customer_target_vendor_id?: string | null, customer_target_vendor_name?: string | null, customer_target_vendor_email?: string | null, created_at: any, updated_at: any } };
+export type UserOrganizationConnectionQuery = { userOrganizationConnection: { id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status: ORGANIZATION_CONNECTION_STATUS | null, vendor_conn_status_at: unknown, vendor_organization_id: string | null, vendor_organization_name: string | null, vendor_organization_email: string | null, vendor_target_customer_id: string | null, vendor_target_customer_name: string | null, vendor_target_customer_email: string | null, customer_conn_status: ORGANIZATION_CONNECTION_STATUS | null, customer_conn_status_at: unknown, customer_organization_id: string | null, customer_organization_name: string | null, customer_organization_email: string | null, customer_target_vendor_id: string | null, customer_target_vendor_name: string | null, customer_target_vendor_email: string | null, created_at: unknown, updated_at: unknown } };
 
 export type UserOrganizationConnectionInviteCustomerMutationVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationCustomerId: Scalars['String']['input'];
+  organizationId: string;
+  organizationCustomerId: string;
 }>;
 
 
-export type UserOrganizationConnectionInviteCustomerMutation = { __typename?: 'Mutation', userOrganizationConnectionInviteCustomer: { __typename?: 'OrganizationConnection', id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, vendor_conn_status_at?: any | null, vendor_organization_id?: string | null, vendor_organization_name?: string | null, vendor_organization_email?: string | null, vendor_target_customer_id?: string | null, vendor_target_customer_name?: string | null, vendor_target_customer_email?: string | null, customer_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, customer_conn_status_at?: any | null, customer_organization_id?: string | null, customer_organization_name?: string | null, customer_organization_email?: string | null, customer_target_vendor_id?: string | null, customer_target_vendor_name?: string | null, customer_target_vendor_email?: string | null, created_at: any, updated_at: any } };
+export type UserOrganizationConnectionInviteCustomerMutation = { userOrganizationConnectionInviteCustomer: { id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status: ORGANIZATION_CONNECTION_STATUS | null, vendor_conn_status_at: unknown, vendor_organization_id: string | null, vendor_organization_name: string | null, vendor_organization_email: string | null, vendor_target_customer_id: string | null, vendor_target_customer_name: string | null, vendor_target_customer_email: string | null, customer_conn_status: ORGANIZATION_CONNECTION_STATUS | null, customer_conn_status_at: unknown, customer_organization_id: string | null, customer_organization_name: string | null, customer_organization_email: string | null, customer_target_vendor_id: string | null, customer_target_vendor_name: string | null, customer_target_vendor_email: string | null, created_at: unknown, updated_at: unknown } };
 
 export type UserOrganizationConnectionInviteVendorMutationVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationVendorId: Scalars['String']['input'];
+  organizationId: string;
+  organizationVendorId: string;
 }>;
 
 
-export type UserOrganizationConnectionInviteVendorMutation = { __typename?: 'Mutation', userOrganizationConnectionInviteVendor: { __typename?: 'OrganizationConnection', id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, vendor_conn_status_at?: any | null, vendor_organization_id?: string | null, vendor_organization_name?: string | null, vendor_organization_email?: string | null, vendor_target_customer_id?: string | null, vendor_target_customer_name?: string | null, vendor_target_customer_email?: string | null, customer_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, customer_conn_status_at?: any | null, customer_organization_id?: string | null, customer_organization_name?: string | null, customer_organization_email?: string | null, customer_target_vendor_id?: string | null, customer_target_vendor_name?: string | null, customer_target_vendor_email?: string | null, created_at: any, updated_at: any } };
+export type UserOrganizationConnectionInviteVendorMutation = { userOrganizationConnectionInviteVendor: { id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status: ORGANIZATION_CONNECTION_STATUS | null, vendor_conn_status_at: unknown, vendor_organization_id: string | null, vendor_organization_name: string | null, vendor_organization_email: string | null, vendor_target_customer_id: string | null, vendor_target_customer_name: string | null, vendor_target_customer_email: string | null, customer_conn_status: ORGANIZATION_CONNECTION_STATUS | null, customer_conn_status_at: unknown, customer_organization_id: string | null, customer_organization_name: string | null, customer_organization_email: string | null, customer_target_vendor_id: string | null, customer_target_vendor_name: string | null, customer_target_vendor_email: string | null, created_at: unknown, updated_at: unknown } };
 
 export type UserOrganizationConnectionAcceptMutationVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationConnectionId: Scalars['String']['input'];
-  organizationTargetId: Scalars['String']['input'];
+  organizationId: string;
+  organizationConnectionId: string;
+  organizationTargetId: string;
 }>;
 
 
-export type UserOrganizationConnectionAcceptMutation = { __typename?: 'Mutation', userOrganizationConnectionAccept: { __typename?: 'OrganizationConnection', id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, vendor_conn_status_at?: any | null, vendor_organization_id?: string | null, vendor_organization_name?: string | null, vendor_organization_email?: string | null, vendor_target_customer_id?: string | null, vendor_target_customer_name?: string | null, vendor_target_customer_email?: string | null, customer_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, customer_conn_status_at?: any | null, customer_organization_id?: string | null, customer_organization_name?: string | null, customer_organization_email?: string | null, customer_target_vendor_id?: string | null, customer_target_vendor_name?: string | null, customer_target_vendor_email?: string | null, created_at: any, updated_at: any } };
+export type UserOrganizationConnectionAcceptMutation = { userOrganizationConnectionAccept: { id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status: ORGANIZATION_CONNECTION_STATUS | null, vendor_conn_status_at: unknown, vendor_organization_id: string | null, vendor_organization_name: string | null, vendor_organization_email: string | null, vendor_target_customer_id: string | null, vendor_target_customer_name: string | null, vendor_target_customer_email: string | null, customer_conn_status: ORGANIZATION_CONNECTION_STATUS | null, customer_conn_status_at: unknown, customer_organization_id: string | null, customer_organization_name: string | null, customer_organization_email: string | null, customer_target_vendor_id: string | null, customer_target_vendor_name: string | null, customer_target_vendor_email: string | null, created_at: unknown, updated_at: unknown } };
 
 export type UserOrganizationConnectionRejectMutationVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationConnectionId: Scalars['String']['input'];
-  organizationTargetId?: InputMaybe<Scalars['String']['input']>;
+  organizationId: string;
+  organizationConnectionId: string;
+  organizationTargetId?: string | null | undefined;
 }>;
 
 
-export type UserOrganizationConnectionRejectMutation = { __typename?: 'Mutation', userOrganizationConnectionReject: { __typename?: 'OrganizationConnection', id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, vendor_conn_status_at?: any | null, vendor_organization_id?: string | null, vendor_organization_name?: string | null, vendor_organization_email?: string | null, vendor_target_customer_id?: string | null, vendor_target_customer_name?: string | null, vendor_target_customer_email?: string | null, customer_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, customer_conn_status_at?: any | null, customer_organization_id?: string | null, customer_organization_name?: string | null, customer_organization_email?: string | null, customer_target_vendor_id?: string | null, customer_target_vendor_name?: string | null, customer_target_vendor_email?: string | null, created_at: any, updated_at: any } };
+export type UserOrganizationConnectionRejectMutation = { userOrganizationConnectionReject: { id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status: ORGANIZATION_CONNECTION_STATUS | null, vendor_conn_status_at: unknown, vendor_organization_id: string | null, vendor_organization_name: string | null, vendor_organization_email: string | null, vendor_target_customer_id: string | null, vendor_target_customer_name: string | null, vendor_target_customer_email: string | null, customer_conn_status: ORGANIZATION_CONNECTION_STATUS | null, customer_conn_status_at: unknown, customer_organization_id: string | null, customer_organization_name: string | null, customer_organization_email: string | null, customer_target_vendor_id: string | null, customer_target_vendor_name: string | null, customer_target_vendor_email: string | null, created_at: unknown, updated_at: unknown } };
 
 export type UserOrganizationCustomerConnLockMutationVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationCustomerId: Scalars['String']['input'];
+  organizationId: string;
+  organizationCustomerId: string;
 }>;
 
 
-export type UserOrganizationCustomerConnLockMutation = { __typename?: 'Mutation', userOrganizationCustomerConnLock: { __typename?: 'OrganizationCustomer', id: string, provider: ACCT_PROVIDER, provider_code: string, provider_url?: string | null, provider_errors: Array<string>, provider_warnings: Array<string>, last_successful_sync_id?: string | null, last_successful_sync_at?: any | null, last_sync_succeeded?: boolean | null, last_sync_id?: string | null, last_sync_at?: any | null, has_sync_errors?: boolean | null, is_active: boolean, email?: string | null, name: string, unique_code: string, phone_number?: string | null, tax_code_type?: TAX_TYPE | null, tax_code?: string | null, created_at: any, updated_at: any, latest_acct_provider_balance?: bigint | null, balance?: bigint | null, overdue_amount?: bigint | null } };
+export type UserOrganizationCustomerConnLockMutation = { userOrganizationCustomerConnLock: { id: string, provider: ACCT_PROVIDER, provider_code: string, provider_url: string | null, provider_errors: Array<string>, provider_warnings: Array<string>, last_successful_sync_id: string | null, last_successful_sync_at: unknown, last_sync_succeeded: boolean | null, last_sync_id: string | null, last_sync_at: unknown, has_sync_errors: boolean | null, is_active: boolean, email: string | null, name: string, unique_code: string, phone_number: string | null, tax_code_type: TAX_TYPE | null, tax_code: string | null, created_at: unknown, updated_at: unknown, latest_acct_provider_balance: bigint | null, balance: bigint | null, overdue_amount: bigint | null } };
 
 export type UserOrganizationCustomerConnUnlockMutationVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationCustomerId: Scalars['String']['input'];
+  organizationId: string;
+  organizationCustomerId: string;
 }>;
 
 
-export type UserOrganizationCustomerConnUnlockMutation = { __typename?: 'Mutation', userOrganizationCustomerConnUnlock: { __typename?: 'OrganizationCustomer', id: string, provider: ACCT_PROVIDER, provider_code: string, provider_url?: string | null, provider_errors: Array<string>, provider_warnings: Array<string>, last_successful_sync_id?: string | null, last_successful_sync_at?: any | null, last_sync_succeeded?: boolean | null, last_sync_id?: string | null, last_sync_at?: any | null, has_sync_errors?: boolean | null, is_active: boolean, email?: string | null, name: string, unique_code: string, phone_number?: string | null, tax_code_type?: TAX_TYPE | null, tax_code?: string | null, created_at: any, updated_at: any, latest_acct_provider_balance?: bigint | null, balance?: bigint | null, overdue_amount?: bigint | null } };
+export type UserOrganizationCustomerConnUnlockMutation = { userOrganizationCustomerConnUnlock: { id: string, provider: ACCT_PROVIDER, provider_code: string, provider_url: string | null, provider_errors: Array<string>, provider_warnings: Array<string>, last_successful_sync_id: string | null, last_successful_sync_at: unknown, last_sync_succeeded: boolean | null, last_sync_id: string | null, last_sync_at: unknown, has_sync_errors: boolean | null, is_active: boolean, email: string | null, name: string, unique_code: string, phone_number: string | null, tax_code_type: TAX_TYPE | null, tax_code: string | null, created_at: unknown, updated_at: unknown, latest_acct_provider_balance: bigint | null, balance: bigint | null, overdue_amount: bigint | null } };
 
 export type UserOrganizationVendorConnLockMutationVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationVendorId: Scalars['String']['input'];
+  organizationId: string;
+  organizationVendorId: string;
 }>;
 
 
-export type UserOrganizationVendorConnLockMutation = { __typename?: 'Mutation', userOrganizationVendorConnLock: { __typename?: 'OrganizationVendor', id: string, provider: ACCT_PROVIDER, provider_code: string, provider_url?: string | null, provider_errors: Array<string>, provider_warnings: Array<string>, last_successful_sync_id?: string | null, last_successful_sync_at?: any | null, last_sync_succeeded?: boolean | null, last_sync_id?: string | null, last_sync_at?: any | null, has_sync_errors?: boolean | null, is_active: boolean, email?: string | null, name: string, unique_code: string, phone_number?: string | null, tax_code_type?: TAX_TYPE | null, tax_code?: string | null, created_at: any, updated_at: any, latest_acct_provider_balance?: bigint | null, balance?: bigint | null, overdue_amount?: bigint | null } };
+export type UserOrganizationVendorConnLockMutation = { userOrganizationVendorConnLock: { id: string, provider: ACCT_PROVIDER, provider_code: string, provider_url: string | null, provider_errors: Array<string>, provider_warnings: Array<string>, last_successful_sync_id: string | null, last_successful_sync_at: unknown, last_sync_succeeded: boolean | null, last_sync_id: string | null, last_sync_at: unknown, has_sync_errors: boolean | null, is_active: boolean, email: string | null, name: string, unique_code: string, phone_number: string | null, tax_code_type: TAX_TYPE | null, tax_code: string | null, created_at: unknown, updated_at: unknown, latest_acct_provider_balance: bigint | null, balance: bigint | null, overdue_amount: bigint | null } };
 
 export type UserOrganizationVendorConnUnlockMutationVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationVendorId: Scalars['String']['input'];
+  organizationId: string;
+  organizationVendorId: string;
 }>;
 
 
-export type UserOrganizationVendorConnUnlockMutation = { __typename?: 'Mutation', userOrganizationVendorConnUnlock: { __typename?: 'OrganizationVendor', id: string, provider: ACCT_PROVIDER, provider_code: string, provider_url?: string | null, provider_errors: Array<string>, provider_warnings: Array<string>, last_successful_sync_id?: string | null, last_successful_sync_at?: any | null, last_sync_succeeded?: boolean | null, last_sync_id?: string | null, last_sync_at?: any | null, has_sync_errors?: boolean | null, is_active: boolean, email?: string | null, name: string, unique_code: string, phone_number?: string | null, tax_code_type?: TAX_TYPE | null, tax_code?: string | null, created_at: any, updated_at: any, latest_acct_provider_balance?: bigint | null, balance?: bigint | null, overdue_amount?: bigint | null } };
+export type UserOrganizationVendorConnUnlockMutation = { userOrganizationVendorConnUnlock: { id: string, provider: ACCT_PROVIDER, provider_code: string, provider_url: string | null, provider_errors: Array<string>, provider_warnings: Array<string>, last_successful_sync_id: string | null, last_successful_sync_at: unknown, last_sync_succeeded: boolean | null, last_sync_id: string | null, last_sync_at: unknown, has_sync_errors: boolean | null, is_active: boolean, email: string | null, name: string, unique_code: string, phone_number: string | null, tax_code_type: TAX_TYPE | null, tax_code: string | null, created_at: unknown, updated_at: unknown, latest_acct_provider_balance: bigint | null, balance: bigint | null, overdue_amount: bigint | null } };
 
-export type CustomerContactFragmentFragment = { __typename?: 'OrganizationCustomerContact', id: string, name: string, email: string, phone_number?: string | null, is_default: boolean, receive_invoice_reminders?: boolean | null, email_copy_mode?: NOTIFICATION_EMAIL_COPY_MODE | null, created_at: any, updated_at: any, organization_customer_id: string };
+export type CustomerContactFragmentFragment = { id: string, name: string, email: string, phone_number: string | null, is_default: boolean, receive_invoice_reminders: boolean | null, email_copy_mode: NOTIFICATION_EMAIL_COPY_MODE | null, created_at: unknown, updated_at: unknown, organization_customer_id: string };
 
-export type VendorContactFragmentFragment = { __typename?: 'OrganizationVendorContact', id: string, name: string, email: string, phone_number?: string | null, is_default: boolean, organization_vendor_id: string };
+export type VendorContactFragmentFragment = { id: string, name: string, email: string, phone_number: string | null, is_default: boolean, organization_vendor_id: string };
 
 export type userOrganizationVendorContactsQueryVariables = Exact<{
-  organizationVendorId: Scalars['String']['input'];
-  organizationId: Scalars['String']['input'];
+  organizationVendorId: string;
+  organizationId: string;
 }>;
 
 
-export type userOrganizationVendorContactsQuery = { __typename?: 'Query', userOrganizationVendorContacts: { __typename?: 'OrganizationVendorContactPaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationVendorContactPaginationEdge', cursor: any, node: { __typename?: 'OrganizationVendorContact', id: string, name: string, email: string, phone_number?: string | null, is_default: boolean, organization_vendor_id: string } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } };
+export type userOrganizationVendorContactsQuery = { userOrganizationVendorContacts: { totalCount: number, edges: Array<{ cursor: unknown, node: { id: string, name: string, email: string, phone_number: string | null, is_default: boolean, organization_vendor_id: string } }>, pageInfo: { startCursor: string | null, endCursor: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } };
 
 export type UserOrganizationCustomerContactsQueryVariables = Exact<{
-  organizationCustomerId: Scalars['String']['input'];
-  organizationId: Scalars['String']['input'];
+  organizationCustomerId: string;
+  organizationId: string;
 }>;
 
 
-export type UserOrganizationCustomerContactsQuery = { __typename?: 'Query', userOrganizationCustomerContacts: { __typename?: 'OrganizationCustomerContactPaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationCustomerContactPaginationEdge', cursor: any, node: { __typename?: 'OrganizationCustomerContact', id: string, name: string, email: string, phone_number?: string | null, is_default: boolean, receive_invoice_reminders?: boolean | null, email_copy_mode?: NOTIFICATION_EMAIL_COPY_MODE | null, created_at: any, updated_at: any, organization_customer_id: string } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } };
+export type UserOrganizationCustomerContactsQuery = { userOrganizationCustomerContacts: { totalCount: number, edges: Array<{ cursor: unknown, node: { id: string, name: string, email: string, phone_number: string | null, is_default: boolean, receive_invoice_reminders: boolean | null, email_copy_mode: NOTIFICATION_EMAIL_COPY_MODE | null, created_at: unknown, updated_at: unknown, organization_customer_id: string } }>, pageInfo: { startCursor: string | null, endCursor: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } };
 
 export type userOrganizationVendorContactCreateMutationVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationVendorId: Scalars['String']['input'];
+  organizationId: string;
+  organizationVendorId: string;
   data: UserOrganizationVendorContactCreateSchema;
 }>;
 
 
-export type userOrganizationVendorContactCreateMutation = { __typename?: 'Mutation', userOrganizationVendorContactCreate: { __typename?: 'OrganizationVendorContact', id: string, name: string, email: string, phone_number?: string | null, is_default: boolean, organization_vendor_id: string } };
+export type userOrganizationVendorContactCreateMutation = { userOrganizationVendorContactCreate: { id: string, name: string, email: string, phone_number: string | null, is_default: boolean, organization_vendor_id: string } };
 
 export type UserOrganizationCustomerContactCreateMutationVariables = Exact<{
   data: UserOrganizationCustomerContactCreateSchema;
-  organizationCustomerId: Scalars['String']['input'];
-  organizationId: Scalars['String']['input'];
+  organizationCustomerId: string;
+  organizationId: string;
 }>;
 
 
-export type UserOrganizationCustomerContactCreateMutation = { __typename?: 'Mutation', userOrganizationCustomerContactCreate: { __typename?: 'OrganizationCustomerContact', id: string, name: string, email: string, phone_number?: string | null, is_default: boolean, receive_invoice_reminders?: boolean | null, email_copy_mode?: NOTIFICATION_EMAIL_COPY_MODE | null, created_at: any, updated_at: any, organization_customer_id: string } };
+export type UserOrganizationCustomerContactCreateMutation = { userOrganizationCustomerContactCreate: { id: string, name: string, email: string, phone_number: string | null, is_default: boolean, receive_invoice_reminders: boolean | null, email_copy_mode: NOTIFICATION_EMAIL_COPY_MODE | null, created_at: unknown, updated_at: unknown, organization_customer_id: string } };
 
 export type UserOrganizationVendorContactUpdateMutationVariables = Exact<{
   data: UserOrganizationVendorContactUpdateSchema;
-  organizationVendorContactId: Scalars['String']['input'];
-  organizationVendorId: Scalars['String']['input'];
-  organizationId: Scalars['String']['input'];
+  organizationVendorContactId: string;
+  organizationVendorId: string;
+  organizationId: string;
 }>;
 
 
-export type UserOrganizationVendorContactUpdateMutation = { __typename?: 'Mutation', userOrganizationVendorContactUpdate: { __typename?: 'OrganizationVendorContact', id: string, name: string, email: string, phone_number?: string | null, is_default: boolean, organization_vendor_id: string } };
+export type UserOrganizationVendorContactUpdateMutation = { userOrganizationVendorContactUpdate: { id: string, name: string, email: string, phone_number: string | null, is_default: boolean, organization_vendor_id: string } };
 
 export type UserOrganizationCustomerContactUpdateMutationVariables = Exact<{
   data: UserOrganizationCustomerContactUpdateSchema;
-  organizationCustomerContactId: Scalars['String']['input'];
-  organizationCustomerId: Scalars['String']['input'];
-  organizationId: Scalars['String']['input'];
+  organizationCustomerContactId: string;
+  organizationCustomerId: string;
+  organizationId: string;
 }>;
 
 
-export type UserOrganizationCustomerContactUpdateMutation = { __typename?: 'Mutation', userOrganizationCustomerContactUpdate: { __typename?: 'OrganizationCustomerContact', id: string, name: string, email: string, phone_number?: string | null, is_default: boolean, receive_invoice_reminders?: boolean | null, email_copy_mode?: NOTIFICATION_EMAIL_COPY_MODE | null, created_at: any, updated_at: any, organization_customer_id: string } };
+export type UserOrganizationCustomerContactUpdateMutation = { userOrganizationCustomerContactUpdate: { id: string, name: string, email: string, phone_number: string | null, is_default: boolean, receive_invoice_reminders: boolean | null, email_copy_mode: NOTIFICATION_EMAIL_COPY_MODE | null, created_at: unknown, updated_at: unknown, organization_customer_id: string } };
 
 export type UserOrganizationVendorContactDeleteMutationVariables = Exact<{
-  organizationVendorContactId: Scalars['String']['input'];
-  organizationVendorId: Scalars['String']['input'];
-  organizationId: Scalars['String']['input'];
+  organizationVendorContactId: string;
+  organizationVendorId: string;
+  organizationId: string;
 }>;
 
 
-export type UserOrganizationVendorContactDeleteMutation = { __typename?: 'Mutation', userOrganizationVendorContactDelete: { __typename?: 'OrganizationVendorContact', id: string, name: string, email: string, phone_number?: string | null, is_default: boolean, organization_vendor_id: string } };
+export type UserOrganizationVendorContactDeleteMutation = { userOrganizationVendorContactDelete: { id: string, name: string, email: string, phone_number: string | null, is_default: boolean, organization_vendor_id: string } };
 
 export type UserOrganizationCustomerContactDeleteMutationVariables = Exact<{
-  organizationCustomerContactId: Scalars['String']['input'];
-  organizationCustomerId: Scalars['String']['input'];
-  organizationId: Scalars['String']['input'];
+  organizationCustomerContactId: string;
+  organizationCustomerId: string;
+  organizationId: string;
 }>;
 
 
-export type UserOrganizationCustomerContactDeleteMutation = { __typename?: 'Mutation', userOrganizationCustomerContactDelete: { __typename?: 'OrganizationCustomerContact', id: string, name: string, email: string, phone_number?: string | null, is_default: boolean, receive_invoice_reminders?: boolean | null, email_copy_mode?: NOTIFICATION_EMAIL_COPY_MODE | null, created_at: any, updated_at: any, organization_customer_id: string } };
+export type UserOrganizationCustomerContactDeleteMutation = { userOrganizationCustomerContactDelete: { id: string, name: string, email: string, phone_number: string | null, is_default: boolean, receive_invoice_reminders: boolean | null, email_copy_mode: NOTIFICATION_EMAIL_COPY_MODE | null, created_at: unknown, updated_at: unknown, organization_customer_id: string } };
 
-export type OrganizationCustomerFragmentFragment = { __typename?: 'OrganizationCustomer', id: string, provider: ACCT_PROVIDER, provider_code: string, provider_url?: string | null, provider_errors: Array<string>, provider_warnings: Array<string>, last_successful_sync_id?: string | null, last_successful_sync_at?: any | null, last_sync_succeeded?: boolean | null, last_sync_id?: string | null, last_sync_at?: any | null, has_sync_errors?: boolean | null, is_active: boolean, email?: string | null, name: string, unique_code: string, phone_number?: string | null, tax_code_type?: TAX_TYPE | null, tax_code?: string | null, created_at: any, updated_at: any, latest_acct_provider_balance?: bigint | null, balance?: bigint | null, overdue_amount?: bigint | null };
+export type OrganizationCustomerFragmentFragment = { id: string, provider: ACCT_PROVIDER, provider_code: string, provider_url: string | null, provider_errors: Array<string>, provider_warnings: Array<string>, last_successful_sync_id: string | null, last_successful_sync_at: unknown, last_sync_succeeded: boolean | null, last_sync_id: string | null, last_sync_at: unknown, has_sync_errors: boolean | null, is_active: boolean, email: string | null, name: string, unique_code: string, phone_number: string | null, tax_code_type: TAX_TYPE | null, tax_code: string | null, created_at: unknown, updated_at: unknown, latest_acct_provider_balance: bigint | null, balance: bigint | null, overdue_amount: bigint | null };
 
-export type OrganizationCustomerInvoiceSummaryFragmentFragment = { __typename?: 'OrganizationCustomer', invoice_summary: { __typename?: 'OrganizationInvoiceSummary', total_open_invoice_count: number, total_overdue_invoice_count: number, total_amount: bigint, paid_amount: bigint, overdue_amount: bigint, balance: bigint, data: { __typename?: 'OrganizationInvoicePaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationInvoicePaginationEdge', cursor: any, node: { __typename?: 'OrganizationInvoice', id: string, provider: ACCT_PROVIDER, provider_code: string, provider_url?: string | null, provider_errors: Array<string>, provider_warnings: Array<string>, last_successful_sync_id?: string | null, last_successful_sync_at?: any | null, last_sync_succeeded?: boolean | null, last_sync_id?: string | null, last_sync_at?: any | null, file_id?: string | null, unique_code: string, number?: string | null, currency_code: CURRENCY, description?: string | null, amount: bigint, tax_amount: bigint, discount_amount: bigint, total_amount: bigint, paid_amount?: bigint | null, invoice_date: any, due_date: any, customer_email?: string | null, created_at: any, updated_at: any, status?: INVOICE_STATUS | null, latest_acct_provider_status?: INVOICE_STATUS | null, file?: { __typename?: 'File', public_url?: string | null } | null } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } };
+export type OrganizationCustomerInvoiceSummaryFragmentFragment = { invoice_summary: { total_open_invoice_count: number, total_overdue_invoice_count: number, total_amount: bigint, paid_amount: bigint, overdue_amount: bigint, balance: bigint, data: { totalCount: number, edges: Array<{ cursor: unknown, node: { id: string, provider: ACCT_PROVIDER, provider_code: string, provider_url: string | null, provider_errors: Array<string>, provider_warnings: Array<string>, last_successful_sync_id: string | null, last_successful_sync_at: unknown, last_sync_succeeded: boolean | null, last_sync_id: string | null, last_sync_at: unknown, file_id: string | null, unique_code: string, number: string | null, currency_code: CURRENCY, description: string | null, amount: bigint, tax_amount: bigint, discount_amount: bigint, total_amount: bigint, paid_amount: bigint | null, invoice_date: unknown, due_date: unknown, customer_email: string | null, created_at: unknown, updated_at: unknown, status: INVOICE_STATUS | null, latest_acct_provider_status: INVOICE_STATUS | null, file: { public_url: string | null } | null } }>, pageInfo: { startCursor: string | null, endCursor: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } };
 
-export type OrganizationCustomerAdditionalDataFragmentFragment = { __typename?: 'OrganizationCustomer', conn_locked_data_at?: any | null, address_line_1?: string | null, address_number?: string | null, address_line_2?: string | null, address_city?: string | null, address_state?: string | null, address_zip_code?: string | null, address_country_code_iso_3?: COUNTRY_ISO_3 | null, address_lat?: number | null, address_lng?: number | null, language?: string | null, timezone?: string | null, connection?: { __typename?: 'OrganizationConnection', id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, vendor_conn_status_at?: any | null, vendor_organization_id?: string | null, vendor_organization_name?: string | null, vendor_organization_email?: string | null, vendor_target_customer_id?: string | null, vendor_target_customer_name?: string | null, vendor_target_customer_email?: string | null, customer_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, customer_conn_status_at?: any | null, customer_organization_id?: string | null, customer_organization_name?: string | null, customer_organization_email?: string | null, customer_target_vendor_id?: string | null, customer_target_vendor_name?: string | null, customer_target_vendor_email?: string | null, created_at: any, updated_at: any } | null, contacts: Array<{ __typename?: 'OrganizationCustomerContact', id: string, name: string, email: string, phone_number?: string | null, is_default: boolean, receive_invoice_reminders?: boolean | null, email_copy_mode?: NOTIFICATION_EMAIL_COPY_MODE | null, created_at: any, updated_at: any }>, invoice_summary: { __typename?: 'OrganizationInvoiceSummary', total_open_invoice_count: number, total_overdue_invoice_count: number, total_amount: bigint, paid_amount: bigint, overdue_amount: bigint, balance: bigint, data: { __typename?: 'OrganizationInvoicePaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationInvoicePaginationEdge', cursor: any, node: { __typename?: 'OrganizationInvoice', id: string, provider: ACCT_PROVIDER, provider_code: string, provider_url?: string | null, provider_errors: Array<string>, provider_warnings: Array<string>, last_successful_sync_id?: string | null, last_successful_sync_at?: any | null, last_sync_succeeded?: boolean | null, last_sync_id?: string | null, last_sync_at?: any | null, file_id?: string | null, unique_code: string, number?: string | null, currency_code: CURRENCY, description?: string | null, amount: bigint, tax_amount: bigint, discount_amount: bigint, total_amount: bigint, paid_amount?: bigint | null, invoice_date: any, due_date: any, customer_email?: string | null, created_at: any, updated_at: any, status?: INVOICE_STATUS | null, latest_acct_provider_status?: INVOICE_STATUS | null, file?: { __typename?: 'File', public_url?: string | null } | null } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } };
+export type OrganizationCustomerAdditionalDataFragmentFragment = { conn_locked_data_at: unknown, address_line_1: string | null, address_number: string | null, address_line_2: string | null, address_city: string | null, address_state: string | null, address_zip_code: string | null, address_country_code_iso_3: COUNTRY_ISO_3 | null, address_lat: number | null, address_lng: number | null, language: string | null, timezone: string | null, connection: { id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status: ORGANIZATION_CONNECTION_STATUS | null, vendor_conn_status_at: unknown, vendor_organization_id: string | null, vendor_organization_name: string | null, vendor_organization_email: string | null, vendor_target_customer_id: string | null, vendor_target_customer_name: string | null, vendor_target_customer_email: string | null, customer_conn_status: ORGANIZATION_CONNECTION_STATUS | null, customer_conn_status_at: unknown, customer_organization_id: string | null, customer_organization_name: string | null, customer_organization_email: string | null, customer_target_vendor_id: string | null, customer_target_vendor_name: string | null, customer_target_vendor_email: string | null, created_at: unknown, updated_at: unknown } | null, contacts: Array<{ id: string, name: string, email: string, phone_number: string | null, is_default: boolean, receive_invoice_reminders: boolean | null, email_copy_mode: NOTIFICATION_EMAIL_COPY_MODE | null, created_at: unknown, updated_at: unknown }>, invoice_summary: { total_open_invoice_count: number, total_overdue_invoice_count: number, total_amount: bigint, paid_amount: bigint, overdue_amount: bigint, balance: bigint, data: { totalCount: number, edges: Array<{ cursor: unknown, node: { id: string, provider: ACCT_PROVIDER, provider_code: string, provider_url: string | null, provider_errors: Array<string>, provider_warnings: Array<string>, last_successful_sync_id: string | null, last_successful_sync_at: unknown, last_sync_succeeded: boolean | null, last_sync_id: string | null, last_sync_at: unknown, file_id: string | null, unique_code: string, number: string | null, currency_code: CURRENCY, description: string | null, amount: bigint, tax_amount: bigint, discount_amount: bigint, total_amount: bigint, paid_amount: bigint | null, invoice_date: unknown, due_date: unknown, customer_email: string | null, created_at: unknown, updated_at: unknown, status: INVOICE_STATUS | null, latest_acct_provider_status: INVOICE_STATUS | null, file: { public_url: string | null } | null } }>, pageInfo: { startCursor: string | null, endCursor: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } };
 
-export type OrganizationCustomerStatementLogFragmentFragment = { __typename?: 'OrganizationCustomerStatementLog', id: string, access_type: STATEMENT_ACCESS_TYPE, created_at: any, updated_at: any, last_activity_at: any, organization_customer_id: string, organization_customer_name?: string | null, vendor_organization_id: string, customer_organization_id?: string | null, user_id?: string | null, statement_session_token: string, statement_current_balance?: bigint | null, statement_total_open_invoice_count?: number | null, statement_total_overdue_invoice_count?: number | null, agent_info_ip: string, agent_info_browser_name?: string | null, agent_info_browser_version?: string | null, agent_info_os?: string | null, agent_info_is_desktop?: boolean | null, agent_info_is_mobile?: boolean | null, location_city?: string | null, location_country?: string | null, location_region?: string | null, location_timezone?: string | null, location_latitude?: number | null, location_longitude?: number | null };
+export type OrganizationCustomerStatementLogFragmentFragment = { id: string, access_type: STATEMENT_ACCESS_TYPE, created_at: unknown, updated_at: unknown, last_activity_at: unknown, organization_customer_id: string, organization_customer_name: string | null, vendor_organization_id: string, customer_organization_id: string | null, user_id: string | null, statement_session_token: string, statement_current_balance: bigint | null, statement_total_open_invoice_count: number | null, statement_total_overdue_invoice_count: number | null, agent_info_ip: string, agent_info_browser_name: string | null, agent_info_browser_version: string | null, agent_info_os: string | null, agent_info_is_desktop: boolean | null, agent_info_is_mobile: boolean | null, location_city: string | null, location_country: string | null, location_region: string | null, location_timezone: string | null, location_latitude: number | null, location_longitude: number | null };
 
-export type OrganizationCustomerNotificationFragmentFragment = { __typename?: 'Notification', id: string, channel: NOTIFICATION_CHANNEL, feature_type: NOTIFICATION_FEATURE_TYPE, feature_code: string, target: string, message?: string | null, language: string, created_at: any, updated_at: any, sent_at?: any | null, opened_at?: any | null, failed_at?: any | null, canceled_at?: any | null, notification_provider: NOTIFICATION_PROVIDER, provider_code?: string | null, sender_type: NOTIFICATION_SENDER_TYPE, sender_id?: string | null, sender_name?: string | null, sender_target_entity_id?: string | null, sender_target_entity_type?: NOTIFICATION_SENDER_TARGET_ENTITY_TYPE | null, recipient_id?: string | null, recipient_type: RECIPIENT_TYPE, related_entity_id?: string | null, related_entity_type?: NOTIFICATION_RELATED_ENTITY_TYPE | null, checksum_md5: string, resend_delay_seconds: number, version?: number | null };
+export type OrganizationCustomerNotificationFragmentFragment = { id: string, channel: NOTIFICATION_CHANNEL, feature_type: NOTIFICATION_FEATURE_TYPE, feature_code: string, target: string, message: string | null, language: string, created_at: unknown, updated_at: unknown, sent_at: unknown, opened_at: unknown, failed_at: unknown, canceled_at: unknown, notification_provider: NOTIFICATION_PROVIDER, provider_code: string | null, sender_type: NOTIFICATION_SENDER_TYPE, sender_id: string | null, sender_name: string | null, sender_target_entity_id: string | null, sender_target_entity_type: NOTIFICATION_SENDER_TARGET_ENTITY_TYPE | null, recipient_id: string | null, recipient_type: RECIPIENT_TYPE, related_entity_id: string | null, related_entity_type: NOTIFICATION_RELATED_ENTITY_TYPE | null, checksum_md5: string, resend_delay_seconds: number, version: number | null };
 
 export type UserOrganizationCustomersQueryVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  name?: InputMaybe<Scalars['String']['input']>;
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema> | SortingFieldSchema>;
+  organizationId: string;
+  name?: string | null | undefined;
+  after?: unknown;
+  first?: number | null | undefined;
+  before?: unknown;
+  last?: number | null | undefined;
+  skip?: number | null | undefined;
+  take?: number | null | undefined;
+  sorting?: Array<SortingFieldSchema> | SortingFieldSchema | null | undefined;
 }>;
 
 
-export type UserOrganizationCustomersQuery = { __typename?: 'Query', userOrganizationCustomers: { __typename?: 'OrganizationCustomerPaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationCustomerPaginationEdge', cursor: any, node: { __typename?: 'OrganizationCustomer', id: string, provider: ACCT_PROVIDER, provider_code: string, provider_url?: string | null, provider_errors: Array<string>, provider_warnings: Array<string>, last_successful_sync_id?: string | null, last_successful_sync_at?: any | null, last_sync_succeeded?: boolean | null, last_sync_id?: string | null, last_sync_at?: any | null, has_sync_errors?: boolean | null, is_active: boolean, email?: string | null, name: string, unique_code: string, phone_number?: string | null, tax_code_type?: TAX_TYPE | null, tax_code?: string | null, created_at: any, updated_at: any, latest_acct_provider_balance?: bigint | null, balance?: bigint | null, overdue_amount?: bigint | null } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } };
+export type UserOrganizationCustomersQuery = { userOrganizationCustomers: { totalCount: number, edges: Array<{ cursor: unknown, node: { id: string, provider: ACCT_PROVIDER, provider_code: string, provider_url: string | null, provider_errors: Array<string>, provider_warnings: Array<string>, last_successful_sync_id: string | null, last_successful_sync_at: unknown, last_sync_succeeded: boolean | null, last_sync_id: string | null, last_sync_at: unknown, has_sync_errors: boolean | null, is_active: boolean, email: string | null, name: string, unique_code: string, phone_number: string | null, tax_code_type: TAX_TYPE | null, tax_code: string | null, created_at: unknown, updated_at: unknown, latest_acct_provider_balance: bigint | null, balance: bigint | null, overdue_amount: bigint | null } }>, pageInfo: { startCursor: string | null, endCursor: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } };
 
 export type UserOrganizationCustomerQueryVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationCustomerId: Scalars['String']['input'];
+  organizationId: string;
+  organizationCustomerId: string;
 }>;
 
 
-export type UserOrganizationCustomerQuery = { __typename?: 'Query', userOrganizationCustomer: { __typename?: 'OrganizationCustomer', id: string, provider: ACCT_PROVIDER, provider_code: string, provider_url?: string | null, provider_errors: Array<string>, provider_warnings: Array<string>, last_successful_sync_id?: string | null, last_successful_sync_at?: any | null, last_sync_succeeded?: boolean | null, last_sync_id?: string | null, last_sync_at?: any | null, has_sync_errors?: boolean | null, is_active: boolean, email?: string | null, name: string, unique_code: string, phone_number?: string | null, tax_code_type?: TAX_TYPE | null, tax_code?: string | null, created_at: any, updated_at: any, latest_acct_provider_balance?: bigint | null, balance?: bigint | null, overdue_amount?: bigint | null, conn_locked_data_at?: any | null, address_line_1?: string | null, address_number?: string | null, address_line_2?: string | null, address_city?: string | null, address_state?: string | null, address_zip_code?: string | null, address_country_code_iso_3?: COUNTRY_ISO_3 | null, address_lat?: number | null, address_lng?: number | null, language?: string | null, timezone?: string | null, connection?: { __typename?: 'OrganizationConnection', id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, vendor_conn_status_at?: any | null, vendor_organization_id?: string | null, vendor_organization_name?: string | null, vendor_organization_email?: string | null, vendor_target_customer_id?: string | null, vendor_target_customer_name?: string | null, vendor_target_customer_email?: string | null, customer_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, customer_conn_status_at?: any | null, customer_organization_id?: string | null, customer_organization_name?: string | null, customer_organization_email?: string | null, customer_target_vendor_id?: string | null, customer_target_vendor_name?: string | null, customer_target_vendor_email?: string | null, created_at: any, updated_at: any } | null, contacts: Array<{ __typename?: 'OrganizationCustomerContact', id: string, name: string, email: string, phone_number?: string | null, is_default: boolean, receive_invoice_reminders?: boolean | null, email_copy_mode?: NOTIFICATION_EMAIL_COPY_MODE | null, created_at: any, updated_at: any }>, invoice_summary: { __typename?: 'OrganizationInvoiceSummary', total_open_invoice_count: number, total_overdue_invoice_count: number, total_amount: bigint, paid_amount: bigint, overdue_amount: bigint, balance: bigint, data: { __typename?: 'OrganizationInvoicePaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationInvoicePaginationEdge', cursor: any, node: { __typename?: 'OrganizationInvoice', id: string, provider: ACCT_PROVIDER, provider_code: string, provider_url?: string | null, provider_errors: Array<string>, provider_warnings: Array<string>, last_successful_sync_id?: string | null, last_successful_sync_at?: any | null, last_sync_succeeded?: boolean | null, last_sync_id?: string | null, last_sync_at?: any | null, file_id?: string | null, unique_code: string, number?: string | null, currency_code: CURRENCY, description?: string | null, amount: bigint, tax_amount: bigint, discount_amount: bigint, total_amount: bigint, paid_amount?: bigint | null, invoice_date: any, due_date: any, customer_email?: string | null, created_at: any, updated_at: any, status?: INVOICE_STATUS | null, latest_acct_provider_status?: INVOICE_STATUS | null, file?: { __typename?: 'File', public_url?: string | null } | null } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } } };
+export type UserOrganizationCustomerQuery = { userOrganizationCustomer: { id: string, provider: ACCT_PROVIDER, provider_code: string, provider_url: string | null, provider_errors: Array<string>, provider_warnings: Array<string>, last_successful_sync_id: string | null, last_successful_sync_at: unknown, last_sync_succeeded: boolean | null, last_sync_id: string | null, last_sync_at: unknown, has_sync_errors: boolean | null, is_active: boolean, email: string | null, name: string, unique_code: string, phone_number: string | null, tax_code_type: TAX_TYPE | null, tax_code: string | null, created_at: unknown, updated_at: unknown, latest_acct_provider_balance: bigint | null, balance: bigint | null, overdue_amount: bigint | null, conn_locked_data_at: unknown, address_line_1: string | null, address_number: string | null, address_line_2: string | null, address_city: string | null, address_state: string | null, address_zip_code: string | null, address_country_code_iso_3: COUNTRY_ISO_3 | null, address_lat: number | null, address_lng: number | null, language: string | null, timezone: string | null, connection: { id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status: ORGANIZATION_CONNECTION_STATUS | null, vendor_conn_status_at: unknown, vendor_organization_id: string | null, vendor_organization_name: string | null, vendor_organization_email: string | null, vendor_target_customer_id: string | null, vendor_target_customer_name: string | null, vendor_target_customer_email: string | null, customer_conn_status: ORGANIZATION_CONNECTION_STATUS | null, customer_conn_status_at: unknown, customer_organization_id: string | null, customer_organization_name: string | null, customer_organization_email: string | null, customer_target_vendor_id: string | null, customer_target_vendor_name: string | null, customer_target_vendor_email: string | null, created_at: unknown, updated_at: unknown } | null, contacts: Array<{ id: string, name: string, email: string, phone_number: string | null, is_default: boolean, receive_invoice_reminders: boolean | null, email_copy_mode: NOTIFICATION_EMAIL_COPY_MODE | null, created_at: unknown, updated_at: unknown }>, invoice_summary: { total_open_invoice_count: number, total_overdue_invoice_count: number, total_amount: bigint, paid_amount: bigint, overdue_amount: bigint, balance: bigint, data: { totalCount: number, edges: Array<{ cursor: unknown, node: { id: string, provider: ACCT_PROVIDER, provider_code: string, provider_url: string | null, provider_errors: Array<string>, provider_warnings: Array<string>, last_successful_sync_id: string | null, last_successful_sync_at: unknown, last_sync_succeeded: boolean | null, last_sync_id: string | null, last_sync_at: unknown, file_id: string | null, unique_code: string, number: string | null, currency_code: CURRENCY, description: string | null, amount: bigint, tax_amount: bigint, discount_amount: bigint, total_amount: bigint, paid_amount: bigint | null, invoice_date: unknown, due_date: unknown, customer_email: string | null, created_at: unknown, updated_at: unknown, status: INVOICE_STATUS | null, latest_acct_provider_status: INVOICE_STATUS | null, file: { public_url: string | null } | null } }>, pageInfo: { startCursor: string | null, endCursor: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } } };
 
 export type UserOrganizationStatementLogsQueryVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  accessType?: InputMaybe<STATEMENT_ACCESS_TYPE>;
-  organizationCustomerId?: InputMaybe<Scalars['String']['input']>;
-  startDate?: InputMaybe<Scalars['DateTime']['input']>;
-  endDate?: InputMaybe<Scalars['DateTime']['input']>;
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema> | SortingFieldSchema>;
+  organizationId: string;
+  accessType?: STATEMENT_ACCESS_TYPE | null | undefined;
+  organizationCustomerId?: string | null | undefined;
+  startDate?: unknown;
+  endDate?: unknown;
+  after?: unknown;
+  first?: number | null | undefined;
+  before?: unknown;
+  last?: number | null | undefined;
+  skip?: number | null | undefined;
+  take?: number | null | undefined;
+  sorting?: Array<SortingFieldSchema> | SortingFieldSchema | null | undefined;
 }>;
 
 
-export type UserOrganizationStatementLogsQuery = { __typename?: 'Query', userOrganizationStatementLogs: { __typename?: 'OrganizationCustomerStatementLogPaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationCustomerStatementLogPaginationEdge', cursor: any, node: { __typename?: 'OrganizationCustomerStatementLog', id: string, access_type: STATEMENT_ACCESS_TYPE, created_at: any, updated_at: any, last_activity_at: any, organization_customer_id: string, organization_customer_name?: string | null, vendor_organization_id: string, customer_organization_id?: string | null, user_id?: string | null, statement_session_token: string, statement_current_balance?: bigint | null, statement_total_open_invoice_count?: number | null, statement_total_overdue_invoice_count?: number | null, agent_info_ip: string, agent_info_browser_name?: string | null, agent_info_browser_version?: string | null, agent_info_os?: string | null, agent_info_is_desktop?: boolean | null, agent_info_is_mobile?: boolean | null, location_city?: string | null, location_country?: string | null, location_region?: string | null, location_timezone?: string | null, location_latitude?: number | null, location_longitude?: number | null } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } };
+export type UserOrganizationStatementLogsQuery = { userOrganizationStatementLogs: { totalCount: number, edges: Array<{ cursor: unknown, node: { id: string, access_type: STATEMENT_ACCESS_TYPE, created_at: unknown, updated_at: unknown, last_activity_at: unknown, organization_customer_id: string, organization_customer_name: string | null, vendor_organization_id: string, customer_organization_id: string | null, user_id: string | null, statement_session_token: string, statement_current_balance: bigint | null, statement_total_open_invoice_count: number | null, statement_total_overdue_invoice_count: number | null, agent_info_ip: string, agent_info_browser_name: string | null, agent_info_browser_version: string | null, agent_info_os: string | null, agent_info_is_desktop: boolean | null, agent_info_is_mobile: boolean | null, location_city: string | null, location_country: string | null, location_region: string | null, location_timezone: string | null, location_latitude: number | null, location_longitude: number | null } }>, pageInfo: { startCursor: string | null, endCursor: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } };
 
 export type UserOrganizationStatementLogQueryVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationCustomerStatementLogId: Scalars['String']['input'];
+  organizationId: string;
+  organizationCustomerStatementLogId: string;
 }>;
 
 
-export type UserOrganizationStatementLogQuery = { __typename?: 'Query', userOrganizationStatementLog: { __typename?: 'OrganizationCustomerStatementLog', id: string, access_type: STATEMENT_ACCESS_TYPE, created_at: any, updated_at: any, last_activity_at: any, organization_customer_id: string, organization_customer_name?: string | null, vendor_organization_id: string, customer_organization_id?: string | null, user_id?: string | null, statement_session_token: string, statement_current_balance?: bigint | null, statement_total_open_invoice_count?: number | null, statement_total_overdue_invoice_count?: number | null, agent_info_ip: string, agent_info_browser_name?: string | null, agent_info_browser_version?: string | null, agent_info_os?: string | null, agent_info_is_desktop?: boolean | null, agent_info_is_mobile?: boolean | null, location_city?: string | null, location_country?: string | null, location_region?: string | null, location_timezone?: string | null, location_latitude?: number | null, location_longitude?: number | null } };
+export type UserOrganizationStatementLogQuery = { userOrganizationStatementLog: { id: string, access_type: STATEMENT_ACCESS_TYPE, created_at: unknown, updated_at: unknown, last_activity_at: unknown, organization_customer_id: string, organization_customer_name: string | null, vendor_organization_id: string, customer_organization_id: string | null, user_id: string | null, statement_session_token: string, statement_current_balance: bigint | null, statement_total_open_invoice_count: number | null, statement_total_overdue_invoice_count: number | null, agent_info_ip: string, agent_info_browser_name: string | null, agent_info_browser_version: string | null, agent_info_os: string | null, agent_info_is_desktop: boolean | null, agent_info_is_mobile: boolean | null, location_city: string | null, location_country: string | null, location_region: string | null, location_timezone: string | null, location_latitude: number | null, location_longitude: number | null } };
 
 export type UserOrganizationCustomerNotificationsQueryVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationCustomerId?: InputMaybe<Scalars['String']['input']>;
-  channel?: InputMaybe<NOTIFICATION_CHANNEL>;
-  featureType?: InputMaybe<NOTIFICATION_FEATURE_TYPE>;
-  featureCode?: InputMaybe<Scalars['String']['input']>;
-  relatedEntityId?: InputMaybe<Scalars['String']['input']>;
-  relatedEntityType?: InputMaybe<NOTIFICATION_RELATED_ENTITY_TYPE>;
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema> | SortingFieldSchema>;
+  organizationId: string;
+  organizationCustomerId?: string | null | undefined;
+  channel?: NOTIFICATION_CHANNEL | null | undefined;
+  featureType?: NOTIFICATION_FEATURE_TYPE | null | undefined;
+  featureCode?: string | null | undefined;
+  relatedEntityId?: string | null | undefined;
+  relatedEntityType?: NOTIFICATION_RELATED_ENTITY_TYPE | null | undefined;
+  after?: unknown;
+  first?: number | null | undefined;
+  before?: unknown;
+  last?: number | null | undefined;
+  skip?: number | null | undefined;
+  take?: number | null | undefined;
+  sorting?: Array<SortingFieldSchema> | SortingFieldSchema | null | undefined;
 }>;
 
 
-export type UserOrganizationCustomerNotificationsQuery = { __typename?: 'Query', userOrganizationCustomerNotifications: { __typename?: 'NotificationPaginationConnection', totalCount: number, edges: Array<{ __typename?: 'NotificationPaginationEdge', cursor: any, node: { __typename?: 'Notification', id: string, channel: NOTIFICATION_CHANNEL, feature_type: NOTIFICATION_FEATURE_TYPE, feature_code: string, target: string, message?: string | null, language: string, created_at: any, updated_at: any, sent_at?: any | null, opened_at?: any | null, failed_at?: any | null, canceled_at?: any | null, notification_provider: NOTIFICATION_PROVIDER, provider_code?: string | null, sender_type: NOTIFICATION_SENDER_TYPE, sender_id?: string | null, sender_name?: string | null, sender_target_entity_id?: string | null, sender_target_entity_type?: NOTIFICATION_SENDER_TARGET_ENTITY_TYPE | null, recipient_id?: string | null, recipient_type: RECIPIENT_TYPE, related_entity_id?: string | null, related_entity_type?: NOTIFICATION_RELATED_ENTITY_TYPE | null, checksum_md5: string, resend_delay_seconds: number, version?: number | null } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } };
+export type UserOrganizationCustomerNotificationsQuery = { userOrganizationCustomerNotifications: { totalCount: number, edges: Array<{ cursor: unknown, node: { id: string, channel: NOTIFICATION_CHANNEL, feature_type: NOTIFICATION_FEATURE_TYPE, feature_code: string, target: string, message: string | null, language: string, created_at: unknown, updated_at: unknown, sent_at: unknown, opened_at: unknown, failed_at: unknown, canceled_at: unknown, notification_provider: NOTIFICATION_PROVIDER, provider_code: string | null, sender_type: NOTIFICATION_SENDER_TYPE, sender_id: string | null, sender_name: string | null, sender_target_entity_id: string | null, sender_target_entity_type: NOTIFICATION_SENDER_TARGET_ENTITY_TYPE | null, recipient_id: string | null, recipient_type: RECIPIENT_TYPE, related_entity_id: string | null, related_entity_type: NOTIFICATION_RELATED_ENTITY_TYPE | null, checksum_md5: string, resend_delay_seconds: number, version: number | null } }>, pageInfo: { startCursor: string | null, endCursor: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } };
 
 export type UserOrganizationCustomerNotificationQueryVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  notificationId: Scalars['String']['input'];
+  organizationId: string;
+  notificationId: string;
 }>;
 
 
-export type UserOrganizationCustomerNotificationQuery = { __typename?: 'Query', userOrganizationCustomerNotification: { __typename?: 'Notification', id: string, channel: NOTIFICATION_CHANNEL, feature_type: NOTIFICATION_FEATURE_TYPE, feature_code: string, target: string, message?: string | null, language: string, created_at: any, updated_at: any, sent_at?: any | null, opened_at?: any | null, failed_at?: any | null, canceled_at?: any | null, notification_provider: NOTIFICATION_PROVIDER, provider_code?: string | null, sender_type: NOTIFICATION_SENDER_TYPE, sender_id?: string | null, sender_name?: string | null, sender_target_entity_id?: string | null, sender_target_entity_type?: NOTIFICATION_SENDER_TARGET_ENTITY_TYPE | null, recipient_id?: string | null, recipient_type: RECIPIENT_TYPE, related_entity_id?: string | null, related_entity_type?: NOTIFICATION_RELATED_ENTITY_TYPE | null, checksum_md5: string, resend_delay_seconds: number, version?: number | null } };
+export type UserOrganizationCustomerNotificationQuery = { userOrganizationCustomerNotification: { id: string, channel: NOTIFICATION_CHANNEL, feature_type: NOTIFICATION_FEATURE_TYPE, feature_code: string, target: string, message: string | null, language: string, created_at: unknown, updated_at: unknown, sent_at: unknown, opened_at: unknown, failed_at: unknown, canceled_at: unknown, notification_provider: NOTIFICATION_PROVIDER, provider_code: string | null, sender_type: NOTIFICATION_SENDER_TYPE, sender_id: string | null, sender_name: string | null, sender_target_entity_id: string | null, sender_target_entity_type: NOTIFICATION_SENDER_TARGET_ENTITY_TYPE | null, recipient_id: string | null, recipient_type: RECIPIENT_TYPE, related_entity_id: string | null, related_entity_type: NOTIFICATION_RELATED_ENTITY_TYPE | null, checksum_md5: string, resend_delay_seconds: number, version: number | null } };
 
-export type OrganizationInvoiceFragmentFragment = { __typename?: 'OrganizationInvoice', id: string, unique_code: string, number?: string | null, provider: ACCT_PROVIDER, provider_code: string, provider_url?: string | null, provider_errors: Array<string>, provider_warnings: Array<string>, last_successful_sync_id?: string | null, last_successful_sync_at?: any | null, last_sync_succeeded?: boolean | null, last_sync_id?: string | null, last_sync_at?: any | null, view_url?: string | null, currency_code: CURRENCY, description?: string | null, amount: bigint, tax_amount: bigint, discount_amount: bigint, total_amount: bigint, invoice_date: any, due_date: any, created_at: any, updated_at: any, customer_email?: string | null, customer_address_line_1?: string | null, customer_address_number?: string | null, customer_address_line_2?: string | null, customer_address_city?: string | null, customer_address_state?: string | null, customer_address_zip_code?: string | null, customer_address_country_code_iso_3?: COUNTRY_ISO_3 | null, customer_address_lat?: number | null, customer_address_lng?: number | null, organization_id: string, organization_customer_id: string, file_id?: string | null, has_sync_errors?: boolean | null, latest_acct_provider_balance?: bigint | null, latest_acct_provider_status?: INVOICE_STATUS | null, latest_acct_provider_is_overdue?: boolean | null, status?: INVOICE_STATUS | null, is_overdue?: boolean | null, paid_amount?: bigint | null, paid_at?: any | null, balance?: bigint | null, email_sent_at?: any | null, organization: { __typename?: 'Organization', name: string }, organization_customer: { __typename?: 'OrganizationCustomer', name: string, email?: string | null, balance?: bigint | null }, file?: { __typename?: 'File', public_url?: string | null } | null, payment_options: Array<{ __typename?: 'OrganizationInvoicePaymentOption', method: PAYMENT_METHOD, url?: string | null, payload?: any | null }>, transaction_links?: Array<{ __typename?: 'OrganizationInvoiceTransactionLink', id: string, amount: bigint, organization_invoice_id: string, created_at: any, updated_at: any, organization_invoice_transaction_id: string, organization_invoice_transaction: { __typename?: 'OrganizationInvoiceTransaction', id: string } }> | null };
+export type OrganizationInvoiceFragmentFragment = { id: string, unique_code: string, number: string | null, provider: ACCT_PROVIDER, provider_code: string, provider_url: string | null, provider_errors: Array<string>, provider_warnings: Array<string>, last_successful_sync_id: string | null, last_successful_sync_at: unknown, last_sync_succeeded: boolean | null, last_sync_id: string | null, last_sync_at: unknown, view_url: string | null, currency_code: CURRENCY, description: string | null, amount: bigint, tax_amount: bigint, discount_amount: bigint, total_amount: bigint, invoice_date: unknown, due_date: unknown, created_at: unknown, updated_at: unknown, customer_email: string | null, customer_address_line_1: string | null, customer_address_number: string | null, customer_address_line_2: string | null, customer_address_city: string | null, customer_address_state: string | null, customer_address_zip_code: string | null, customer_address_country_code_iso_3: COUNTRY_ISO_3 | null, customer_address_lat: number | null, customer_address_lng: number | null, organization_id: string, organization_customer_id: string, file_id: string | null, has_sync_errors: boolean | null, latest_acct_provider_balance: bigint | null, latest_acct_provider_status: INVOICE_STATUS | null, latest_acct_provider_is_overdue: boolean | null, status: INVOICE_STATUS | null, is_overdue: boolean | null, paid_amount: bigint | null, paid_at: unknown, balance: bigint | null, email_sent_at: unknown, organization: { name: string }, organization_customer: { name: string, email: string | null, balance: bigint | null }, file: { public_url: string | null } | null, payment_options: Array<{ method: PAYMENT_METHOD, url: string | null, payload: unknown }>, transaction_links: Array<{ id: string, amount: bigint, organization_invoice_id: string, created_at: unknown, updated_at: unknown, organization_invoice_transaction_id: string, organization_invoice_transaction: { id: string } }> | null };
 
 export type UserOrganizationCustomerSendInvoiceEmailMutationVariables = Exact<{
-  organizationId: Scalars['String']['input'];
+  organizationId: string;
   targets: Array<UserOrganizationCustomerSendInvoiceEmailSchema> | UserOrganizationCustomerSendInvoiceEmailSchema;
 }>;
 
 
-export type UserOrganizationCustomerSendInvoiceEmailMutation = { __typename?: 'Mutation', userOrganizationCustomerSendInvoiceEmail: { __typename?: 'BatchOperationResult', total: number, failureCount: number, successCount: number, results: Array<{ __typename?: 'BatchItemResult', id: string, data?: any | null, success: boolean, error?: { __typename?: 'BatchItemError', code: string, details?: any | null, message: string } | null }> } };
+export type UserOrganizationCustomerSendInvoiceEmailMutation = { userOrganizationCustomerSendInvoiceEmail: { total: number, failureCount: number, successCount: number, results: Array<{ id: string, data: unknown, success: boolean, error: { code: string, details: unknown, message: string } | null }> } };
 
 export type UserCustomerOrganizationInvoiceSummaryQueryVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationVendorId: Scalars['String']['input'];
-  currency?: InputMaybe<CURRENCY>;
-  startDate?: InputMaybe<Scalars['DateTime']['input']>;
-  endDate?: InputMaybe<Scalars['DateTime']['input']>;
-  status?: InputMaybe<INVOICE_STATUS>;
-  isOverdue?: InputMaybe<Scalars['Boolean']['input']>;
-  latestAcctProviderStatus?: InputMaybe<INVOICE_STATUS>;
-  latestAcctProviderIsOverdue?: InputMaybe<Scalars['Boolean']['input']>;
-  customerName?: InputMaybe<Scalars['String']['input']>;
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema> | SortingFieldSchema>;
-  statementSessionToken?: InputMaybe<Scalars['String']['input']>;
+  organizationId: string;
+  organizationVendorId: string;
+  currency?: CURRENCY | null | undefined;
+  startDate?: unknown;
+  endDate?: unknown;
+  status?: INVOICE_STATUS | null | undefined;
+  isOverdue?: boolean | null | undefined;
+  latestAcctProviderStatus?: INVOICE_STATUS | null | undefined;
+  latestAcctProviderIsOverdue?: boolean | null | undefined;
+  customerName?: string | null | undefined;
+  after?: unknown;
+  first?: number | null | undefined;
+  before?: unknown;
+  last?: number | null | undefined;
+  skip?: number | null | undefined;
+  take?: number | null | undefined;
+  sorting?: Array<SortingFieldSchema> | SortingFieldSchema | null | undefined;
+  statementSessionToken?: string | null | undefined;
 }>;
 
 
-export type UserCustomerOrganizationInvoiceSummaryQuery = { __typename?: 'Query', userCustomerOrganizationInvoiceSummary: { __typename?: 'OrganizationInvoiceSummary', vendor_organization_id: string, vendor_organization_customer_id?: string | null, customer_organization_id?: string | null, status?: INVOICE_STATUS | null, total_open_invoice_count: number, total_overdue_invoice_count: number, total_amount: bigint, paid_amount: bigint, overdue_amount: bigint, balance: bigint, current_balance?: bigint | null, start_date?: any | null, end_date?: any | null, due_start_date?: any | null, due_end_date?: any | null, currency?: CURRENCY | null, has_sync_errors?: boolean | null, has_mismatching_balance?: boolean | null, acct_provider?: ACCT_PROVIDER | null, is_acct_provider_connected?: boolean | null, last_sync_at?: any | null, latest_acct_provider_balance?: bigint | null, one_to_thirty_days_due_amount?: bigint | null, thirty_one_to_sixty_days_due_amount?: bigint | null, sixty_plus_days_due_amount?: bigint | null, latest_acct_provider_one_to_thirty_days_due_amount?: bigint | null, latest_acct_provider_thirty_one_to_sixty_days_due_amount?: bigint | null, latest_acct_provider_sixty_plus_days_due_amount?: bigint | null, statement_session_token?: string | null, vendor_organization: { __typename?: 'Organization', name: string, email: string, phone_number?: string | null, address_line_1?: string | null, address_number?: string | null, address_line_2?: string | null, address_city?: string | null, address_state?: string | null, address_zip_code?: string | null, address_country_code_iso_3?: COUNTRY_ISO_3 | null, address_lat?: number | null, address_lng?: number | null, logo_picture_file?: { __typename?: 'File', public_url?: string | null } | null }, vendor_organization_customer?: { __typename?: 'OrganizationCustomer', name: string, email?: string | null } | null, customer_organization?: { __typename?: 'Organization', name: string, email: string } | null, data: { __typename?: 'OrganizationInvoicePaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationInvoicePaginationEdge', cursor: any, node: { __typename?: 'OrganizationInvoice', id: string, unique_code: string, number?: string | null, provider: ACCT_PROVIDER, provider_code: string, provider_url?: string | null, provider_errors: Array<string>, provider_warnings: Array<string>, last_successful_sync_id?: string | null, last_successful_sync_at?: any | null, last_sync_succeeded?: boolean | null, last_sync_id?: string | null, last_sync_at?: any | null, view_url?: string | null, currency_code: CURRENCY, description?: string | null, amount: bigint, tax_amount: bigint, discount_amount: bigint, total_amount: bigint, invoice_date: any, due_date: any, created_at: any, updated_at: any, customer_email?: string | null, customer_address_line_1?: string | null, customer_address_number?: string | null, customer_address_line_2?: string | null, customer_address_city?: string | null, customer_address_state?: string | null, customer_address_zip_code?: string | null, customer_address_country_code_iso_3?: COUNTRY_ISO_3 | null, customer_address_lat?: number | null, customer_address_lng?: number | null, organization_id: string, organization_customer_id: string, file_id?: string | null, has_sync_errors?: boolean | null, latest_acct_provider_balance?: bigint | null, latest_acct_provider_status?: INVOICE_STATUS | null, latest_acct_provider_is_overdue?: boolean | null, status?: INVOICE_STATUS | null, is_overdue?: boolean | null, paid_amount?: bigint | null, paid_at?: any | null, balance?: bigint | null, email_sent_at?: any | null, organization: { __typename?: 'Organization', name: string }, organization_customer: { __typename?: 'OrganizationCustomer', name: string, email?: string | null, balance?: bigint | null }, file?: { __typename?: 'File', public_url?: string | null } | null, payment_options: Array<{ __typename?: 'OrganizationInvoicePaymentOption', method: PAYMENT_METHOD, url?: string | null, payload?: any | null }>, transaction_links?: Array<{ __typename?: 'OrganizationInvoiceTransactionLink', id: string, amount: bigint, organization_invoice_id: string, created_at: any, updated_at: any, organization_invoice_transaction_id: string, organization_invoice_transaction: { __typename?: 'OrganizationInvoiceTransaction', id: string } }> | null } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } };
+export type UserCustomerOrganizationInvoiceSummaryQuery = { userCustomerOrganizationInvoiceSummary: { vendor_organization_id: string, vendor_organization_customer_id: string | null, customer_organization_id: string | null, status: INVOICE_STATUS | null, total_open_invoice_count: number, total_overdue_invoice_count: number, total_amount: bigint, paid_amount: bigint, overdue_amount: bigint, balance: bigint, current_balance: bigint | null, start_date: unknown, end_date: unknown, due_start_date: unknown, due_end_date: unknown, currency: CURRENCY | null, has_sync_errors: boolean | null, has_mismatching_balance: boolean | null, acct_provider: ACCT_PROVIDER | null, is_acct_provider_connected: boolean | null, last_sync_at: unknown, latest_acct_provider_balance: bigint | null, one_to_thirty_days_due_amount: bigint | null, thirty_one_to_sixty_days_due_amount: bigint | null, sixty_plus_days_due_amount: bigint | null, latest_acct_provider_one_to_thirty_days_due_amount: bigint | null, latest_acct_provider_thirty_one_to_sixty_days_due_amount: bigint | null, latest_acct_provider_sixty_plus_days_due_amount: bigint | null, statement_session_token: string | null, vendor_organization: { name: string, email: string, phone_number: string | null, address_line_1: string | null, address_number: string | null, address_line_2: string | null, address_city: string | null, address_state: string | null, address_zip_code: string | null, address_country_code_iso_3: COUNTRY_ISO_3 | null, address_lat: number | null, address_lng: number | null, logo_picture_file: { public_url: string | null } | null }, vendor_organization_customer: { name: string, email: string | null } | null, customer_organization: { name: string, email: string } | null, data: { totalCount: number, edges: Array<{ cursor: unknown, node: { id: string, unique_code: string, number: string | null, provider: ACCT_PROVIDER, provider_code: string, provider_url: string | null, provider_errors: Array<string>, provider_warnings: Array<string>, last_successful_sync_id: string | null, last_successful_sync_at: unknown, last_sync_succeeded: boolean | null, last_sync_id: string | null, last_sync_at: unknown, view_url: string | null, currency_code: CURRENCY, description: string | null, amount: bigint, tax_amount: bigint, discount_amount: bigint, total_amount: bigint, invoice_date: unknown, due_date: unknown, created_at: unknown, updated_at: unknown, customer_email: string | null, customer_address_line_1: string | null, customer_address_number: string | null, customer_address_line_2: string | null, customer_address_city: string | null, customer_address_state: string | null, customer_address_zip_code: string | null, customer_address_country_code_iso_3: COUNTRY_ISO_3 | null, customer_address_lat: number | null, customer_address_lng: number | null, organization_id: string, organization_customer_id: string, file_id: string | null, has_sync_errors: boolean | null, latest_acct_provider_balance: bigint | null, latest_acct_provider_status: INVOICE_STATUS | null, latest_acct_provider_is_overdue: boolean | null, status: INVOICE_STATUS | null, is_overdue: boolean | null, paid_amount: bigint | null, paid_at: unknown, balance: bigint | null, email_sent_at: unknown, organization: { name: string }, organization_customer: { name: string, email: string | null, balance: bigint | null }, file: { public_url: string | null } | null, payment_options: Array<{ method: PAYMENT_METHOD, url: string | null, payload: unknown }>, transaction_links: Array<{ id: string, amount: bigint, organization_invoice_id: string, created_at: unknown, updated_at: unknown, organization_invoice_transaction_id: string, organization_invoice_transaction: { id: string } }> | null } }>, pageInfo: { startCursor: string | null, endCursor: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } };
 
 export type UserCustomerOrganizationInvoiceQueryVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationVendorId: Scalars['String']['input'];
-  organizationInvoiceId: Scalars['String']['input'];
+  organizationId: string;
+  organizationVendorId: string;
+  organizationInvoiceId: string;
 }>;
 
 
-export type UserCustomerOrganizationInvoiceQuery = { __typename?: 'Query', userCustomerOrganizationInvoice: { __typename?: 'OrganizationInvoice', id: string, unique_code: string, number?: string | null, provider: ACCT_PROVIDER, provider_code: string, provider_url?: string | null, provider_errors: Array<string>, provider_warnings: Array<string>, last_successful_sync_id?: string | null, last_successful_sync_at?: any | null, last_sync_succeeded?: boolean | null, last_sync_id?: string | null, last_sync_at?: any | null, view_url?: string | null, currency_code: CURRENCY, description?: string | null, amount: bigint, tax_amount: bigint, discount_amount: bigint, total_amount: bigint, invoice_date: any, due_date: any, created_at: any, updated_at: any, customer_email?: string | null, customer_address_line_1?: string | null, customer_address_number?: string | null, customer_address_line_2?: string | null, customer_address_city?: string | null, customer_address_state?: string | null, customer_address_zip_code?: string | null, customer_address_country_code_iso_3?: COUNTRY_ISO_3 | null, customer_address_lat?: number | null, customer_address_lng?: number | null, organization_id: string, organization_customer_id: string, file_id?: string | null, has_sync_errors?: boolean | null, latest_acct_provider_balance?: bigint | null, latest_acct_provider_status?: INVOICE_STATUS | null, latest_acct_provider_is_overdue?: boolean | null, status?: INVOICE_STATUS | null, is_overdue?: boolean | null, paid_amount?: bigint | null, paid_at?: any | null, balance?: bigint | null, email_sent_at?: any | null, organization: { __typename?: 'Organization', name: string }, organization_customer: { __typename?: 'OrganizationCustomer', name: string, email?: string | null, balance?: bigint | null }, file?: { __typename?: 'File', public_url?: string | null } | null, payment_options: Array<{ __typename?: 'OrganizationInvoicePaymentOption', method: PAYMENT_METHOD, url?: string | null, payload?: any | null }>, transaction_links?: Array<{ __typename?: 'OrganizationInvoiceTransactionLink', id: string, amount: bigint, organization_invoice_id: string, created_at: any, updated_at: any, organization_invoice_transaction_id: string, organization_invoice_transaction: { __typename?: 'OrganizationInvoiceTransaction', id: string } }> | null } };
+export type UserCustomerOrganizationInvoiceQuery = { userCustomerOrganizationInvoice: { id: string, unique_code: string, number: string | null, provider: ACCT_PROVIDER, provider_code: string, provider_url: string | null, provider_errors: Array<string>, provider_warnings: Array<string>, last_successful_sync_id: string | null, last_successful_sync_at: unknown, last_sync_succeeded: boolean | null, last_sync_id: string | null, last_sync_at: unknown, view_url: string | null, currency_code: CURRENCY, description: string | null, amount: bigint, tax_amount: bigint, discount_amount: bigint, total_amount: bigint, invoice_date: unknown, due_date: unknown, created_at: unknown, updated_at: unknown, customer_email: string | null, customer_address_line_1: string | null, customer_address_number: string | null, customer_address_line_2: string | null, customer_address_city: string | null, customer_address_state: string | null, customer_address_zip_code: string | null, customer_address_country_code_iso_3: COUNTRY_ISO_3 | null, customer_address_lat: number | null, customer_address_lng: number | null, organization_id: string, organization_customer_id: string, file_id: string | null, has_sync_errors: boolean | null, latest_acct_provider_balance: bigint | null, latest_acct_provider_status: INVOICE_STATUS | null, latest_acct_provider_is_overdue: boolean | null, status: INVOICE_STATUS | null, is_overdue: boolean | null, paid_amount: bigint | null, paid_at: unknown, balance: bigint | null, email_sent_at: unknown, organization: { name: string }, organization_customer: { name: string, email: string | null, balance: bigint | null }, file: { public_url: string | null } | null, payment_options: Array<{ method: PAYMENT_METHOD, url: string | null, payload: unknown }>, transaction_links: Array<{ id: string, amount: bigint, organization_invoice_id: string, created_at: unknown, updated_at: unknown, organization_invoice_transaction_id: string, organization_invoice_transaction: { id: string } }> | null } };
 
 export type UserCustomerOrganizationInvoiceGetPDFMutationVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationVendorId: Scalars['String']['input'];
-  organizationInvoiceId: Scalars['String']['input'];
-  acctProvider?: InputMaybe<ACCT_PROVIDER>;
+  organizationId: string;
+  organizationVendorId: string;
+  organizationInvoiceId: string;
+  acctProvider?: ACCT_PROVIDER | null | undefined;
 }>;
 
 
-export type UserCustomerOrganizationInvoiceGetPDFMutation = { __typename?: 'Mutation', userCustomerOrganizationInvoiceGetPDF: string };
+export type UserCustomerOrganizationInvoiceGetPDFMutation = { userCustomerOrganizationInvoiceGetPDF: string };
 
 export type UnconnectedCustomerOrganizationInvoiceSummaryQueryVariables = Exact<{
-  uniqueCode: Scalars['String']['input'];
-  token: Scalars['String']['input'];
-  currency?: InputMaybe<CURRENCY>;
-  startDate?: InputMaybe<Scalars['DateTime']['input']>;
-  endDate?: InputMaybe<Scalars['DateTime']['input']>;
-  status?: InputMaybe<INVOICE_STATUS>;
-  isOverdue?: InputMaybe<Scalars['Boolean']['input']>;
-  latestAcctProviderStatus?: InputMaybe<INVOICE_STATUS>;
-  latestAcctProviderIsOverdue?: InputMaybe<Scalars['Boolean']['input']>;
-  customerName?: InputMaybe<Scalars['String']['input']>;
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema> | SortingFieldSchema>;
-  statementSessionToken?: InputMaybe<Scalars['String']['input']>;
+  uniqueCode: string;
+  token: string;
+  currency?: CURRENCY | null | undefined;
+  startDate?: unknown;
+  endDate?: unknown;
+  status?: INVOICE_STATUS | null | undefined;
+  isOverdue?: boolean | null | undefined;
+  latestAcctProviderStatus?: INVOICE_STATUS | null | undefined;
+  latestAcctProviderIsOverdue?: boolean | null | undefined;
+  customerName?: string | null | undefined;
+  after?: unknown;
+  first?: number | null | undefined;
+  before?: unknown;
+  last?: number | null | undefined;
+  skip?: number | null | undefined;
+  take?: number | null | undefined;
+  sorting?: Array<SortingFieldSchema> | SortingFieldSchema | null | undefined;
+  statementSessionToken?: string | null | undefined;
 }>;
 
 
-export type UnconnectedCustomerOrganizationInvoiceSummaryQuery = { __typename?: 'Query', unconnectedCustomerOrganizationInvoiceSummary: { __typename?: 'OrganizationInvoiceSummary', vendor_organization_id: string, vendor_organization_customer_id?: string | null, customer_organization_id?: string | null, status?: INVOICE_STATUS | null, total_open_invoice_count: number, total_overdue_invoice_count: number, total_amount: bigint, paid_amount: bigint, overdue_amount: bigint, balance: bigint, current_balance?: bigint | null, start_date?: any | null, end_date?: any | null, due_start_date?: any | null, due_end_date?: any | null, currency?: CURRENCY | null, has_sync_errors?: boolean | null, has_mismatching_balance?: boolean | null, acct_provider?: ACCT_PROVIDER | null, is_acct_provider_connected?: boolean | null, last_sync_at?: any | null, latest_acct_provider_balance?: bigint | null, one_to_thirty_days_due_amount?: bigint | null, thirty_one_to_sixty_days_due_amount?: bigint | null, sixty_plus_days_due_amount?: bigint | null, latest_acct_provider_one_to_thirty_days_due_amount?: bigint | null, latest_acct_provider_thirty_one_to_sixty_days_due_amount?: bigint | null, latest_acct_provider_sixty_plus_days_due_amount?: bigint | null, statement_session_token?: string | null, vendor_organization: { __typename?: 'Organization', name: string, email: string, phone_number?: string | null, address_line_1?: string | null, address_number?: string | null, address_line_2?: string | null, address_city?: string | null, address_state?: string | null, address_zip_code?: string | null, address_country_code_iso_3?: COUNTRY_ISO_3 | null, address_lat?: number | null, address_lng?: number | null, logo_picture_file?: { __typename?: 'File', public_url?: string | null } | null }, vendor_organization_customer?: { __typename?: 'OrganizationCustomer', name: string, email?: string | null } | null, customer_organization?: { __typename?: 'Organization', name: string, email: string } | null, data: { __typename?: 'OrganizationInvoicePaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationInvoicePaginationEdge', cursor: any, node: { __typename?: 'OrganizationInvoice', id: string, unique_code: string, number?: string | null, provider: ACCT_PROVIDER, provider_code: string, provider_url?: string | null, provider_errors: Array<string>, provider_warnings: Array<string>, last_successful_sync_id?: string | null, last_successful_sync_at?: any | null, last_sync_succeeded?: boolean | null, last_sync_id?: string | null, last_sync_at?: any | null, view_url?: string | null, currency_code: CURRENCY, description?: string | null, amount: bigint, tax_amount: bigint, discount_amount: bigint, total_amount: bigint, invoice_date: any, due_date: any, created_at: any, updated_at: any, customer_email?: string | null, customer_address_line_1?: string | null, customer_address_number?: string | null, customer_address_line_2?: string | null, customer_address_city?: string | null, customer_address_state?: string | null, customer_address_zip_code?: string | null, customer_address_country_code_iso_3?: COUNTRY_ISO_3 | null, customer_address_lat?: number | null, customer_address_lng?: number | null, organization_id: string, organization_customer_id: string, file_id?: string | null, has_sync_errors?: boolean | null, latest_acct_provider_balance?: bigint | null, latest_acct_provider_status?: INVOICE_STATUS | null, latest_acct_provider_is_overdue?: boolean | null, status?: INVOICE_STATUS | null, is_overdue?: boolean | null, paid_amount?: bigint | null, paid_at?: any | null, balance?: bigint | null, email_sent_at?: any | null, organization: { __typename?: 'Organization', name: string }, organization_customer: { __typename?: 'OrganizationCustomer', name: string, email?: string | null, balance?: bigint | null }, file?: { __typename?: 'File', public_url?: string | null } | null, payment_options: Array<{ __typename?: 'OrganizationInvoicePaymentOption', method: PAYMENT_METHOD, url?: string | null, payload?: any | null }>, transaction_links?: Array<{ __typename?: 'OrganizationInvoiceTransactionLink', id: string, amount: bigint, organization_invoice_id: string, created_at: any, updated_at: any, organization_invoice_transaction_id: string, organization_invoice_transaction: { __typename?: 'OrganizationInvoiceTransaction', id: string } }> | null } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } };
+export type UnconnectedCustomerOrganizationInvoiceSummaryQuery = { unconnectedCustomerOrganizationInvoiceSummary: { vendor_organization_id: string, vendor_organization_customer_id: string | null, customer_organization_id: string | null, status: INVOICE_STATUS | null, total_open_invoice_count: number, total_overdue_invoice_count: number, total_amount: bigint, paid_amount: bigint, overdue_amount: bigint, balance: bigint, current_balance: bigint | null, start_date: unknown, end_date: unknown, due_start_date: unknown, due_end_date: unknown, currency: CURRENCY | null, has_sync_errors: boolean | null, has_mismatching_balance: boolean | null, acct_provider: ACCT_PROVIDER | null, is_acct_provider_connected: boolean | null, last_sync_at: unknown, latest_acct_provider_balance: bigint | null, one_to_thirty_days_due_amount: bigint | null, thirty_one_to_sixty_days_due_amount: bigint | null, sixty_plus_days_due_amount: bigint | null, latest_acct_provider_one_to_thirty_days_due_amount: bigint | null, latest_acct_provider_thirty_one_to_sixty_days_due_amount: bigint | null, latest_acct_provider_sixty_plus_days_due_amount: bigint | null, statement_session_token: string | null, vendor_organization: { name: string, email: string, phone_number: string | null, address_line_1: string | null, address_number: string | null, address_line_2: string | null, address_city: string | null, address_state: string | null, address_zip_code: string | null, address_country_code_iso_3: COUNTRY_ISO_3 | null, address_lat: number | null, address_lng: number | null, logo_picture_file: { public_url: string | null } | null }, vendor_organization_customer: { name: string, email: string | null } | null, customer_organization: { name: string, email: string } | null, data: { totalCount: number, edges: Array<{ cursor: unknown, node: { id: string, unique_code: string, number: string | null, provider: ACCT_PROVIDER, provider_code: string, provider_url: string | null, provider_errors: Array<string>, provider_warnings: Array<string>, last_successful_sync_id: string | null, last_successful_sync_at: unknown, last_sync_succeeded: boolean | null, last_sync_id: string | null, last_sync_at: unknown, view_url: string | null, currency_code: CURRENCY, description: string | null, amount: bigint, tax_amount: bigint, discount_amount: bigint, total_amount: bigint, invoice_date: unknown, due_date: unknown, created_at: unknown, updated_at: unknown, customer_email: string | null, customer_address_line_1: string | null, customer_address_number: string | null, customer_address_line_2: string | null, customer_address_city: string | null, customer_address_state: string | null, customer_address_zip_code: string | null, customer_address_country_code_iso_3: COUNTRY_ISO_3 | null, customer_address_lat: number | null, customer_address_lng: number | null, organization_id: string, organization_customer_id: string, file_id: string | null, has_sync_errors: boolean | null, latest_acct_provider_balance: bigint | null, latest_acct_provider_status: INVOICE_STATUS | null, latest_acct_provider_is_overdue: boolean | null, status: INVOICE_STATUS | null, is_overdue: boolean | null, paid_amount: bigint | null, paid_at: unknown, balance: bigint | null, email_sent_at: unknown, organization: { name: string }, organization_customer: { name: string, email: string | null, balance: bigint | null }, file: { public_url: string | null } | null, payment_options: Array<{ method: PAYMENT_METHOD, url: string | null, payload: unknown }>, transaction_links: Array<{ id: string, amount: bigint, organization_invoice_id: string, created_at: unknown, updated_at: unknown, organization_invoice_transaction_id: string, organization_invoice_transaction: { id: string } }> | null } }>, pageInfo: { startCursor: string | null, endCursor: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } };
 
 export type UnconnectedCustomerOrganizationInvoiceQueryVariables = Exact<{
-  uniqueCode: Scalars['String']['input'];
-  token: Scalars['String']['input'];
-  organizationInvoiceId: Scalars['String']['input'];
+  uniqueCode: string;
+  token: string;
+  organizationInvoiceId: string;
 }>;
 
 
-export type UnconnectedCustomerOrganizationInvoiceQuery = { __typename?: 'Query', unconnectedCustomerOrganizationInvoice: { __typename?: 'OrganizationInvoice', id: string, unique_code: string, number?: string | null, provider: ACCT_PROVIDER, provider_code: string, provider_url?: string | null, provider_errors: Array<string>, provider_warnings: Array<string>, last_successful_sync_id?: string | null, last_successful_sync_at?: any | null, last_sync_succeeded?: boolean | null, last_sync_id?: string | null, last_sync_at?: any | null, view_url?: string | null, currency_code: CURRENCY, description?: string | null, amount: bigint, tax_amount: bigint, discount_amount: bigint, total_amount: bigint, invoice_date: any, due_date: any, created_at: any, updated_at: any, customer_email?: string | null, customer_address_line_1?: string | null, customer_address_number?: string | null, customer_address_line_2?: string | null, customer_address_city?: string | null, customer_address_state?: string | null, customer_address_zip_code?: string | null, customer_address_country_code_iso_3?: COUNTRY_ISO_3 | null, customer_address_lat?: number | null, customer_address_lng?: number | null, organization_id: string, organization_customer_id: string, file_id?: string | null, has_sync_errors?: boolean | null, latest_acct_provider_balance?: bigint | null, latest_acct_provider_status?: INVOICE_STATUS | null, latest_acct_provider_is_overdue?: boolean | null, status?: INVOICE_STATUS | null, is_overdue?: boolean | null, paid_amount?: bigint | null, paid_at?: any | null, balance?: bigint | null, email_sent_at?: any | null, organization: { __typename?: 'Organization', name: string }, organization_customer: { __typename?: 'OrganizationCustomer', name: string, email?: string | null, balance?: bigint | null }, file?: { __typename?: 'File', public_url?: string | null } | null, payment_options: Array<{ __typename?: 'OrganizationInvoicePaymentOption', method: PAYMENT_METHOD, url?: string | null, payload?: any | null }>, transaction_links?: Array<{ __typename?: 'OrganizationInvoiceTransactionLink', id: string, amount: bigint, organization_invoice_id: string, created_at: any, updated_at: any, organization_invoice_transaction_id: string, organization_invoice_transaction: { __typename?: 'OrganizationInvoiceTransaction', id: string } }> | null } };
+export type UnconnectedCustomerOrganizationInvoiceQuery = { unconnectedCustomerOrganizationInvoice: { id: string, unique_code: string, number: string | null, provider: ACCT_PROVIDER, provider_code: string, provider_url: string | null, provider_errors: Array<string>, provider_warnings: Array<string>, last_successful_sync_id: string | null, last_successful_sync_at: unknown, last_sync_succeeded: boolean | null, last_sync_id: string | null, last_sync_at: unknown, view_url: string | null, currency_code: CURRENCY, description: string | null, amount: bigint, tax_amount: bigint, discount_amount: bigint, total_amount: bigint, invoice_date: unknown, due_date: unknown, created_at: unknown, updated_at: unknown, customer_email: string | null, customer_address_line_1: string | null, customer_address_number: string | null, customer_address_line_2: string | null, customer_address_city: string | null, customer_address_state: string | null, customer_address_zip_code: string | null, customer_address_country_code_iso_3: COUNTRY_ISO_3 | null, customer_address_lat: number | null, customer_address_lng: number | null, organization_id: string, organization_customer_id: string, file_id: string | null, has_sync_errors: boolean | null, latest_acct_provider_balance: bigint | null, latest_acct_provider_status: INVOICE_STATUS | null, latest_acct_provider_is_overdue: boolean | null, status: INVOICE_STATUS | null, is_overdue: boolean | null, paid_amount: bigint | null, paid_at: unknown, balance: bigint | null, email_sent_at: unknown, organization: { name: string }, organization_customer: { name: string, email: string | null, balance: bigint | null }, file: { public_url: string | null } | null, payment_options: Array<{ method: PAYMENT_METHOD, url: string | null, payload: unknown }>, transaction_links: Array<{ id: string, amount: bigint, organization_invoice_id: string, created_at: unknown, updated_at: unknown, organization_invoice_transaction_id: string, organization_invoice_transaction: { id: string } }> | null } };
 
 export type UnconnectedCustomerOrganizationInvoiceGetPDFMutationVariables = Exact<{
-  uniqueCode: Scalars['String']['input'];
-  token: Scalars['String']['input'];
-  organizationInvoiceId: Scalars['String']['input'];
-  acctProvider?: InputMaybe<ACCT_PROVIDER>;
+  uniqueCode: string;
+  token: string;
+  organizationInvoiceId: string;
+  acctProvider?: ACCT_PROVIDER | null | undefined;
 }>;
 
 
-export type UnconnectedCustomerOrganizationInvoiceGetPDFMutation = { __typename?: 'Mutation', unconnectedCustomerOrganizationInvoiceGetPDF: string };
+export type UnconnectedCustomerOrganizationInvoiceGetPDFMutation = { unconnectedCustomerOrganizationInvoiceGetPDF: string };
 
 export type UserOrganizationInvoiceSummaryQueryVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationCustomerId?: InputMaybe<Scalars['String']['input']>;
-  currency?: InputMaybe<CURRENCY>;
-  startDate?: InputMaybe<Scalars['DateTime']['input']>;
-  endDate?: InputMaybe<Scalars['DateTime']['input']>;
-  status?: InputMaybe<INVOICE_STATUS>;
-  isOverdue?: InputMaybe<Scalars['Boolean']['input']>;
-  latestAcctProviderStatus?: InputMaybe<INVOICE_STATUS>;
-  latestAcctProviderIsOverdue?: InputMaybe<Scalars['Boolean']['input']>;
-  customerName?: InputMaybe<Scalars['String']['input']>;
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema> | SortingFieldSchema>;
+  organizationId: string;
+  organizationCustomerId?: string | null | undefined;
+  currency?: CURRENCY | null | undefined;
+  startDate?: unknown;
+  endDate?: unknown;
+  status?: INVOICE_STATUS | null | undefined;
+  isOverdue?: boolean | null | undefined;
+  latestAcctProviderStatus?: INVOICE_STATUS | null | undefined;
+  latestAcctProviderIsOverdue?: boolean | null | undefined;
+  customerName?: string | null | undefined;
+  after?: unknown;
+  first?: number | null | undefined;
+  before?: unknown;
+  last?: number | null | undefined;
+  skip?: number | null | undefined;
+  take?: number | null | undefined;
+  sorting?: Array<SortingFieldSchema> | SortingFieldSchema | null | undefined;
 }>;
 
 
-export type UserOrganizationInvoiceSummaryQuery = { __typename?: 'Query', userOrganizationInvoiceSummary: { __typename?: 'OrganizationInvoiceSummary', vendor_organization_id: string, vendor_organization_customer_id?: string | null, customer_organization_id?: string | null, status?: INVOICE_STATUS | null, total_open_invoice_count: number, total_overdue_invoice_count: number, total_amount: bigint, paid_amount: bigint, overdue_amount: bigint, balance: bigint, current_balance?: bigint | null, start_date?: any | null, end_date?: any | null, due_start_date?: any | null, due_end_date?: any | null, currency?: CURRENCY | null, has_sync_errors?: boolean | null, has_mismatching_balance?: boolean | null, acct_provider?: ACCT_PROVIDER | null, is_acct_provider_connected?: boolean | null, last_sync_at?: any | null, latest_acct_provider_balance?: bigint | null, one_to_thirty_days_due_amount?: bigint | null, thirty_one_to_sixty_days_due_amount?: bigint | null, sixty_plus_days_due_amount?: bigint | null, latest_acct_provider_one_to_thirty_days_due_amount?: bigint | null, latest_acct_provider_thirty_one_to_sixty_days_due_amount?: bigint | null, latest_acct_provider_sixty_plus_days_due_amount?: bigint | null, statement_session_token?: string | null, vendor_organization: { __typename?: 'Organization', name: string, email: string, phone_number?: string | null, address_line_1?: string | null, address_number?: string | null, address_line_2?: string | null, address_city?: string | null, address_state?: string | null, address_zip_code?: string | null, address_country_code_iso_3?: COUNTRY_ISO_3 | null, address_lat?: number | null, address_lng?: number | null, logo_picture_file?: { __typename?: 'File', public_url?: string | null } | null }, vendor_organization_customer?: { __typename?: 'OrganizationCustomer', name: string, email?: string | null } | null, customer_organization?: { __typename?: 'Organization', name: string, email: string } | null, data: { __typename?: 'OrganizationInvoicePaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationInvoicePaginationEdge', cursor: any, node: { __typename?: 'OrganizationInvoice', id: string, unique_code: string, number?: string | null, provider: ACCT_PROVIDER, provider_code: string, provider_url?: string | null, provider_errors: Array<string>, provider_warnings: Array<string>, last_successful_sync_id?: string | null, last_successful_sync_at?: any | null, last_sync_succeeded?: boolean | null, last_sync_id?: string | null, last_sync_at?: any | null, view_url?: string | null, currency_code: CURRENCY, description?: string | null, amount: bigint, tax_amount: bigint, discount_amount: bigint, total_amount: bigint, invoice_date: any, due_date: any, created_at: any, updated_at: any, customer_email?: string | null, customer_address_line_1?: string | null, customer_address_number?: string | null, customer_address_line_2?: string | null, customer_address_city?: string | null, customer_address_state?: string | null, customer_address_zip_code?: string | null, customer_address_country_code_iso_3?: COUNTRY_ISO_3 | null, customer_address_lat?: number | null, customer_address_lng?: number | null, organization_id: string, organization_customer_id: string, file_id?: string | null, has_sync_errors?: boolean | null, latest_acct_provider_balance?: bigint | null, latest_acct_provider_status?: INVOICE_STATUS | null, latest_acct_provider_is_overdue?: boolean | null, status?: INVOICE_STATUS | null, is_overdue?: boolean | null, paid_amount?: bigint | null, paid_at?: any | null, balance?: bigint | null, email_sent_at?: any | null, organization: { __typename?: 'Organization', name: string }, organization_customer: { __typename?: 'OrganizationCustomer', name: string, email?: string | null, balance?: bigint | null }, file?: { __typename?: 'File', public_url?: string | null } | null, payment_options: Array<{ __typename?: 'OrganizationInvoicePaymentOption', method: PAYMENT_METHOD, url?: string | null, payload?: any | null }>, transaction_links?: Array<{ __typename?: 'OrganizationInvoiceTransactionLink', id: string, amount: bigint, organization_invoice_id: string, created_at: any, updated_at: any, organization_invoice_transaction_id: string, organization_invoice_transaction: { __typename?: 'OrganizationInvoiceTransaction', id: string } }> | null } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } };
+export type UserOrganizationInvoiceSummaryQuery = { userOrganizationInvoiceSummary: { vendor_organization_id: string, vendor_organization_customer_id: string | null, customer_organization_id: string | null, status: INVOICE_STATUS | null, total_open_invoice_count: number, total_overdue_invoice_count: number, total_amount: bigint, paid_amount: bigint, overdue_amount: bigint, balance: bigint, current_balance: bigint | null, start_date: unknown, end_date: unknown, due_start_date: unknown, due_end_date: unknown, currency: CURRENCY | null, has_sync_errors: boolean | null, has_mismatching_balance: boolean | null, acct_provider: ACCT_PROVIDER | null, is_acct_provider_connected: boolean | null, last_sync_at: unknown, latest_acct_provider_balance: bigint | null, one_to_thirty_days_due_amount: bigint | null, thirty_one_to_sixty_days_due_amount: bigint | null, sixty_plus_days_due_amount: bigint | null, latest_acct_provider_one_to_thirty_days_due_amount: bigint | null, latest_acct_provider_thirty_one_to_sixty_days_due_amount: bigint | null, latest_acct_provider_sixty_plus_days_due_amount: bigint | null, statement_session_token: string | null, vendor_organization: { name: string, email: string, phone_number: string | null, address_line_1: string | null, address_number: string | null, address_line_2: string | null, address_city: string | null, address_state: string | null, address_zip_code: string | null, address_country_code_iso_3: COUNTRY_ISO_3 | null, address_lat: number | null, address_lng: number | null, logo_picture_file: { public_url: string | null } | null }, vendor_organization_customer: { name: string, email: string | null } | null, customer_organization: { name: string, email: string } | null, data: { totalCount: number, edges: Array<{ cursor: unknown, node: { id: string, unique_code: string, number: string | null, provider: ACCT_PROVIDER, provider_code: string, provider_url: string | null, provider_errors: Array<string>, provider_warnings: Array<string>, last_successful_sync_id: string | null, last_successful_sync_at: unknown, last_sync_succeeded: boolean | null, last_sync_id: string | null, last_sync_at: unknown, view_url: string | null, currency_code: CURRENCY, description: string | null, amount: bigint, tax_amount: bigint, discount_amount: bigint, total_amount: bigint, invoice_date: unknown, due_date: unknown, created_at: unknown, updated_at: unknown, customer_email: string | null, customer_address_line_1: string | null, customer_address_number: string | null, customer_address_line_2: string | null, customer_address_city: string | null, customer_address_state: string | null, customer_address_zip_code: string | null, customer_address_country_code_iso_3: COUNTRY_ISO_3 | null, customer_address_lat: number | null, customer_address_lng: number | null, organization_id: string, organization_customer_id: string, file_id: string | null, has_sync_errors: boolean | null, latest_acct_provider_balance: bigint | null, latest_acct_provider_status: INVOICE_STATUS | null, latest_acct_provider_is_overdue: boolean | null, status: INVOICE_STATUS | null, is_overdue: boolean | null, paid_amount: bigint | null, paid_at: unknown, balance: bigint | null, email_sent_at: unknown, organization: { name: string }, organization_customer: { name: string, email: string | null, balance: bigint | null }, file: { public_url: string | null } | null, payment_options: Array<{ method: PAYMENT_METHOD, url: string | null, payload: unknown }>, transaction_links: Array<{ id: string, amount: bigint, organization_invoice_id: string, created_at: unknown, updated_at: unknown, organization_invoice_transaction_id: string, organization_invoice_transaction: { id: string } }> | null } }>, pageInfo: { startCursor: string | null, endCursor: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } };
 
 export type UserOrganizationInvoiceQueryVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationInvoiceId: Scalars['String']['input'];
+  organizationId: string;
+  organizationInvoiceId: string;
 }>;
 
 
-export type UserOrganizationInvoiceQuery = { __typename?: 'Query', userOrganizationInvoice: { __typename?: 'OrganizationInvoice', id: string, unique_code: string, number?: string | null, provider: ACCT_PROVIDER, provider_code: string, provider_url?: string | null, provider_errors: Array<string>, provider_warnings: Array<string>, last_successful_sync_id?: string | null, last_successful_sync_at?: any | null, last_sync_succeeded?: boolean | null, last_sync_id?: string | null, last_sync_at?: any | null, view_url?: string | null, currency_code: CURRENCY, description?: string | null, amount: bigint, tax_amount: bigint, discount_amount: bigint, total_amount: bigint, invoice_date: any, due_date: any, created_at: any, updated_at: any, customer_email?: string | null, customer_address_line_1?: string | null, customer_address_number?: string | null, customer_address_line_2?: string | null, customer_address_city?: string | null, customer_address_state?: string | null, customer_address_zip_code?: string | null, customer_address_country_code_iso_3?: COUNTRY_ISO_3 | null, customer_address_lat?: number | null, customer_address_lng?: number | null, organization_id: string, organization_customer_id: string, file_id?: string | null, has_sync_errors?: boolean | null, latest_acct_provider_balance?: bigint | null, latest_acct_provider_status?: INVOICE_STATUS | null, latest_acct_provider_is_overdue?: boolean | null, status?: INVOICE_STATUS | null, is_overdue?: boolean | null, paid_amount?: bigint | null, paid_at?: any | null, balance?: bigint | null, email_sent_at?: any | null, organization: { __typename?: 'Organization', name: string }, organization_customer: { __typename?: 'OrganizationCustomer', name: string, email?: string | null, balance?: bigint | null }, file?: { __typename?: 'File', public_url?: string | null } | null, payment_options: Array<{ __typename?: 'OrganizationInvoicePaymentOption', method: PAYMENT_METHOD, url?: string | null, payload?: any | null }>, transaction_links?: Array<{ __typename?: 'OrganizationInvoiceTransactionLink', id: string, amount: bigint, organization_invoice_id: string, created_at: any, updated_at: any, organization_invoice_transaction_id: string, organization_invoice_transaction: { __typename?: 'OrganizationInvoiceTransaction', id: string } }> | null } };
+export type UserOrganizationInvoiceQuery = { userOrganizationInvoice: { id: string, unique_code: string, number: string | null, provider: ACCT_PROVIDER, provider_code: string, provider_url: string | null, provider_errors: Array<string>, provider_warnings: Array<string>, last_successful_sync_id: string | null, last_successful_sync_at: unknown, last_sync_succeeded: boolean | null, last_sync_id: string | null, last_sync_at: unknown, view_url: string | null, currency_code: CURRENCY, description: string | null, amount: bigint, tax_amount: bigint, discount_amount: bigint, total_amount: bigint, invoice_date: unknown, due_date: unknown, created_at: unknown, updated_at: unknown, customer_email: string | null, customer_address_line_1: string | null, customer_address_number: string | null, customer_address_line_2: string | null, customer_address_city: string | null, customer_address_state: string | null, customer_address_zip_code: string | null, customer_address_country_code_iso_3: COUNTRY_ISO_3 | null, customer_address_lat: number | null, customer_address_lng: number | null, organization_id: string, organization_customer_id: string, file_id: string | null, has_sync_errors: boolean | null, latest_acct_provider_balance: bigint | null, latest_acct_provider_status: INVOICE_STATUS | null, latest_acct_provider_is_overdue: boolean | null, status: INVOICE_STATUS | null, is_overdue: boolean | null, paid_amount: bigint | null, paid_at: unknown, balance: bigint | null, email_sent_at: unknown, organization: { name: string }, organization_customer: { name: string, email: string | null, balance: bigint | null }, file: { public_url: string | null } | null, payment_options: Array<{ method: PAYMENT_METHOD, url: string | null, payload: unknown }>, transaction_links: Array<{ id: string, amount: bigint, organization_invoice_id: string, created_at: unknown, updated_at: unknown, organization_invoice_transaction_id: string, organization_invoice_transaction: { id: string } }> | null } };
 
 export type UserOrganizationInvoiceGetPDFMutationVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationInvoiceId: Scalars['String']['input'];
-  acctProvider?: InputMaybe<ACCT_PROVIDER>;
+  organizationId: string;
+  organizationInvoiceId: string;
+  acctProvider?: ACCT_PROVIDER | null | undefined;
 }>;
 
 
-export type UserOrganizationInvoiceGetPDFMutation = { __typename?: 'Mutation', userOrganizationInvoiceGetPDF: string };
+export type UserOrganizationInvoiceGetPDFMutation = { userOrganizationInvoiceGetPDF: string };
 
-export type OrganizationInvoiceSummaryFragmentFragment = { __typename?: 'OrganizationInvoiceSummary', vendor_organization_id: string, vendor_organization_customer_id?: string | null, customer_organization_id?: string | null, status?: INVOICE_STATUS | null, total_open_invoice_count: number, total_overdue_invoice_count: number, total_amount: bigint, paid_amount: bigint, overdue_amount: bigint, balance: bigint, current_balance?: bigint | null, start_date?: any | null, end_date?: any | null, due_start_date?: any | null, due_end_date?: any | null, currency?: CURRENCY | null, has_sync_errors?: boolean | null, has_mismatching_balance?: boolean | null, acct_provider?: ACCT_PROVIDER | null, is_acct_provider_connected?: boolean | null, last_sync_at?: any | null, latest_acct_provider_balance?: bigint | null, one_to_thirty_days_due_amount?: bigint | null, thirty_one_to_sixty_days_due_amount?: bigint | null, sixty_plus_days_due_amount?: bigint | null, latest_acct_provider_one_to_thirty_days_due_amount?: bigint | null, latest_acct_provider_thirty_one_to_sixty_days_due_amount?: bigint | null, latest_acct_provider_sixty_plus_days_due_amount?: bigint | null, statement_session_token?: string | null, vendor_organization: { __typename?: 'Organization', name: string, email: string, phone_number?: string | null, address_line_1?: string | null, address_number?: string | null, address_line_2?: string | null, address_city?: string | null, address_state?: string | null, address_zip_code?: string | null, address_country_code_iso_3?: COUNTRY_ISO_3 | null, address_lat?: number | null, address_lng?: number | null, logo_picture_file?: { __typename?: 'File', public_url?: string | null } | null }, vendor_organization_customer?: { __typename?: 'OrganizationCustomer', name: string, email?: string | null } | null, customer_organization?: { __typename?: 'Organization', name: string, email: string } | null, data: { __typename?: 'OrganizationInvoicePaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationInvoicePaginationEdge', cursor: any, node: { __typename?: 'OrganizationInvoice', id: string, unique_code: string, number?: string | null, provider: ACCT_PROVIDER, provider_code: string, provider_url?: string | null, provider_errors: Array<string>, provider_warnings: Array<string>, last_successful_sync_id?: string | null, last_successful_sync_at?: any | null, last_sync_succeeded?: boolean | null, last_sync_id?: string | null, last_sync_at?: any | null, view_url?: string | null, currency_code: CURRENCY, description?: string | null, amount: bigint, tax_amount: bigint, discount_amount: bigint, total_amount: bigint, invoice_date: any, due_date: any, created_at: any, updated_at: any, customer_email?: string | null, customer_address_line_1?: string | null, customer_address_number?: string | null, customer_address_line_2?: string | null, customer_address_city?: string | null, customer_address_state?: string | null, customer_address_zip_code?: string | null, customer_address_country_code_iso_3?: COUNTRY_ISO_3 | null, customer_address_lat?: number | null, customer_address_lng?: number | null, organization_id: string, organization_customer_id: string, file_id?: string | null, has_sync_errors?: boolean | null, latest_acct_provider_balance?: bigint | null, latest_acct_provider_status?: INVOICE_STATUS | null, latest_acct_provider_is_overdue?: boolean | null, status?: INVOICE_STATUS | null, is_overdue?: boolean | null, paid_amount?: bigint | null, paid_at?: any | null, balance?: bigint | null, email_sent_at?: any | null, organization: { __typename?: 'Organization', name: string }, organization_customer: { __typename?: 'OrganizationCustomer', name: string, email?: string | null, balance?: bigint | null }, file?: { __typename?: 'File', public_url?: string | null } | null, payment_options: Array<{ __typename?: 'OrganizationInvoicePaymentOption', method: PAYMENT_METHOD, url?: string | null, payload?: any | null }>, transaction_links?: Array<{ __typename?: 'OrganizationInvoiceTransactionLink', id: string, amount: bigint, organization_invoice_id: string, created_at: any, updated_at: any, organization_invoice_transaction_id: string, organization_invoice_transaction: { __typename?: 'OrganizationInvoiceTransaction', id: string } }> | null } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } };
+export type OrganizationInvoiceSummaryFragmentFragment = { vendor_organization_id: string, vendor_organization_customer_id: string | null, customer_organization_id: string | null, status: INVOICE_STATUS | null, total_open_invoice_count: number, total_overdue_invoice_count: number, total_amount: bigint, paid_amount: bigint, overdue_amount: bigint, balance: bigint, current_balance: bigint | null, start_date: unknown, end_date: unknown, due_start_date: unknown, due_end_date: unknown, currency: CURRENCY | null, has_sync_errors: boolean | null, has_mismatching_balance: boolean | null, acct_provider: ACCT_PROVIDER | null, is_acct_provider_connected: boolean | null, last_sync_at: unknown, latest_acct_provider_balance: bigint | null, one_to_thirty_days_due_amount: bigint | null, thirty_one_to_sixty_days_due_amount: bigint | null, sixty_plus_days_due_amount: bigint | null, latest_acct_provider_one_to_thirty_days_due_amount: bigint | null, latest_acct_provider_thirty_one_to_sixty_days_due_amount: bigint | null, latest_acct_provider_sixty_plus_days_due_amount: bigint | null, statement_session_token: string | null, vendor_organization: { name: string, email: string, phone_number: string | null, address_line_1: string | null, address_number: string | null, address_line_2: string | null, address_city: string | null, address_state: string | null, address_zip_code: string | null, address_country_code_iso_3: COUNTRY_ISO_3 | null, address_lat: number | null, address_lng: number | null, logo_picture_file: { public_url: string | null } | null }, vendor_organization_customer: { name: string, email: string | null } | null, customer_organization: { name: string, email: string } | null, data: { totalCount: number, edges: Array<{ cursor: unknown, node: { id: string, unique_code: string, number: string | null, provider: ACCT_PROVIDER, provider_code: string, provider_url: string | null, provider_errors: Array<string>, provider_warnings: Array<string>, last_successful_sync_id: string | null, last_successful_sync_at: unknown, last_sync_succeeded: boolean | null, last_sync_id: string | null, last_sync_at: unknown, view_url: string | null, currency_code: CURRENCY, description: string | null, amount: bigint, tax_amount: bigint, discount_amount: bigint, total_amount: bigint, invoice_date: unknown, due_date: unknown, created_at: unknown, updated_at: unknown, customer_email: string | null, customer_address_line_1: string | null, customer_address_number: string | null, customer_address_line_2: string | null, customer_address_city: string | null, customer_address_state: string | null, customer_address_zip_code: string | null, customer_address_country_code_iso_3: COUNTRY_ISO_3 | null, customer_address_lat: number | null, customer_address_lng: number | null, organization_id: string, organization_customer_id: string, file_id: string | null, has_sync_errors: boolean | null, latest_acct_provider_balance: bigint | null, latest_acct_provider_status: INVOICE_STATUS | null, latest_acct_provider_is_overdue: boolean | null, status: INVOICE_STATUS | null, is_overdue: boolean | null, paid_amount: bigint | null, paid_at: unknown, balance: bigint | null, email_sent_at: unknown, organization: { name: string }, organization_customer: { name: string, email: string | null, balance: bigint | null }, file: { public_url: string | null } | null, payment_options: Array<{ method: PAYMENT_METHOD, url: string | null, payload: unknown }>, transaction_links: Array<{ id: string, amount: bigint, organization_invoice_id: string, created_at: unknown, updated_at: unknown, organization_invoice_transaction_id: string, organization_invoice_transaction: { id: string } }> | null } }>, pageInfo: { startCursor: string | null, endCursor: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } };
 
-export type OrganizationFragmentFragment = { __typename?: 'Organization', id: string, name: string, email: string, website?: string | null, unique_name: string, unique_code: string, phone_number?: string | null, address_line_1?: string | null, address_number?: string | null, address_line_2?: string | null, address_city?: string | null, address_state?: string | null, address_zip_code?: string | null, address_country_code_iso_3?: COUNTRY_ISO_3 | null, address_lat?: number | null, address_lng?: number | null, primary_contact_name?: string | null, business_name?: string | null, business_industry?: string | null, business_number_of_employees?: number | null, business_address_line_1?: string | null, business_address_number?: string | null, business_address_line_2?: string | null, business_address_city?: string | null, business_address_state?: string | null, business_address_zip_code?: string | null, business_address_country_code_iso_3?: COUNTRY_ISO_3 | null, business_address_lat?: number | null, business_address_lng?: number | null, business_tax_code_type?: TAX_TYPE | null, business_tax_code?: string | null, timezone?: string | null, language?: string | null, created_at: any, updated_at: any, logo_picture_file_id?: string | null, setting_customer_email_copy_mode?: NOTIFICATION_EMAIL_COPY_MODE | null, current_email_verification_id?: string | null, current_phone_number_verification_id?: string | null, subscription_level?: number | null, logo_picture_file?: { __typename?: 'File', public_url?: string | null } | null, subscription_data?: { __typename?: 'OrganizationSubscriptionData', subscription_level: number, organization_user_seats: number, requires_user_action: boolean, requires_provider_refresh: boolean, active_subscriptions: Array<{ __typename?: 'OrganizationSubscription', id: string, provider: ORGANIZATION_SUBSCRIPTION_PROVIDER, provider_status: ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS }>, active_plans: Array<{ __typename?: 'OrganizationSubscriptionItem', item_type: ORGANIZATION_SUBSCRIPTION_ITEM, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }>, active_modules: Array<{ __typename?: 'OrganizationSubscriptionItem', item_type: ORGANIZATION_SUBSCRIPTION_ITEM, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }>, active_addons: Array<{ __typename?: 'OrganizationSubscriptionItem', item_type: ORGANIZATION_SUBSCRIPTION_ITEM, quantity: number, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }> } | null, acct_provider_conns?: { __typename?: 'OrganizationAcctProviderConnPaginationConnection', edges: Array<{ __typename?: 'OrganizationAcctProviderConnPaginationEdge', node: { __typename?: 'OrganizationAcctProviderConn', id: string, acct_provider: ACCT_PROVIDER, code: string, url?: string | null, payload?: any | null, customer_add_url?: string | null, invoice_add_url?: string | null, vendor_add_url?: string | null, bill_add_url?: string | null, name?: string | null, email?: string | null, phone_number?: string | null, website_url?: string | null, primary_contact_name?: string | null, business_name?: string | null, business_industry?: string | null, business_number_of_employees?: number | null, timezone?: string | null, language?: string | null, business_tax_code_type?: TAX_TYPE | null, business_tax_code?: string | null, address_line_1?: string | null, address_number?: string | null, address_line_2?: string | null, address_city?: string | null, address_state?: string | null, address_zip_code?: string | null, address_country_code_iso_3?: COUNTRY_ISO_3 | null, address_lat?: number | null, address_lng?: number | null, business_address_line_1?: string | null, business_address_number?: string | null, business_address_line_2?: string | null, business_address_city?: string | null, business_address_state?: string | null, business_address_zip_code?: string | null, business_address_country_code_iso_3?: COUNTRY_ISO_3 | null, business_address_lat?: number | null, business_address_lng?: number | null, automatic_pull_enabled: boolean, status: ORGANIZATION_ACCT_PROVIDER_CONN_STATUS, disconnected_at?: any | null, conn_expires_at: any, organization_id: string, last_conn_at?: any | null, last_successful_sync_id?: string | null, last_successful_sync_at?: any | null, last_sync_succeeded?: boolean | null, last_sync_id?: string | null, last_sync_at?: any | null, created_at: any, updated_at: any, synchronizations: { __typename?: 'OrganizationAcctProviderConnSynchronizationPaginationConnection', edges: Array<{ __typename?: 'OrganizationAcctProviderConnSynchronizationPaginationEdge', node: { __typename?: 'OrganizationAcctProviderConnSynchronization', id: string, mode: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_MODE, force?: boolean | null, provider: ACCT_PROVIDER, errors: Array<string>, warnings: Array<string>, started_at?: any | null, finished_at?: any | null, failed_at?: any | null, succeeded_at?: any | null, skipped_at?: any | null, read_success: number, read_failure: number, skipped: number, create_success: number, create_failure: number, update_success: number, update_failure: number, delete_failure: number, delete_success: number, process_failure: number, process_success: number, created_at: any, updated_at: any, scope: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_SCOPE, scope_id?: string | null, scope_description?: string | null, organization_id: string, organization_acct_provider_conn_id: string, data?: { __typename?: 'OrganizationAcctProviderConnSynchronizationData', customer?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, invoice?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, invoice_transaction?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, vendor?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, bill?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, bill_transaction?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null } | null } }> } } }> } | null };
+export type OrganizationFragmentFragment = { id: string, name: string, email: string, website: string | null, unique_name: string, unique_code: string, phone_number: string | null, address_line_1: string | null, address_number: string | null, address_line_2: string | null, address_city: string | null, address_state: string | null, address_zip_code: string | null, address_country_code_iso_3: COUNTRY_ISO_3 | null, address_lat: number | null, address_lng: number | null, primary_contact_name: string | null, business_name: string | null, business_industry: string | null, business_number_of_employees: number | null, business_address_line_1: string | null, business_address_number: string | null, business_address_line_2: string | null, business_address_city: string | null, business_address_state: string | null, business_address_zip_code: string | null, business_address_country_code_iso_3: COUNTRY_ISO_3 | null, business_address_lat: number | null, business_address_lng: number | null, business_tax_code_type: TAX_TYPE | null, business_tax_code: string | null, timezone: string | null, language: string | null, created_at: unknown, updated_at: unknown, logo_picture_file_id: string | null, setting_customer_email_copy_mode: NOTIFICATION_EMAIL_COPY_MODE | null, current_email_verification_id: string | null, current_phone_number_verification_id: string | null, subscription_level: number | null, logo_picture_file: { public_url: string | null } | null, subscription_data: { subscription_level: number, organization_user_seats: number, requires_user_action: boolean, requires_provider_refresh: boolean, active_subscriptions: Array<{ id: string, provider: ORGANIZATION_SUBSCRIPTION_PROVIDER, provider_status: ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS }>, active_plans: Array<{ item_type: ORGANIZATION_SUBSCRIPTION_ITEM, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }>, active_modules: Array<{ item_type: ORGANIZATION_SUBSCRIPTION_ITEM, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }>, active_addons: Array<{ item_type: ORGANIZATION_SUBSCRIPTION_ITEM, quantity: number, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }> } | null, acct_provider_conns: { edges: Array<{ node: { id: string, acct_provider: ACCT_PROVIDER, code: string, url: string | null, payload: unknown, customer_add_url: string | null, invoice_add_url: string | null, vendor_add_url: string | null, bill_add_url: string | null, name: string | null, email: string | null, phone_number: string | null, website_url: string | null, primary_contact_name: string | null, business_name: string | null, business_industry: string | null, business_number_of_employees: number | null, timezone: string | null, language: string | null, business_tax_code_type: TAX_TYPE | null, business_tax_code: string | null, address_line_1: string | null, address_number: string | null, address_line_2: string | null, address_city: string | null, address_state: string | null, address_zip_code: string | null, address_country_code_iso_3: COUNTRY_ISO_3 | null, address_lat: number | null, address_lng: number | null, business_address_line_1: string | null, business_address_number: string | null, business_address_line_2: string | null, business_address_city: string | null, business_address_state: string | null, business_address_zip_code: string | null, business_address_country_code_iso_3: COUNTRY_ISO_3 | null, business_address_lat: number | null, business_address_lng: number | null, automatic_pull_enabled: boolean, status: ORGANIZATION_ACCT_PROVIDER_CONN_STATUS, disconnected_at: unknown, conn_expires_at: unknown, organization_id: string, last_conn_at: unknown, last_successful_sync_id: string | null, last_successful_sync_at: unknown, last_sync_succeeded: boolean | null, last_sync_id: string | null, last_sync_at: unknown, created_at: unknown, updated_at: unknown, synchronizations: { edges: Array<{ node: { id: string, mode: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_MODE, force: boolean | null, provider: ACCT_PROVIDER, errors: Array<string>, warnings: Array<string>, started_at: unknown, finished_at: unknown, failed_at: unknown, succeeded_at: unknown, skipped_at: unknown, read_success: number, read_failure: number, skipped: number, create_success: number, create_failure: number, update_success: number, update_failure: number, delete_failure: number, delete_success: number, process_failure: number, process_success: number, created_at: unknown, updated_at: unknown, scope: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_SCOPE, scope_id: string | null, scope_description: string | null, organization_id: string, organization_acct_provider_conn_id: string, data: { customer: { items: unknown } | null, invoice: { items: unknown } | null, invoice_transaction: { items: unknown } | null, vendor: { items: unknown } | null, bill: { items: unknown } | null, bill_transaction: { items: unknown } | null } | null } }> } } }> } | null };
 
-export type OrganizationUserFragmentFragment = { __typename?: 'OrganizationUser', id: string, role: ORGANIZATION_USER_ROLE, is_current_organization_user_seat_available?: boolean | null, receive_invoice_reminders: boolean, customer_email_copy_mode?: NOTIFICATION_EMAIL_COPY_MODE | null, created_at: any, updated_at: any, organization_id: string, user_id: string, user?: { __typename?: 'User', id: string, email: string, phone_number?: string | null, first_name?: string | null, last_name?: string | null, language?: string | null, profile_picture_file_id?: string | null, current_email_verification_id?: string | null, current_phone_number_verification_id?: string | null, profile_picture_file?: { __typename?: 'File', public_url?: string | null } | null } | null };
+export type OrganizationUserFragmentFragment = { id: string, role: ORGANIZATION_USER_ROLE, is_current_organization_user_seat_available: boolean | null, receive_invoice_reminders: boolean, customer_email_copy_mode: NOTIFICATION_EMAIL_COPY_MODE | null, created_at: unknown, updated_at: unknown, organization_id: string, user_id: string, user: { id: string, email: string, phone_number: string | null, first_name: string | null, last_name: string | null, language: string | null, profile_picture_file_id: string | null, current_email_verification_id: string | null, current_phone_number_verification_id: string | null, profile_picture_file: { public_url: string | null } | null } | null };
 
-export type OrganizationInviteFragmentFragment = { __typename?: 'OrganizationInvite', id: string, email: string, role: ORGANIZATION_USER_ROLE, code: string, expires_at: any, accepted_at?: any | null, canceled_at?: any | null, rejected_at?: any | null, created_at: any, updated_at: any, organization_id: string, created_by_user_id: string, organization: { __typename?: 'Organization', id: string, name: string, logo_picture_file?: { __typename?: 'File', public_url?: string | null } | null }, created_by_user: { __typename?: 'User', id: string, first_name?: string | null, last_name?: string | null, email: string, profile_picture_file?: { __typename?: 'File', public_url?: string | null } | null } };
+export type OrganizationInviteFragmentFragment = { id: string, email: string, role: ORGANIZATION_USER_ROLE, code: string, expires_at: unknown, accepted_at: unknown, canceled_at: unknown, rejected_at: unknown, created_at: unknown, updated_at: unknown, organization_id: string, created_by_user_id: string, organization: { id: string, name: string, logo_picture_file: { public_url: string | null } | null }, created_by_user: { id: string, first_name: string | null, last_name: string | null, email: string, profile_picture_file: { public_url: string | null } | null } };
 
-export type OrganizationSubscriptionDataFragmentFragment = { __typename?: 'OrganizationSubscriptionData', subscription_level: number, organization_user_seats: number, requires_user_action: boolean, requires_provider_refresh: boolean, active_subscriptions: Array<{ __typename?: 'OrganizationSubscription', id: string, provider: ORGANIZATION_SUBSCRIPTION_PROVIDER, provider_status: ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS }>, active_plans: Array<{ __typename?: 'OrganizationSubscriptionItem', item_type: ORGANIZATION_SUBSCRIPTION_ITEM, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }>, active_modules: Array<{ __typename?: 'OrganizationSubscriptionItem', item_type: ORGANIZATION_SUBSCRIPTION_ITEM, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }>, active_addons: Array<{ __typename?: 'OrganizationSubscriptionItem', item_type: ORGANIZATION_SUBSCRIPTION_ITEM, quantity: number, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }> };
+export type OrganizationSubscriptionDataFragmentFragment = { subscription_level: number, organization_user_seats: number, requires_user_action: boolean, requires_provider_refresh: boolean, active_subscriptions: Array<{ id: string, provider: ORGANIZATION_SUBSCRIPTION_PROVIDER, provider_status: ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS }>, active_plans: Array<{ item_type: ORGANIZATION_SUBSCRIPTION_ITEM, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }>, active_modules: Array<{ item_type: ORGANIZATION_SUBSCRIPTION_ITEM, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }>, active_addons: Array<{ item_type: ORGANIZATION_SUBSCRIPTION_ITEM, quantity: number, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }> };
 
 export type UserOrganizationQueryVariables = Exact<{
-  organizationId: Scalars['String']['input'];
+  organizationId: string;
 }>;
 
 
-export type UserOrganizationQuery = { __typename?: 'Query', userOrganization: { __typename?: 'Organization', id: string, name: string, email: string, website?: string | null, unique_name: string, unique_code: string, phone_number?: string | null, address_line_1?: string | null, address_number?: string | null, address_line_2?: string | null, address_city?: string | null, address_state?: string | null, address_zip_code?: string | null, address_country_code_iso_3?: COUNTRY_ISO_3 | null, address_lat?: number | null, address_lng?: number | null, primary_contact_name?: string | null, business_name?: string | null, business_industry?: string | null, business_number_of_employees?: number | null, business_address_line_1?: string | null, business_address_number?: string | null, business_address_line_2?: string | null, business_address_city?: string | null, business_address_state?: string | null, business_address_zip_code?: string | null, business_address_country_code_iso_3?: COUNTRY_ISO_3 | null, business_address_lat?: number | null, business_address_lng?: number | null, business_tax_code_type?: TAX_TYPE | null, business_tax_code?: string | null, timezone?: string | null, language?: string | null, created_at: any, updated_at: any, logo_picture_file_id?: string | null, setting_customer_email_copy_mode?: NOTIFICATION_EMAIL_COPY_MODE | null, current_email_verification_id?: string | null, current_phone_number_verification_id?: string | null, subscription_level?: number | null, logo_picture_file?: { __typename?: 'File', public_url?: string | null } | null, subscription_data?: { __typename?: 'OrganizationSubscriptionData', subscription_level: number, organization_user_seats: number, requires_user_action: boolean, requires_provider_refresh: boolean, active_subscriptions: Array<{ __typename?: 'OrganizationSubscription', id: string, provider: ORGANIZATION_SUBSCRIPTION_PROVIDER, provider_status: ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS }>, active_plans: Array<{ __typename?: 'OrganizationSubscriptionItem', item_type: ORGANIZATION_SUBSCRIPTION_ITEM, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }>, active_modules: Array<{ __typename?: 'OrganizationSubscriptionItem', item_type: ORGANIZATION_SUBSCRIPTION_ITEM, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }>, active_addons: Array<{ __typename?: 'OrganizationSubscriptionItem', item_type: ORGANIZATION_SUBSCRIPTION_ITEM, quantity: number, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }> } | null, acct_provider_conns?: { __typename?: 'OrganizationAcctProviderConnPaginationConnection', edges: Array<{ __typename?: 'OrganizationAcctProviderConnPaginationEdge', node: { __typename?: 'OrganizationAcctProviderConn', id: string, acct_provider: ACCT_PROVIDER, code: string, url?: string | null, payload?: any | null, customer_add_url?: string | null, invoice_add_url?: string | null, vendor_add_url?: string | null, bill_add_url?: string | null, name?: string | null, email?: string | null, phone_number?: string | null, website_url?: string | null, primary_contact_name?: string | null, business_name?: string | null, business_industry?: string | null, business_number_of_employees?: number | null, timezone?: string | null, language?: string | null, business_tax_code_type?: TAX_TYPE | null, business_tax_code?: string | null, address_line_1?: string | null, address_number?: string | null, address_line_2?: string | null, address_city?: string | null, address_state?: string | null, address_zip_code?: string | null, address_country_code_iso_3?: COUNTRY_ISO_3 | null, address_lat?: number | null, address_lng?: number | null, business_address_line_1?: string | null, business_address_number?: string | null, business_address_line_2?: string | null, business_address_city?: string | null, business_address_state?: string | null, business_address_zip_code?: string | null, business_address_country_code_iso_3?: COUNTRY_ISO_3 | null, business_address_lat?: number | null, business_address_lng?: number | null, automatic_pull_enabled: boolean, status: ORGANIZATION_ACCT_PROVIDER_CONN_STATUS, disconnected_at?: any | null, conn_expires_at: any, organization_id: string, last_conn_at?: any | null, last_successful_sync_id?: string | null, last_successful_sync_at?: any | null, last_sync_succeeded?: boolean | null, last_sync_id?: string | null, last_sync_at?: any | null, created_at: any, updated_at: any, synchronizations: { __typename?: 'OrganizationAcctProviderConnSynchronizationPaginationConnection', edges: Array<{ __typename?: 'OrganizationAcctProviderConnSynchronizationPaginationEdge', node: { __typename?: 'OrganizationAcctProviderConnSynchronization', id: string, mode: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_MODE, force?: boolean | null, provider: ACCT_PROVIDER, errors: Array<string>, warnings: Array<string>, started_at?: any | null, finished_at?: any | null, failed_at?: any | null, succeeded_at?: any | null, skipped_at?: any | null, read_success: number, read_failure: number, skipped: number, create_success: number, create_failure: number, update_success: number, update_failure: number, delete_failure: number, delete_success: number, process_failure: number, process_success: number, created_at: any, updated_at: any, scope: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_SCOPE, scope_id?: string | null, scope_description?: string | null, organization_id: string, organization_acct_provider_conn_id: string, data?: { __typename?: 'OrganizationAcctProviderConnSynchronizationData', customer?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, invoice?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, invoice_transaction?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, vendor?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, bill?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, bill_transaction?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null } | null } }> } } }> } | null } };
+export type UserOrganizationQuery = { userOrganization: { id: string, name: string, email: string, website: string | null, unique_name: string, unique_code: string, phone_number: string | null, address_line_1: string | null, address_number: string | null, address_line_2: string | null, address_city: string | null, address_state: string | null, address_zip_code: string | null, address_country_code_iso_3: COUNTRY_ISO_3 | null, address_lat: number | null, address_lng: number | null, primary_contact_name: string | null, business_name: string | null, business_industry: string | null, business_number_of_employees: number | null, business_address_line_1: string | null, business_address_number: string | null, business_address_line_2: string | null, business_address_city: string | null, business_address_state: string | null, business_address_zip_code: string | null, business_address_country_code_iso_3: COUNTRY_ISO_3 | null, business_address_lat: number | null, business_address_lng: number | null, business_tax_code_type: TAX_TYPE | null, business_tax_code: string | null, timezone: string | null, language: string | null, created_at: unknown, updated_at: unknown, logo_picture_file_id: string | null, setting_customer_email_copy_mode: NOTIFICATION_EMAIL_COPY_MODE | null, current_email_verification_id: string | null, current_phone_number_verification_id: string | null, subscription_level: number | null, logo_picture_file: { public_url: string | null } | null, subscription_data: { subscription_level: number, organization_user_seats: number, requires_user_action: boolean, requires_provider_refresh: boolean, active_subscriptions: Array<{ id: string, provider: ORGANIZATION_SUBSCRIPTION_PROVIDER, provider_status: ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS }>, active_plans: Array<{ item_type: ORGANIZATION_SUBSCRIPTION_ITEM, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }>, active_modules: Array<{ item_type: ORGANIZATION_SUBSCRIPTION_ITEM, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }>, active_addons: Array<{ item_type: ORGANIZATION_SUBSCRIPTION_ITEM, quantity: number, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }> } | null, acct_provider_conns: { edges: Array<{ node: { id: string, acct_provider: ACCT_PROVIDER, code: string, url: string | null, payload: unknown, customer_add_url: string | null, invoice_add_url: string | null, vendor_add_url: string | null, bill_add_url: string | null, name: string | null, email: string | null, phone_number: string | null, website_url: string | null, primary_contact_name: string | null, business_name: string | null, business_industry: string | null, business_number_of_employees: number | null, timezone: string | null, language: string | null, business_tax_code_type: TAX_TYPE | null, business_tax_code: string | null, address_line_1: string | null, address_number: string | null, address_line_2: string | null, address_city: string | null, address_state: string | null, address_zip_code: string | null, address_country_code_iso_3: COUNTRY_ISO_3 | null, address_lat: number | null, address_lng: number | null, business_address_line_1: string | null, business_address_number: string | null, business_address_line_2: string | null, business_address_city: string | null, business_address_state: string | null, business_address_zip_code: string | null, business_address_country_code_iso_3: COUNTRY_ISO_3 | null, business_address_lat: number | null, business_address_lng: number | null, automatic_pull_enabled: boolean, status: ORGANIZATION_ACCT_PROVIDER_CONN_STATUS, disconnected_at: unknown, conn_expires_at: unknown, organization_id: string, last_conn_at: unknown, last_successful_sync_id: string | null, last_successful_sync_at: unknown, last_sync_succeeded: boolean | null, last_sync_id: string | null, last_sync_at: unknown, created_at: unknown, updated_at: unknown, synchronizations: { edges: Array<{ node: { id: string, mode: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_MODE, force: boolean | null, provider: ACCT_PROVIDER, errors: Array<string>, warnings: Array<string>, started_at: unknown, finished_at: unknown, failed_at: unknown, succeeded_at: unknown, skipped_at: unknown, read_success: number, read_failure: number, skipped: number, create_success: number, create_failure: number, update_success: number, update_failure: number, delete_failure: number, delete_success: number, process_failure: number, process_success: number, created_at: unknown, updated_at: unknown, scope: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_SCOPE, scope_id: string | null, scope_description: string | null, organization_id: string, organization_acct_provider_conn_id: string, data: { customer: { items: unknown } | null, invoice: { items: unknown } | null, invoice_transaction: { items: unknown } | null, vendor: { items: unknown } | null, bill: { items: unknown } | null, bill_transaction: { items: unknown } | null } | null } }> } } }> } | null } };
 
 export type UserOrganizationBaseSettingsQueryVariables = Exact<{
-  organizationId: Scalars['String']['input'];
+  organizationId: string;
 }>;
 
 
-export type UserOrganizationBaseSettingsQuery = { __typename?: 'Query', userOrganization: { __typename?: 'Organization', setting_send_invoice_due_reminders?: boolean | null, setting_send_invoice_overdue_reminders?: boolean | null, setting_allow_invoice_due_snooze_reminders?: boolean | null, setting_allow_invoice_overdue_snooze_reminders?: boolean | null } };
+export type UserOrganizationBaseSettingsQuery = { userOrganization: { setting_send_invoice_due_reminders: boolean | null, setting_send_invoice_overdue_reminders: boolean | null, setting_allow_invoice_due_snooze_reminders: boolean | null, setting_allow_invoice_overdue_snooze_reminders: boolean | null } };
 
 export type UserOrganizationCreateMutationVariables = Exact<{
   data: UserOrganizationCreateSchema;
 }>;
 
 
-export type UserOrganizationCreateMutation = { __typename?: 'Mutation', userOrganizationCreate: { __typename?: 'Organization', id: string, email: string, name: string, phone_number?: string | null, primary_contact_name?: string | null } };
+export type UserOrganizationCreateMutation = { userOrganizationCreate: { id: string, email: string, name: string, phone_number: string | null, primary_contact_name: string | null } };
 
 export type UserOrganizationCollaboratorsQueryVariables = Exact<{
-  organizationId: Scalars['String']['input'];
+  organizationId: string;
 }>;
 
 
-export type UserOrganizationCollaboratorsQuery = { __typename?: 'Query', userOrganizationCollaborators: Array<{ __typename?: 'OrganizationUser', id: string, role: ORGANIZATION_USER_ROLE, is_current_organization_user_seat_available?: boolean | null, receive_invoice_reminders: boolean, customer_email_copy_mode?: NOTIFICATION_EMAIL_COPY_MODE | null, created_at: any, updated_at: any, organization_id: string, user_id: string, user?: { __typename?: 'User', id: string, email: string, phone_number?: string | null, first_name?: string | null, last_name?: string | null, language?: string | null, profile_picture_file_id?: string | null, current_email_verification_id?: string | null, current_phone_number_verification_id?: string | null, profile_picture_file?: { __typename?: 'File', public_url?: string | null } | null } | null }> };
+export type UserOrganizationCollaboratorsQuery = { userOrganizationCollaborators: Array<{ id: string, role: ORGANIZATION_USER_ROLE, is_current_organization_user_seat_available: boolean | null, receive_invoice_reminders: boolean, customer_email_copy_mode: NOTIFICATION_EMAIL_COPY_MODE | null, created_at: unknown, updated_at: unknown, organization_id: string, user_id: string, user: { id: string, email: string, phone_number: string | null, first_name: string | null, last_name: string | null, language: string | null, profile_picture_file_id: string | null, current_email_verification_id: string | null, current_phone_number_verification_id: string | null, profile_picture_file: { public_url: string | null } | null } | null }> };
 
 export type UserOrganizationInviteCollaboratorCreateMutationVariables = Exact<{
   data: UserOrganizationInviteCollaboratorCreateSchema;
-  organizationId: Scalars['String']['input'];
+  organizationId: string;
 }>;
 
 
-export type UserOrganizationInviteCollaboratorCreateMutation = { __typename?: 'Mutation', userOrganizationInviteCollaboratorCreate: { __typename?: 'OrganizationInvite', expires_at: any } };
+export type UserOrganizationInviteCollaboratorCreateMutation = { userOrganizationInviteCollaboratorCreate: { expires_at: unknown } };
 
 export type UserOrganizationInviteCollaboratorCancelMutationVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationInviteId: Scalars['String']['input'];
+  organizationId: string;
+  organizationInviteId: string;
 }>;
 
 
-export type UserOrganizationInviteCollaboratorCancelMutation = { __typename?: 'Mutation', userOrganizationInviteCollaboratorCancel: { __typename?: 'OrganizationInvite', id: string, email: string, role: ORGANIZATION_USER_ROLE, code: string, expires_at: any, accepted_at?: any | null, canceled_at?: any | null, rejected_at?: any | null, created_at: any, updated_at: any, organization_id: string, created_by_user_id: string, organization: { __typename?: 'Organization', id: string, name: string, logo_picture_file?: { __typename?: 'File', public_url?: string | null } | null }, created_by_user: { __typename?: 'User', id: string, first_name?: string | null, last_name?: string | null, email: string, profile_picture_file?: { __typename?: 'File', public_url?: string | null } | null } } };
+export type UserOrganizationInviteCollaboratorCancelMutation = { userOrganizationInviteCollaboratorCancel: { id: string, email: string, role: ORGANIZATION_USER_ROLE, code: string, expires_at: unknown, accepted_at: unknown, canceled_at: unknown, rejected_at: unknown, created_at: unknown, updated_at: unknown, organization_id: string, created_by_user_id: string, organization: { id: string, name: string, logo_picture_file: { public_url: string | null } | null }, created_by_user: { id: string, first_name: string | null, last_name: string | null, email: string, profile_picture_file: { public_url: string | null } | null } } };
 
 export type UserOrganizationInviteCollaboratorResendMutationVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationInviteId: Scalars['String']['input'];
+  organizationId: string;
+  organizationInviteId: string;
 }>;
 
 
-export type UserOrganizationInviteCollaboratorResendMutation = { __typename?: 'Mutation', userOrganizationInviteCollaboratorResend: { __typename?: 'OrganizationInvite', id: string, email: string, role: ORGANIZATION_USER_ROLE, code: string, expires_at: any, accepted_at?: any | null, canceled_at?: any | null, rejected_at?: any | null, created_at: any, updated_at: any, organization_id: string, created_by_user_id: string, organization: { __typename?: 'Organization', id: string, name: string, logo_picture_file?: { __typename?: 'File', public_url?: string | null } | null }, created_by_user: { __typename?: 'User', id: string, first_name?: string | null, last_name?: string | null, email: string, profile_picture_file?: { __typename?: 'File', public_url?: string | null } | null } } };
+export type UserOrganizationInviteCollaboratorResendMutation = { userOrganizationInviteCollaboratorResend: { id: string, email: string, role: ORGANIZATION_USER_ROLE, code: string, expires_at: unknown, accepted_at: unknown, canceled_at: unknown, rejected_at: unknown, created_at: unknown, updated_at: unknown, organization_id: string, created_by_user_id: string, organization: { id: string, name: string, logo_picture_file: { public_url: string | null } | null }, created_by_user: { id: string, first_name: string | null, last_name: string | null, email: string, profile_picture_file: { public_url: string | null } | null } } };
 
 export type UserOrganizationInviteCollaboratorsQueryVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  accepted?: InputMaybe<Scalars['Boolean']['input']>;
-  canceled?: InputMaybe<Scalars['Boolean']['input']>;
-  expired?: InputMaybe<Scalars['Boolean']['input']>;
-  rejected?: InputMaybe<Scalars['Boolean']['input']>;
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema> | SortingFieldSchema>;
+  organizationId: string;
+  accepted?: boolean | null | undefined;
+  canceled?: boolean | null | undefined;
+  expired?: boolean | null | undefined;
+  rejected?: boolean | null | undefined;
+  after?: unknown;
+  first?: number | null | undefined;
+  before?: unknown;
+  last?: number | null | undefined;
+  skip?: number | null | undefined;
+  take?: number | null | undefined;
+  sorting?: Array<SortingFieldSchema> | SortingFieldSchema | null | undefined;
 }>;
 
 
-export type UserOrganizationInviteCollaboratorsQuery = { __typename?: 'Query', userOrganizationInviteCollaborators: { __typename?: 'OrganizationInvitePaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationInvitePaginationEdge', cursor: any, node: { __typename?: 'OrganizationInvite', id: string, email: string, role: ORGANIZATION_USER_ROLE, code: string, expires_at: any, accepted_at?: any | null, canceled_at?: any | null, rejected_at?: any | null, created_at: any, updated_at: any, organization_id: string, created_by_user_id: string, organization: { __typename?: 'Organization', id: string, name: string, logo_picture_file?: { __typename?: 'File', public_url?: string | null } | null }, created_by_user: { __typename?: 'User', id: string, first_name?: string | null, last_name?: string | null, email: string, profile_picture_file?: { __typename?: 'File', public_url?: string | null } | null } } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } };
+export type UserOrganizationInviteCollaboratorsQuery = { userOrganizationInviteCollaborators: { totalCount: number, edges: Array<{ cursor: unknown, node: { id: string, email: string, role: ORGANIZATION_USER_ROLE, code: string, expires_at: unknown, accepted_at: unknown, canceled_at: unknown, rejected_at: unknown, created_at: unknown, updated_at: unknown, organization_id: string, created_by_user_id: string, organization: { id: string, name: string, logo_picture_file: { public_url: string | null } | null }, created_by_user: { id: string, first_name: string | null, last_name: string | null, email: string, profile_picture_file: { public_url: string | null } | null } } }>, pageInfo: { startCursor: string | null, endCursor: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } };
 
 export type UserOrganizationCollaboratorUpdateMutationVariables = Exact<{
   data: UserOrganizationCollaboratorUpdateSchema;
-  organizationUserId: Scalars['String']['input'];
-  organizationId: Scalars['String']['input'];
+  organizationUserId: string;
+  organizationId: string;
 }>;
 
 
-export type UserOrganizationCollaboratorUpdateMutation = { __typename?: 'Mutation', userOrganizationCollaboratorUpdate: { __typename?: 'OrganizationUser', role: ORGANIZATION_USER_ROLE } };
+export type UserOrganizationCollaboratorUpdateMutation = { userOrganizationCollaboratorUpdate: { role: ORGANIZATION_USER_ROLE } };
 
 export type UserOrganizationCollaboratorDeleteMutationVariables = Exact<{
-  organizationUserId: Scalars['String']['input'];
-  organizationId: Scalars['String']['input'];
+  organizationUserId: string;
+  organizationId: string;
 }>;
 
 
-export type UserOrganizationCollaboratorDeleteMutation = { __typename?: 'Mutation', userOrganizationCollaboratorDelete: { __typename?: 'OrganizationUser', id: string } };
+export type UserOrganizationCollaboratorDeleteMutation = { userOrganizationCollaboratorDelete: { id: string } };
 
 export type UserOrganizationUpdateMutationVariables = Exact<{
-  organizationId: Scalars['String']['input'];
+  organizationId: string;
   data: UserOrganizationUpdateSchema;
 }>;
 
 
-export type UserOrganizationUpdateMutation = { __typename?: 'Mutation', userOrganizationUpdate: { __typename?: 'Organization', id: string, name: string, email: string, website?: string | null, unique_name: string, unique_code: string, phone_number?: string | null, address_line_1?: string | null, address_number?: string | null, address_line_2?: string | null, address_city?: string | null, address_state?: string | null, address_zip_code?: string | null, address_country_code_iso_3?: COUNTRY_ISO_3 | null, address_lat?: number | null, address_lng?: number | null, primary_contact_name?: string | null, business_name?: string | null, business_industry?: string | null, business_number_of_employees?: number | null, business_address_line_1?: string | null, business_address_number?: string | null, business_address_line_2?: string | null, business_address_city?: string | null, business_address_state?: string | null, business_address_zip_code?: string | null, business_address_country_code_iso_3?: COUNTRY_ISO_3 | null, business_address_lat?: number | null, business_address_lng?: number | null, business_tax_code_type?: TAX_TYPE | null, business_tax_code?: string | null, timezone?: string | null, language?: string | null, created_at: any, updated_at: any, logo_picture_file_id?: string | null, setting_customer_email_copy_mode?: NOTIFICATION_EMAIL_COPY_MODE | null, current_email_verification_id?: string | null, current_phone_number_verification_id?: string | null, subscription_level?: number | null, logo_picture_file?: { __typename?: 'File', public_url?: string | null } | null, subscription_data?: { __typename?: 'OrganizationSubscriptionData', subscription_level: number, organization_user_seats: number, requires_user_action: boolean, requires_provider_refresh: boolean, active_subscriptions: Array<{ __typename?: 'OrganizationSubscription', id: string, provider: ORGANIZATION_SUBSCRIPTION_PROVIDER, provider_status: ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS }>, active_plans: Array<{ __typename?: 'OrganizationSubscriptionItem', item_type: ORGANIZATION_SUBSCRIPTION_ITEM, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }>, active_modules: Array<{ __typename?: 'OrganizationSubscriptionItem', item_type: ORGANIZATION_SUBSCRIPTION_ITEM, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }>, active_addons: Array<{ __typename?: 'OrganizationSubscriptionItem', item_type: ORGANIZATION_SUBSCRIPTION_ITEM, quantity: number, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }> } | null, acct_provider_conns?: { __typename?: 'OrganizationAcctProviderConnPaginationConnection', edges: Array<{ __typename?: 'OrganizationAcctProviderConnPaginationEdge', node: { __typename?: 'OrganizationAcctProviderConn', id: string, acct_provider: ACCT_PROVIDER, code: string, url?: string | null, payload?: any | null, customer_add_url?: string | null, invoice_add_url?: string | null, vendor_add_url?: string | null, bill_add_url?: string | null, name?: string | null, email?: string | null, phone_number?: string | null, website_url?: string | null, primary_contact_name?: string | null, business_name?: string | null, business_industry?: string | null, business_number_of_employees?: number | null, timezone?: string | null, language?: string | null, business_tax_code_type?: TAX_TYPE | null, business_tax_code?: string | null, address_line_1?: string | null, address_number?: string | null, address_line_2?: string | null, address_city?: string | null, address_state?: string | null, address_zip_code?: string | null, address_country_code_iso_3?: COUNTRY_ISO_3 | null, address_lat?: number | null, address_lng?: number | null, business_address_line_1?: string | null, business_address_number?: string | null, business_address_line_2?: string | null, business_address_city?: string | null, business_address_state?: string | null, business_address_zip_code?: string | null, business_address_country_code_iso_3?: COUNTRY_ISO_3 | null, business_address_lat?: number | null, business_address_lng?: number | null, automatic_pull_enabled: boolean, status: ORGANIZATION_ACCT_PROVIDER_CONN_STATUS, disconnected_at?: any | null, conn_expires_at: any, organization_id: string, last_conn_at?: any | null, last_successful_sync_id?: string | null, last_successful_sync_at?: any | null, last_sync_succeeded?: boolean | null, last_sync_id?: string | null, last_sync_at?: any | null, created_at: any, updated_at: any, synchronizations: { __typename?: 'OrganizationAcctProviderConnSynchronizationPaginationConnection', edges: Array<{ __typename?: 'OrganizationAcctProviderConnSynchronizationPaginationEdge', node: { __typename?: 'OrganizationAcctProviderConnSynchronization', id: string, mode: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_MODE, force?: boolean | null, provider: ACCT_PROVIDER, errors: Array<string>, warnings: Array<string>, started_at?: any | null, finished_at?: any | null, failed_at?: any | null, succeeded_at?: any | null, skipped_at?: any | null, read_success: number, read_failure: number, skipped: number, create_success: number, create_failure: number, update_success: number, update_failure: number, delete_failure: number, delete_success: number, process_failure: number, process_success: number, created_at: any, updated_at: any, scope: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_SCOPE, scope_id?: string | null, scope_description?: string | null, organization_id: string, organization_acct_provider_conn_id: string, data?: { __typename?: 'OrganizationAcctProviderConnSynchronizationData', customer?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, invoice?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, invoice_transaction?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, vendor?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, bill?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, bill_transaction?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null } | null } }> } } }> } | null } };
+export type UserOrganizationUpdateMutation = { userOrganizationUpdate: { id: string, name: string, email: string, website: string | null, unique_name: string, unique_code: string, phone_number: string | null, address_line_1: string | null, address_number: string | null, address_line_2: string | null, address_city: string | null, address_state: string | null, address_zip_code: string | null, address_country_code_iso_3: COUNTRY_ISO_3 | null, address_lat: number | null, address_lng: number | null, primary_contact_name: string | null, business_name: string | null, business_industry: string | null, business_number_of_employees: number | null, business_address_line_1: string | null, business_address_number: string | null, business_address_line_2: string | null, business_address_city: string | null, business_address_state: string | null, business_address_zip_code: string | null, business_address_country_code_iso_3: COUNTRY_ISO_3 | null, business_address_lat: number | null, business_address_lng: number | null, business_tax_code_type: TAX_TYPE | null, business_tax_code: string | null, timezone: string | null, language: string | null, created_at: unknown, updated_at: unknown, logo_picture_file_id: string | null, setting_customer_email_copy_mode: NOTIFICATION_EMAIL_COPY_MODE | null, current_email_verification_id: string | null, current_phone_number_verification_id: string | null, subscription_level: number | null, logo_picture_file: { public_url: string | null } | null, subscription_data: { subscription_level: number, organization_user_seats: number, requires_user_action: boolean, requires_provider_refresh: boolean, active_subscriptions: Array<{ id: string, provider: ORGANIZATION_SUBSCRIPTION_PROVIDER, provider_status: ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS }>, active_plans: Array<{ item_type: ORGANIZATION_SUBSCRIPTION_ITEM, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }>, active_modules: Array<{ item_type: ORGANIZATION_SUBSCRIPTION_ITEM, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }>, active_addons: Array<{ item_type: ORGANIZATION_SUBSCRIPTION_ITEM, quantity: number, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }> } | null, acct_provider_conns: { edges: Array<{ node: { id: string, acct_provider: ACCT_PROVIDER, code: string, url: string | null, payload: unknown, customer_add_url: string | null, invoice_add_url: string | null, vendor_add_url: string | null, bill_add_url: string | null, name: string | null, email: string | null, phone_number: string | null, website_url: string | null, primary_contact_name: string | null, business_name: string | null, business_industry: string | null, business_number_of_employees: number | null, timezone: string | null, language: string | null, business_tax_code_type: TAX_TYPE | null, business_tax_code: string | null, address_line_1: string | null, address_number: string | null, address_line_2: string | null, address_city: string | null, address_state: string | null, address_zip_code: string | null, address_country_code_iso_3: COUNTRY_ISO_3 | null, address_lat: number | null, address_lng: number | null, business_address_line_1: string | null, business_address_number: string | null, business_address_line_2: string | null, business_address_city: string | null, business_address_state: string | null, business_address_zip_code: string | null, business_address_country_code_iso_3: COUNTRY_ISO_3 | null, business_address_lat: number | null, business_address_lng: number | null, automatic_pull_enabled: boolean, status: ORGANIZATION_ACCT_PROVIDER_CONN_STATUS, disconnected_at: unknown, conn_expires_at: unknown, organization_id: string, last_conn_at: unknown, last_successful_sync_id: string | null, last_successful_sync_at: unknown, last_sync_succeeded: boolean | null, last_sync_id: string | null, last_sync_at: unknown, created_at: unknown, updated_at: unknown, synchronizations: { edges: Array<{ node: { id: string, mode: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_MODE, force: boolean | null, provider: ACCT_PROVIDER, errors: Array<string>, warnings: Array<string>, started_at: unknown, finished_at: unknown, failed_at: unknown, succeeded_at: unknown, skipped_at: unknown, read_success: number, read_failure: number, skipped: number, create_success: number, create_failure: number, update_success: number, update_failure: number, delete_failure: number, delete_success: number, process_failure: number, process_success: number, created_at: unknown, updated_at: unknown, scope: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_SCOPE, scope_id: string | null, scope_description: string | null, organization_id: string, organization_acct_provider_conn_id: string, data: { customer: { items: unknown } | null, invoice: { items: unknown } | null, invoice_transaction: { items: unknown } | null, vendor: { items: unknown } | null, bill: { items: unknown } | null, bill_transaction: { items: unknown } | null } | null } }> } } }> } | null } };
 
 export type UserOrganizationLogoPictureRemoveMutationVariables = Exact<{
-  organizationId: Scalars['String']['input'];
+  organizationId: string;
 }>;
 
 
-export type UserOrganizationLogoPictureRemoveMutation = { __typename?: 'Mutation', userOrganizationLogoPictureRemove: { __typename?: 'Organization', logo_picture_file?: { __typename?: 'File', public_url?: string | null } | null } };
+export type UserOrganizationLogoPictureRemoveMutation = { userOrganizationLogoPictureRemove: { logo_picture_file: { public_url: string | null } | null } };
 
 export type UserOrganizationSendGenericInviteMailMutationVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  email: Scalars['String']['input'];
+  organizationId: string;
+  email: string;
 }>;
 
 
-export type UserOrganizationSendGenericInviteMailMutation = { __typename?: 'Mutation', userOrganizationSendGenericInviteMail: any };
+export type UserOrganizationSendGenericInviteMailMutation = { userOrganizationSendGenericInviteMail: unknown };
 
 export type UserOrganizationEmailVerifyOrChangeStartMutationVariables = Exact<{
-  organizationId: Scalars['String']['input'];
+  organizationId: string;
   data: UserOrganizationEmailVerifyOrChangeStartSchema;
 }>;
 
 
-export type UserOrganizationEmailVerifyOrChangeStartMutation = { __typename?: 'Mutation', userOrganizationEmailVerifyOrChangeStart: any };
+export type UserOrganizationEmailVerifyOrChangeStartMutation = { userOrganizationEmailVerifyOrChangeStart: unknown };
 
 export type UserOrganizationEmailVerifyOrChangeFinishMutationVariables = Exact<{
-  organizationId: Scalars['String']['input'];
+  organizationId: string;
   data: UserOrganizationEmailVerifyOrChangeFinishSchema;
 }>;
 
 
-export type UserOrganizationEmailVerifyOrChangeFinishMutation = { __typename?: 'Mutation', userOrganizationEmailVerifyOrChangeFinish: { __typename?: 'Organization', id: string, name: string, email: string, website?: string | null, unique_name: string, unique_code: string, phone_number?: string | null, address_line_1?: string | null, address_number?: string | null, address_line_2?: string | null, address_city?: string | null, address_state?: string | null, address_zip_code?: string | null, address_country_code_iso_3?: COUNTRY_ISO_3 | null, address_lat?: number | null, address_lng?: number | null, primary_contact_name?: string | null, business_name?: string | null, business_industry?: string | null, business_number_of_employees?: number | null, business_address_line_1?: string | null, business_address_number?: string | null, business_address_line_2?: string | null, business_address_city?: string | null, business_address_state?: string | null, business_address_zip_code?: string | null, business_address_country_code_iso_3?: COUNTRY_ISO_3 | null, business_address_lat?: number | null, business_address_lng?: number | null, business_tax_code_type?: TAX_TYPE | null, business_tax_code?: string | null, timezone?: string | null, language?: string | null, created_at: any, updated_at: any, logo_picture_file_id?: string | null, setting_customer_email_copy_mode?: NOTIFICATION_EMAIL_COPY_MODE | null, current_email_verification_id?: string | null, current_phone_number_verification_id?: string | null, subscription_level?: number | null, logo_picture_file?: { __typename?: 'File', public_url?: string | null } | null, subscription_data?: { __typename?: 'OrganizationSubscriptionData', subscription_level: number, organization_user_seats: number, requires_user_action: boolean, requires_provider_refresh: boolean, active_subscriptions: Array<{ __typename?: 'OrganizationSubscription', id: string, provider: ORGANIZATION_SUBSCRIPTION_PROVIDER, provider_status: ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS }>, active_plans: Array<{ __typename?: 'OrganizationSubscriptionItem', item_type: ORGANIZATION_SUBSCRIPTION_ITEM, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }>, active_modules: Array<{ __typename?: 'OrganizationSubscriptionItem', item_type: ORGANIZATION_SUBSCRIPTION_ITEM, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }>, active_addons: Array<{ __typename?: 'OrganizationSubscriptionItem', item_type: ORGANIZATION_SUBSCRIPTION_ITEM, quantity: number, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }> } | null, acct_provider_conns?: { __typename?: 'OrganizationAcctProviderConnPaginationConnection', edges: Array<{ __typename?: 'OrganizationAcctProviderConnPaginationEdge', node: { __typename?: 'OrganizationAcctProviderConn', id: string, acct_provider: ACCT_PROVIDER, code: string, url?: string | null, payload?: any | null, customer_add_url?: string | null, invoice_add_url?: string | null, vendor_add_url?: string | null, bill_add_url?: string | null, name?: string | null, email?: string | null, phone_number?: string | null, website_url?: string | null, primary_contact_name?: string | null, business_name?: string | null, business_industry?: string | null, business_number_of_employees?: number | null, timezone?: string | null, language?: string | null, business_tax_code_type?: TAX_TYPE | null, business_tax_code?: string | null, address_line_1?: string | null, address_number?: string | null, address_line_2?: string | null, address_city?: string | null, address_state?: string | null, address_zip_code?: string | null, address_country_code_iso_3?: COUNTRY_ISO_3 | null, address_lat?: number | null, address_lng?: number | null, business_address_line_1?: string | null, business_address_number?: string | null, business_address_line_2?: string | null, business_address_city?: string | null, business_address_state?: string | null, business_address_zip_code?: string | null, business_address_country_code_iso_3?: COUNTRY_ISO_3 | null, business_address_lat?: number | null, business_address_lng?: number | null, automatic_pull_enabled: boolean, status: ORGANIZATION_ACCT_PROVIDER_CONN_STATUS, disconnected_at?: any | null, conn_expires_at: any, organization_id: string, last_conn_at?: any | null, last_successful_sync_id?: string | null, last_successful_sync_at?: any | null, last_sync_succeeded?: boolean | null, last_sync_id?: string | null, last_sync_at?: any | null, created_at: any, updated_at: any, synchronizations: { __typename?: 'OrganizationAcctProviderConnSynchronizationPaginationConnection', edges: Array<{ __typename?: 'OrganizationAcctProviderConnSynchronizationPaginationEdge', node: { __typename?: 'OrganizationAcctProviderConnSynchronization', id: string, mode: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_MODE, force?: boolean | null, provider: ACCT_PROVIDER, errors: Array<string>, warnings: Array<string>, started_at?: any | null, finished_at?: any | null, failed_at?: any | null, succeeded_at?: any | null, skipped_at?: any | null, read_success: number, read_failure: number, skipped: number, create_success: number, create_failure: number, update_success: number, update_failure: number, delete_failure: number, delete_success: number, process_failure: number, process_success: number, created_at: any, updated_at: any, scope: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_SCOPE, scope_id?: string | null, scope_description?: string | null, organization_id: string, organization_acct_provider_conn_id: string, data?: { __typename?: 'OrganizationAcctProviderConnSynchronizationData', customer?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, invoice?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, invoice_transaction?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, vendor?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, bill?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, bill_transaction?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null } | null } }> } } }> } | null } };
+export type UserOrganizationEmailVerifyOrChangeFinishMutation = { userOrganizationEmailVerifyOrChangeFinish: { id: string, name: string, email: string, website: string | null, unique_name: string, unique_code: string, phone_number: string | null, address_line_1: string | null, address_number: string | null, address_line_2: string | null, address_city: string | null, address_state: string | null, address_zip_code: string | null, address_country_code_iso_3: COUNTRY_ISO_3 | null, address_lat: number | null, address_lng: number | null, primary_contact_name: string | null, business_name: string | null, business_industry: string | null, business_number_of_employees: number | null, business_address_line_1: string | null, business_address_number: string | null, business_address_line_2: string | null, business_address_city: string | null, business_address_state: string | null, business_address_zip_code: string | null, business_address_country_code_iso_3: COUNTRY_ISO_3 | null, business_address_lat: number | null, business_address_lng: number | null, business_tax_code_type: TAX_TYPE | null, business_tax_code: string | null, timezone: string | null, language: string | null, created_at: unknown, updated_at: unknown, logo_picture_file_id: string | null, setting_customer_email_copy_mode: NOTIFICATION_EMAIL_COPY_MODE | null, current_email_verification_id: string | null, current_phone_number_verification_id: string | null, subscription_level: number | null, logo_picture_file: { public_url: string | null } | null, subscription_data: { subscription_level: number, organization_user_seats: number, requires_user_action: boolean, requires_provider_refresh: boolean, active_subscriptions: Array<{ id: string, provider: ORGANIZATION_SUBSCRIPTION_PROVIDER, provider_status: ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS }>, active_plans: Array<{ item_type: ORGANIZATION_SUBSCRIPTION_ITEM, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }>, active_modules: Array<{ item_type: ORGANIZATION_SUBSCRIPTION_ITEM, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }>, active_addons: Array<{ item_type: ORGANIZATION_SUBSCRIPTION_ITEM, quantity: number, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }> } | null, acct_provider_conns: { edges: Array<{ node: { id: string, acct_provider: ACCT_PROVIDER, code: string, url: string | null, payload: unknown, customer_add_url: string | null, invoice_add_url: string | null, vendor_add_url: string | null, bill_add_url: string | null, name: string | null, email: string | null, phone_number: string | null, website_url: string | null, primary_contact_name: string | null, business_name: string | null, business_industry: string | null, business_number_of_employees: number | null, timezone: string | null, language: string | null, business_tax_code_type: TAX_TYPE | null, business_tax_code: string | null, address_line_1: string | null, address_number: string | null, address_line_2: string | null, address_city: string | null, address_state: string | null, address_zip_code: string | null, address_country_code_iso_3: COUNTRY_ISO_3 | null, address_lat: number | null, address_lng: number | null, business_address_line_1: string | null, business_address_number: string | null, business_address_line_2: string | null, business_address_city: string | null, business_address_state: string | null, business_address_zip_code: string | null, business_address_country_code_iso_3: COUNTRY_ISO_3 | null, business_address_lat: number | null, business_address_lng: number | null, automatic_pull_enabled: boolean, status: ORGANIZATION_ACCT_PROVIDER_CONN_STATUS, disconnected_at: unknown, conn_expires_at: unknown, organization_id: string, last_conn_at: unknown, last_successful_sync_id: string | null, last_successful_sync_at: unknown, last_sync_succeeded: boolean | null, last_sync_id: string | null, last_sync_at: unknown, created_at: unknown, updated_at: unknown, synchronizations: { edges: Array<{ node: { id: string, mode: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_MODE, force: boolean | null, provider: ACCT_PROVIDER, errors: Array<string>, warnings: Array<string>, started_at: unknown, finished_at: unknown, failed_at: unknown, succeeded_at: unknown, skipped_at: unknown, read_success: number, read_failure: number, skipped: number, create_success: number, create_failure: number, update_success: number, update_failure: number, delete_failure: number, delete_success: number, process_failure: number, process_success: number, created_at: unknown, updated_at: unknown, scope: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_SCOPE, scope_id: string | null, scope_description: string | null, organization_id: string, organization_acct_provider_conn_id: string, data: { customer: { items: unknown } | null, invoice: { items: unknown } | null, invoice_transaction: { items: unknown } | null, vendor: { items: unknown } | null, bill: { items: unknown } | null, bill_transaction: { items: unknown } | null } | null } }> } } }> } | null } };
 
-export type OrganizationProjectChangeFragmentFragment = { __typename?: 'OrganizationProjectChange', id: string, organization_project_change_request_id: string, previous_budget_amount: bigint, previous_ends_at?: any | null, previous_name: string, previous_starts_at?: any | null, created_at: any, updated_at: any };
+export type OrganizationProjectChangeFragmentFragment = { id: string, organization_project_change_request_id: string, previous_budget_amount: bigint, previous_ends_at: unknown, previous_name: string, previous_starts_at: unknown, created_at: unknown, updated_at: unknown };
 
-export type OrganizationProjectChangeRequestFragmentFragment = { __typename?: 'OrganizationProjectChangeRequest', id: string, accepted_at?: any | null, budget_amount: bigint, canceled_at?: any | null, contract_url?: string | null, created_by_user_id?: string | null, created_by_user_name: string, created_side: ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE, ends_at?: any | null, expires_at?: any | null, finished_by_user_id?: string | null, finished_by_user_name?: string | null, finished_side?: ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE | null, name: string, published_at?: any | null, rejected_at?: any | null, sequence_number: number, starts_at?: any | null, status: PROJECT_CHANGE_REQUEST_STATUS, organization_project_id: string, created_at: any, updated_at: any, organization_project_change?: { __typename?: 'OrganizationProjectChange', id: string, organization_project_change_request_id: string, previous_budget_amount: bigint, previous_ends_at?: any | null, previous_name: string, previous_starts_at?: any | null, created_at: any, updated_at: any } | null };
+export type OrganizationProjectChangeRequestFragmentFragment = { id: string, accepted_at: unknown, budget_amount: bigint, canceled_at: unknown, contract_url: string | null, created_by_user_id: string | null, created_by_user_name: string, created_side: ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE, ends_at: unknown, expires_at: unknown, finished_by_user_id: string | null, finished_by_user_name: string | null, finished_side: ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE | null, name: string, published_at: unknown, rejected_at: unknown, sequence_number: number, starts_at: unknown, status: PROJECT_CHANGE_REQUEST_STATUS, organization_project_id: string, created_at: unknown, updated_at: unknown, organization_project_change: { id: string, organization_project_change_request_id: string, previous_budget_amount: bigint, previous_ends_at: unknown, previous_name: string, previous_starts_at: unknown, created_at: unknown, updated_at: unknown } | null };
 
-export type OrganizationProjectFragmentFragment = { __typename?: 'OrganizationProject', id: string, budget_amount: bigint, budget_currency_code: CURRENCY, canceled_at?: any | null, completed_at?: any | null, contract_url?: string | null, description?: string | null, ends_at?: any | null, name: string, starts_at?: any | null, status: PROJECT_STATUS, organization_id: string, organization_customer_id: string, created_at: any, updated_at: any, organization: { __typename?: 'Organization', name: string }, organization_customer: { __typename?: 'OrganizationCustomer', name: string } };
+export type OrganizationProjectFragmentFragment = { id: string, budget_amount: bigint, budget_currency_code: CURRENCY, canceled_at: unknown, completed_at: unknown, contract_url: string | null, description: string | null, ends_at: unknown, name: string, starts_at: unknown, status: PROJECT_STATUS, organization_id: string, organization_customer_id: string, created_at: unknown, updated_at: unknown, organization: { name: string }, organization_customer: { name: string } };
 
 export type UserOrganizationProjectsQueryVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationCustomerId?: InputMaybe<Scalars['String']['input']>;
-  name?: InputMaybe<Scalars['String']['input']>;
-  started?: InputMaybe<Scalars['Boolean']['input']>;
-  ended?: InputMaybe<Scalars['Boolean']['input']>;
-  canceled?: InputMaybe<Scalars['Boolean']['input']>;
-  completed?: InputMaybe<Scalars['Boolean']['input']>;
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema> | SortingFieldSchema>;
+  organizationId: string;
+  organizationCustomerId?: string | null | undefined;
+  name?: string | null | undefined;
+  started?: boolean | null | undefined;
+  ended?: boolean | null | undefined;
+  canceled?: boolean | null | undefined;
+  completed?: boolean | null | undefined;
+  after?: unknown;
+  first?: number | null | undefined;
+  before?: unknown;
+  last?: number | null | undefined;
+  skip?: number | null | undefined;
+  take?: number | null | undefined;
+  sorting?: Array<SortingFieldSchema> | SortingFieldSchema | null | undefined;
 }>;
 
 
-export type UserOrganizationProjectsQuery = { __typename?: 'Query', userOrganizationProjects: { __typename?: 'OrganizationProjectPaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationProjectPaginationEdge', cursor: any, node: { __typename?: 'OrganizationProject', id: string, budget_amount: bigint, budget_currency_code: CURRENCY, canceled_at?: any | null, completed_at?: any | null, contract_url?: string | null, description?: string | null, ends_at?: any | null, name: string, starts_at?: any | null, status: PROJECT_STATUS, organization_id: string, organization_customer_id: string, created_at: any, updated_at: any, organization: { __typename?: 'Organization', name: string }, organization_customer: { __typename?: 'OrganizationCustomer', name: string } } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } };
+export type UserOrganizationProjectsQuery = { userOrganizationProjects: { totalCount: number, edges: Array<{ cursor: unknown, node: { id: string, budget_amount: bigint, budget_currency_code: CURRENCY, canceled_at: unknown, completed_at: unknown, contract_url: string | null, description: string | null, ends_at: unknown, name: string, starts_at: unknown, status: PROJECT_STATUS, organization_id: string, organization_customer_id: string, created_at: unknown, updated_at: unknown, organization: { name: string }, organization_customer: { name: string } } }>, pageInfo: { startCursor: string | null, endCursor: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } };
 
 export type UserOrganizationProjectQueryVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationProjectId: Scalars['String']['input'];
+  organizationId: string;
+  organizationProjectId: string;
 }>;
 
 
-export type UserOrganizationProjectQuery = { __typename?: 'Query', userOrganizationProject: { __typename?: 'OrganizationProject', id: string, budget_amount: bigint, budget_currency_code: CURRENCY, canceled_at?: any | null, completed_at?: any | null, contract_url?: string | null, description?: string | null, ends_at?: any | null, name: string, starts_at?: any | null, status: PROJECT_STATUS, organization_id: string, organization_customer_id: string, created_at: any, updated_at: any, organization: { __typename?: 'Organization', name: string }, organization_customer: { __typename?: 'OrganizationCustomer', name: string } } };
+export type UserOrganizationProjectQuery = { userOrganizationProject: { id: string, budget_amount: bigint, budget_currency_code: CURRENCY, canceled_at: unknown, completed_at: unknown, contract_url: string | null, description: string | null, ends_at: unknown, name: string, starts_at: unknown, status: PROJECT_STATUS, organization_id: string, organization_customer_id: string, created_at: unknown, updated_at: unknown, organization: { name: string }, organization_customer: { name: string } } };
 
 export type UserOrganizationProjectCreateMutationVariables = Exact<{
-  organizationId: Scalars['String']['input'];
+  organizationId: string;
   data: UserOrganizationProjectCreateSchema;
 }>;
 
 
-export type UserOrganizationProjectCreateMutation = { __typename?: 'Mutation', userOrganizationProjectCreate: { __typename?: 'OrganizationProject', id: string, budget_amount: bigint, budget_currency_code: CURRENCY, canceled_at?: any | null, completed_at?: any | null, contract_url?: string | null, description?: string | null, ends_at?: any | null, name: string, starts_at?: any | null, status: PROJECT_STATUS, organization_id: string, organization_customer_id: string, created_at: any, updated_at: any, organization: { __typename?: 'Organization', name: string }, organization_customer: { __typename?: 'OrganizationCustomer', name: string } } };
+export type UserOrganizationProjectCreateMutation = { userOrganizationProjectCreate: { id: string, budget_amount: bigint, budget_currency_code: CURRENCY, canceled_at: unknown, completed_at: unknown, contract_url: string | null, description: string | null, ends_at: unknown, name: string, starts_at: unknown, status: PROJECT_STATUS, organization_id: string, organization_customer_id: string, created_at: unknown, updated_at: unknown, organization: { name: string }, organization_customer: { name: string } } };
 
 export type UserOrganizationProjectUpdateMutationVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationProjectId: Scalars['String']['input'];
+  organizationId: string;
+  organizationProjectId: string;
   data: UserOrganizationProjectUpdateSchema;
 }>;
 
 
-export type UserOrganizationProjectUpdateMutation = { __typename?: 'Mutation', userOrganizationProjectUpdate: { __typename?: 'OrganizationProject', id: string, budget_amount: bigint, budget_currency_code: CURRENCY, canceled_at?: any | null, completed_at?: any | null, contract_url?: string | null, description?: string | null, ends_at?: any | null, name: string, starts_at?: any | null, status: PROJECT_STATUS, organization_id: string, organization_customer_id: string, created_at: any, updated_at: any, organization: { __typename?: 'Organization', name: string }, organization_customer: { __typename?: 'OrganizationCustomer', name: string } } };
+export type UserOrganizationProjectUpdateMutation = { userOrganizationProjectUpdate: { id: string, budget_amount: bigint, budget_currency_code: CURRENCY, canceled_at: unknown, completed_at: unknown, contract_url: string | null, description: string | null, ends_at: unknown, name: string, starts_at: unknown, status: PROJECT_STATUS, organization_id: string, organization_customer_id: string, created_at: unknown, updated_at: unknown, organization: { name: string }, organization_customer: { name: string } } };
 
 export type UserOrganizationProjectDeleteMutationVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationProjectId: Scalars['String']['input'];
+  organizationId: string;
+  organizationProjectId: string;
 }>;
 
 
-export type UserOrganizationProjectDeleteMutation = { __typename?: 'Mutation', userOrganizationProjectDelete: { __typename?: 'OrganizationProject', id: string, budget_amount: bigint, budget_currency_code: CURRENCY, canceled_at?: any | null, completed_at?: any | null, contract_url?: string | null, description?: string | null, ends_at?: any | null, name: string, starts_at?: any | null, status: PROJECT_STATUS, organization_id: string, organization_customer_id: string, created_at: any, updated_at: any, organization: { __typename?: 'Organization', name: string }, organization_customer: { __typename?: 'OrganizationCustomer', name: string } } };
+export type UserOrganizationProjectDeleteMutation = { userOrganizationProjectDelete: { id: string, budget_amount: bigint, budget_currency_code: CURRENCY, canceled_at: unknown, completed_at: unknown, contract_url: string | null, description: string | null, ends_at: unknown, name: string, starts_at: unknown, status: PROJECT_STATUS, organization_id: string, organization_customer_id: string, created_at: unknown, updated_at: unknown, organization: { name: string }, organization_customer: { name: string } } };
 
 export type UserOrganizationProjectChangeRequestCreateMutationVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationProjectId: Scalars['String']['input'];
+  organizationId: string;
+  organizationProjectId: string;
   data: OrganizationProjectChangeRequestUpsertSchema;
 }>;
 
 
-export type UserOrganizationProjectChangeRequestCreateMutation = { __typename?: 'Mutation', userOrganizationProjectChangeRequestCreate: { __typename?: 'OrganizationProjectChangeRequest', id: string, accepted_at?: any | null, budget_amount: bigint, canceled_at?: any | null, contract_url?: string | null, created_by_user_id?: string | null, created_by_user_name: string, created_side: ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE, ends_at?: any | null, expires_at?: any | null, finished_by_user_id?: string | null, finished_by_user_name?: string | null, finished_side?: ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE | null, name: string, published_at?: any | null, rejected_at?: any | null, sequence_number: number, starts_at?: any | null, status: PROJECT_CHANGE_REQUEST_STATUS, organization_project_id: string, created_at: any, updated_at: any, organization_project_change?: { __typename?: 'OrganizationProjectChange', id: string, organization_project_change_request_id: string, previous_budget_amount: bigint, previous_ends_at?: any | null, previous_name: string, previous_starts_at?: any | null, created_at: any, updated_at: any } | null } };
+export type UserOrganizationProjectChangeRequestCreateMutation = { userOrganizationProjectChangeRequestCreate: { id: string, accepted_at: unknown, budget_amount: bigint, canceled_at: unknown, contract_url: string | null, created_by_user_id: string | null, created_by_user_name: string, created_side: ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE, ends_at: unknown, expires_at: unknown, finished_by_user_id: string | null, finished_by_user_name: string | null, finished_side: ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE | null, name: string, published_at: unknown, rejected_at: unknown, sequence_number: number, starts_at: unknown, status: PROJECT_CHANGE_REQUEST_STATUS, organization_project_id: string, created_at: unknown, updated_at: unknown, organization_project_change: { id: string, organization_project_change_request_id: string, previous_budget_amount: bigint, previous_ends_at: unknown, previous_name: string, previous_starts_at: unknown, created_at: unknown, updated_at: unknown } | null } };
 
 export type UserOrganizationProjectChangeRequestUpdateMutationVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationProjectId: Scalars['String']['input'];
-  organizationProjectChangeRequestId: Scalars['String']['input'];
+  organizationId: string;
+  organizationProjectId: string;
+  organizationProjectChangeRequestId: string;
   data: OrganizationProjectChangeRequestUpsertSchema;
 }>;
 
 
-export type UserOrganizationProjectChangeRequestUpdateMutation = { __typename?: 'Mutation', userOrganizationProjectChangeRequestUpdate: { __typename?: 'OrganizationProjectChangeRequest', id: string, accepted_at?: any | null, budget_amount: bigint, canceled_at?: any | null, contract_url?: string | null, created_by_user_id?: string | null, created_by_user_name: string, created_side: ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE, ends_at?: any | null, expires_at?: any | null, finished_by_user_id?: string | null, finished_by_user_name?: string | null, finished_side?: ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE | null, name: string, published_at?: any | null, rejected_at?: any | null, sequence_number: number, starts_at?: any | null, status: PROJECT_CHANGE_REQUEST_STATUS, organization_project_id: string, created_at: any, updated_at: any, organization_project_change?: { __typename?: 'OrganizationProjectChange', id: string, organization_project_change_request_id: string, previous_budget_amount: bigint, previous_ends_at?: any | null, previous_name: string, previous_starts_at?: any | null, created_at: any, updated_at: any } | null } };
+export type UserOrganizationProjectChangeRequestUpdateMutation = { userOrganizationProjectChangeRequestUpdate: { id: string, accepted_at: unknown, budget_amount: bigint, canceled_at: unknown, contract_url: string | null, created_by_user_id: string | null, created_by_user_name: string, created_side: ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE, ends_at: unknown, expires_at: unknown, finished_by_user_id: string | null, finished_by_user_name: string | null, finished_side: ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE | null, name: string, published_at: unknown, rejected_at: unknown, sequence_number: number, starts_at: unknown, status: PROJECT_CHANGE_REQUEST_STATUS, organization_project_id: string, created_at: unknown, updated_at: unknown, organization_project_change: { id: string, organization_project_change_request_id: string, previous_budget_amount: bigint, previous_ends_at: unknown, previous_name: string, previous_starts_at: unknown, created_at: unknown, updated_at: unknown } | null } };
 
 export type UserOrganizationProjectChangeRequestCancelMutationVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationProjectId: Scalars['String']['input'];
-  organizationProjectChangeRequestId: Scalars['String']['input'];
+  organizationId: string;
+  organizationProjectId: string;
+  organizationProjectChangeRequestId: string;
 }>;
 
 
-export type UserOrganizationProjectChangeRequestCancelMutation = { __typename?: 'Mutation', userOrganizationProjectChangeRequestCancel: { __typename?: 'OrganizationProjectChangeRequest', id: string, accepted_at?: any | null, budget_amount: bigint, canceled_at?: any | null, contract_url?: string | null, created_by_user_id?: string | null, created_by_user_name: string, created_side: ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE, ends_at?: any | null, expires_at?: any | null, finished_by_user_id?: string | null, finished_by_user_name?: string | null, finished_side?: ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE | null, name: string, published_at?: any | null, rejected_at?: any | null, sequence_number: number, starts_at?: any | null, status: PROJECT_CHANGE_REQUEST_STATUS, organization_project_id: string, created_at: any, updated_at: any, organization_project_change?: { __typename?: 'OrganizationProjectChange', id: string, organization_project_change_request_id: string, previous_budget_amount: bigint, previous_ends_at?: any | null, previous_name: string, previous_starts_at?: any | null, created_at: any, updated_at: any } | null } };
+export type UserOrganizationProjectChangeRequestCancelMutation = { userOrganizationProjectChangeRequestCancel: { id: string, accepted_at: unknown, budget_amount: bigint, canceled_at: unknown, contract_url: string | null, created_by_user_id: string | null, created_by_user_name: string, created_side: ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE, ends_at: unknown, expires_at: unknown, finished_by_user_id: string | null, finished_by_user_name: string | null, finished_side: ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE | null, name: string, published_at: unknown, rejected_at: unknown, sequence_number: number, starts_at: unknown, status: PROJECT_CHANGE_REQUEST_STATUS, organization_project_id: string, created_at: unknown, updated_at: unknown, organization_project_change: { id: string, organization_project_change_request_id: string, previous_budget_amount: bigint, previous_ends_at: unknown, previous_name: string, previous_starts_at: unknown, created_at: unknown, updated_at: unknown } | null } };
 
 export type UserOrganizationProjectChangeRequestAcceptMutationVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationProjectId: Scalars['String']['input'];
-  organizationProjectChangeRequestId: Scalars['String']['input'];
+  organizationId: string;
+  organizationProjectId: string;
+  organizationProjectChangeRequestId: string;
 }>;
 
 
-export type UserOrganizationProjectChangeRequestAcceptMutation = { __typename?: 'Mutation', userOrganizationProjectChangeRequestAccept: { __typename?: 'OrganizationProjectChangeRequest', id: string, accepted_at?: any | null, budget_amount: bigint, canceled_at?: any | null, contract_url?: string | null, created_by_user_id?: string | null, created_by_user_name: string, created_side: ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE, ends_at?: any | null, expires_at?: any | null, finished_by_user_id?: string | null, finished_by_user_name?: string | null, finished_side?: ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE | null, name: string, published_at?: any | null, rejected_at?: any | null, sequence_number: number, starts_at?: any | null, status: PROJECT_CHANGE_REQUEST_STATUS, organization_project_id: string, created_at: any, updated_at: any, organization_project_change?: { __typename?: 'OrganizationProjectChange', id: string, organization_project_change_request_id: string, previous_budget_amount: bigint, previous_ends_at?: any | null, previous_name: string, previous_starts_at?: any | null, created_at: any, updated_at: any } | null } };
+export type UserOrganizationProjectChangeRequestAcceptMutation = { userOrganizationProjectChangeRequestAccept: { id: string, accepted_at: unknown, budget_amount: bigint, canceled_at: unknown, contract_url: string | null, created_by_user_id: string | null, created_by_user_name: string, created_side: ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE, ends_at: unknown, expires_at: unknown, finished_by_user_id: string | null, finished_by_user_name: string | null, finished_side: ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE | null, name: string, published_at: unknown, rejected_at: unknown, sequence_number: number, starts_at: unknown, status: PROJECT_CHANGE_REQUEST_STATUS, organization_project_id: string, created_at: unknown, updated_at: unknown, organization_project_change: { id: string, organization_project_change_request_id: string, previous_budget_amount: bigint, previous_ends_at: unknown, previous_name: string, previous_starts_at: unknown, created_at: unknown, updated_at: unknown } | null } };
 
 export type UserOrganizationProjectChangeRequestRejectMutationVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationProjectId: Scalars['String']['input'];
-  organizationProjectChangeRequestId: Scalars['String']['input'];
+  organizationId: string;
+  organizationProjectId: string;
+  organizationProjectChangeRequestId: string;
 }>;
 
 
-export type UserOrganizationProjectChangeRequestRejectMutation = { __typename?: 'Mutation', userOrganizationProjectChangeRequestReject: { __typename?: 'OrganizationProjectChangeRequest', id: string, accepted_at?: any | null, budget_amount: bigint, canceled_at?: any | null, contract_url?: string | null, created_by_user_id?: string | null, created_by_user_name: string, created_side: ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE, ends_at?: any | null, expires_at?: any | null, finished_by_user_id?: string | null, finished_by_user_name?: string | null, finished_side?: ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE | null, name: string, published_at?: any | null, rejected_at?: any | null, sequence_number: number, starts_at?: any | null, status: PROJECT_CHANGE_REQUEST_STATUS, organization_project_id: string, created_at: any, updated_at: any, organization_project_change?: { __typename?: 'OrganizationProjectChange', id: string, organization_project_change_request_id: string, previous_budget_amount: bigint, previous_ends_at?: any | null, previous_name: string, previous_starts_at?: any | null, created_at: any, updated_at: any } | null } };
+export type UserOrganizationProjectChangeRequestRejectMutation = { userOrganizationProjectChangeRequestReject: { id: string, accepted_at: unknown, budget_amount: bigint, canceled_at: unknown, contract_url: string | null, created_by_user_id: string | null, created_by_user_name: string, created_side: ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE, ends_at: unknown, expires_at: unknown, finished_by_user_id: string | null, finished_by_user_name: string | null, finished_side: ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE | null, name: string, published_at: unknown, rejected_at: unknown, sequence_number: number, starts_at: unknown, status: PROJECT_CHANGE_REQUEST_STATUS, organization_project_id: string, created_at: unknown, updated_at: unknown, organization_project_change: { id: string, organization_project_change_request_id: string, previous_budget_amount: bigint, previous_ends_at: unknown, previous_name: string, previous_starts_at: unknown, created_at: unknown, updated_at: unknown } | null } };
 
 export type UserCustomerOrganizationProjectsQueryVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationVendorId: Scalars['String']['input'];
-  name?: InputMaybe<Scalars['String']['input']>;
-  started?: InputMaybe<Scalars['Boolean']['input']>;
-  ended?: InputMaybe<Scalars['Boolean']['input']>;
-  canceled?: InputMaybe<Scalars['Boolean']['input']>;
-  completed?: InputMaybe<Scalars['Boolean']['input']>;
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema> | SortingFieldSchema>;
+  organizationId: string;
+  organizationVendorId: string;
+  name?: string | null | undefined;
+  started?: boolean | null | undefined;
+  ended?: boolean | null | undefined;
+  canceled?: boolean | null | undefined;
+  completed?: boolean | null | undefined;
+  after?: unknown;
+  first?: number | null | undefined;
+  before?: unknown;
+  last?: number | null | undefined;
+  skip?: number | null | undefined;
+  take?: number | null | undefined;
+  sorting?: Array<SortingFieldSchema> | SortingFieldSchema | null | undefined;
 }>;
 
 
-export type UserCustomerOrganizationProjectsQuery = { __typename?: 'Query', userCustomerOrganizationProjects: { __typename?: 'OrganizationProjectPaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationProjectPaginationEdge', cursor: any, node: { __typename?: 'OrganizationProject', id: string, budget_amount: bigint, budget_currency_code: CURRENCY, canceled_at?: any | null, completed_at?: any | null, contract_url?: string | null, description?: string | null, ends_at?: any | null, name: string, starts_at?: any | null, status: PROJECT_STATUS, organization_id: string, organization_customer_id: string, created_at: any, updated_at: any, organization: { __typename?: 'Organization', name: string }, organization_customer: { __typename?: 'OrganizationCustomer', name: string } } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } };
+export type UserCustomerOrganizationProjectsQuery = { userCustomerOrganizationProjects: { totalCount: number, edges: Array<{ cursor: unknown, node: { id: string, budget_amount: bigint, budget_currency_code: CURRENCY, canceled_at: unknown, completed_at: unknown, contract_url: string | null, description: string | null, ends_at: unknown, name: string, starts_at: unknown, status: PROJECT_STATUS, organization_id: string, organization_customer_id: string, created_at: unknown, updated_at: unknown, organization: { name: string }, organization_customer: { name: string } } }>, pageInfo: { startCursor: string | null, endCursor: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } };
 
 export type UserCustomerOrganizationProjectQueryVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationVendorId: Scalars['String']['input'];
-  organizationProjectId: Scalars['String']['input'];
+  organizationId: string;
+  organizationVendorId: string;
+  organizationProjectId: string;
 }>;
 
 
-export type UserCustomerOrganizationProjectQuery = { __typename?: 'Query', userCustomerOrganizationProject: { __typename?: 'OrganizationProject', id: string, budget_amount: bigint, budget_currency_code: CURRENCY, canceled_at?: any | null, completed_at?: any | null, contract_url?: string | null, description?: string | null, ends_at?: any | null, name: string, starts_at?: any | null, status: PROJECT_STATUS, organization_id: string, organization_customer_id: string, created_at: any, updated_at: any, organization: { __typename?: 'Organization', name: string }, organization_customer: { __typename?: 'OrganizationCustomer', name: string } } };
+export type UserCustomerOrganizationProjectQuery = { userCustomerOrganizationProject: { id: string, budget_amount: bigint, budget_currency_code: CURRENCY, canceled_at: unknown, completed_at: unknown, contract_url: string | null, description: string | null, ends_at: unknown, name: string, starts_at: unknown, status: PROJECT_STATUS, organization_id: string, organization_customer_id: string, created_at: unknown, updated_at: unknown, organization: { name: string }, organization_customer: { name: string } } };
 
 export type UserCustomerOrganizationProjectChangeRequestCreateMutationVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationVendorId: Scalars['String']['input'];
-  organizationProjectId: Scalars['String']['input'];
+  organizationId: string;
+  organizationVendorId: string;
+  organizationProjectId: string;
   data: OrganizationProjectChangeRequestUpsertSchema;
 }>;
 
 
-export type UserCustomerOrganizationProjectChangeRequestCreateMutation = { __typename?: 'Mutation', userCustomerOrganizationProjectChangeRequestCreate: { __typename?: 'OrganizationProjectChangeRequest', id: string, accepted_at?: any | null, budget_amount: bigint, canceled_at?: any | null, contract_url?: string | null, created_by_user_id?: string | null, created_by_user_name: string, created_side: ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE, ends_at?: any | null, expires_at?: any | null, finished_by_user_id?: string | null, finished_by_user_name?: string | null, finished_side?: ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE | null, name: string, published_at?: any | null, rejected_at?: any | null, sequence_number: number, starts_at?: any | null, status: PROJECT_CHANGE_REQUEST_STATUS, organization_project_id: string, created_at: any, updated_at: any, organization_project_change?: { __typename?: 'OrganizationProjectChange', id: string, organization_project_change_request_id: string, previous_budget_amount: bigint, previous_ends_at?: any | null, previous_name: string, previous_starts_at?: any | null, created_at: any, updated_at: any } | null } };
+export type UserCustomerOrganizationProjectChangeRequestCreateMutation = { userCustomerOrganizationProjectChangeRequestCreate: { id: string, accepted_at: unknown, budget_amount: bigint, canceled_at: unknown, contract_url: string | null, created_by_user_id: string | null, created_by_user_name: string, created_side: ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE, ends_at: unknown, expires_at: unknown, finished_by_user_id: string | null, finished_by_user_name: string | null, finished_side: ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE | null, name: string, published_at: unknown, rejected_at: unknown, sequence_number: number, starts_at: unknown, status: PROJECT_CHANGE_REQUEST_STATUS, organization_project_id: string, created_at: unknown, updated_at: unknown, organization_project_change: { id: string, organization_project_change_request_id: string, previous_budget_amount: bigint, previous_ends_at: unknown, previous_name: string, previous_starts_at: unknown, created_at: unknown, updated_at: unknown } | null } };
 
 export type UserCustomerOrganizationProjectChangeRequestUpdateMutationVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationVendorId: Scalars['String']['input'];
-  organizationProjectId: Scalars['String']['input'];
-  organizationProjectChangeRequestId: Scalars['String']['input'];
+  organizationId: string;
+  organizationVendorId: string;
+  organizationProjectId: string;
+  organizationProjectChangeRequestId: string;
   data: OrganizationProjectChangeRequestUpsertSchema;
 }>;
 
 
-export type UserCustomerOrganizationProjectChangeRequestUpdateMutation = { __typename?: 'Mutation', userCustomerOrganizationProjectChangeRequestUpdate: { __typename?: 'OrganizationProjectChangeRequest', id: string, accepted_at?: any | null, budget_amount: bigint, canceled_at?: any | null, contract_url?: string | null, created_by_user_id?: string | null, created_by_user_name: string, created_side: ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE, ends_at?: any | null, expires_at?: any | null, finished_by_user_id?: string | null, finished_by_user_name?: string | null, finished_side?: ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE | null, name: string, published_at?: any | null, rejected_at?: any | null, sequence_number: number, starts_at?: any | null, status: PROJECT_CHANGE_REQUEST_STATUS, organization_project_id: string, created_at: any, updated_at: any, organization_project_change?: { __typename?: 'OrganizationProjectChange', id: string, organization_project_change_request_id: string, previous_budget_amount: bigint, previous_ends_at?: any | null, previous_name: string, previous_starts_at?: any | null, created_at: any, updated_at: any } | null } };
+export type UserCustomerOrganizationProjectChangeRequestUpdateMutation = { userCustomerOrganizationProjectChangeRequestUpdate: { id: string, accepted_at: unknown, budget_amount: bigint, canceled_at: unknown, contract_url: string | null, created_by_user_id: string | null, created_by_user_name: string, created_side: ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE, ends_at: unknown, expires_at: unknown, finished_by_user_id: string | null, finished_by_user_name: string | null, finished_side: ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE | null, name: string, published_at: unknown, rejected_at: unknown, sequence_number: number, starts_at: unknown, status: PROJECT_CHANGE_REQUEST_STATUS, organization_project_id: string, created_at: unknown, updated_at: unknown, organization_project_change: { id: string, organization_project_change_request_id: string, previous_budget_amount: bigint, previous_ends_at: unknown, previous_name: string, previous_starts_at: unknown, created_at: unknown, updated_at: unknown } | null } };
 
 export type UserCustomerOrganizationProjectChangeRequestCancelMutationVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationVendorId: Scalars['String']['input'];
-  organizationProjectId: Scalars['String']['input'];
-  organizationProjectChangeRequestId: Scalars['String']['input'];
+  organizationId: string;
+  organizationVendorId: string;
+  organizationProjectId: string;
+  organizationProjectChangeRequestId: string;
 }>;
 
 
-export type UserCustomerOrganizationProjectChangeRequestCancelMutation = { __typename?: 'Mutation', userCustomerOrganizationProjectChangeRequestCancel: { __typename?: 'OrganizationProjectChangeRequest', id: string, accepted_at?: any | null, budget_amount: bigint, canceled_at?: any | null, contract_url?: string | null, created_by_user_id?: string | null, created_by_user_name: string, created_side: ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE, ends_at?: any | null, expires_at?: any | null, finished_by_user_id?: string | null, finished_by_user_name?: string | null, finished_side?: ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE | null, name: string, published_at?: any | null, rejected_at?: any | null, sequence_number: number, starts_at?: any | null, status: PROJECT_CHANGE_REQUEST_STATUS, organization_project_id: string, created_at: any, updated_at: any, organization_project_change?: { __typename?: 'OrganizationProjectChange', id: string, organization_project_change_request_id: string, previous_budget_amount: bigint, previous_ends_at?: any | null, previous_name: string, previous_starts_at?: any | null, created_at: any, updated_at: any } | null } };
+export type UserCustomerOrganizationProjectChangeRequestCancelMutation = { userCustomerOrganizationProjectChangeRequestCancel: { id: string, accepted_at: unknown, budget_amount: bigint, canceled_at: unknown, contract_url: string | null, created_by_user_id: string | null, created_by_user_name: string, created_side: ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE, ends_at: unknown, expires_at: unknown, finished_by_user_id: string | null, finished_by_user_name: string | null, finished_side: ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE | null, name: string, published_at: unknown, rejected_at: unknown, sequence_number: number, starts_at: unknown, status: PROJECT_CHANGE_REQUEST_STATUS, organization_project_id: string, created_at: unknown, updated_at: unknown, organization_project_change: { id: string, organization_project_change_request_id: string, previous_budget_amount: bigint, previous_ends_at: unknown, previous_name: string, previous_starts_at: unknown, created_at: unknown, updated_at: unknown } | null } };
 
 export type UserCustomerOrganizationProjectChangeRequestAcceptMutationVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationVendorId: Scalars['String']['input'];
-  organizationProjectId: Scalars['String']['input'];
-  organizationProjectChangeRequestId: Scalars['String']['input'];
+  organizationId: string;
+  organizationVendorId: string;
+  organizationProjectId: string;
+  organizationProjectChangeRequestId: string;
 }>;
 
 
-export type UserCustomerOrganizationProjectChangeRequestAcceptMutation = { __typename?: 'Mutation', userCustomerOrganizationProjectChangeRequestAccept: { __typename?: 'OrganizationProjectChangeRequest', id: string, accepted_at?: any | null, budget_amount: bigint, canceled_at?: any | null, contract_url?: string | null, created_by_user_id?: string | null, created_by_user_name: string, created_side: ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE, ends_at?: any | null, expires_at?: any | null, finished_by_user_id?: string | null, finished_by_user_name?: string | null, finished_side?: ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE | null, name: string, published_at?: any | null, rejected_at?: any | null, sequence_number: number, starts_at?: any | null, status: PROJECT_CHANGE_REQUEST_STATUS, organization_project_id: string, created_at: any, updated_at: any, organization_project_change?: { __typename?: 'OrganizationProjectChange', id: string, organization_project_change_request_id: string, previous_budget_amount: bigint, previous_ends_at?: any | null, previous_name: string, previous_starts_at?: any | null, created_at: any, updated_at: any } | null } };
+export type UserCustomerOrganizationProjectChangeRequestAcceptMutation = { userCustomerOrganizationProjectChangeRequestAccept: { id: string, accepted_at: unknown, budget_amount: bigint, canceled_at: unknown, contract_url: string | null, created_by_user_id: string | null, created_by_user_name: string, created_side: ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE, ends_at: unknown, expires_at: unknown, finished_by_user_id: string | null, finished_by_user_name: string | null, finished_side: ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE | null, name: string, published_at: unknown, rejected_at: unknown, sequence_number: number, starts_at: unknown, status: PROJECT_CHANGE_REQUEST_STATUS, organization_project_id: string, created_at: unknown, updated_at: unknown, organization_project_change: { id: string, organization_project_change_request_id: string, previous_budget_amount: bigint, previous_ends_at: unknown, previous_name: string, previous_starts_at: unknown, created_at: unknown, updated_at: unknown } | null } };
 
 export type UserCustomerOrganizationProjectChangeRequestRejectMutationVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationVendorId: Scalars['String']['input'];
-  organizationProjectId: Scalars['String']['input'];
-  organizationProjectChangeRequestId: Scalars['String']['input'];
+  organizationId: string;
+  organizationVendorId: string;
+  organizationProjectId: string;
+  organizationProjectChangeRequestId: string;
 }>;
 
 
-export type UserCustomerOrganizationProjectChangeRequestRejectMutation = { __typename?: 'Mutation', userCustomerOrganizationProjectChangeRequestReject: { __typename?: 'OrganizationProjectChangeRequest', id: string, accepted_at?: any | null, budget_amount: bigint, canceled_at?: any | null, contract_url?: string | null, created_by_user_id?: string | null, created_by_user_name: string, created_side: ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE, ends_at?: any | null, expires_at?: any | null, finished_by_user_id?: string | null, finished_by_user_name?: string | null, finished_side?: ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE | null, name: string, published_at?: any | null, rejected_at?: any | null, sequence_number: number, starts_at?: any | null, status: PROJECT_CHANGE_REQUEST_STATUS, organization_project_id: string, created_at: any, updated_at: any, organization_project_change?: { __typename?: 'OrganizationProjectChange', id: string, organization_project_change_request_id: string, previous_budget_amount: bigint, previous_ends_at?: any | null, previous_name: string, previous_starts_at?: any | null, created_at: any, updated_at: any } | null } };
+export type UserCustomerOrganizationProjectChangeRequestRejectMutation = { userCustomerOrganizationProjectChangeRequestReject: { id: string, accepted_at: unknown, budget_amount: bigint, canceled_at: unknown, contract_url: string | null, created_by_user_id: string | null, created_by_user_name: string, created_side: ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE, ends_at: unknown, expires_at: unknown, finished_by_user_id: string | null, finished_by_user_name: string | null, finished_side: ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE | null, name: string, published_at: unknown, rejected_at: unknown, sequence_number: number, starts_at: unknown, status: PROJECT_CHANGE_REQUEST_STATUS, organization_project_id: string, created_at: unknown, updated_at: unknown, organization_project_change: { id: string, organization_project_change_request_id: string, previous_budget_amount: bigint, previous_ends_at: unknown, previous_name: string, previous_starts_at: unknown, created_at: unknown, updated_at: unknown } | null } };
 
 export type UnconnectedCustomerOrganizationProjectsQueryVariables = Exact<{
-  uniqueCode: Scalars['String']['input'];
-  token: Scalars['String']['input'];
-  name?: InputMaybe<Scalars['String']['input']>;
-  started?: InputMaybe<Scalars['Boolean']['input']>;
-  ended?: InputMaybe<Scalars['Boolean']['input']>;
-  canceled?: InputMaybe<Scalars['Boolean']['input']>;
-  completed?: InputMaybe<Scalars['Boolean']['input']>;
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema> | SortingFieldSchema>;
+  uniqueCode: string;
+  token: string;
+  name?: string | null | undefined;
+  started?: boolean | null | undefined;
+  ended?: boolean | null | undefined;
+  canceled?: boolean | null | undefined;
+  completed?: boolean | null | undefined;
+  after?: unknown;
+  first?: number | null | undefined;
+  before?: unknown;
+  last?: number | null | undefined;
+  skip?: number | null | undefined;
+  take?: number | null | undefined;
+  sorting?: Array<SortingFieldSchema> | SortingFieldSchema | null | undefined;
 }>;
 
 
-export type UnconnectedCustomerOrganizationProjectsQuery = { __typename?: 'Query', unconnectedCustomerOrganizationProjects: { __typename?: 'OrganizationProjectPaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationProjectPaginationEdge', cursor: any, node: { __typename?: 'OrganizationProject', id: string, budget_amount: bigint, budget_currency_code: CURRENCY, canceled_at?: any | null, completed_at?: any | null, contract_url?: string | null, description?: string | null, ends_at?: any | null, name: string, starts_at?: any | null, status: PROJECT_STATUS, organization_id: string, organization_customer_id: string, created_at: any, updated_at: any, organization: { __typename?: 'Organization', name: string }, organization_customer: { __typename?: 'OrganizationCustomer', name: string } } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } };
+export type UnconnectedCustomerOrganizationProjectsQuery = { unconnectedCustomerOrganizationProjects: { totalCount: number, edges: Array<{ cursor: unknown, node: { id: string, budget_amount: bigint, budget_currency_code: CURRENCY, canceled_at: unknown, completed_at: unknown, contract_url: string | null, description: string | null, ends_at: unknown, name: string, starts_at: unknown, status: PROJECT_STATUS, organization_id: string, organization_customer_id: string, created_at: unknown, updated_at: unknown, organization: { name: string }, organization_customer: { name: string } } }>, pageInfo: { startCursor: string | null, endCursor: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } };
 
 export type UnconnectedCustomerOrganizationProjectQueryVariables = Exact<{
-  uniqueCode: Scalars['String']['input'];
-  token: Scalars['String']['input'];
-  organizationId?: InputMaybe<Scalars['String']['input']>;
-  organizationProjectId: Scalars['String']['input'];
+  uniqueCode: string;
+  token: string;
+  organizationId?: string | null | undefined;
+  organizationProjectId: string;
 }>;
 
 
-export type UnconnectedCustomerOrganizationProjectQuery = { __typename?: 'Query', unconnectedCustomerOrganizationProject: { __typename?: 'OrganizationProject', id: string, budget_amount: bigint, budget_currency_code: CURRENCY, canceled_at?: any | null, completed_at?: any | null, contract_url?: string | null, description?: string | null, ends_at?: any | null, name: string, starts_at?: any | null, status: PROJECT_STATUS, organization_id: string, organization_customer_id: string, created_at: any, updated_at: any, organization: { __typename?: 'Organization', name: string }, organization_customer: { __typename?: 'OrganizationCustomer', name: string } } };
+export type UnconnectedCustomerOrganizationProjectQuery = { unconnectedCustomerOrganizationProject: { id: string, budget_amount: bigint, budget_currency_code: CURRENCY, canceled_at: unknown, completed_at: unknown, contract_url: string | null, description: string | null, ends_at: unknown, name: string, starts_at: unknown, status: PROJECT_STATUS, organization_id: string, organization_customer_id: string, created_at: unknown, updated_at: unknown, organization: { name: string }, organization_customer: { name: string } } };
 
 export type UnconnectedCustomerOrganizationProjectChangeRequestActionRequestTokenMutationVariables = Exact<{
-  uniqueCode: Scalars['String']['input'];
-  token: Scalars['String']['input'];
-  organizationId?: InputMaybe<Scalars['String']['input']>;
-  organizationProjectId: Scalars['String']['input'];
-  organizationProjectChangeRequestId: Scalars['String']['input'];
+  uniqueCode: string;
+  token: string;
+  organizationId?: string | null | undefined;
+  organizationProjectId: string;
+  organizationProjectChangeRequestId: string;
 }>;
 
 
-export type UnconnectedCustomerOrganizationProjectChangeRequestActionRequestTokenMutation = { __typename?: 'Mutation', unconnectedCustomerOrganizationProjectChangeRequestActionRequestToken: any };
+export type UnconnectedCustomerOrganizationProjectChangeRequestActionRequestTokenMutation = { unconnectedCustomerOrganizationProjectChangeRequestActionRequestToken: unknown };
 
 export type UnconnectedCustomerOrganizationProjectChangeRequestAcceptMutationVariables = Exact<{
-  uniqueCode: Scalars['String']['input'];
-  token: Scalars['String']['input'];
-  organizationId?: InputMaybe<Scalars['String']['input']>;
-  organizationProjectId: Scalars['String']['input'];
-  organizationProjectChangeRequestId: Scalars['String']['input'];
-  verificationCode: Scalars['String']['input'];
+  uniqueCode: string;
+  token: string;
+  organizationId?: string | null | undefined;
+  organizationProjectId: string;
+  organizationProjectChangeRequestId: string;
+  verificationCode: string;
 }>;
 
 
-export type UnconnectedCustomerOrganizationProjectChangeRequestAcceptMutation = { __typename?: 'Mutation', unconnectedCustomerOrganizationProjectChangeRequestAccept: { __typename?: 'OrganizationProjectChangeRequest', id: string, accepted_at?: any | null, budget_amount: bigint, canceled_at?: any | null, contract_url?: string | null, created_by_user_id?: string | null, created_by_user_name: string, created_side: ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE, ends_at?: any | null, expires_at?: any | null, finished_by_user_id?: string | null, finished_by_user_name?: string | null, finished_side?: ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE | null, name: string, published_at?: any | null, rejected_at?: any | null, sequence_number: number, starts_at?: any | null, status: PROJECT_CHANGE_REQUEST_STATUS, organization_project_id: string, created_at: any, updated_at: any, organization_project_change?: { __typename?: 'OrganizationProjectChange', id: string, organization_project_change_request_id: string, previous_budget_amount: bigint, previous_ends_at?: any | null, previous_name: string, previous_starts_at?: any | null, created_at: any, updated_at: any } | null } };
+export type UnconnectedCustomerOrganizationProjectChangeRequestAcceptMutation = { unconnectedCustomerOrganizationProjectChangeRequestAccept: { id: string, accepted_at: unknown, budget_amount: bigint, canceled_at: unknown, contract_url: string | null, created_by_user_id: string | null, created_by_user_name: string, created_side: ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE, ends_at: unknown, expires_at: unknown, finished_by_user_id: string | null, finished_by_user_name: string | null, finished_side: ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE | null, name: string, published_at: unknown, rejected_at: unknown, sequence_number: number, starts_at: unknown, status: PROJECT_CHANGE_REQUEST_STATUS, organization_project_id: string, created_at: unknown, updated_at: unknown, organization_project_change: { id: string, organization_project_change_request_id: string, previous_budget_amount: bigint, previous_ends_at: unknown, previous_name: string, previous_starts_at: unknown, created_at: unknown, updated_at: unknown } | null } };
 
 export type UnconnectedCustomerOrganizationProjectChangeRequestRejectMutationVariables = Exact<{
-  uniqueCode: Scalars['String']['input'];
-  token: Scalars['String']['input'];
-  organizationId?: InputMaybe<Scalars['String']['input']>;
-  organizationProjectId: Scalars['String']['input'];
-  organizationProjectChangeRequestId: Scalars['String']['input'];
-  verificationCode: Scalars['String']['input'];
+  uniqueCode: string;
+  token: string;
+  organizationId?: string | null | undefined;
+  organizationProjectId: string;
+  organizationProjectChangeRequestId: string;
+  verificationCode: string;
 }>;
 
 
-export type UnconnectedCustomerOrganizationProjectChangeRequestRejectMutation = { __typename?: 'Mutation', unconnectedCustomerOrganizationProjectChangeRequestReject: { __typename?: 'OrganizationProjectChangeRequest', id: string, accepted_at?: any | null, budget_amount: bigint, canceled_at?: any | null, contract_url?: string | null, created_by_user_id?: string | null, created_by_user_name: string, created_side: ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE, ends_at?: any | null, expires_at?: any | null, finished_by_user_id?: string | null, finished_by_user_name?: string | null, finished_side?: ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE | null, name: string, published_at?: any | null, rejected_at?: any | null, sequence_number: number, starts_at?: any | null, status: PROJECT_CHANGE_REQUEST_STATUS, organization_project_id: string, created_at: any, updated_at: any, organization_project_change?: { __typename?: 'OrganizationProjectChange', id: string, organization_project_change_request_id: string, previous_budget_amount: bigint, previous_ends_at?: any | null, previous_name: string, previous_starts_at?: any | null, created_at: any, updated_at: any } | null } };
+export type UnconnectedCustomerOrganizationProjectChangeRequestRejectMutation = { unconnectedCustomerOrganizationProjectChangeRequestReject: { id: string, accepted_at: unknown, budget_amount: bigint, canceled_at: unknown, contract_url: string | null, created_by_user_id: string | null, created_by_user_name: string, created_side: ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE, ends_at: unknown, expires_at: unknown, finished_by_user_id: string | null, finished_by_user_name: string | null, finished_side: ORGANIZATION_PROJECT_CHANGE_REQUEST_SIDE | null, name: string, published_at: unknown, rejected_at: unknown, sequence_number: number, starts_at: unknown, status: PROJECT_CHANGE_REQUEST_STATUS, organization_project_id: string, created_at: unknown, updated_at: unknown, organization_project_change: { id: string, organization_project_change_request_id: string, previous_budget_amount: bigint, previous_ends_at: unknown, previous_name: string, previous_starts_at: unknown, created_at: unknown, updated_at: unknown } | null } };
 
-export type OrganizationReminderSettingFragmentFragment = { __typename?: 'OrganizationReminderSetting', id: string, due_date_mode: REMINDER_DUE_DATE_MODE, days_amount: number, repeat_mode?: REMINDER_REPEAT_MODE | null, repeat_value?: number | null, selected_hour: number, created_at: any, updated_at: any, organization_id: string, organization_customer_id?: string | null, organization_project_id?: string | null, organization_invoice_id?: string | null };
+export type OrganizationReminderSettingFragmentFragment = { id: string, due_date_mode: REMINDER_DUE_DATE_MODE, days_amount: number, repeat_mode: REMINDER_REPEAT_MODE | null, repeat_value: number | null, selected_hour: number, created_at: unknown, updated_at: unknown, organization_id: string, organization_customer_id: string | null, organization_project_id: string | null, organization_invoice_id: string | null };
 
 export type UserOrganizationReminderSettingsQueryVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationCustomerId?: InputMaybe<Scalars['String']['input']>;
-  organizationProjectId?: InputMaybe<Scalars['String']['input']>;
-  organizationInvoiceId?: InputMaybe<Scalars['String']['input']>;
-  dueDateMode?: InputMaybe<REMINDER_DUE_DATE_MODE>;
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema> | SortingFieldSchema>;
+  organizationId: string;
+  organizationCustomerId?: string | null | undefined;
+  organizationProjectId?: string | null | undefined;
+  organizationInvoiceId?: string | null | undefined;
+  dueDateMode?: REMINDER_DUE_DATE_MODE | null | undefined;
+  after?: unknown;
+  first?: number | null | undefined;
+  before?: unknown;
+  last?: number | null | undefined;
+  skip?: number | null | undefined;
+  take?: number | null | undefined;
+  sorting?: Array<SortingFieldSchema> | SortingFieldSchema | null | undefined;
 }>;
 
 
-export type UserOrganizationReminderSettingsQuery = { __typename?: 'Query', userOrganizationReminderSettings: { __typename?: 'OrganizationReminderSettingPaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationReminderSettingPaginationEdge', cursor: any, node: { __typename?: 'OrganizationReminderSetting', id: string, due_date_mode: REMINDER_DUE_DATE_MODE, days_amount: number, repeat_mode?: REMINDER_REPEAT_MODE | null, repeat_value?: number | null, selected_hour: number, created_at: any, updated_at: any, organization_id: string, organization_customer_id?: string | null, organization_project_id?: string | null, organization_invoice_id?: string | null } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } };
+export type UserOrganizationReminderSettingsQuery = { userOrganizationReminderSettings: { totalCount: number, edges: Array<{ cursor: unknown, node: { id: string, due_date_mode: REMINDER_DUE_DATE_MODE, days_amount: number, repeat_mode: REMINDER_REPEAT_MODE | null, repeat_value: number | null, selected_hour: number, created_at: unknown, updated_at: unknown, organization_id: string, organization_customer_id: string | null, organization_project_id: string | null, organization_invoice_id: string | null } }>, pageInfo: { startCursor: string | null, endCursor: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } };
 
 export type UserOrganizationReminderSettingQueryVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationReminderSettingId: Scalars['String']['input'];
+  organizationId: string;
+  organizationReminderSettingId: string;
 }>;
 
 
-export type UserOrganizationReminderSettingQuery = { __typename?: 'Query', userOrganizationReminderSetting: { __typename?: 'OrganizationReminderSetting', id: string, due_date_mode: REMINDER_DUE_DATE_MODE, days_amount: number, repeat_mode?: REMINDER_REPEAT_MODE | null, repeat_value?: number | null, selected_hour: number, created_at: any, updated_at: any, organization_id: string, organization_customer_id?: string | null, organization_project_id?: string | null, organization_invoice_id?: string | null } };
+export type UserOrganizationReminderSettingQuery = { userOrganizationReminderSetting: { id: string, due_date_mode: REMINDER_DUE_DATE_MODE, days_amount: number, repeat_mode: REMINDER_REPEAT_MODE | null, repeat_value: number | null, selected_hour: number, created_at: unknown, updated_at: unknown, organization_id: string, organization_customer_id: string | null, organization_project_id: string | null, organization_invoice_id: string | null } };
 
 export type UserOrganizationReminderSettingCreateMutationVariables = Exact<{
-  organizationId: Scalars['String']['input'];
+  organizationId: string;
   data: UserOrganizationReminderSettingSchema;
 }>;
 
 
-export type UserOrganizationReminderSettingCreateMutation = { __typename?: 'Mutation', userOrganizationReminderSettingCreate: { __typename?: 'OrganizationReminderSetting', id: string, due_date_mode: REMINDER_DUE_DATE_MODE, days_amount: number, repeat_mode?: REMINDER_REPEAT_MODE | null, repeat_value?: number | null, selected_hour: number, created_at: any, updated_at: any, organization_id: string, organization_customer_id?: string | null, organization_project_id?: string | null, organization_invoice_id?: string | null } };
+export type UserOrganizationReminderSettingCreateMutation = { userOrganizationReminderSettingCreate: { id: string, due_date_mode: REMINDER_DUE_DATE_MODE, days_amount: number, repeat_mode: REMINDER_REPEAT_MODE | null, repeat_value: number | null, selected_hour: number, created_at: unknown, updated_at: unknown, organization_id: string, organization_customer_id: string | null, organization_project_id: string | null, organization_invoice_id: string | null } };
 
 export type UserOrganizationReminderSettingUpdateMutationVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationReminderSettingId: Scalars['String']['input'];
+  organizationId: string;
+  organizationReminderSettingId: string;
   data: UserOrganizationReminderSettingSchema;
 }>;
 
 
-export type UserOrganizationReminderSettingUpdateMutation = { __typename?: 'Mutation', userOrganizationReminderSettingUpdate: { __typename?: 'OrganizationReminderSetting', id: string, due_date_mode: REMINDER_DUE_DATE_MODE, days_amount: number, repeat_mode?: REMINDER_REPEAT_MODE | null, repeat_value?: number | null, selected_hour: number, created_at: any, updated_at: any, organization_id: string, organization_customer_id?: string | null, organization_project_id?: string | null, organization_invoice_id?: string | null } };
+export type UserOrganizationReminderSettingUpdateMutation = { userOrganizationReminderSettingUpdate: { id: string, due_date_mode: REMINDER_DUE_DATE_MODE, days_amount: number, repeat_mode: REMINDER_REPEAT_MODE | null, repeat_value: number | null, selected_hour: number, created_at: unknown, updated_at: unknown, organization_id: string, organization_customer_id: string | null, organization_project_id: string | null, organization_invoice_id: string | null } };
 
 export type UserOrganizationReminderSettingDeleteMutationVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationReminderSettingId: Scalars['String']['input'];
+  organizationId: string;
+  organizationReminderSettingId: string;
 }>;
 
 
-export type UserOrganizationReminderSettingDeleteMutation = { __typename?: 'Mutation', userOrganizationReminderSettingDelete: { __typename?: 'OrganizationReminderSetting', id: string, due_date_mode: REMINDER_DUE_DATE_MODE, days_amount: number, repeat_mode?: REMINDER_REPEAT_MODE | null, repeat_value?: number | null, selected_hour: number, created_at: any, updated_at: any, organization_id: string, organization_customer_id?: string | null, organization_project_id?: string | null, organization_invoice_id?: string | null } };
+export type UserOrganizationReminderSettingDeleteMutation = { userOrganizationReminderSettingDelete: { id: string, due_date_mode: REMINDER_DUE_DATE_MODE, days_amount: number, repeat_mode: REMINDER_REPEAT_MODE | null, repeat_value: number | null, selected_hour: number, created_at: unknown, updated_at: unknown, organization_id: string, organization_customer_id: string | null, organization_project_id: string | null, organization_invoice_id: string | null } };
 
 export type UserOrganizationReminderSettingGlobalUpdateMutationVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  settingSendInvoiceDueReminders: Scalars['Boolean']['input'];
-  settingSendInvoiceOverdueReminders: Scalars['Boolean']['input'];
-  settingAllowInvoiceDueSnoozeReminders: Scalars['Boolean']['input'];
-  settingAllowInvoiceOverdueSnoozeReminders: Scalars['Boolean']['input'];
+  organizationId: string;
+  settingSendInvoiceDueReminders: boolean;
+  settingSendInvoiceOverdueReminders: boolean;
+  settingAllowInvoiceDueSnoozeReminders: boolean;
+  settingAllowInvoiceOverdueSnoozeReminders: boolean;
 }>;
 
 
-export type UserOrganizationReminderSettingGlobalUpdateMutation = { __typename?: 'Mutation', userOrganizationReminderSettingGlobalUpdate: { __typename?: 'Organization', setting_send_invoice_due_reminders?: boolean | null, setting_send_invoice_overdue_reminders?: boolean | null, setting_allow_invoice_due_snooze_reminders?: boolean | null, setting_allow_invoice_overdue_snooze_reminders?: boolean | null } };
+export type UserOrganizationReminderSettingGlobalUpdateMutation = { userOrganizationReminderSettingGlobalUpdate: { setting_send_invoice_due_reminders: boolean | null, setting_send_invoice_overdue_reminders: boolean | null, setting_allow_invoice_due_snooze_reminders: boolean | null, setting_allow_invoice_overdue_snooze_reminders: boolean | null } };
 
-export type BatchItemResultFragmentFragment = { __typename?: 'BatchOperationResult', total: number, failureCount: number, successCount: number, results: Array<{ __typename?: 'BatchItemResult', id: string, data?: any | null, success: boolean, error?: { __typename?: 'BatchItemError', code: string, details?: any | null, message: string } | null }> };
+export type BatchItemResultFragmentFragment = { total: number, failureCount: number, successCount: number, results: Array<{ id: string, data: unknown, success: boolean, error: { code: string, details: unknown, message: string } | null }> };
 
 export type UserCustomerOrganizationStatementQueryVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationVendorId: Scalars['String']['input'];
-  type?: InputMaybe<STATEMENT_LINE_TYPE>;
-  currency?: InputMaybe<CURRENCY>;
-  startDate?: InputMaybe<Scalars['DateTime']['input']>;
-  endDate?: InputMaybe<Scalars['DateTime']['input']>;
-  isOverdue?: InputMaybe<Scalars['Boolean']['input']>;
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema> | SortingFieldSchema>;
-  statementSessionToken?: InputMaybe<Scalars['String']['input']>;
+  organizationId: string;
+  organizationVendorId: string;
+  type?: STATEMENT_LINE_TYPE | null | undefined;
+  currency?: CURRENCY | null | undefined;
+  startDate?: unknown;
+  endDate?: unknown;
+  isOverdue?: boolean | null | undefined;
+  after?: unknown;
+  first?: number | null | undefined;
+  before?: unknown;
+  last?: number | null | undefined;
+  skip?: number | null | undefined;
+  take?: number | null | undefined;
+  sorting?: Array<SortingFieldSchema> | SortingFieldSchema | null | undefined;
+  statementSessionToken?: string | null | undefined;
 }>;
 
 
-export type UserCustomerOrganizationStatementQuery = { __typename?: 'Query', userCustomerOrganizationStatement: { __typename?: 'OrganizationCustomerStatement', vendor_organization_id: string, vendor_organization_customer_id: string, customer_organization_id?: string | null, total_amount: bigint, paid_amount: bigint, overdue_amount: bigint, balance: bigint, current_balance: bigint, start_date?: any | null, end_date?: any | null, due_start_date?: any | null, due_end_date?: any | null, currency?: CURRENCY | null, has_sync_errors?: boolean | null, has_mismatching_balance?: boolean | null, acct_provider?: ACCT_PROVIDER | null, is_acct_provider_connected?: boolean | null, last_sync_at?: any | null, latest_acct_provider_balance?: bigint | null, one_to_thirty_days_due_amount?: bigint | null, thirty_one_to_sixty_days_due_amount?: bigint | null, sixty_plus_days_due_amount?: bigint | null, latest_acct_provider_one_to_thirty_days_due_amount?: bigint | null, latest_acct_provider_thirty_one_to_sixty_days_due_amount?: bigint | null, latest_acct_provider_sixty_plus_days_due_amount?: bigint | null, total_open_invoice_count: number, total_overdue_invoice_count: number, statement_session_token?: string | null, vendor_organization: { __typename?: 'Organization', name: string, email: string, phone_number?: string | null, address_line_1?: string | null, address_number?: string | null, address_line_2?: string | null, address_city?: string | null, address_state?: string | null, address_zip_code?: string | null, address_country_code_iso_3?: COUNTRY_ISO_3 | null, address_lat?: number | null, address_lng?: number | null, logo_picture_file?: { __typename?: 'File', public_url?: string | null } | null }, vendor_organization_customer: { __typename?: 'OrganizationCustomer', name: string, email?: string | null }, customer_organization?: { __typename?: 'Organization', name: string, email: string } | null, data: { __typename?: 'OrganizationCustomerStatementLineDataPaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationCustomerStatementLineDataPaginationEdge', cursor: any, node:
-          | { __typename?: 'OrganizationCustomerStatementInvoiceLine', id: string, amount: bigint, code?: string | null, created_at: any, currency_code: CURRENCY, date: any, due_date: any, organization_customer_id: string, organization_invoice_id: string, paid_amount: bigint, running_balance: bigint, invoice_status: string, type: STATEMENT_LINE_TYPE, updated_at: any, organization_invoice: { __typename?: 'OrganizationCustomerStatementInvoiceLineData', provider: ACCT_PROVIDER, provider_code: string, view_url?: string | null, payment_options: Array<{ __typename?: 'OrganizationInvoicePaymentOption', method: PAYMENT_METHOD, url?: string | null, payload?: any | null }> } }
-          | { __typename?: 'OrganizationCustomerStatementTransactionLine', amount: bigint, code?: string | null, created_at: any, currency_code: CURRENCY, date: any, due_date: any, id: string, organization_customer_id: string, organization_invoice_transaction_id: string, paid_amount: bigint, running_balance: bigint, transaction_status: string, type: STATEMENT_LINE_TYPE, updated_at: any, organization_invoice_transaction: { __typename?: 'OrganizationCustomerStatementTransactionLineData', provider: ACCT_PROVIDER, provider_code: string, links: Array<{ __typename?: 'OrganizationInvoiceTransactionLink', id: string, amount: bigint, organization_invoice_id: string }> } }
-         }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } };
+export type UserCustomerOrganizationStatementQuery = { userCustomerOrganizationStatement: { vendor_organization_id: string, vendor_organization_customer_id: string, customer_organization_id: string | null, total_amount: bigint, paid_amount: bigint, overdue_amount: bigint, balance: bigint, current_balance: bigint, start_date: unknown, end_date: unknown, due_start_date: unknown, due_end_date: unknown, currency: CURRENCY | null, has_sync_errors: boolean | null, has_mismatching_balance: boolean | null, acct_provider: ACCT_PROVIDER | null, is_acct_provider_connected: boolean | null, last_sync_at: unknown, latest_acct_provider_balance: bigint | null, one_to_thirty_days_due_amount: bigint | null, thirty_one_to_sixty_days_due_amount: bigint | null, sixty_plus_days_due_amount: bigint | null, latest_acct_provider_one_to_thirty_days_due_amount: bigint | null, latest_acct_provider_thirty_one_to_sixty_days_due_amount: bigint | null, latest_acct_provider_sixty_plus_days_due_amount: bigint | null, total_open_invoice_count: number, total_overdue_invoice_count: number, statement_session_token: string | null, vendor_organization: { name: string, email: string, phone_number: string | null, address_line_1: string | null, address_number: string | null, address_line_2: string | null, address_city: string | null, address_state: string | null, address_zip_code: string | null, address_country_code_iso_3: COUNTRY_ISO_3 | null, address_lat: number | null, address_lng: number | null, logo_picture_file: { public_url: string | null } | null }, vendor_organization_customer: { name: string, email: string | null }, customer_organization: { name: string, email: string } | null, data: { totalCount: number, edges: Array<{ cursor: unknown, node:
+          | { id: string, amount: bigint, code: string | null, created_at: unknown, currency_code: CURRENCY, date: unknown, due_date: unknown, organization_customer_id: string, organization_invoice_id: string, paid_amount: bigint, running_balance: bigint, invoice_status: string, type: STATEMENT_LINE_TYPE, updated_at: unknown, organization_invoice: { provider: ACCT_PROVIDER, provider_code: string, view_url: string | null, payment_options: Array<{ method: PAYMENT_METHOD, url: string | null, payload: unknown }> } }
+          | { amount: bigint, code: string | null, created_at: unknown, currency_code: CURRENCY, date: unknown, due_date: unknown, id: string, organization_customer_id: string, organization_invoice_transaction_id: string, paid_amount: bigint, running_balance: bigint, transaction_status: string, type: STATEMENT_LINE_TYPE, updated_at: unknown, organization_invoice_transaction: { provider: ACCT_PROVIDER, provider_code: string, links: Array<{ id: string, amount: bigint, organization_invoice_id: string }> } }
+         }>, pageInfo: { startCursor: string | null, endCursor: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } };
 
 export type UserCustomerOrganizationStatementLineQueryVariables = Exact<{
-  organizationCustomerStatementLineId?: InputMaybe<Scalars['Int']['input']>;
-  organizationId: Scalars['String']['input'];
-  organizationInvoiceId?: InputMaybe<Scalars['String']['input']>;
-  organizationInvoiceTransactionId?: InputMaybe<Scalars['String']['input']>;
-  organizationVendorId: Scalars['String']['input'];
+  organizationCustomerStatementLineId?: number | null | undefined;
+  organizationId: string;
+  organizationInvoiceId?: string | null | undefined;
+  organizationInvoiceTransactionId?: string | null | undefined;
+  organizationVendorId: string;
 }>;
 
 
-export type UserCustomerOrganizationStatementLineQuery = { __typename?: 'Query', userCustomerOrganizationStatementLine:
-    | { __typename?: 'OrganizationCustomerStatementInvoiceLine', id: string, amount: bigint, code?: string | null, created_at: any, currency_code: CURRENCY, date: any, due_date: any, organization_customer_id: string, organization_invoice_id: string, paid_amount: bigint, running_balance: bigint, invoice_status: string, type: STATEMENT_LINE_TYPE, updated_at: any, organization_invoice: { __typename?: 'OrganizationCustomerStatementInvoiceLineData', provider: ACCT_PROVIDER, provider_code: string, view_url?: string | null, payment_options: Array<{ __typename?: 'OrganizationInvoicePaymentOption', method: PAYMENT_METHOD, url?: string | null, payload?: any | null }> } }
-    | { __typename?: 'OrganizationCustomerStatementTransactionLine', amount: bigint, code?: string | null, created_at: any, currency_code: CURRENCY, date: any, due_date: any, id: string, organization_customer_id: string, organization_invoice_transaction_id: string, paid_amount: bigint, running_balance: bigint, transaction_status: string, type: STATEMENT_LINE_TYPE, updated_at: any, organization_invoice_transaction: { __typename?: 'OrganizationCustomerStatementTransactionLineData', provider: ACCT_PROVIDER, provider_code: string, links: Array<{ __typename?: 'OrganizationInvoiceTransactionLink', id: string, amount: bigint, organization_invoice_id: string }> } }
+export type UserCustomerOrganizationStatementLineQuery = { userCustomerOrganizationStatementLine:
+    | { id: string, amount: bigint, code: string | null, created_at: unknown, currency_code: CURRENCY, date: unknown, due_date: unknown, organization_customer_id: string, organization_invoice_id: string, paid_amount: bigint, running_balance: bigint, invoice_status: string, type: STATEMENT_LINE_TYPE, updated_at: unknown, organization_invoice: { provider: ACCT_PROVIDER, provider_code: string, view_url: string | null, payment_options: Array<{ method: PAYMENT_METHOD, url: string | null, payload: unknown }> } }
+    | { amount: bigint, code: string | null, created_at: unknown, currency_code: CURRENCY, date: unknown, due_date: unknown, id: string, organization_customer_id: string, organization_invoice_transaction_id: string, paid_amount: bigint, running_balance: bigint, transaction_status: string, type: STATEMENT_LINE_TYPE, updated_at: unknown, organization_invoice_transaction: { provider: ACCT_PROVIDER, provider_code: string, links: Array<{ id: string, amount: bigint, organization_invoice_id: string }> } }
    };
 
 export type UserCustomerOrganizationStatementLineGetPDFMutationVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationVendorId: Scalars['String']['input'];
-  organizationCustomerStatementLineId: Scalars['Int']['input'];
-  acctProvider?: InputMaybe<ACCT_PROVIDER>;
+  organizationId: string;
+  organizationVendorId: string;
+  organizationCustomerStatementLineId: number;
+  acctProvider?: ACCT_PROVIDER | null | undefined;
 }>;
 
 
-export type UserCustomerOrganizationStatementLineGetPDFMutation = { __typename?: 'Mutation', userCustomerOrganizationStatementLineGetPDF: string };
+export type UserCustomerOrganizationStatementLineGetPDFMutation = { userCustomerOrganizationStatementLineGetPDF: string };
 
 export type UserCustomerOrganizationSynchronizeMutationVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationVendorId: Scalars['String']['input'];
+  organizationId: string;
+  organizationVendorId: string;
 }>;
 
 
-export type UserCustomerOrganizationSynchronizeMutation = { __typename?: 'Mutation', userCustomerOrganizationSynchronize: any };
+export type UserCustomerOrganizationSynchronizeMutation = { userCustomerOrganizationSynchronize: unknown };
 
 export type UnconnectedCustomerOrganizationStatementQueryVariables = Exact<{
-  uniqueCode: Scalars['String']['input'];
-  token: Scalars['String']['input'];
-  type?: InputMaybe<STATEMENT_LINE_TYPE>;
-  currency?: InputMaybe<CURRENCY>;
-  startDate?: InputMaybe<Scalars['DateTime']['input']>;
-  endDate?: InputMaybe<Scalars['DateTime']['input']>;
-  isOverdue?: InputMaybe<Scalars['Boolean']['input']>;
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema> | SortingFieldSchema>;
-  statementSessionToken?: InputMaybe<Scalars['String']['input']>;
+  uniqueCode: string;
+  token: string;
+  type?: STATEMENT_LINE_TYPE | null | undefined;
+  currency?: CURRENCY | null | undefined;
+  startDate?: unknown;
+  endDate?: unknown;
+  isOverdue?: boolean | null | undefined;
+  after?: unknown;
+  first?: number | null | undefined;
+  before?: unknown;
+  last?: number | null | undefined;
+  skip?: number | null | undefined;
+  take?: number | null | undefined;
+  sorting?: Array<SortingFieldSchema> | SortingFieldSchema | null | undefined;
+  statementSessionToken?: string | null | undefined;
 }>;
 
 
-export type UnconnectedCustomerOrganizationStatementQuery = { __typename?: 'Query', unconnectedCustomerOrganizationStatement: { __typename?: 'OrganizationCustomerStatement', vendor_organization_id: string, vendor_organization_customer_id: string, customer_organization_id?: string | null, total_amount: bigint, paid_amount: bigint, overdue_amount: bigint, balance: bigint, current_balance: bigint, start_date?: any | null, end_date?: any | null, due_start_date?: any | null, due_end_date?: any | null, currency?: CURRENCY | null, has_sync_errors?: boolean | null, has_mismatching_balance?: boolean | null, acct_provider?: ACCT_PROVIDER | null, is_acct_provider_connected?: boolean | null, last_sync_at?: any | null, latest_acct_provider_balance?: bigint | null, one_to_thirty_days_due_amount?: bigint | null, thirty_one_to_sixty_days_due_amount?: bigint | null, sixty_plus_days_due_amount?: bigint | null, latest_acct_provider_one_to_thirty_days_due_amount?: bigint | null, latest_acct_provider_thirty_one_to_sixty_days_due_amount?: bigint | null, latest_acct_provider_sixty_plus_days_due_amount?: bigint | null, total_open_invoice_count: number, total_overdue_invoice_count: number, statement_session_token?: string | null, vendor_organization: { __typename?: 'Organization', name: string, email: string, phone_number?: string | null, address_line_1?: string | null, address_number?: string | null, address_line_2?: string | null, address_city?: string | null, address_state?: string | null, address_zip_code?: string | null, address_country_code_iso_3?: COUNTRY_ISO_3 | null, address_lat?: number | null, address_lng?: number | null, logo_picture_file?: { __typename?: 'File', public_url?: string | null } | null }, vendor_organization_customer: { __typename?: 'OrganizationCustomer', name: string, email?: string | null }, customer_organization?: { __typename?: 'Organization', name: string, email: string } | null, data: { __typename?: 'OrganizationCustomerStatementLineDataPaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationCustomerStatementLineDataPaginationEdge', cursor: any, node:
-          | { __typename?: 'OrganizationCustomerStatementInvoiceLine', id: string, amount: bigint, code?: string | null, created_at: any, currency_code: CURRENCY, date: any, due_date: any, organization_customer_id: string, organization_invoice_id: string, paid_amount: bigint, running_balance: bigint, invoice_status: string, type: STATEMENT_LINE_TYPE, updated_at: any, organization_invoice: { __typename?: 'OrganizationCustomerStatementInvoiceLineData', provider: ACCT_PROVIDER, provider_code: string, view_url?: string | null, payment_options: Array<{ __typename?: 'OrganizationInvoicePaymentOption', method: PAYMENT_METHOD, url?: string | null, payload?: any | null }> } }
-          | { __typename?: 'OrganizationCustomerStatementTransactionLine', amount: bigint, code?: string | null, created_at: any, currency_code: CURRENCY, date: any, due_date: any, id: string, organization_customer_id: string, organization_invoice_transaction_id: string, paid_amount: bigint, running_balance: bigint, transaction_status: string, type: STATEMENT_LINE_TYPE, updated_at: any, organization_invoice_transaction: { __typename?: 'OrganizationCustomerStatementTransactionLineData', provider: ACCT_PROVIDER, provider_code: string, links: Array<{ __typename?: 'OrganizationInvoiceTransactionLink', id: string, amount: bigint, organization_invoice_id: string }> } }
-         }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } };
+export type UnconnectedCustomerOrganizationStatementQuery = { unconnectedCustomerOrganizationStatement: { vendor_organization_id: string, vendor_organization_customer_id: string, customer_organization_id: string | null, total_amount: bigint, paid_amount: bigint, overdue_amount: bigint, balance: bigint, current_balance: bigint, start_date: unknown, end_date: unknown, due_start_date: unknown, due_end_date: unknown, currency: CURRENCY | null, has_sync_errors: boolean | null, has_mismatching_balance: boolean | null, acct_provider: ACCT_PROVIDER | null, is_acct_provider_connected: boolean | null, last_sync_at: unknown, latest_acct_provider_balance: bigint | null, one_to_thirty_days_due_amount: bigint | null, thirty_one_to_sixty_days_due_amount: bigint | null, sixty_plus_days_due_amount: bigint | null, latest_acct_provider_one_to_thirty_days_due_amount: bigint | null, latest_acct_provider_thirty_one_to_sixty_days_due_amount: bigint | null, latest_acct_provider_sixty_plus_days_due_amount: bigint | null, total_open_invoice_count: number, total_overdue_invoice_count: number, statement_session_token: string | null, vendor_organization: { name: string, email: string, phone_number: string | null, address_line_1: string | null, address_number: string | null, address_line_2: string | null, address_city: string | null, address_state: string | null, address_zip_code: string | null, address_country_code_iso_3: COUNTRY_ISO_3 | null, address_lat: number | null, address_lng: number | null, logo_picture_file: { public_url: string | null } | null }, vendor_organization_customer: { name: string, email: string | null }, customer_organization: { name: string, email: string } | null, data: { totalCount: number, edges: Array<{ cursor: unknown, node:
+          | { id: string, amount: bigint, code: string | null, created_at: unknown, currency_code: CURRENCY, date: unknown, due_date: unknown, organization_customer_id: string, organization_invoice_id: string, paid_amount: bigint, running_balance: bigint, invoice_status: string, type: STATEMENT_LINE_TYPE, updated_at: unknown, organization_invoice: { provider: ACCT_PROVIDER, provider_code: string, view_url: string | null, payment_options: Array<{ method: PAYMENT_METHOD, url: string | null, payload: unknown }> } }
+          | { amount: bigint, code: string | null, created_at: unknown, currency_code: CURRENCY, date: unknown, due_date: unknown, id: string, organization_customer_id: string, organization_invoice_transaction_id: string, paid_amount: bigint, running_balance: bigint, transaction_status: string, type: STATEMENT_LINE_TYPE, updated_at: unknown, organization_invoice_transaction: { provider: ACCT_PROVIDER, provider_code: string, links: Array<{ id: string, amount: bigint, organization_invoice_id: string }> } }
+         }>, pageInfo: { startCursor: string | null, endCursor: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } };
 
 export type UnconnectedCustomerOrganizationStatementLineQueryVariables = Exact<{
-  organizationCustomerStatementLineId?: InputMaybe<Scalars['Int']['input']>;
-  organizationId?: InputMaybe<Scalars['String']['input']>;
-  organizationInvoiceId?: InputMaybe<Scalars['String']['input']>;
-  organizationInvoiceTransactionId?: InputMaybe<Scalars['String']['input']>;
-  token: Scalars['String']['input'];
-  uniqueCode: Scalars['String']['input'];
+  organizationCustomerStatementLineId?: number | null | undefined;
+  organizationId?: string | null | undefined;
+  organizationInvoiceId?: string | null | undefined;
+  organizationInvoiceTransactionId?: string | null | undefined;
+  token: string;
+  uniqueCode: string;
 }>;
 
 
-export type UnconnectedCustomerOrganizationStatementLineQuery = { __typename?: 'Query', unconnectedCustomerOrganizationStatementLine:
-    | { __typename?: 'OrganizationCustomerStatementInvoiceLine', id: string, amount: bigint, code?: string | null, created_at: any, currency_code: CURRENCY, date: any, due_date: any, organization_customer_id: string, organization_invoice_id: string, paid_amount: bigint, running_balance: bigint, invoice_status: string, type: STATEMENT_LINE_TYPE, updated_at: any, organization_invoice: { __typename?: 'OrganizationCustomerStatementInvoiceLineData', provider: ACCT_PROVIDER, provider_code: string, view_url?: string | null, payment_options: Array<{ __typename?: 'OrganizationInvoicePaymentOption', method: PAYMENT_METHOD, url?: string | null, payload?: any | null }> } }
-    | { __typename?: 'OrganizationCustomerStatementTransactionLine', amount: bigint, code?: string | null, created_at: any, currency_code: CURRENCY, date: any, due_date: any, id: string, organization_customer_id: string, organization_invoice_transaction_id: string, paid_amount: bigint, running_balance: bigint, transaction_status: string, type: STATEMENT_LINE_TYPE, updated_at: any, organization_invoice_transaction: { __typename?: 'OrganizationCustomerStatementTransactionLineData', provider: ACCT_PROVIDER, provider_code: string, links: Array<{ __typename?: 'OrganizationInvoiceTransactionLink', id: string, amount: bigint, organization_invoice_id: string }> } }
+export type UnconnectedCustomerOrganizationStatementLineQuery = { unconnectedCustomerOrganizationStatementLine:
+    | { id: string, amount: bigint, code: string | null, created_at: unknown, currency_code: CURRENCY, date: unknown, due_date: unknown, organization_customer_id: string, organization_invoice_id: string, paid_amount: bigint, running_balance: bigint, invoice_status: string, type: STATEMENT_LINE_TYPE, updated_at: unknown, organization_invoice: { provider: ACCT_PROVIDER, provider_code: string, view_url: string | null, payment_options: Array<{ method: PAYMENT_METHOD, url: string | null, payload: unknown }> } }
+    | { amount: bigint, code: string | null, created_at: unknown, currency_code: CURRENCY, date: unknown, due_date: unknown, id: string, organization_customer_id: string, organization_invoice_transaction_id: string, paid_amount: bigint, running_balance: bigint, transaction_status: string, type: STATEMENT_LINE_TYPE, updated_at: unknown, organization_invoice_transaction: { provider: ACCT_PROVIDER, provider_code: string, links: Array<{ id: string, amount: bigint, organization_invoice_id: string }> } }
    };
 
 export type UnconnectedCustomerOrganizationStatementLineGetPDFMutationVariables = Exact<{
-  uniqueCode: Scalars['String']['input'];
-  token: Scalars['String']['input'];
-  organizationCustomerStatementLineId: Scalars['Int']['input'];
-  acctProvider?: InputMaybe<ACCT_PROVIDER>;
+  uniqueCode: string;
+  token: string;
+  organizationCustomerStatementLineId: number;
+  acctProvider?: ACCT_PROVIDER | null | undefined;
 }>;
 
 
-export type UnconnectedCustomerOrganizationStatementLineGetPDFMutation = { __typename?: 'Mutation', unconnectedCustomerOrganizationStatementLineGetPDF: string };
+export type UnconnectedCustomerOrganizationStatementLineGetPDFMutation = { unconnectedCustomerOrganizationStatementLineGetPDF: string };
 
 export type UnconnectedCustomerSynchronizeMutationVariables = Exact<{
-  uniqueCode: Scalars['String']['input'];
-  token: Scalars['String']['input'];
+  uniqueCode: string;
+  token: string;
 }>;
 
 
-export type UnconnectedCustomerSynchronizeMutation = { __typename?: 'Mutation', unconnectedCustomerSynchronize: any };
+export type UnconnectedCustomerSynchronizeMutation = { unconnectedCustomerSynchronize: unknown };
 
 export type UnconnectedCustomerOrganizationStatementRequestTokenMutationVariables = Exact<{
-  uniqueCode: Scalars['String']['input'];
+  uniqueCode: string;
 }>;
 
 
-export type UnconnectedCustomerOrganizationStatementRequestTokenMutation = { __typename?: 'Mutation', unconnectedCustomerOrganizationStatementRequestToken: any };
+export type UnconnectedCustomerOrganizationStatementRequestTokenMutation = { unconnectedCustomerOrganizationStatementRequestToken: unknown };
 
 export type UserOrganizationCustomerStatementQueryVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationCustomerId: Scalars['String']['input'];
-  type?: InputMaybe<STATEMENT_LINE_TYPE>;
-  currency?: InputMaybe<CURRENCY>;
-  startDate?: InputMaybe<Scalars['DateTime']['input']>;
-  endDate?: InputMaybe<Scalars['DateTime']['input']>;
-  isOverdue?: InputMaybe<Scalars['Boolean']['input']>;
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema> | SortingFieldSchema>;
+  organizationId: string;
+  organizationCustomerId: string;
+  type?: STATEMENT_LINE_TYPE | null | undefined;
+  currency?: CURRENCY | null | undefined;
+  startDate?: unknown;
+  endDate?: unknown;
+  isOverdue?: boolean | null | undefined;
+  after?: unknown;
+  first?: number | null | undefined;
+  before?: unknown;
+  last?: number | null | undefined;
+  skip?: number | null | undefined;
+  take?: number | null | undefined;
+  sorting?: Array<SortingFieldSchema> | SortingFieldSchema | null | undefined;
 }>;
 
 
-export type UserOrganizationCustomerStatementQuery = { __typename?: 'Query', userOrganizationCustomerStatement: { __typename?: 'OrganizationCustomerStatement', vendor_organization_id: string, vendor_organization_customer_id: string, customer_organization_id?: string | null, total_amount: bigint, paid_amount: bigint, overdue_amount: bigint, balance: bigint, current_balance: bigint, start_date?: any | null, end_date?: any | null, due_start_date?: any | null, due_end_date?: any | null, currency?: CURRENCY | null, has_sync_errors?: boolean | null, has_mismatching_balance?: boolean | null, acct_provider?: ACCT_PROVIDER | null, is_acct_provider_connected?: boolean | null, last_sync_at?: any | null, latest_acct_provider_balance?: bigint | null, one_to_thirty_days_due_amount?: bigint | null, thirty_one_to_sixty_days_due_amount?: bigint | null, sixty_plus_days_due_amount?: bigint | null, latest_acct_provider_one_to_thirty_days_due_amount?: bigint | null, latest_acct_provider_thirty_one_to_sixty_days_due_amount?: bigint | null, latest_acct_provider_sixty_plus_days_due_amount?: bigint | null, total_open_invoice_count: number, total_overdue_invoice_count: number, statement_session_token?: string | null, vendor_organization: { __typename?: 'Organization', name: string, email: string, phone_number?: string | null, address_line_1?: string | null, address_number?: string | null, address_line_2?: string | null, address_city?: string | null, address_state?: string | null, address_zip_code?: string | null, address_country_code_iso_3?: COUNTRY_ISO_3 | null, address_lat?: number | null, address_lng?: number | null, logo_picture_file?: { __typename?: 'File', public_url?: string | null } | null }, vendor_organization_customer: { __typename?: 'OrganizationCustomer', name: string, email?: string | null }, customer_organization?: { __typename?: 'Organization', name: string, email: string } | null, data: { __typename?: 'OrganizationCustomerStatementLineDataPaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationCustomerStatementLineDataPaginationEdge', cursor: any, node:
-          | { __typename?: 'OrganizationCustomerStatementInvoiceLine', id: string, amount: bigint, code?: string | null, created_at: any, currency_code: CURRENCY, date: any, due_date: any, organization_customer_id: string, organization_invoice_id: string, paid_amount: bigint, running_balance: bigint, invoice_status: string, type: STATEMENT_LINE_TYPE, updated_at: any, organization_invoice: { __typename?: 'OrganizationCustomerStatementInvoiceLineData', provider: ACCT_PROVIDER, provider_code: string, view_url?: string | null, payment_options: Array<{ __typename?: 'OrganizationInvoicePaymentOption', method: PAYMENT_METHOD, url?: string | null, payload?: any | null }> } }
-          | { __typename?: 'OrganizationCustomerStatementTransactionLine', amount: bigint, code?: string | null, created_at: any, currency_code: CURRENCY, date: any, due_date: any, id: string, organization_customer_id: string, organization_invoice_transaction_id: string, paid_amount: bigint, running_balance: bigint, transaction_status: string, type: STATEMENT_LINE_TYPE, updated_at: any, organization_invoice_transaction: { __typename?: 'OrganizationCustomerStatementTransactionLineData', provider: ACCT_PROVIDER, provider_code: string, links: Array<{ __typename?: 'OrganizationInvoiceTransactionLink', id: string, amount: bigint, organization_invoice_id: string }> } }
-         }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } };
+export type UserOrganizationCustomerStatementQuery = { userOrganizationCustomerStatement: { vendor_organization_id: string, vendor_organization_customer_id: string, customer_organization_id: string | null, total_amount: bigint, paid_amount: bigint, overdue_amount: bigint, balance: bigint, current_balance: bigint, start_date: unknown, end_date: unknown, due_start_date: unknown, due_end_date: unknown, currency: CURRENCY | null, has_sync_errors: boolean | null, has_mismatching_balance: boolean | null, acct_provider: ACCT_PROVIDER | null, is_acct_provider_connected: boolean | null, last_sync_at: unknown, latest_acct_provider_balance: bigint | null, one_to_thirty_days_due_amount: bigint | null, thirty_one_to_sixty_days_due_amount: bigint | null, sixty_plus_days_due_amount: bigint | null, latest_acct_provider_one_to_thirty_days_due_amount: bigint | null, latest_acct_provider_thirty_one_to_sixty_days_due_amount: bigint | null, latest_acct_provider_sixty_plus_days_due_amount: bigint | null, total_open_invoice_count: number, total_overdue_invoice_count: number, statement_session_token: string | null, vendor_organization: { name: string, email: string, phone_number: string | null, address_line_1: string | null, address_number: string | null, address_line_2: string | null, address_city: string | null, address_state: string | null, address_zip_code: string | null, address_country_code_iso_3: COUNTRY_ISO_3 | null, address_lat: number | null, address_lng: number | null, logo_picture_file: { public_url: string | null } | null }, vendor_organization_customer: { name: string, email: string | null }, customer_organization: { name: string, email: string } | null, data: { totalCount: number, edges: Array<{ cursor: unknown, node:
+          | { id: string, amount: bigint, code: string | null, created_at: unknown, currency_code: CURRENCY, date: unknown, due_date: unknown, organization_customer_id: string, organization_invoice_id: string, paid_amount: bigint, running_balance: bigint, invoice_status: string, type: STATEMENT_LINE_TYPE, updated_at: unknown, organization_invoice: { provider: ACCT_PROVIDER, provider_code: string, view_url: string | null, payment_options: Array<{ method: PAYMENT_METHOD, url: string | null, payload: unknown }> } }
+          | { amount: bigint, code: string | null, created_at: unknown, currency_code: CURRENCY, date: unknown, due_date: unknown, id: string, organization_customer_id: string, organization_invoice_transaction_id: string, paid_amount: bigint, running_balance: bigint, transaction_status: string, type: STATEMENT_LINE_TYPE, updated_at: unknown, organization_invoice_transaction: { provider: ACCT_PROVIDER, provider_code: string, links: Array<{ id: string, amount: bigint, organization_invoice_id: string }> } }
+         }>, pageInfo: { startCursor: string | null, endCursor: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } };
 
 export type UserOrganizationCustomerStatementLineQueryVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationCustomerId: Scalars['String']['input'];
-  organizationCustomerStatementLineId?: InputMaybe<Scalars['Int']['input']>;
-  organizationInvoiceId?: InputMaybe<Scalars['String']['input']>;
-  organizationInvoiceTransactionId?: InputMaybe<Scalars['String']['input']>;
+  organizationId: string;
+  organizationCustomerId: string;
+  organizationCustomerStatementLineId?: number | null | undefined;
+  organizationInvoiceId?: string | null | undefined;
+  organizationInvoiceTransactionId?: string | null | undefined;
 }>;
 
 
-export type UserOrganizationCustomerStatementLineQuery = { __typename?: 'Query', userOrganizationCustomerStatementLine:
-    | { __typename?: 'OrganizationCustomerStatementInvoiceLine', id: string, amount: bigint, code?: string | null, created_at: any, currency_code: CURRENCY, date: any, due_date: any, organization_customer_id: string, organization_invoice_id: string, paid_amount: bigint, running_balance: bigint, invoice_status: string, type: STATEMENT_LINE_TYPE, updated_at: any, organization_invoice: { __typename?: 'OrganizationCustomerStatementInvoiceLineData', provider: ACCT_PROVIDER, provider_code: string, view_url?: string | null, payment_options: Array<{ __typename?: 'OrganizationInvoicePaymentOption', method: PAYMENT_METHOD, url?: string | null, payload?: any | null }> } }
-    | { __typename?: 'OrganizationCustomerStatementTransactionLine', amount: bigint, code?: string | null, created_at: any, currency_code: CURRENCY, date: any, due_date: any, id: string, organization_customer_id: string, organization_invoice_transaction_id: string, paid_amount: bigint, running_balance: bigint, transaction_status: string, type: STATEMENT_LINE_TYPE, updated_at: any, organization_invoice_transaction: { __typename?: 'OrganizationCustomerStatementTransactionLineData', provider: ACCT_PROVIDER, provider_code: string, links: Array<{ __typename?: 'OrganizationInvoiceTransactionLink', id: string, amount: bigint, organization_invoice_id: string }> } }
+export type UserOrganizationCustomerStatementLineQuery = { userOrganizationCustomerStatementLine:
+    | { id: string, amount: bigint, code: string | null, created_at: unknown, currency_code: CURRENCY, date: unknown, due_date: unknown, organization_customer_id: string, organization_invoice_id: string, paid_amount: bigint, running_balance: bigint, invoice_status: string, type: STATEMENT_LINE_TYPE, updated_at: unknown, organization_invoice: { provider: ACCT_PROVIDER, provider_code: string, view_url: string | null, payment_options: Array<{ method: PAYMENT_METHOD, url: string | null, payload: unknown }> } }
+    | { amount: bigint, code: string | null, created_at: unknown, currency_code: CURRENCY, date: unknown, due_date: unknown, id: string, organization_customer_id: string, organization_invoice_transaction_id: string, paid_amount: bigint, running_balance: bigint, transaction_status: string, type: STATEMENT_LINE_TYPE, updated_at: unknown, organization_invoice_transaction: { provider: ACCT_PROVIDER, provider_code: string, links: Array<{ id: string, amount: bigint, organization_invoice_id: string }> } }
    };
 
 export type UserOrganizationCustomerStatementLineGetPDFQueryVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationCustomerId: Scalars['String']['input'];
-  organizationCustomerStatementLineId: Scalars['Int']['input'];
-  acctProvider?: InputMaybe<ACCT_PROVIDER>;
+  organizationId: string;
+  organizationCustomerId: string;
+  organizationCustomerStatementLineId: number;
+  acctProvider?: ACCT_PROVIDER | null | undefined;
 }>;
 
 
-export type UserOrganizationCustomerStatementLineGetPDFQuery = { __typename?: 'Query', userOrganizationCustomerStatementLineGetPDF: string };
+export type UserOrganizationCustomerStatementLineGetPDFQuery = { userOrganizationCustomerStatementLineGetPDF: string };
 
 export type UserOrganizationCustomerSynchronizeMutationVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationCustomerId: Scalars['String']['input'];
+  organizationId: string;
+  organizationCustomerId: string;
 }>;
 
 
-export type UserOrganizationCustomerSynchronizeMutation = { __typename?: 'Mutation', userOrganizationCustomerSynchronize: Array<string> };
+export type UserOrganizationCustomerSynchronizeMutation = { userOrganizationCustomerSynchronize: Array<string> };
 
 export type UserOrganizationCustomerSendStatementEmailMutationVariables = Exact<{
   targets: Array<UserOrganizationCustomerSendStatementEmailSchema> | UserOrganizationCustomerSendStatementEmailSchema;
-  organizationId: Scalars['String']['input'];
+  organizationId: string;
 }>;
 
 
-export type UserOrganizationCustomerSendStatementEmailMutation = { __typename?: 'Mutation', userOrganizationCustomerSendStatementEmail: { __typename?: 'BatchOperationResult', total: number, failureCount: number, successCount: number, results: Array<{ __typename?: 'BatchItemResult', id: string, data?: any | null, success: boolean, error?: { __typename?: 'BatchItemError', code: string, details?: any | null, message: string } | null }> } };
+export type UserOrganizationCustomerSendStatementEmailMutation = { userOrganizationCustomerSendStatementEmail: { total: number, failureCount: number, successCount: number, results: Array<{ id: string, data: unknown, success: boolean, error: { code: string, details: unknown, message: string } | null }> } };
 
 export type UserOrganizationCustomerGetStatementLinkMutationVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationCustomerId: Scalars['String']['input'];
-  expiresAt?: InputMaybe<Scalars['DateTime']['input']>;
+  organizationId: string;
+  organizationCustomerId: string;
+  expiresAt?: unknown;
 }>;
 
 
-export type UserOrganizationCustomerGetStatementLinkMutation = { __typename?: 'Mutation', userOrganizationCustomerGetStatementLink: string };
+export type UserOrganizationCustomerGetStatementLinkMutation = { userOrganizationCustomerGetStatementLink: string };
 
-export type OrganizationCustomerStatementInvoiceLineFragmentFragment = { __typename?: 'OrganizationCustomerStatementInvoiceLine', id: string, amount: bigint, code?: string | null, created_at: any, currency_code: CURRENCY, date: any, due_date: any, organization_customer_id: string, organization_invoice_id: string, paid_amount: bigint, running_balance: bigint, invoice_status: string, type: STATEMENT_LINE_TYPE, updated_at: any, organization_invoice: { __typename?: 'OrganizationCustomerStatementInvoiceLineData', provider: ACCT_PROVIDER, provider_code: string, view_url?: string | null, payment_options: Array<{ __typename?: 'OrganizationInvoicePaymentOption', method: PAYMENT_METHOD, url?: string | null, payload?: any | null }> } };
+export type OrganizationCustomerStatementInvoiceLineFragmentFragment = { id: string, amount: bigint, code: string | null, created_at: unknown, currency_code: CURRENCY, date: unknown, due_date: unknown, organization_customer_id: string, organization_invoice_id: string, paid_amount: bigint, running_balance: bigint, invoice_status: string, type: STATEMENT_LINE_TYPE, updated_at: unknown, organization_invoice: { provider: ACCT_PROVIDER, provider_code: string, view_url: string | null, payment_options: Array<{ method: PAYMENT_METHOD, url: string | null, payload: unknown }> } };
 
-export type OrganizationCustomerStatementTransactionLineFragmentFragment = { __typename?: 'OrganizationCustomerStatementTransactionLine', amount: bigint, code?: string | null, created_at: any, currency_code: CURRENCY, date: any, due_date: any, id: string, organization_customer_id: string, organization_invoice_transaction_id: string, paid_amount: bigint, running_balance: bigint, transaction_status: string, type: STATEMENT_LINE_TYPE, updated_at: any, organization_invoice_transaction: { __typename?: 'OrganizationCustomerStatementTransactionLineData', provider: ACCT_PROVIDER, provider_code: string, links: Array<{ __typename?: 'OrganizationInvoiceTransactionLink', id: string, amount: bigint, organization_invoice_id: string }> } };
+export type OrganizationCustomerStatementTransactionLineFragmentFragment = { amount: bigint, code: string | null, created_at: unknown, currency_code: CURRENCY, date: unknown, due_date: unknown, id: string, organization_customer_id: string, organization_invoice_transaction_id: string, paid_amount: bigint, running_balance: bigint, transaction_status: string, type: STATEMENT_LINE_TYPE, updated_at: unknown, organization_invoice_transaction: { provider: ACCT_PROVIDER, provider_code: string, links: Array<{ id: string, amount: bigint, organization_invoice_id: string }> } };
 
-export type OrganizationCustomerStatementFragmentFragment = { __typename?: 'OrganizationCustomerStatement', vendor_organization_id: string, vendor_organization_customer_id: string, customer_organization_id?: string | null, total_amount: bigint, paid_amount: bigint, overdue_amount: bigint, balance: bigint, current_balance: bigint, start_date?: any | null, end_date?: any | null, due_start_date?: any | null, due_end_date?: any | null, currency?: CURRENCY | null, has_sync_errors?: boolean | null, has_mismatching_balance?: boolean | null, acct_provider?: ACCT_PROVIDER | null, is_acct_provider_connected?: boolean | null, last_sync_at?: any | null, latest_acct_provider_balance?: bigint | null, one_to_thirty_days_due_amount?: bigint | null, thirty_one_to_sixty_days_due_amount?: bigint | null, sixty_plus_days_due_amount?: bigint | null, latest_acct_provider_one_to_thirty_days_due_amount?: bigint | null, latest_acct_provider_thirty_one_to_sixty_days_due_amount?: bigint | null, latest_acct_provider_sixty_plus_days_due_amount?: bigint | null, total_open_invoice_count: number, total_overdue_invoice_count: number, statement_session_token?: string | null, vendor_organization: { __typename?: 'Organization', name: string, email: string, phone_number?: string | null, address_line_1?: string | null, address_number?: string | null, address_line_2?: string | null, address_city?: string | null, address_state?: string | null, address_zip_code?: string | null, address_country_code_iso_3?: COUNTRY_ISO_3 | null, address_lat?: number | null, address_lng?: number | null, logo_picture_file?: { __typename?: 'File', public_url?: string | null } | null }, vendor_organization_customer: { __typename?: 'OrganizationCustomer', name: string, email?: string | null }, customer_organization?: { __typename?: 'Organization', name: string, email: string } | null, data: { __typename?: 'OrganizationCustomerStatementLineDataPaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationCustomerStatementLineDataPaginationEdge', cursor: any, node:
-        | { __typename?: 'OrganizationCustomerStatementInvoiceLine', id: string, amount: bigint, code?: string | null, created_at: any, currency_code: CURRENCY, date: any, due_date: any, organization_customer_id: string, organization_invoice_id: string, paid_amount: bigint, running_balance: bigint, invoice_status: string, type: STATEMENT_LINE_TYPE, updated_at: any, organization_invoice: { __typename?: 'OrganizationCustomerStatementInvoiceLineData', provider: ACCT_PROVIDER, provider_code: string, view_url?: string | null, payment_options: Array<{ __typename?: 'OrganizationInvoicePaymentOption', method: PAYMENT_METHOD, url?: string | null, payload?: any | null }> } }
-        | { __typename?: 'OrganizationCustomerStatementTransactionLine', amount: bigint, code?: string | null, created_at: any, currency_code: CURRENCY, date: any, due_date: any, id: string, organization_customer_id: string, organization_invoice_transaction_id: string, paid_amount: bigint, running_balance: bigint, transaction_status: string, type: STATEMENT_LINE_TYPE, updated_at: any, organization_invoice_transaction: { __typename?: 'OrganizationCustomerStatementTransactionLineData', provider: ACCT_PROVIDER, provider_code: string, links: Array<{ __typename?: 'OrganizationInvoiceTransactionLink', id: string, amount: bigint, organization_invoice_id: string }> } }
-       }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } };
+export type OrganizationCustomerStatementFragmentFragment = { vendor_organization_id: string, vendor_organization_customer_id: string, customer_organization_id: string | null, total_amount: bigint, paid_amount: bigint, overdue_amount: bigint, balance: bigint, current_balance: bigint, start_date: unknown, end_date: unknown, due_start_date: unknown, due_end_date: unknown, currency: CURRENCY | null, has_sync_errors: boolean | null, has_mismatching_balance: boolean | null, acct_provider: ACCT_PROVIDER | null, is_acct_provider_connected: boolean | null, last_sync_at: unknown, latest_acct_provider_balance: bigint | null, one_to_thirty_days_due_amount: bigint | null, thirty_one_to_sixty_days_due_amount: bigint | null, sixty_plus_days_due_amount: bigint | null, latest_acct_provider_one_to_thirty_days_due_amount: bigint | null, latest_acct_provider_thirty_one_to_sixty_days_due_amount: bigint | null, latest_acct_provider_sixty_plus_days_due_amount: bigint | null, total_open_invoice_count: number, total_overdue_invoice_count: number, statement_session_token: string | null, vendor_organization: { name: string, email: string, phone_number: string | null, address_line_1: string | null, address_number: string | null, address_line_2: string | null, address_city: string | null, address_state: string | null, address_zip_code: string | null, address_country_code_iso_3: COUNTRY_ISO_3 | null, address_lat: number | null, address_lng: number | null, logo_picture_file: { public_url: string | null } | null }, vendor_organization_customer: { name: string, email: string | null }, customer_organization: { name: string, email: string } | null, data: { totalCount: number, edges: Array<{ cursor: unknown, node:
+        | { id: string, amount: bigint, code: string | null, created_at: unknown, currency_code: CURRENCY, date: unknown, due_date: unknown, organization_customer_id: string, organization_invoice_id: string, paid_amount: bigint, running_balance: bigint, invoice_status: string, type: STATEMENT_LINE_TYPE, updated_at: unknown, organization_invoice: { provider: ACCT_PROVIDER, provider_code: string, view_url: string | null, payment_options: Array<{ method: PAYMENT_METHOD, url: string | null, payload: unknown }> } }
+        | { amount: bigint, code: string | null, created_at: unknown, currency_code: CURRENCY, date: unknown, due_date: unknown, id: string, organization_customer_id: string, organization_invoice_transaction_id: string, paid_amount: bigint, running_balance: bigint, transaction_status: string, type: STATEMENT_LINE_TYPE, updated_at: unknown, organization_invoice_transaction: { provider: ACCT_PROVIDER, provider_code: string, links: Array<{ id: string, amount: bigint, organization_invoice_id: string }> } }
+       }>, pageInfo: { startCursor: string | null, endCursor: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } };
 
-export type OrganizationPaymentMethodFragmentFragment = { __typename?: 'OrganizationPaymentMethod', id: string, payment_method: PAYMENT_METHOD, payment_provider: PAYMENT_PROVIDER, bound_mode?: ORGANIZATION_PAYMENT_METHOD_BOUND_MODE | null, bound_id?: string | null, is_enabled: boolean, is_default: boolean, billing_first_name?: string | null, billing_last_name?: string | null, billing_email?: string | null, billing_phone_number?: string | null, billing_address_line_1?: string | null, billing_address_number?: string | null, billing_address_line_2?: string | null, billing_address_city?: string | null, billing_address_state?: string | null, billing_address_zip_code?: string | null, billing_address_country_code_iso_3?: COUNTRY_ISO_3 | null, created_at: any, updated_at: any, organization_id: string, payment_method_info?:
-    | { __typename?: 'OrganizationPaymentMethodCreditCardInfo', type: PAYMENT_METHOD, card_number_masked?: string | null, card_brand?: string | null }
-    | { __typename?: 'OrganizationPaymentMethodGenericInfo', type: PAYMENT_METHOD }
+export type OrganizationPaymentMethodFragmentFragment = { id: string, payment_method: PAYMENT_METHOD, payment_provider: PAYMENT_PROVIDER, bound_mode: ORGANIZATION_PAYMENT_METHOD_BOUND_MODE | null, bound_id: string | null, is_enabled: boolean, is_default: boolean, billing_first_name: string | null, billing_last_name: string | null, billing_email: string | null, billing_phone_number: string | null, billing_address_line_1: string | null, billing_address_number: string | null, billing_address_line_2: string | null, billing_address_city: string | null, billing_address_state: string | null, billing_address_zip_code: string | null, billing_address_country_code_iso_3: COUNTRY_ISO_3 | null, created_at: unknown, updated_at: unknown, organization_id: string, payment_method_info:
+    | { type: PAYMENT_METHOD, card_number_masked: string | null, card_brand: string | null }
+    | { type: PAYMENT_METHOD }
    | null };
 
-export type OrganizationSubscriptionTransactionFragmentFragment = { __typename?: 'OrganizationSubscriptionTransaction', id: string, transaction_provider: TRANSACTION_PROVIDER, provider_transaction_code: string, transaction_code: string, amount: bigint, currency: CURRENCY, started_at?: any | null, succeeded_at?: any | null, failed_at?: any | null, reverted_at?: any | null, transaction_date: any, due_date: any, procedure: ORGANIZATION_SUBSCRIPTION_TRANSACTION_PROCEDURE, subscription_item_ids: Array<string>, period_ends_at?: any | null, period_sequence?: number | null, period_starts_at?: any | null, created_at: any, updated_at: any, status: TRANSACTION_STATUS, organization_subscription_id: string, organization_payment_method_id: string };
+export type OrganizationSubscriptionTransactionFragmentFragment = { id: string, transaction_provider: TRANSACTION_PROVIDER, provider_transaction_code: string, transaction_code: string, amount: bigint, currency: CURRENCY, started_at: unknown, succeeded_at: unknown, failed_at: unknown, reverted_at: unknown, transaction_date: unknown, due_date: unknown, procedure: ORGANIZATION_SUBSCRIPTION_TRANSACTION_PROCEDURE, subscription_item_ids: Array<string>, period_ends_at: unknown, period_sequence: number | null, period_starts_at: unknown, created_at: unknown, updated_at: unknown, status: TRANSACTION_STATUS, organization_subscription_id: string, organization_payment_method_id: string };
 
-export type OrganizationCouponFragmentFragment = { __typename?: 'OrganizationCoupon', id: string, campaign: ORGANIZATION_COUPON_CAMPAIGN, category: ORGANIZATION_COUPON_CATEGORY, subdivision: ORGANIZATION_COUPON_SUBDIVISION, is_activation_unlimited: boolean, activated_at?: any | null, expires_at?: any | null, created_at: any, updated_at: any, status: ORGANIZATION_COUPON_STATUS, organization_id?: string | null, category_description?: string | null, subdivision_description?: string | null };
+export type OrganizationCouponFragmentFragment = { id: string, campaign: ORGANIZATION_COUPON_CAMPAIGN, category: ORGANIZATION_COUPON_CATEGORY, subdivision: ORGANIZATION_COUPON_SUBDIVISION, is_activation_unlimited: boolean, activated_at: unknown, expires_at: unknown, created_at: unknown, updated_at: unknown, status: ORGANIZATION_COUPON_STATUS, organization_id: string | null, category_description: string | null, subdivision_description: string | null };
 
-export type OrganizationSubscriptionItemFragmentFragment = { __typename?: 'OrganizationSubscriptionItem', id: string, quantity: number, unit_price: bigint, started_at?: any | null, canceled_at?: any | null, item_type: ORGANIZATION_SUBSCRIPTION_ITEM, created_at: any, updated_at: any, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS, category: ORGANIZATION_SUBSCRIPTION_ITEM_CATEGORY, classification: ORGANIZATION_SUBSCRIPTION_ITEM_CLASSIFICATION, organization_subscription_id: string };
+export type OrganizationSubscriptionItemFragmentFragment = { id: string, quantity: number, unit_price: bigint, started_at: unknown, canceled_at: unknown, item_type: ORGANIZATION_SUBSCRIPTION_ITEM, created_at: unknown, updated_at: unknown, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS, category: ORGANIZATION_SUBSCRIPTION_ITEM_CATEGORY, classification: ORGANIZATION_SUBSCRIPTION_ITEM_CLASSIFICATION, organization_subscription_id: string };
 
-export type OrganizationSubscriptionFragmentFragment = { __typename?: 'OrganizationSubscription', id: string, price_total_amount: bigint, price_currency: CURRENCY, price_tier: ORGANIZATION_SUBSCRIPTION_PRICE_TIER, current_period_ends_at?: any | null, current_period_starts_at?: any | null, canceled_at?: any | null, renew_interval: ORGANIZATION_SUBSCRIPTION_RENEW_INTERVAL, next_payment_at?: any | null, provider: ORGANIZATION_SUBSCRIPTION_PROVIDER, provider_status: ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS, provider_plan_code?: string | null, provider_subscription_code?: string | null, provider_last_verified_at?: any | null, has_outdated_price: boolean, created_at: any, updated_at: any, status: ORGANIZATION_SUBSCRIPTION_STATUS, payment_status?: ORGANIZATION_SUBSCRIPTION_PAYMENT_STATUS | null, organization_id: string, organization_coupon_id?: string | null, organization_payment_method_id: string, organization_payment_method: { __typename?: 'OrganizationPaymentMethod', id: string, payment_method: PAYMENT_METHOD, payment_provider: PAYMENT_PROVIDER, bound_mode?: ORGANIZATION_PAYMENT_METHOD_BOUND_MODE | null, bound_id?: string | null, is_enabled: boolean, is_default: boolean, billing_first_name?: string | null, billing_last_name?: string | null, billing_email?: string | null, billing_phone_number?: string | null, billing_address_line_1?: string | null, billing_address_number?: string | null, billing_address_line_2?: string | null, billing_address_city?: string | null, billing_address_state?: string | null, billing_address_zip_code?: string | null, billing_address_country_code_iso_3?: COUNTRY_ISO_3 | null, created_at: any, updated_at: any, organization_id: string, payment_method_info?:
-      | { __typename?: 'OrganizationPaymentMethodCreditCardInfo', type: PAYMENT_METHOD, card_number_masked?: string | null, card_brand?: string | null }
-      | { __typename?: 'OrganizationPaymentMethodGenericInfo', type: PAYMENT_METHOD }
-     | null }, items: Array<{ __typename?: 'OrganizationSubscriptionItem', id: string, quantity: number, unit_price: bigint, started_at?: any | null, canceled_at?: any | null, item_type: ORGANIZATION_SUBSCRIPTION_ITEM, created_at: any, updated_at: any, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS, category: ORGANIZATION_SUBSCRIPTION_ITEM_CATEGORY, classification: ORGANIZATION_SUBSCRIPTION_ITEM_CLASSIFICATION, organization_subscription_id: string }>, transactions: Array<{ __typename?: 'OrganizationSubscriptionTransaction', id: string, transaction_provider: TRANSACTION_PROVIDER, provider_transaction_code: string, transaction_code: string, amount: bigint, currency: CURRENCY, started_at?: any | null, succeeded_at?: any | null, failed_at?: any | null, reverted_at?: any | null, transaction_date: any, due_date: any, procedure: ORGANIZATION_SUBSCRIPTION_TRANSACTION_PROCEDURE, subscription_item_ids: Array<string>, period_ends_at?: any | null, period_sequence?: number | null, period_starts_at?: any | null, created_at: any, updated_at: any, status: TRANSACTION_STATUS, organization_subscription_id: string, organization_payment_method_id: string }> };
+export type OrganizationSubscriptionFragmentFragment = { id: string, price_total_amount: bigint, price_currency: CURRENCY, price_tier: ORGANIZATION_SUBSCRIPTION_PRICE_TIER, current_period_ends_at: unknown, current_period_starts_at: unknown, canceled_at: unknown, renew_interval: ORGANIZATION_SUBSCRIPTION_RENEW_INTERVAL, next_payment_at: unknown, provider: ORGANIZATION_SUBSCRIPTION_PROVIDER, provider_status: ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS, provider_plan_code: string | null, provider_subscription_code: string | null, provider_last_verified_at: unknown, has_outdated_price: boolean, created_at: unknown, updated_at: unknown, status: ORGANIZATION_SUBSCRIPTION_STATUS, payment_status: ORGANIZATION_SUBSCRIPTION_PAYMENT_STATUS | null, organization_id: string, organization_coupon_id: string | null, organization_payment_method_id: string, organization_payment_method: { id: string, payment_method: PAYMENT_METHOD, payment_provider: PAYMENT_PROVIDER, bound_mode: ORGANIZATION_PAYMENT_METHOD_BOUND_MODE | null, bound_id: string | null, is_enabled: boolean, is_default: boolean, billing_first_name: string | null, billing_last_name: string | null, billing_email: string | null, billing_phone_number: string | null, billing_address_line_1: string | null, billing_address_number: string | null, billing_address_line_2: string | null, billing_address_city: string | null, billing_address_state: string | null, billing_address_zip_code: string | null, billing_address_country_code_iso_3: COUNTRY_ISO_3 | null, created_at: unknown, updated_at: unknown, organization_id: string, payment_method_info:
+      | { type: PAYMENT_METHOD, card_number_masked: string | null, card_brand: string | null }
+      | { type: PAYMENT_METHOD }
+     | null }, items: Array<{ id: string, quantity: number, unit_price: bigint, started_at: unknown, canceled_at: unknown, item_type: ORGANIZATION_SUBSCRIPTION_ITEM, created_at: unknown, updated_at: unknown, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS, category: ORGANIZATION_SUBSCRIPTION_ITEM_CATEGORY, classification: ORGANIZATION_SUBSCRIPTION_ITEM_CLASSIFICATION, organization_subscription_id: string }>, transactions: Array<{ id: string, transaction_provider: TRANSACTION_PROVIDER, provider_transaction_code: string, transaction_code: string, amount: bigint, currency: CURRENCY, started_at: unknown, succeeded_at: unknown, failed_at: unknown, reverted_at: unknown, transaction_date: unknown, due_date: unknown, procedure: ORGANIZATION_SUBSCRIPTION_TRANSACTION_PROCEDURE, subscription_item_ids: Array<string>, period_ends_at: unknown, period_sequence: number | null, period_starts_at: unknown, created_at: unknown, updated_at: unknown, status: TRANSACTION_STATUS, organization_subscription_id: string, organization_payment_method_id: string }> };
 
-export type OrganizationSubscriptionDefaultPricingFragmentFragment = { __typename?: 'OrganizationSubscriptionDefaultPricing', organization_id: string, organization_coupon_id?: string | null, price_tier: ORGANIZATION_SUBSCRIPTION_PRICE_TIER, price_currency: CURRENCY, organization_coupon?: { __typename?: 'OrganizationCoupon', id: string, campaign: ORGANIZATION_COUPON_CAMPAIGN, category: ORGANIZATION_COUPON_CATEGORY, subdivision: ORGANIZATION_COUPON_SUBDIVISION, is_activation_unlimited: boolean, activated_at?: any | null, expires_at?: any | null, created_at: any, updated_at: any, status: ORGANIZATION_COUPON_STATUS, organization_id?: string | null, category_description?: string | null, subdivision_description?: string | null } | null, options: Array<{ __typename?: 'OrganizationSubscriptionDefaultPricingRenewIntervalOption', renew_interval: ORGANIZATION_SUBSCRIPTION_RENEW_INTERVAL, options: Array<{ __typename?: 'OrganizationSubscriptionDefaultPricingOption', base_item: { __typename?: 'OrganizationSubscriptionDefaultPricingOptionBaseItem', item_type: ORGANIZATION_SUBSCRIPTION_BASE_ITEM, category: ORGANIZATION_SUBSCRIPTION_ITEM_CATEGORY, additional_organization_seats: number, original_unit_price: bigint, unit_price: bigint, is_purchase_available: boolean, current_item_active_until?: any | null, current_item_pending_purchase_subscription?: { __typename?: 'OrganizationSubscription', id: string, price_total_amount: bigint, price_currency: CURRENCY, price_tier: ORGANIZATION_SUBSCRIPTION_PRICE_TIER, current_period_ends_at?: any | null, current_period_starts_at?: any | null, canceled_at?: any | null, renew_interval: ORGANIZATION_SUBSCRIPTION_RENEW_INTERVAL, next_payment_at?: any | null, provider: ORGANIZATION_SUBSCRIPTION_PROVIDER, provider_status: ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS, provider_plan_code?: string | null, provider_subscription_code?: string | null, provider_last_verified_at?: any | null, has_outdated_price: boolean, created_at: any, updated_at: any, status: ORGANIZATION_SUBSCRIPTION_STATUS, payment_status?: ORGANIZATION_SUBSCRIPTION_PAYMENT_STATUS | null, organization_id: string, organization_coupon_id?: string | null, organization_payment_method_id: string, organization_payment_method: { __typename?: 'OrganizationPaymentMethod', id: string, payment_method: PAYMENT_METHOD, payment_provider: PAYMENT_PROVIDER, bound_mode?: ORGANIZATION_PAYMENT_METHOD_BOUND_MODE | null, bound_id?: string | null, is_enabled: boolean, is_default: boolean, billing_first_name?: string | null, billing_last_name?: string | null, billing_email?: string | null, billing_phone_number?: string | null, billing_address_line_1?: string | null, billing_address_number?: string | null, billing_address_line_2?: string | null, billing_address_city?: string | null, billing_address_state?: string | null, billing_address_zip_code?: string | null, billing_address_country_code_iso_3?: COUNTRY_ISO_3 | null, created_at: any, updated_at: any, organization_id: string, payment_method_info?:
-              | { __typename?: 'OrganizationPaymentMethodCreditCardInfo', type: PAYMENT_METHOD, card_number_masked?: string | null, card_brand?: string | null }
-              | { __typename?: 'OrganizationPaymentMethodGenericInfo', type: PAYMENT_METHOD }
-             | null }, items: Array<{ __typename?: 'OrganizationSubscriptionItem', id: string, quantity: number, unit_price: bigint, started_at?: any | null, canceled_at?: any | null, item_type: ORGANIZATION_SUBSCRIPTION_ITEM, created_at: any, updated_at: any, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS, category: ORGANIZATION_SUBSCRIPTION_ITEM_CATEGORY, classification: ORGANIZATION_SUBSCRIPTION_ITEM_CLASSIFICATION, organization_subscription_id: string }>, transactions: Array<{ __typename?: 'OrganizationSubscriptionTransaction', id: string, transaction_provider: TRANSACTION_PROVIDER, provider_transaction_code: string, transaction_code: string, amount: bigint, currency: CURRENCY, started_at?: any | null, succeeded_at?: any | null, failed_at?: any | null, reverted_at?: any | null, transaction_date: any, due_date: any, procedure: ORGANIZATION_SUBSCRIPTION_TRANSACTION_PROCEDURE, subscription_item_ids: Array<string>, period_ends_at?: any | null, period_sequence?: number | null, period_starts_at?: any | null, created_at: any, updated_at: any, status: TRANSACTION_STATUS, organization_subscription_id: string, organization_payment_method_id: string }> } | null, current_item_subscription?: { __typename?: 'OrganizationSubscription', id: string, price_total_amount: bigint, price_currency: CURRENCY, price_tier: ORGANIZATION_SUBSCRIPTION_PRICE_TIER, current_period_ends_at?: any | null, current_period_starts_at?: any | null, canceled_at?: any | null, renew_interval: ORGANIZATION_SUBSCRIPTION_RENEW_INTERVAL, next_payment_at?: any | null, provider: ORGANIZATION_SUBSCRIPTION_PROVIDER, provider_status: ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS, provider_plan_code?: string | null, provider_subscription_code?: string | null, provider_last_verified_at?: any | null, has_outdated_price: boolean, created_at: any, updated_at: any, status: ORGANIZATION_SUBSCRIPTION_STATUS, payment_status?: ORGANIZATION_SUBSCRIPTION_PAYMENT_STATUS | null, organization_id: string, organization_coupon_id?: string | null, organization_payment_method_id: string, organization_payment_method: { __typename?: 'OrganizationPaymentMethod', id: string, payment_method: PAYMENT_METHOD, payment_provider: PAYMENT_PROVIDER, bound_mode?: ORGANIZATION_PAYMENT_METHOD_BOUND_MODE | null, bound_id?: string | null, is_enabled: boolean, is_default: boolean, billing_first_name?: string | null, billing_last_name?: string | null, billing_email?: string | null, billing_phone_number?: string | null, billing_address_line_1?: string | null, billing_address_number?: string | null, billing_address_line_2?: string | null, billing_address_city?: string | null, billing_address_state?: string | null, billing_address_zip_code?: string | null, billing_address_country_code_iso_3?: COUNTRY_ISO_3 | null, created_at: any, updated_at: any, organization_id: string, payment_method_info?:
-              | { __typename?: 'OrganizationPaymentMethodCreditCardInfo', type: PAYMENT_METHOD, card_number_masked?: string | null, card_brand?: string | null }
-              | { __typename?: 'OrganizationPaymentMethodGenericInfo', type: PAYMENT_METHOD }
-             | null }, items: Array<{ __typename?: 'OrganizationSubscriptionItem', id: string, quantity: number, unit_price: bigint, started_at?: any | null, canceled_at?: any | null, item_type: ORGANIZATION_SUBSCRIPTION_ITEM, created_at: any, updated_at: any, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS, category: ORGANIZATION_SUBSCRIPTION_ITEM_CATEGORY, classification: ORGANIZATION_SUBSCRIPTION_ITEM_CLASSIFICATION, organization_subscription_id: string }>, transactions: Array<{ __typename?: 'OrganizationSubscriptionTransaction', id: string, transaction_provider: TRANSACTION_PROVIDER, provider_transaction_code: string, transaction_code: string, amount: bigint, currency: CURRENCY, started_at?: any | null, succeeded_at?: any | null, failed_at?: any | null, reverted_at?: any | null, transaction_date: any, due_date: any, procedure: ORGANIZATION_SUBSCRIPTION_TRANSACTION_PROCEDURE, subscription_item_ids: Array<string>, period_ends_at?: any | null, period_sequence?: number | null, period_starts_at?: any | null, created_at: any, updated_at: any, status: TRANSACTION_STATUS, organization_subscription_id: string, organization_payment_method_id: string }> } | null }, available_addon_items: Array<{ __typename?: 'OrganizationSubscriptionDefaultPricingOptionAddonItem', item_type: ORGANIZATION_SUBSCRIPTION_ADDON_ITEM, is_purchase_available: boolean, original_unit_price: bigint, unit_price: bigint }> }> }> };
+export type OrganizationSubscriptionDefaultPricingFragmentFragment = { organization_id: string, organization_coupon_id: string | null, price_tier: ORGANIZATION_SUBSCRIPTION_PRICE_TIER, price_currency: CURRENCY, organization_coupon: { id: string, campaign: ORGANIZATION_COUPON_CAMPAIGN, category: ORGANIZATION_COUPON_CATEGORY, subdivision: ORGANIZATION_COUPON_SUBDIVISION, is_activation_unlimited: boolean, activated_at: unknown, expires_at: unknown, created_at: unknown, updated_at: unknown, status: ORGANIZATION_COUPON_STATUS, organization_id: string | null, category_description: string | null, subdivision_description: string | null } | null, options: Array<{ renew_interval: ORGANIZATION_SUBSCRIPTION_RENEW_INTERVAL, options: Array<{ base_item: { item_type: ORGANIZATION_SUBSCRIPTION_BASE_ITEM, category: ORGANIZATION_SUBSCRIPTION_ITEM_CATEGORY, additional_organization_seats: number, original_unit_price: bigint, unit_price: bigint, is_purchase_available: boolean, current_item_active_until: unknown, current_item_pending_purchase_subscription: { id: string, price_total_amount: bigint, price_currency: CURRENCY, price_tier: ORGANIZATION_SUBSCRIPTION_PRICE_TIER, current_period_ends_at: unknown, current_period_starts_at: unknown, canceled_at: unknown, renew_interval: ORGANIZATION_SUBSCRIPTION_RENEW_INTERVAL, next_payment_at: unknown, provider: ORGANIZATION_SUBSCRIPTION_PROVIDER, provider_status: ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS, provider_plan_code: string | null, provider_subscription_code: string | null, provider_last_verified_at: unknown, has_outdated_price: boolean, created_at: unknown, updated_at: unknown, status: ORGANIZATION_SUBSCRIPTION_STATUS, payment_status: ORGANIZATION_SUBSCRIPTION_PAYMENT_STATUS | null, organization_id: string, organization_coupon_id: string | null, organization_payment_method_id: string, organization_payment_method: { id: string, payment_method: PAYMENT_METHOD, payment_provider: PAYMENT_PROVIDER, bound_mode: ORGANIZATION_PAYMENT_METHOD_BOUND_MODE | null, bound_id: string | null, is_enabled: boolean, is_default: boolean, billing_first_name: string | null, billing_last_name: string | null, billing_email: string | null, billing_phone_number: string | null, billing_address_line_1: string | null, billing_address_number: string | null, billing_address_line_2: string | null, billing_address_city: string | null, billing_address_state: string | null, billing_address_zip_code: string | null, billing_address_country_code_iso_3: COUNTRY_ISO_3 | null, created_at: unknown, updated_at: unknown, organization_id: string, payment_method_info:
+              | { type: PAYMENT_METHOD, card_number_masked: string | null, card_brand: string | null }
+              | { type: PAYMENT_METHOD }
+             | null }, items: Array<{ id: string, quantity: number, unit_price: bigint, started_at: unknown, canceled_at: unknown, item_type: ORGANIZATION_SUBSCRIPTION_ITEM, created_at: unknown, updated_at: unknown, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS, category: ORGANIZATION_SUBSCRIPTION_ITEM_CATEGORY, classification: ORGANIZATION_SUBSCRIPTION_ITEM_CLASSIFICATION, organization_subscription_id: string }>, transactions: Array<{ id: string, transaction_provider: TRANSACTION_PROVIDER, provider_transaction_code: string, transaction_code: string, amount: bigint, currency: CURRENCY, started_at: unknown, succeeded_at: unknown, failed_at: unknown, reverted_at: unknown, transaction_date: unknown, due_date: unknown, procedure: ORGANIZATION_SUBSCRIPTION_TRANSACTION_PROCEDURE, subscription_item_ids: Array<string>, period_ends_at: unknown, period_sequence: number | null, period_starts_at: unknown, created_at: unknown, updated_at: unknown, status: TRANSACTION_STATUS, organization_subscription_id: string, organization_payment_method_id: string }> } | null, current_item_subscription: { id: string, price_total_amount: bigint, price_currency: CURRENCY, price_tier: ORGANIZATION_SUBSCRIPTION_PRICE_TIER, current_period_ends_at: unknown, current_period_starts_at: unknown, canceled_at: unknown, renew_interval: ORGANIZATION_SUBSCRIPTION_RENEW_INTERVAL, next_payment_at: unknown, provider: ORGANIZATION_SUBSCRIPTION_PROVIDER, provider_status: ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS, provider_plan_code: string | null, provider_subscription_code: string | null, provider_last_verified_at: unknown, has_outdated_price: boolean, created_at: unknown, updated_at: unknown, status: ORGANIZATION_SUBSCRIPTION_STATUS, payment_status: ORGANIZATION_SUBSCRIPTION_PAYMENT_STATUS | null, organization_id: string, organization_coupon_id: string | null, organization_payment_method_id: string, organization_payment_method: { id: string, payment_method: PAYMENT_METHOD, payment_provider: PAYMENT_PROVIDER, bound_mode: ORGANIZATION_PAYMENT_METHOD_BOUND_MODE | null, bound_id: string | null, is_enabled: boolean, is_default: boolean, billing_first_name: string | null, billing_last_name: string | null, billing_email: string | null, billing_phone_number: string | null, billing_address_line_1: string | null, billing_address_number: string | null, billing_address_line_2: string | null, billing_address_city: string | null, billing_address_state: string | null, billing_address_zip_code: string | null, billing_address_country_code_iso_3: COUNTRY_ISO_3 | null, created_at: unknown, updated_at: unknown, organization_id: string, payment_method_info:
+              | { type: PAYMENT_METHOD, card_number_masked: string | null, card_brand: string | null }
+              | { type: PAYMENT_METHOD }
+             | null }, items: Array<{ id: string, quantity: number, unit_price: bigint, started_at: unknown, canceled_at: unknown, item_type: ORGANIZATION_SUBSCRIPTION_ITEM, created_at: unknown, updated_at: unknown, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS, category: ORGANIZATION_SUBSCRIPTION_ITEM_CATEGORY, classification: ORGANIZATION_SUBSCRIPTION_ITEM_CLASSIFICATION, organization_subscription_id: string }>, transactions: Array<{ id: string, transaction_provider: TRANSACTION_PROVIDER, provider_transaction_code: string, transaction_code: string, amount: bigint, currency: CURRENCY, started_at: unknown, succeeded_at: unknown, failed_at: unknown, reverted_at: unknown, transaction_date: unknown, due_date: unknown, procedure: ORGANIZATION_SUBSCRIPTION_TRANSACTION_PROCEDURE, subscription_item_ids: Array<string>, period_ends_at: unknown, period_sequence: number | null, period_starts_at: unknown, created_at: unknown, updated_at: unknown, status: TRANSACTION_STATUS, organization_subscription_id: string, organization_payment_method_id: string }> } | null }, available_addon_items: Array<{ item_type: ORGANIZATION_SUBSCRIPTION_ADDON_ITEM, is_purchase_available: boolean, original_unit_price: bigint, unit_price: bigint }> }> }> };
 
-export type OrganizationSubscriptionCalculatedPricingFragmentFragment = { __typename?: 'OrganizationSubscriptionCalculatedPricing', organization_id: string, organization_coupon_id?: string | null, price_tier: ORGANIZATION_SUBSCRIPTION_PRICE_TIER, price_currency: CURRENCY, renew_interval: ORGANIZATION_SUBSCRIPTION_RENEW_INTERVAL, original_price_total_amount: bigint, price_total_amount: bigint, provider: ORGANIZATION_SUBSCRIPTION_PROVIDER, organization_coupon?: { __typename?: 'OrganizationCoupon', id: string, campaign: ORGANIZATION_COUPON_CAMPAIGN, category: ORGANIZATION_COUPON_CATEGORY, subdivision: ORGANIZATION_COUPON_SUBDIVISION, is_activation_unlimited: boolean, activated_at?: any | null, expires_at?: any | null, created_at: any, updated_at: any, status: ORGANIZATION_COUPON_STATUS, organization_id?: string | null, category_description?: string | null, subdivision_description?: string | null } | null, selected_base_item: { __typename?: 'OrganizationSubscriptionCalculatedPricingBaseItem', item_type: ORGANIZATION_SUBSCRIPTION_BASE_ITEM, original_unit_price: bigint, unit_price: bigint, category: ORGANIZATION_SUBSCRIPTION_ITEM_CATEGORY }, selected_addon_items: Array<{ __typename?: 'OrganizationSubscriptionCalculatedPricingAddonItem', item_type: ORGANIZATION_SUBSCRIPTION_ADDON_ITEM, quantity: number, original_unit_price: bigint, unit_price: bigint }> };
+export type OrganizationSubscriptionCalculatedPricingFragmentFragment = { organization_id: string, organization_coupon_id: string | null, price_tier: ORGANIZATION_SUBSCRIPTION_PRICE_TIER, price_currency: CURRENCY, renew_interval: ORGANIZATION_SUBSCRIPTION_RENEW_INTERVAL, original_price_total_amount: bigint, price_total_amount: bigint, provider: ORGANIZATION_SUBSCRIPTION_PROVIDER, organization_coupon: { id: string, campaign: ORGANIZATION_COUPON_CAMPAIGN, category: ORGANIZATION_COUPON_CATEGORY, subdivision: ORGANIZATION_COUPON_SUBDIVISION, is_activation_unlimited: boolean, activated_at: unknown, expires_at: unknown, created_at: unknown, updated_at: unknown, status: ORGANIZATION_COUPON_STATUS, organization_id: string | null, category_description: string | null, subdivision_description: string | null } | null, selected_base_item: { item_type: ORGANIZATION_SUBSCRIPTION_BASE_ITEM, original_unit_price: bigint, unit_price: bigint, category: ORGANIZATION_SUBSCRIPTION_ITEM_CATEGORY }, selected_addon_items: Array<{ item_type: ORGANIZATION_SUBSCRIPTION_ADDON_ITEM, quantity: number, original_unit_price: bigint, unit_price: bigint }> };
 
 export type UserOrganizationSubscriptionsQueryVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationCouponId?: InputMaybe<Scalars['String']['input']>;
-  organizationPaymentMethodId?: InputMaybe<Scalars['String']['input']>;
-  provider?: InputMaybe<ORGANIZATION_SUBSCRIPTION_PROVIDER>;
-  providerStatus?: InputMaybe<ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS>;
-  providerPlanCode?: InputMaybe<Scalars['String']['input']>;
-  providerSubscriptionCode?: InputMaybe<Scalars['String']['input']>;
-  containsItem?: InputMaybe<ORGANIZATION_SUBSCRIPTION_ITEM>;
-  renewInterval?: InputMaybe<ORGANIZATION_SUBSCRIPTION_RENEW_INTERVAL>;
-  priceTier?: InputMaybe<ORGANIZATION_SUBSCRIPTION_PRICE_TIER>;
-  status?: InputMaybe<ORGANIZATION_SUBSCRIPTION_STATUS>;
-  started?: InputMaybe<Scalars['Boolean']['input']>;
-  canceled?: InputMaybe<Scalars['Boolean']['input']>;
-  expired?: InputMaybe<Scalars['Boolean']['input']>;
-  hasOutdatedPrice?: InputMaybe<Scalars['Boolean']['input']>;
-  hasError?: InputMaybe<Scalars['Boolean']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema> | SortingFieldSchema>;
+  organizationId: string;
+  organizationCouponId?: string | null | undefined;
+  organizationPaymentMethodId?: string | null | undefined;
+  provider?: ORGANIZATION_SUBSCRIPTION_PROVIDER | null | undefined;
+  providerStatus?: ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS | null | undefined;
+  providerPlanCode?: string | null | undefined;
+  providerSubscriptionCode?: string | null | undefined;
+  containsItem?: ORGANIZATION_SUBSCRIPTION_ITEM | null | undefined;
+  renewInterval?: ORGANIZATION_SUBSCRIPTION_RENEW_INTERVAL | null | undefined;
+  priceTier?: ORGANIZATION_SUBSCRIPTION_PRICE_TIER | null | undefined;
+  status?: ORGANIZATION_SUBSCRIPTION_STATUS | null | undefined;
+  started?: boolean | null | undefined;
+  canceled?: boolean | null | undefined;
+  expired?: boolean | null | undefined;
+  hasOutdatedPrice?: boolean | null | undefined;
+  hasError?: boolean | null | undefined;
+  skip?: number | null | undefined;
+  take?: number | null | undefined;
+  after?: unknown;
+  first?: number | null | undefined;
+  before?: unknown;
+  last?: number | null | undefined;
+  sorting?: Array<SortingFieldSchema> | SortingFieldSchema | null | undefined;
 }>;
 
 
-export type UserOrganizationSubscriptionsQuery = { __typename?: 'Query', userOrganizationSubscriptions: { __typename?: 'OrganizationSubscriptionPaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationSubscriptionPaginationEdge', cursor: any, node: { __typename?: 'OrganizationSubscription', id: string, price_total_amount: bigint, price_currency: CURRENCY, price_tier: ORGANIZATION_SUBSCRIPTION_PRICE_TIER, current_period_ends_at?: any | null, current_period_starts_at?: any | null, canceled_at?: any | null, renew_interval: ORGANIZATION_SUBSCRIPTION_RENEW_INTERVAL, next_payment_at?: any | null, provider: ORGANIZATION_SUBSCRIPTION_PROVIDER, provider_status: ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS, provider_plan_code?: string | null, provider_subscription_code?: string | null, provider_last_verified_at?: any | null, has_outdated_price: boolean, created_at: any, updated_at: any, status: ORGANIZATION_SUBSCRIPTION_STATUS, payment_status?: ORGANIZATION_SUBSCRIPTION_PAYMENT_STATUS | null, organization_id: string, organization_coupon_id?: string | null, organization_payment_method_id: string, organization_payment_method: { __typename?: 'OrganizationPaymentMethod', id: string, payment_method: PAYMENT_METHOD, payment_provider: PAYMENT_PROVIDER, bound_mode?: ORGANIZATION_PAYMENT_METHOD_BOUND_MODE | null, bound_id?: string | null, is_enabled: boolean, is_default: boolean, billing_first_name?: string | null, billing_last_name?: string | null, billing_email?: string | null, billing_phone_number?: string | null, billing_address_line_1?: string | null, billing_address_number?: string | null, billing_address_line_2?: string | null, billing_address_city?: string | null, billing_address_state?: string | null, billing_address_zip_code?: string | null, billing_address_country_code_iso_3?: COUNTRY_ISO_3 | null, created_at: any, updated_at: any, organization_id: string, payment_method_info?:
-            | { __typename?: 'OrganizationPaymentMethodCreditCardInfo', type: PAYMENT_METHOD, card_number_masked?: string | null, card_brand?: string | null }
-            | { __typename?: 'OrganizationPaymentMethodGenericInfo', type: PAYMENT_METHOD }
-           | null }, items: Array<{ __typename?: 'OrganizationSubscriptionItem', id: string, quantity: number, unit_price: bigint, started_at?: any | null, canceled_at?: any | null, item_type: ORGANIZATION_SUBSCRIPTION_ITEM, created_at: any, updated_at: any, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS, category: ORGANIZATION_SUBSCRIPTION_ITEM_CATEGORY, classification: ORGANIZATION_SUBSCRIPTION_ITEM_CLASSIFICATION, organization_subscription_id: string }>, transactions: Array<{ __typename?: 'OrganizationSubscriptionTransaction', id: string, transaction_provider: TRANSACTION_PROVIDER, provider_transaction_code: string, transaction_code: string, amount: bigint, currency: CURRENCY, started_at?: any | null, succeeded_at?: any | null, failed_at?: any | null, reverted_at?: any | null, transaction_date: any, due_date: any, procedure: ORGANIZATION_SUBSCRIPTION_TRANSACTION_PROCEDURE, subscription_item_ids: Array<string>, period_ends_at?: any | null, period_sequence?: number | null, period_starts_at?: any | null, created_at: any, updated_at: any, status: TRANSACTION_STATUS, organization_subscription_id: string, organization_payment_method_id: string }> } }>, pageInfo: { __typename?: 'PageInfo', hasNextPage: boolean, hasPreviousPage: boolean, startCursor?: string | null, endCursor?: string | null } } };
+export type UserOrganizationSubscriptionsQuery = { userOrganizationSubscriptions: { totalCount: number, edges: Array<{ cursor: unknown, node: { id: string, price_total_amount: bigint, price_currency: CURRENCY, price_tier: ORGANIZATION_SUBSCRIPTION_PRICE_TIER, current_period_ends_at: unknown, current_period_starts_at: unknown, canceled_at: unknown, renew_interval: ORGANIZATION_SUBSCRIPTION_RENEW_INTERVAL, next_payment_at: unknown, provider: ORGANIZATION_SUBSCRIPTION_PROVIDER, provider_status: ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS, provider_plan_code: string | null, provider_subscription_code: string | null, provider_last_verified_at: unknown, has_outdated_price: boolean, created_at: unknown, updated_at: unknown, status: ORGANIZATION_SUBSCRIPTION_STATUS, payment_status: ORGANIZATION_SUBSCRIPTION_PAYMENT_STATUS | null, organization_id: string, organization_coupon_id: string | null, organization_payment_method_id: string, organization_payment_method: { id: string, payment_method: PAYMENT_METHOD, payment_provider: PAYMENT_PROVIDER, bound_mode: ORGANIZATION_PAYMENT_METHOD_BOUND_MODE | null, bound_id: string | null, is_enabled: boolean, is_default: boolean, billing_first_name: string | null, billing_last_name: string | null, billing_email: string | null, billing_phone_number: string | null, billing_address_line_1: string | null, billing_address_number: string | null, billing_address_line_2: string | null, billing_address_city: string | null, billing_address_state: string | null, billing_address_zip_code: string | null, billing_address_country_code_iso_3: COUNTRY_ISO_3 | null, created_at: unknown, updated_at: unknown, organization_id: string, payment_method_info:
+            | { type: PAYMENT_METHOD, card_number_masked: string | null, card_brand: string | null }
+            | { type: PAYMENT_METHOD }
+           | null }, items: Array<{ id: string, quantity: number, unit_price: bigint, started_at: unknown, canceled_at: unknown, item_type: ORGANIZATION_SUBSCRIPTION_ITEM, created_at: unknown, updated_at: unknown, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS, category: ORGANIZATION_SUBSCRIPTION_ITEM_CATEGORY, classification: ORGANIZATION_SUBSCRIPTION_ITEM_CLASSIFICATION, organization_subscription_id: string }>, transactions: Array<{ id: string, transaction_provider: TRANSACTION_PROVIDER, provider_transaction_code: string, transaction_code: string, amount: bigint, currency: CURRENCY, started_at: unknown, succeeded_at: unknown, failed_at: unknown, reverted_at: unknown, transaction_date: unknown, due_date: unknown, procedure: ORGANIZATION_SUBSCRIPTION_TRANSACTION_PROCEDURE, subscription_item_ids: Array<string>, period_ends_at: unknown, period_sequence: number | null, period_starts_at: unknown, created_at: unknown, updated_at: unknown, status: TRANSACTION_STATUS, organization_subscription_id: string, organization_payment_method_id: string }> } }>, pageInfo: { hasNextPage: boolean, hasPreviousPage: boolean, startCursor: string | null, endCursor: string | null } } };
 
 export type UserOrganizationSubscriptionQueryVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  subscriptionId: Scalars['String']['input'];
+  organizationId: string;
+  subscriptionId: string;
 }>;
 
 
-export type UserOrganizationSubscriptionQuery = { __typename?: 'Query', userOrganizationSubscription: { __typename?: 'OrganizationSubscription', id: string, price_total_amount: bigint, price_currency: CURRENCY, price_tier: ORGANIZATION_SUBSCRIPTION_PRICE_TIER, current_period_ends_at?: any | null, current_period_starts_at?: any | null, canceled_at?: any | null, renew_interval: ORGANIZATION_SUBSCRIPTION_RENEW_INTERVAL, next_payment_at?: any | null, provider: ORGANIZATION_SUBSCRIPTION_PROVIDER, provider_status: ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS, provider_plan_code?: string | null, provider_subscription_code?: string | null, provider_last_verified_at?: any | null, has_outdated_price: boolean, created_at: any, updated_at: any, status: ORGANIZATION_SUBSCRIPTION_STATUS, payment_status?: ORGANIZATION_SUBSCRIPTION_PAYMENT_STATUS | null, organization_id: string, organization_coupon_id?: string | null, organization_payment_method_id: string, organization_payment_method: { __typename?: 'OrganizationPaymentMethod', id: string, payment_method: PAYMENT_METHOD, payment_provider: PAYMENT_PROVIDER, bound_mode?: ORGANIZATION_PAYMENT_METHOD_BOUND_MODE | null, bound_id?: string | null, is_enabled: boolean, is_default: boolean, billing_first_name?: string | null, billing_last_name?: string | null, billing_email?: string | null, billing_phone_number?: string | null, billing_address_line_1?: string | null, billing_address_number?: string | null, billing_address_line_2?: string | null, billing_address_city?: string | null, billing_address_state?: string | null, billing_address_zip_code?: string | null, billing_address_country_code_iso_3?: COUNTRY_ISO_3 | null, created_at: any, updated_at: any, organization_id: string, payment_method_info?:
-        | { __typename?: 'OrganizationPaymentMethodCreditCardInfo', type: PAYMENT_METHOD, card_number_masked?: string | null, card_brand?: string | null }
-        | { __typename?: 'OrganizationPaymentMethodGenericInfo', type: PAYMENT_METHOD }
-       | null }, items: Array<{ __typename?: 'OrganizationSubscriptionItem', id: string, quantity: number, unit_price: bigint, started_at?: any | null, canceled_at?: any | null, item_type: ORGANIZATION_SUBSCRIPTION_ITEM, created_at: any, updated_at: any, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS, category: ORGANIZATION_SUBSCRIPTION_ITEM_CATEGORY, classification: ORGANIZATION_SUBSCRIPTION_ITEM_CLASSIFICATION, organization_subscription_id: string }>, transactions: Array<{ __typename?: 'OrganizationSubscriptionTransaction', id: string, transaction_provider: TRANSACTION_PROVIDER, provider_transaction_code: string, transaction_code: string, amount: bigint, currency: CURRENCY, started_at?: any | null, succeeded_at?: any | null, failed_at?: any | null, reverted_at?: any | null, transaction_date: any, due_date: any, procedure: ORGANIZATION_SUBSCRIPTION_TRANSACTION_PROCEDURE, subscription_item_ids: Array<string>, period_ends_at?: any | null, period_sequence?: number | null, period_starts_at?: any | null, created_at: any, updated_at: any, status: TRANSACTION_STATUS, organization_subscription_id: string, organization_payment_method_id: string }> } };
+export type UserOrganizationSubscriptionQuery = { userOrganizationSubscription: { id: string, price_total_amount: bigint, price_currency: CURRENCY, price_tier: ORGANIZATION_SUBSCRIPTION_PRICE_TIER, current_period_ends_at: unknown, current_period_starts_at: unknown, canceled_at: unknown, renew_interval: ORGANIZATION_SUBSCRIPTION_RENEW_INTERVAL, next_payment_at: unknown, provider: ORGANIZATION_SUBSCRIPTION_PROVIDER, provider_status: ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS, provider_plan_code: string | null, provider_subscription_code: string | null, provider_last_verified_at: unknown, has_outdated_price: boolean, created_at: unknown, updated_at: unknown, status: ORGANIZATION_SUBSCRIPTION_STATUS, payment_status: ORGANIZATION_SUBSCRIPTION_PAYMENT_STATUS | null, organization_id: string, organization_coupon_id: string | null, organization_payment_method_id: string, organization_payment_method: { id: string, payment_method: PAYMENT_METHOD, payment_provider: PAYMENT_PROVIDER, bound_mode: ORGANIZATION_PAYMENT_METHOD_BOUND_MODE | null, bound_id: string | null, is_enabled: boolean, is_default: boolean, billing_first_name: string | null, billing_last_name: string | null, billing_email: string | null, billing_phone_number: string | null, billing_address_line_1: string | null, billing_address_number: string | null, billing_address_line_2: string | null, billing_address_city: string | null, billing_address_state: string | null, billing_address_zip_code: string | null, billing_address_country_code_iso_3: COUNTRY_ISO_3 | null, created_at: unknown, updated_at: unknown, organization_id: string, payment_method_info:
+        | { type: PAYMENT_METHOD, card_number_masked: string | null, card_brand: string | null }
+        | { type: PAYMENT_METHOD }
+       | null }, items: Array<{ id: string, quantity: number, unit_price: bigint, started_at: unknown, canceled_at: unknown, item_type: ORGANIZATION_SUBSCRIPTION_ITEM, created_at: unknown, updated_at: unknown, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS, category: ORGANIZATION_SUBSCRIPTION_ITEM_CATEGORY, classification: ORGANIZATION_SUBSCRIPTION_ITEM_CLASSIFICATION, organization_subscription_id: string }>, transactions: Array<{ id: string, transaction_provider: TRANSACTION_PROVIDER, provider_transaction_code: string, transaction_code: string, amount: bigint, currency: CURRENCY, started_at: unknown, succeeded_at: unknown, failed_at: unknown, reverted_at: unknown, transaction_date: unknown, due_date: unknown, procedure: ORGANIZATION_SUBSCRIPTION_TRANSACTION_PROCEDURE, subscription_item_ids: Array<string>, period_ends_at: unknown, period_sequence: number | null, period_starts_at: unknown, created_at: unknown, updated_at: unknown, status: TRANSACTION_STATUS, organization_subscription_id: string, organization_payment_method_id: string }> } };
 
 export type UserOrganizationSubscriptionDefaultPricingSetupQueryVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationCouponId?: InputMaybe<Scalars['String']['input']>;
+  organizationId: string;
+  organizationCouponId?: string | null | undefined;
 }>;
 
 
-export type UserOrganizationSubscriptionDefaultPricingSetupQuery = { __typename?: 'Query', userOrganizationSubscriptionDefaultPricingSetup: { __typename?: 'OrganizationSubscriptionDefaultPricing', organization_id: string, organization_coupon_id?: string | null, price_tier: ORGANIZATION_SUBSCRIPTION_PRICE_TIER, price_currency: CURRENCY, organization_coupon?: { __typename?: 'OrganizationCoupon', id: string, campaign: ORGANIZATION_COUPON_CAMPAIGN, category: ORGANIZATION_COUPON_CATEGORY, subdivision: ORGANIZATION_COUPON_SUBDIVISION, is_activation_unlimited: boolean, activated_at?: any | null, expires_at?: any | null, created_at: any, updated_at: any, status: ORGANIZATION_COUPON_STATUS, organization_id?: string | null, category_description?: string | null, subdivision_description?: string | null } | null, options: Array<{ __typename?: 'OrganizationSubscriptionDefaultPricingRenewIntervalOption', renew_interval: ORGANIZATION_SUBSCRIPTION_RENEW_INTERVAL, options: Array<{ __typename?: 'OrganizationSubscriptionDefaultPricingOption', base_item: { __typename?: 'OrganizationSubscriptionDefaultPricingOptionBaseItem', item_type: ORGANIZATION_SUBSCRIPTION_BASE_ITEM, category: ORGANIZATION_SUBSCRIPTION_ITEM_CATEGORY, additional_organization_seats: number, original_unit_price: bigint, unit_price: bigint, is_purchase_available: boolean, current_item_active_until?: any | null, current_item_pending_purchase_subscription?: { __typename?: 'OrganizationSubscription', id: string, price_total_amount: bigint, price_currency: CURRENCY, price_tier: ORGANIZATION_SUBSCRIPTION_PRICE_TIER, current_period_ends_at?: any | null, current_period_starts_at?: any | null, canceled_at?: any | null, renew_interval: ORGANIZATION_SUBSCRIPTION_RENEW_INTERVAL, next_payment_at?: any | null, provider: ORGANIZATION_SUBSCRIPTION_PROVIDER, provider_status: ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS, provider_plan_code?: string | null, provider_subscription_code?: string | null, provider_last_verified_at?: any | null, has_outdated_price: boolean, created_at: any, updated_at: any, status: ORGANIZATION_SUBSCRIPTION_STATUS, payment_status?: ORGANIZATION_SUBSCRIPTION_PAYMENT_STATUS | null, organization_id: string, organization_coupon_id?: string | null, organization_payment_method_id: string, organization_payment_method: { __typename?: 'OrganizationPaymentMethod', id: string, payment_method: PAYMENT_METHOD, payment_provider: PAYMENT_PROVIDER, bound_mode?: ORGANIZATION_PAYMENT_METHOD_BOUND_MODE | null, bound_id?: string | null, is_enabled: boolean, is_default: boolean, billing_first_name?: string | null, billing_last_name?: string | null, billing_email?: string | null, billing_phone_number?: string | null, billing_address_line_1?: string | null, billing_address_number?: string | null, billing_address_line_2?: string | null, billing_address_city?: string | null, billing_address_state?: string | null, billing_address_zip_code?: string | null, billing_address_country_code_iso_3?: COUNTRY_ISO_3 | null, created_at: any, updated_at: any, organization_id: string, payment_method_info?:
-                | { __typename?: 'OrganizationPaymentMethodCreditCardInfo', type: PAYMENT_METHOD, card_number_masked?: string | null, card_brand?: string | null }
-                | { __typename?: 'OrganizationPaymentMethodGenericInfo', type: PAYMENT_METHOD }
-               | null }, items: Array<{ __typename?: 'OrganizationSubscriptionItem', id: string, quantity: number, unit_price: bigint, started_at?: any | null, canceled_at?: any | null, item_type: ORGANIZATION_SUBSCRIPTION_ITEM, created_at: any, updated_at: any, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS, category: ORGANIZATION_SUBSCRIPTION_ITEM_CATEGORY, classification: ORGANIZATION_SUBSCRIPTION_ITEM_CLASSIFICATION, organization_subscription_id: string }>, transactions: Array<{ __typename?: 'OrganizationSubscriptionTransaction', id: string, transaction_provider: TRANSACTION_PROVIDER, provider_transaction_code: string, transaction_code: string, amount: bigint, currency: CURRENCY, started_at?: any | null, succeeded_at?: any | null, failed_at?: any | null, reverted_at?: any | null, transaction_date: any, due_date: any, procedure: ORGANIZATION_SUBSCRIPTION_TRANSACTION_PROCEDURE, subscription_item_ids: Array<string>, period_ends_at?: any | null, period_sequence?: number | null, period_starts_at?: any | null, created_at: any, updated_at: any, status: TRANSACTION_STATUS, organization_subscription_id: string, organization_payment_method_id: string }> } | null, current_item_subscription?: { __typename?: 'OrganizationSubscription', id: string, price_total_amount: bigint, price_currency: CURRENCY, price_tier: ORGANIZATION_SUBSCRIPTION_PRICE_TIER, current_period_ends_at?: any | null, current_period_starts_at?: any | null, canceled_at?: any | null, renew_interval: ORGANIZATION_SUBSCRIPTION_RENEW_INTERVAL, next_payment_at?: any | null, provider: ORGANIZATION_SUBSCRIPTION_PROVIDER, provider_status: ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS, provider_plan_code?: string | null, provider_subscription_code?: string | null, provider_last_verified_at?: any | null, has_outdated_price: boolean, created_at: any, updated_at: any, status: ORGANIZATION_SUBSCRIPTION_STATUS, payment_status?: ORGANIZATION_SUBSCRIPTION_PAYMENT_STATUS | null, organization_id: string, organization_coupon_id?: string | null, organization_payment_method_id: string, organization_payment_method: { __typename?: 'OrganizationPaymentMethod', id: string, payment_method: PAYMENT_METHOD, payment_provider: PAYMENT_PROVIDER, bound_mode?: ORGANIZATION_PAYMENT_METHOD_BOUND_MODE | null, bound_id?: string | null, is_enabled: boolean, is_default: boolean, billing_first_name?: string | null, billing_last_name?: string | null, billing_email?: string | null, billing_phone_number?: string | null, billing_address_line_1?: string | null, billing_address_number?: string | null, billing_address_line_2?: string | null, billing_address_city?: string | null, billing_address_state?: string | null, billing_address_zip_code?: string | null, billing_address_country_code_iso_3?: COUNTRY_ISO_3 | null, created_at: any, updated_at: any, organization_id: string, payment_method_info?:
-                | { __typename?: 'OrganizationPaymentMethodCreditCardInfo', type: PAYMENT_METHOD, card_number_masked?: string | null, card_brand?: string | null }
-                | { __typename?: 'OrganizationPaymentMethodGenericInfo', type: PAYMENT_METHOD }
-               | null }, items: Array<{ __typename?: 'OrganizationSubscriptionItem', id: string, quantity: number, unit_price: bigint, started_at?: any | null, canceled_at?: any | null, item_type: ORGANIZATION_SUBSCRIPTION_ITEM, created_at: any, updated_at: any, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS, category: ORGANIZATION_SUBSCRIPTION_ITEM_CATEGORY, classification: ORGANIZATION_SUBSCRIPTION_ITEM_CLASSIFICATION, organization_subscription_id: string }>, transactions: Array<{ __typename?: 'OrganizationSubscriptionTransaction', id: string, transaction_provider: TRANSACTION_PROVIDER, provider_transaction_code: string, transaction_code: string, amount: bigint, currency: CURRENCY, started_at?: any | null, succeeded_at?: any | null, failed_at?: any | null, reverted_at?: any | null, transaction_date: any, due_date: any, procedure: ORGANIZATION_SUBSCRIPTION_TRANSACTION_PROCEDURE, subscription_item_ids: Array<string>, period_ends_at?: any | null, period_sequence?: number | null, period_starts_at?: any | null, created_at: any, updated_at: any, status: TRANSACTION_STATUS, organization_subscription_id: string, organization_payment_method_id: string }> } | null }, available_addon_items: Array<{ __typename?: 'OrganizationSubscriptionDefaultPricingOptionAddonItem', item_type: ORGANIZATION_SUBSCRIPTION_ADDON_ITEM, is_purchase_available: boolean, original_unit_price: bigint, unit_price: bigint }> }> }> } };
+export type UserOrganizationSubscriptionDefaultPricingSetupQuery = { userOrganizationSubscriptionDefaultPricingSetup: { organization_id: string, organization_coupon_id: string | null, price_tier: ORGANIZATION_SUBSCRIPTION_PRICE_TIER, price_currency: CURRENCY, organization_coupon: { id: string, campaign: ORGANIZATION_COUPON_CAMPAIGN, category: ORGANIZATION_COUPON_CATEGORY, subdivision: ORGANIZATION_COUPON_SUBDIVISION, is_activation_unlimited: boolean, activated_at: unknown, expires_at: unknown, created_at: unknown, updated_at: unknown, status: ORGANIZATION_COUPON_STATUS, organization_id: string | null, category_description: string | null, subdivision_description: string | null } | null, options: Array<{ renew_interval: ORGANIZATION_SUBSCRIPTION_RENEW_INTERVAL, options: Array<{ base_item: { item_type: ORGANIZATION_SUBSCRIPTION_BASE_ITEM, category: ORGANIZATION_SUBSCRIPTION_ITEM_CATEGORY, additional_organization_seats: number, original_unit_price: bigint, unit_price: bigint, is_purchase_available: boolean, current_item_active_until: unknown, current_item_pending_purchase_subscription: { id: string, price_total_amount: bigint, price_currency: CURRENCY, price_tier: ORGANIZATION_SUBSCRIPTION_PRICE_TIER, current_period_ends_at: unknown, current_period_starts_at: unknown, canceled_at: unknown, renew_interval: ORGANIZATION_SUBSCRIPTION_RENEW_INTERVAL, next_payment_at: unknown, provider: ORGANIZATION_SUBSCRIPTION_PROVIDER, provider_status: ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS, provider_plan_code: string | null, provider_subscription_code: string | null, provider_last_verified_at: unknown, has_outdated_price: boolean, created_at: unknown, updated_at: unknown, status: ORGANIZATION_SUBSCRIPTION_STATUS, payment_status: ORGANIZATION_SUBSCRIPTION_PAYMENT_STATUS | null, organization_id: string, organization_coupon_id: string | null, organization_payment_method_id: string, organization_payment_method: { id: string, payment_method: PAYMENT_METHOD, payment_provider: PAYMENT_PROVIDER, bound_mode: ORGANIZATION_PAYMENT_METHOD_BOUND_MODE | null, bound_id: string | null, is_enabled: boolean, is_default: boolean, billing_first_name: string | null, billing_last_name: string | null, billing_email: string | null, billing_phone_number: string | null, billing_address_line_1: string | null, billing_address_number: string | null, billing_address_line_2: string | null, billing_address_city: string | null, billing_address_state: string | null, billing_address_zip_code: string | null, billing_address_country_code_iso_3: COUNTRY_ISO_3 | null, created_at: unknown, updated_at: unknown, organization_id: string, payment_method_info:
+                | { type: PAYMENT_METHOD, card_number_masked: string | null, card_brand: string | null }
+                | { type: PAYMENT_METHOD }
+               | null }, items: Array<{ id: string, quantity: number, unit_price: bigint, started_at: unknown, canceled_at: unknown, item_type: ORGANIZATION_SUBSCRIPTION_ITEM, created_at: unknown, updated_at: unknown, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS, category: ORGANIZATION_SUBSCRIPTION_ITEM_CATEGORY, classification: ORGANIZATION_SUBSCRIPTION_ITEM_CLASSIFICATION, organization_subscription_id: string }>, transactions: Array<{ id: string, transaction_provider: TRANSACTION_PROVIDER, provider_transaction_code: string, transaction_code: string, amount: bigint, currency: CURRENCY, started_at: unknown, succeeded_at: unknown, failed_at: unknown, reverted_at: unknown, transaction_date: unknown, due_date: unknown, procedure: ORGANIZATION_SUBSCRIPTION_TRANSACTION_PROCEDURE, subscription_item_ids: Array<string>, period_ends_at: unknown, period_sequence: number | null, period_starts_at: unknown, created_at: unknown, updated_at: unknown, status: TRANSACTION_STATUS, organization_subscription_id: string, organization_payment_method_id: string }> } | null, current_item_subscription: { id: string, price_total_amount: bigint, price_currency: CURRENCY, price_tier: ORGANIZATION_SUBSCRIPTION_PRICE_TIER, current_period_ends_at: unknown, current_period_starts_at: unknown, canceled_at: unknown, renew_interval: ORGANIZATION_SUBSCRIPTION_RENEW_INTERVAL, next_payment_at: unknown, provider: ORGANIZATION_SUBSCRIPTION_PROVIDER, provider_status: ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS, provider_plan_code: string | null, provider_subscription_code: string | null, provider_last_verified_at: unknown, has_outdated_price: boolean, created_at: unknown, updated_at: unknown, status: ORGANIZATION_SUBSCRIPTION_STATUS, payment_status: ORGANIZATION_SUBSCRIPTION_PAYMENT_STATUS | null, organization_id: string, organization_coupon_id: string | null, organization_payment_method_id: string, organization_payment_method: { id: string, payment_method: PAYMENT_METHOD, payment_provider: PAYMENT_PROVIDER, bound_mode: ORGANIZATION_PAYMENT_METHOD_BOUND_MODE | null, bound_id: string | null, is_enabled: boolean, is_default: boolean, billing_first_name: string | null, billing_last_name: string | null, billing_email: string | null, billing_phone_number: string | null, billing_address_line_1: string | null, billing_address_number: string | null, billing_address_line_2: string | null, billing_address_city: string | null, billing_address_state: string | null, billing_address_zip_code: string | null, billing_address_country_code_iso_3: COUNTRY_ISO_3 | null, created_at: unknown, updated_at: unknown, organization_id: string, payment_method_info:
+                | { type: PAYMENT_METHOD, card_number_masked: string | null, card_brand: string | null }
+                | { type: PAYMENT_METHOD }
+               | null }, items: Array<{ id: string, quantity: number, unit_price: bigint, started_at: unknown, canceled_at: unknown, item_type: ORGANIZATION_SUBSCRIPTION_ITEM, created_at: unknown, updated_at: unknown, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS, category: ORGANIZATION_SUBSCRIPTION_ITEM_CATEGORY, classification: ORGANIZATION_SUBSCRIPTION_ITEM_CLASSIFICATION, organization_subscription_id: string }>, transactions: Array<{ id: string, transaction_provider: TRANSACTION_PROVIDER, provider_transaction_code: string, transaction_code: string, amount: bigint, currency: CURRENCY, started_at: unknown, succeeded_at: unknown, failed_at: unknown, reverted_at: unknown, transaction_date: unknown, due_date: unknown, procedure: ORGANIZATION_SUBSCRIPTION_TRANSACTION_PROCEDURE, subscription_item_ids: Array<string>, period_ends_at: unknown, period_sequence: number | null, period_starts_at: unknown, created_at: unknown, updated_at: unknown, status: TRANSACTION_STATUS, organization_subscription_id: string, organization_payment_method_id: string }> } | null }, available_addon_items: Array<{ item_type: ORGANIZATION_SUBSCRIPTION_ADDON_ITEM, is_purchase_available: boolean, original_unit_price: bigint, unit_price: bigint }> }> }> } };
 
 export type UserOrganizationSubscriptionVerifyCouponMutationVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  code: Scalars['String']['input'];
+  organizationId: string;
+  code: string;
 }>;
 
 
-export type UserOrganizationSubscriptionVerifyCouponMutation = { __typename?: 'Mutation', userOrganizationSubscriptionVerifyCoupon: { __typename?: 'OrganizationCoupon', id: string, campaign: ORGANIZATION_COUPON_CAMPAIGN, category: ORGANIZATION_COUPON_CATEGORY, subdivision: ORGANIZATION_COUPON_SUBDIVISION, is_activation_unlimited: boolean, activated_at?: any | null, expires_at?: any | null, created_at: any, updated_at: any, status: ORGANIZATION_COUPON_STATUS, organization_id?: string | null, category_description?: string | null, subdivision_description?: string | null } };
+export type UserOrganizationSubscriptionVerifyCouponMutation = { userOrganizationSubscriptionVerifyCoupon: { id: string, campaign: ORGANIZATION_COUPON_CAMPAIGN, category: ORGANIZATION_COUPON_CATEGORY, subdivision: ORGANIZATION_COUPON_SUBDIVISION, is_activation_unlimited: boolean, activated_at: unknown, expires_at: unknown, created_at: unknown, updated_at: unknown, status: ORGANIZATION_COUPON_STATUS, organization_id: string | null, category_description: string | null, subdivision_description: string | null } };
 
 export type UserOrganizationSubscriptionCalculatePricingMutationVariables = Exact<{
   data: UserOrganizationSubscriptionCalculatePricingSchema;
-  organizationId: Scalars['String']['input'];
+  organizationId: string;
 }>;
 
 
-export type UserOrganizationSubscriptionCalculatePricingMutation = { __typename?: 'Mutation', userOrganizationSubscriptionCalculatePricing: { __typename?: 'OrganizationSubscriptionCalculatedPricing', organization_id: string, organization_coupon_id?: string | null, price_tier: ORGANIZATION_SUBSCRIPTION_PRICE_TIER, price_currency: CURRENCY, renew_interval: ORGANIZATION_SUBSCRIPTION_RENEW_INTERVAL, original_price_total_amount: bigint, price_total_amount: bigint, provider: ORGANIZATION_SUBSCRIPTION_PROVIDER, organization_coupon?: { __typename?: 'OrganizationCoupon', id: string, campaign: ORGANIZATION_COUPON_CAMPAIGN, category: ORGANIZATION_COUPON_CATEGORY, subdivision: ORGANIZATION_COUPON_SUBDIVISION, is_activation_unlimited: boolean, activated_at?: any | null, expires_at?: any | null, created_at: any, updated_at: any, status: ORGANIZATION_COUPON_STATUS, organization_id?: string | null, category_description?: string | null, subdivision_description?: string | null } | null, selected_base_item: { __typename?: 'OrganizationSubscriptionCalculatedPricingBaseItem', item_type: ORGANIZATION_SUBSCRIPTION_BASE_ITEM, original_unit_price: bigint, unit_price: bigint, category: ORGANIZATION_SUBSCRIPTION_ITEM_CATEGORY }, selected_addon_items: Array<{ __typename?: 'OrganizationSubscriptionCalculatedPricingAddonItem', item_type: ORGANIZATION_SUBSCRIPTION_ADDON_ITEM, quantity: number, original_unit_price: bigint, unit_price: bigint }> } };
+export type UserOrganizationSubscriptionCalculatePricingMutation = { userOrganizationSubscriptionCalculatePricing: { organization_id: string, organization_coupon_id: string | null, price_tier: ORGANIZATION_SUBSCRIPTION_PRICE_TIER, price_currency: CURRENCY, renew_interval: ORGANIZATION_SUBSCRIPTION_RENEW_INTERVAL, original_price_total_amount: bigint, price_total_amount: bigint, provider: ORGANIZATION_SUBSCRIPTION_PROVIDER, organization_coupon: { id: string, campaign: ORGANIZATION_COUPON_CAMPAIGN, category: ORGANIZATION_COUPON_CATEGORY, subdivision: ORGANIZATION_COUPON_SUBDIVISION, is_activation_unlimited: boolean, activated_at: unknown, expires_at: unknown, created_at: unknown, updated_at: unknown, status: ORGANIZATION_COUPON_STATUS, organization_id: string | null, category_description: string | null, subdivision_description: string | null } | null, selected_base_item: { item_type: ORGANIZATION_SUBSCRIPTION_BASE_ITEM, original_unit_price: bigint, unit_price: bigint, category: ORGANIZATION_SUBSCRIPTION_ITEM_CATEGORY }, selected_addon_items: Array<{ item_type: ORGANIZATION_SUBSCRIPTION_ADDON_ITEM, quantity: number, original_unit_price: bigint, unit_price: bigint }> } };
 
 export type UserOrganizationSubscriptionGetPrePurchaseTransactionDataMutationVariables = Exact<{
-  organizationId: Scalars['String']['input'];
+  organizationId: string;
 }>;
 
 
-export type UserOrganizationSubscriptionGetPrePurchaseTransactionDataMutation = { __typename?: 'Mutation', userOrganizationSubscriptionGetPrePurchaseTransactionData:
-    | { __typename?: 'AccruPayTransactionProviderPreTransactionData', transaction_provider: TRANSACTION_PROVIDER, environment: string, merchant_id: string, merchant_site_id: string }
-    | { __typename?: 'NuveiTransactionProviderPreTransactionData', transaction_provider: TRANSACTION_PROVIDER, environment: string, merchant_id: string, merchant_site_id: string }
+export type UserOrganizationSubscriptionGetPrePurchaseTransactionDataMutation = { userOrganizationSubscriptionGetPrePurchaseTransactionData:
+    | { transaction_provider: TRANSACTION_PROVIDER, environment: string, merchant_id: string, merchant_site_id: string }
+    | { transaction_provider: TRANSACTION_PROVIDER, environment: string, merchant_id: string, merchant_site_id: string }
    };
 
 export type UserOrganizationSubscriptionStartPurchaseMutationVariables = Exact<{
-  organizationId: Scalars['String']['input'];
+  organizationId: string;
   data: UserOrganizationSubscriptionStartPurchaseSchema;
 }>;
 
 
-export type UserOrganizationSubscriptionStartPurchaseMutation = { __typename?: 'Mutation', userOrganizationSubscriptionStartPurchase: { __typename?: 'OrganizationSubscriptionTransaction', id: string, transaction_provider: TRANSACTION_PROVIDER, provider_transaction_code: string, transaction_code: string, amount: bigint, currency: CURRENCY, started_at?: any | null, succeeded_at?: any | null, failed_at?: any | null, reverted_at?: any | null, transaction_date: any, due_date: any, procedure: ORGANIZATION_SUBSCRIPTION_TRANSACTION_PROCEDURE, subscription_item_ids: Array<string>, period_ends_at?: any | null, period_sequence?: number | null, period_starts_at?: any | null, created_at: any, updated_at: any, status: TRANSACTION_STATUS, organization_subscription_id: string, organization_payment_method_id: string } };
+export type UserOrganizationSubscriptionStartPurchaseMutation = { userOrganizationSubscriptionStartPurchase: { id: string, transaction_provider: TRANSACTION_PROVIDER, provider_transaction_code: string, transaction_code: string, amount: bigint, currency: CURRENCY, started_at: unknown, succeeded_at: unknown, failed_at: unknown, reverted_at: unknown, transaction_date: unknown, due_date: unknown, procedure: ORGANIZATION_SUBSCRIPTION_TRANSACTION_PROCEDURE, subscription_item_ids: Array<string>, period_ends_at: unknown, period_sequence: number | null, period_starts_at: unknown, created_at: unknown, updated_at: unknown, status: TRANSACTION_STATUS, organization_subscription_id: string, organization_payment_method_id: string } };
 
 export type UserOrganizationSubscriptionCompletePurchaseMutationVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationSubscriptionId: Scalars['String']['input'];
-  organizationSubscriptionTransactionId: Scalars['String']['input'];
+  organizationId: string;
+  organizationSubscriptionId: string;
+  organizationSubscriptionTransactionId: string;
 }>;
 
 
-export type UserOrganizationSubscriptionCompletePurchaseMutation = { __typename?: 'Mutation', userOrganizationSubscriptionCompletePurchase: { __typename?: 'OrganizationSubscription', id: string, price_total_amount: bigint, price_currency: CURRENCY, price_tier: ORGANIZATION_SUBSCRIPTION_PRICE_TIER, current_period_ends_at?: any | null, current_period_starts_at?: any | null, canceled_at?: any | null, renew_interval: ORGANIZATION_SUBSCRIPTION_RENEW_INTERVAL, next_payment_at?: any | null, provider: ORGANIZATION_SUBSCRIPTION_PROVIDER, provider_status: ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS, provider_plan_code?: string | null, provider_subscription_code?: string | null, provider_last_verified_at?: any | null, has_outdated_price: boolean, created_at: any, updated_at: any, status: ORGANIZATION_SUBSCRIPTION_STATUS, payment_status?: ORGANIZATION_SUBSCRIPTION_PAYMENT_STATUS | null, organization_id: string, organization_coupon_id?: string | null, organization_payment_method_id: string, organization_payment_method: { __typename?: 'OrganizationPaymentMethod', id: string, payment_method: PAYMENT_METHOD, payment_provider: PAYMENT_PROVIDER, bound_mode?: ORGANIZATION_PAYMENT_METHOD_BOUND_MODE | null, bound_id?: string | null, is_enabled: boolean, is_default: boolean, billing_first_name?: string | null, billing_last_name?: string | null, billing_email?: string | null, billing_phone_number?: string | null, billing_address_line_1?: string | null, billing_address_number?: string | null, billing_address_line_2?: string | null, billing_address_city?: string | null, billing_address_state?: string | null, billing_address_zip_code?: string | null, billing_address_country_code_iso_3?: COUNTRY_ISO_3 | null, created_at: any, updated_at: any, organization_id: string, payment_method_info?:
-        | { __typename?: 'OrganizationPaymentMethodCreditCardInfo', type: PAYMENT_METHOD, card_number_masked?: string | null, card_brand?: string | null }
-        | { __typename?: 'OrganizationPaymentMethodGenericInfo', type: PAYMENT_METHOD }
-       | null }, items: Array<{ __typename?: 'OrganizationSubscriptionItem', id: string, quantity: number, unit_price: bigint, started_at?: any | null, canceled_at?: any | null, item_type: ORGANIZATION_SUBSCRIPTION_ITEM, created_at: any, updated_at: any, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS, category: ORGANIZATION_SUBSCRIPTION_ITEM_CATEGORY, classification: ORGANIZATION_SUBSCRIPTION_ITEM_CLASSIFICATION, organization_subscription_id: string }>, transactions: Array<{ __typename?: 'OrganizationSubscriptionTransaction', id: string, transaction_provider: TRANSACTION_PROVIDER, provider_transaction_code: string, transaction_code: string, amount: bigint, currency: CURRENCY, started_at?: any | null, succeeded_at?: any | null, failed_at?: any | null, reverted_at?: any | null, transaction_date: any, due_date: any, procedure: ORGANIZATION_SUBSCRIPTION_TRANSACTION_PROCEDURE, subscription_item_ids: Array<string>, period_ends_at?: any | null, period_sequence?: number | null, period_starts_at?: any | null, created_at: any, updated_at: any, status: TRANSACTION_STATUS, organization_subscription_id: string, organization_payment_method_id: string }> } };
+export type UserOrganizationSubscriptionCompletePurchaseMutation = { userOrganizationSubscriptionCompletePurchase: { id: string, price_total_amount: bigint, price_currency: CURRENCY, price_tier: ORGANIZATION_SUBSCRIPTION_PRICE_TIER, current_period_ends_at: unknown, current_period_starts_at: unknown, canceled_at: unknown, renew_interval: ORGANIZATION_SUBSCRIPTION_RENEW_INTERVAL, next_payment_at: unknown, provider: ORGANIZATION_SUBSCRIPTION_PROVIDER, provider_status: ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS, provider_plan_code: string | null, provider_subscription_code: string | null, provider_last_verified_at: unknown, has_outdated_price: boolean, created_at: unknown, updated_at: unknown, status: ORGANIZATION_SUBSCRIPTION_STATUS, payment_status: ORGANIZATION_SUBSCRIPTION_PAYMENT_STATUS | null, organization_id: string, organization_coupon_id: string | null, organization_payment_method_id: string, organization_payment_method: { id: string, payment_method: PAYMENT_METHOD, payment_provider: PAYMENT_PROVIDER, bound_mode: ORGANIZATION_PAYMENT_METHOD_BOUND_MODE | null, bound_id: string | null, is_enabled: boolean, is_default: boolean, billing_first_name: string | null, billing_last_name: string | null, billing_email: string | null, billing_phone_number: string | null, billing_address_line_1: string | null, billing_address_number: string | null, billing_address_line_2: string | null, billing_address_city: string | null, billing_address_state: string | null, billing_address_zip_code: string | null, billing_address_country_code_iso_3: COUNTRY_ISO_3 | null, created_at: unknown, updated_at: unknown, organization_id: string, payment_method_info:
+        | { type: PAYMENT_METHOD, card_number_masked: string | null, card_brand: string | null }
+        | { type: PAYMENT_METHOD }
+       | null }, items: Array<{ id: string, quantity: number, unit_price: bigint, started_at: unknown, canceled_at: unknown, item_type: ORGANIZATION_SUBSCRIPTION_ITEM, created_at: unknown, updated_at: unknown, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS, category: ORGANIZATION_SUBSCRIPTION_ITEM_CATEGORY, classification: ORGANIZATION_SUBSCRIPTION_ITEM_CLASSIFICATION, organization_subscription_id: string }>, transactions: Array<{ id: string, transaction_provider: TRANSACTION_PROVIDER, provider_transaction_code: string, transaction_code: string, amount: bigint, currency: CURRENCY, started_at: unknown, succeeded_at: unknown, failed_at: unknown, reverted_at: unknown, transaction_date: unknown, due_date: unknown, procedure: ORGANIZATION_SUBSCRIPTION_TRANSACTION_PROCEDURE, subscription_item_ids: Array<string>, period_ends_at: unknown, period_sequence: number | null, period_starts_at: unknown, created_at: unknown, updated_at: unknown, status: TRANSACTION_STATUS, organization_subscription_id: string, organization_payment_method_id: string }> } };
 
 export type UserOrganizationSubscriptionCancelMutationVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationSubscriptionId: Scalars['String']['input'];
+  organizationId: string;
+  organizationSubscriptionId: string;
 }>;
 
 
-export type UserOrganizationSubscriptionCancelMutation = { __typename?: 'Mutation', userOrganizationSubscriptionCancel: { __typename?: 'OrganizationSubscription', id: string, price_total_amount: bigint, price_currency: CURRENCY, price_tier: ORGANIZATION_SUBSCRIPTION_PRICE_TIER, current_period_ends_at?: any | null, current_period_starts_at?: any | null, canceled_at?: any | null, renew_interval: ORGANIZATION_SUBSCRIPTION_RENEW_INTERVAL, next_payment_at?: any | null, provider: ORGANIZATION_SUBSCRIPTION_PROVIDER, provider_status: ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS, provider_plan_code?: string | null, provider_subscription_code?: string | null, provider_last_verified_at?: any | null, has_outdated_price: boolean, created_at: any, updated_at: any, status: ORGANIZATION_SUBSCRIPTION_STATUS, payment_status?: ORGANIZATION_SUBSCRIPTION_PAYMENT_STATUS | null, organization_id: string, organization_coupon_id?: string | null, organization_payment_method_id: string, organization_payment_method: { __typename?: 'OrganizationPaymentMethod', id: string, payment_method: PAYMENT_METHOD, payment_provider: PAYMENT_PROVIDER, bound_mode?: ORGANIZATION_PAYMENT_METHOD_BOUND_MODE | null, bound_id?: string | null, is_enabled: boolean, is_default: boolean, billing_first_name?: string | null, billing_last_name?: string | null, billing_email?: string | null, billing_phone_number?: string | null, billing_address_line_1?: string | null, billing_address_number?: string | null, billing_address_line_2?: string | null, billing_address_city?: string | null, billing_address_state?: string | null, billing_address_zip_code?: string | null, billing_address_country_code_iso_3?: COUNTRY_ISO_3 | null, created_at: any, updated_at: any, organization_id: string, payment_method_info?:
-        | { __typename?: 'OrganizationPaymentMethodCreditCardInfo', type: PAYMENT_METHOD, card_number_masked?: string | null, card_brand?: string | null }
-        | { __typename?: 'OrganizationPaymentMethodGenericInfo', type: PAYMENT_METHOD }
-       | null }, items: Array<{ __typename?: 'OrganizationSubscriptionItem', id: string, quantity: number, unit_price: bigint, started_at?: any | null, canceled_at?: any | null, item_type: ORGANIZATION_SUBSCRIPTION_ITEM, created_at: any, updated_at: any, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS, category: ORGANIZATION_SUBSCRIPTION_ITEM_CATEGORY, classification: ORGANIZATION_SUBSCRIPTION_ITEM_CLASSIFICATION, organization_subscription_id: string }>, transactions: Array<{ __typename?: 'OrganizationSubscriptionTransaction', id: string, transaction_provider: TRANSACTION_PROVIDER, provider_transaction_code: string, transaction_code: string, amount: bigint, currency: CURRENCY, started_at?: any | null, succeeded_at?: any | null, failed_at?: any | null, reverted_at?: any | null, transaction_date: any, due_date: any, procedure: ORGANIZATION_SUBSCRIPTION_TRANSACTION_PROCEDURE, subscription_item_ids: Array<string>, period_ends_at?: any | null, period_sequence?: number | null, period_starts_at?: any | null, created_at: any, updated_at: any, status: TRANSACTION_STATUS, organization_subscription_id: string, organization_payment_method_id: string }> } };
+export type UserOrganizationSubscriptionCancelMutation = { userOrganizationSubscriptionCancel: { id: string, price_total_amount: bigint, price_currency: CURRENCY, price_tier: ORGANIZATION_SUBSCRIPTION_PRICE_TIER, current_period_ends_at: unknown, current_period_starts_at: unknown, canceled_at: unknown, renew_interval: ORGANIZATION_SUBSCRIPTION_RENEW_INTERVAL, next_payment_at: unknown, provider: ORGANIZATION_SUBSCRIPTION_PROVIDER, provider_status: ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS, provider_plan_code: string | null, provider_subscription_code: string | null, provider_last_verified_at: unknown, has_outdated_price: boolean, created_at: unknown, updated_at: unknown, status: ORGANIZATION_SUBSCRIPTION_STATUS, payment_status: ORGANIZATION_SUBSCRIPTION_PAYMENT_STATUS | null, organization_id: string, organization_coupon_id: string | null, organization_payment_method_id: string, organization_payment_method: { id: string, payment_method: PAYMENT_METHOD, payment_provider: PAYMENT_PROVIDER, bound_mode: ORGANIZATION_PAYMENT_METHOD_BOUND_MODE | null, bound_id: string | null, is_enabled: boolean, is_default: boolean, billing_first_name: string | null, billing_last_name: string | null, billing_email: string | null, billing_phone_number: string | null, billing_address_line_1: string | null, billing_address_number: string | null, billing_address_line_2: string | null, billing_address_city: string | null, billing_address_state: string | null, billing_address_zip_code: string | null, billing_address_country_code_iso_3: COUNTRY_ISO_3 | null, created_at: unknown, updated_at: unknown, organization_id: string, payment_method_info:
+        | { type: PAYMENT_METHOD, card_number_masked: string | null, card_brand: string | null }
+        | { type: PAYMENT_METHOD }
+       | null }, items: Array<{ id: string, quantity: number, unit_price: bigint, started_at: unknown, canceled_at: unknown, item_type: ORGANIZATION_SUBSCRIPTION_ITEM, created_at: unknown, updated_at: unknown, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS, category: ORGANIZATION_SUBSCRIPTION_ITEM_CATEGORY, classification: ORGANIZATION_SUBSCRIPTION_ITEM_CLASSIFICATION, organization_subscription_id: string }>, transactions: Array<{ id: string, transaction_provider: TRANSACTION_PROVIDER, provider_transaction_code: string, transaction_code: string, amount: bigint, currency: CURRENCY, started_at: unknown, succeeded_at: unknown, failed_at: unknown, reverted_at: unknown, transaction_date: unknown, due_date: unknown, procedure: ORGANIZATION_SUBSCRIPTION_TRANSACTION_PROCEDURE, subscription_item_ids: Array<string>, period_ends_at: unknown, period_sequence: number | null, period_starts_at: unknown, created_at: unknown, updated_at: unknown, status: TRANSACTION_STATUS, organization_subscription_id: string, organization_payment_method_id: string }> } };
 
 export type UserOrganizationInvoiceTransactionGetPDFMutationVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  organizationInvoiceTransactionId: Scalars['String']['input'];
-  acctProvider?: InputMaybe<ACCT_PROVIDER>;
+  organizationId: string;
+  organizationInvoiceTransactionId: string;
+  acctProvider?: ACCT_PROVIDER | null | undefined;
 }>;
 
 
-export type UserOrganizationInvoiceTransactionGetPDFMutation = { __typename?: 'Mutation', userOrganizationInvoiceTransactionGetPDF: string };
+export type UserOrganizationInvoiceTransactionGetPDFMutation = { userOrganizationInvoiceTransactionGetPDF: string };
 
-export type UserFragmentFragment = { __typename?: 'User', id: string, email: string, first_name?: string | null, last_name?: string | null, language?: string | null, phone_number?: string | null, timezone?: string | null, is_admin: boolean, referral_code?: string | null, updated_at: any, created_at: any, profile_picture_file?: { __typename?: 'File', public_url?: string | null } | null };
+export type UserFragmentFragment = { id: string, email: string, first_name: string | null, last_name: string | null, language: string | null, phone_number: string | null, timezone: string | null, is_admin: boolean, referral_code: string | null, updated_at: unknown, created_at: unknown, profile_picture_file: { public_url: string | null } | null };
 
-export type UserWithOrganizationFragmentFragment = { __typename?: 'User', id: string, email: string, first_name?: string | null, last_name?: string | null, language?: string | null, phone_number?: string | null, timezone?: string | null, is_admin: boolean, referral_code?: string | null, updated_at: any, created_at: any, organizations?: Array<{ __typename?: 'OrganizationUser', id: string, role: ORGANIZATION_USER_ROLE, is_current_organization_user_seat_available?: boolean | null, organization_id: string, organization: { __typename?: 'Organization', id: string, name: string, email: string, website?: string | null, unique_name: string, unique_code: string, phone_number?: string | null, address_line_1?: string | null, address_number?: string | null, address_line_2?: string | null, address_city?: string | null, address_state?: string | null, address_zip_code?: string | null, address_country_code_iso_3?: COUNTRY_ISO_3 | null, address_lat?: number | null, address_lng?: number | null, primary_contact_name?: string | null, business_name?: string | null, business_industry?: string | null, business_number_of_employees?: number | null, business_address_line_1?: string | null, business_address_number?: string | null, business_address_line_2?: string | null, business_address_city?: string | null, business_address_state?: string | null, business_address_zip_code?: string | null, business_address_country_code_iso_3?: COUNTRY_ISO_3 | null, business_address_lat?: number | null, business_address_lng?: number | null, business_tax_code_type?: TAX_TYPE | null, business_tax_code?: string | null, timezone?: string | null, language?: string | null, created_at: any, updated_at: any, logo_picture_file_id?: string | null, setting_customer_email_copy_mode?: NOTIFICATION_EMAIL_COPY_MODE | null, current_email_verification_id?: string | null, current_phone_number_verification_id?: string | null, subscription_level?: number | null, logo_picture_file?: { __typename?: 'File', public_url?: string | null } | null, subscription_data?: { __typename?: 'OrganizationSubscriptionData', subscription_level: number, organization_user_seats: number, requires_user_action: boolean, requires_provider_refresh: boolean, active_subscriptions: Array<{ __typename?: 'OrganizationSubscription', id: string, provider: ORGANIZATION_SUBSCRIPTION_PROVIDER, provider_status: ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS }>, active_plans: Array<{ __typename?: 'OrganizationSubscriptionItem', item_type: ORGANIZATION_SUBSCRIPTION_ITEM, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }>, active_modules: Array<{ __typename?: 'OrganizationSubscriptionItem', item_type: ORGANIZATION_SUBSCRIPTION_ITEM, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }>, active_addons: Array<{ __typename?: 'OrganizationSubscriptionItem', item_type: ORGANIZATION_SUBSCRIPTION_ITEM, quantity: number, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }> } | null, acct_provider_conns?: { __typename?: 'OrganizationAcctProviderConnPaginationConnection', edges: Array<{ __typename?: 'OrganizationAcctProviderConnPaginationEdge', node: { __typename?: 'OrganizationAcctProviderConn', id: string, acct_provider: ACCT_PROVIDER, code: string, url?: string | null, payload?: any | null, customer_add_url?: string | null, invoice_add_url?: string | null, vendor_add_url?: string | null, bill_add_url?: string | null, name?: string | null, email?: string | null, phone_number?: string | null, website_url?: string | null, primary_contact_name?: string | null, business_name?: string | null, business_industry?: string | null, business_number_of_employees?: number | null, timezone?: string | null, language?: string | null, business_tax_code_type?: TAX_TYPE | null, business_tax_code?: string | null, address_line_1?: string | null, address_number?: string | null, address_line_2?: string | null, address_city?: string | null, address_state?: string | null, address_zip_code?: string | null, address_country_code_iso_3?: COUNTRY_ISO_3 | null, address_lat?: number | null, address_lng?: number | null, business_address_line_1?: string | null, business_address_number?: string | null, business_address_line_2?: string | null, business_address_city?: string | null, business_address_state?: string | null, business_address_zip_code?: string | null, business_address_country_code_iso_3?: COUNTRY_ISO_3 | null, business_address_lat?: number | null, business_address_lng?: number | null, automatic_pull_enabled: boolean, status: ORGANIZATION_ACCT_PROVIDER_CONN_STATUS, disconnected_at?: any | null, conn_expires_at: any, organization_id: string, last_conn_at?: any | null, last_successful_sync_id?: string | null, last_successful_sync_at?: any | null, last_sync_succeeded?: boolean | null, last_sync_id?: string | null, last_sync_at?: any | null, created_at: any, updated_at: any, synchronizations: { __typename?: 'OrganizationAcctProviderConnSynchronizationPaginationConnection', edges: Array<{ __typename?: 'OrganizationAcctProviderConnSynchronizationPaginationEdge', node: { __typename?: 'OrganizationAcctProviderConnSynchronization', id: string, mode: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_MODE, force?: boolean | null, provider: ACCT_PROVIDER, errors: Array<string>, warnings: Array<string>, started_at?: any | null, finished_at?: any | null, failed_at?: any | null, succeeded_at?: any | null, skipped_at?: any | null, read_success: number, read_failure: number, skipped: number, create_success: number, create_failure: number, update_success: number, update_failure: number, delete_failure: number, delete_success: number, process_failure: number, process_success: number, created_at: any, updated_at: any, scope: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_SCOPE, scope_id?: string | null, scope_description?: string | null, organization_id: string, organization_acct_provider_conn_id: string, data?: { __typename?: 'OrganizationAcctProviderConnSynchronizationData', customer?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, invoice?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, invoice_transaction?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, vendor?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, bill?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, bill_transaction?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null } | null } }> } } }> } | null } } | null> | null, profile_picture_file?: { __typename?: 'File', public_url?: string | null } | null };
+export type UserWithOrganizationFragmentFragment = { id: string, email: string, first_name: string | null, last_name: string | null, language: string | null, phone_number: string | null, timezone: string | null, is_admin: boolean, referral_code: string | null, updated_at: unknown, created_at: unknown, organizations: Array<{ id: string, role: ORGANIZATION_USER_ROLE, is_current_organization_user_seat_available: boolean | null, organization_id: string, organization: { id: string, name: string, email: string, website: string | null, unique_name: string, unique_code: string, phone_number: string | null, address_line_1: string | null, address_number: string | null, address_line_2: string | null, address_city: string | null, address_state: string | null, address_zip_code: string | null, address_country_code_iso_3: COUNTRY_ISO_3 | null, address_lat: number | null, address_lng: number | null, primary_contact_name: string | null, business_name: string | null, business_industry: string | null, business_number_of_employees: number | null, business_address_line_1: string | null, business_address_number: string | null, business_address_line_2: string | null, business_address_city: string | null, business_address_state: string | null, business_address_zip_code: string | null, business_address_country_code_iso_3: COUNTRY_ISO_3 | null, business_address_lat: number | null, business_address_lng: number | null, business_tax_code_type: TAX_TYPE | null, business_tax_code: string | null, timezone: string | null, language: string | null, created_at: unknown, updated_at: unknown, logo_picture_file_id: string | null, setting_customer_email_copy_mode: NOTIFICATION_EMAIL_COPY_MODE | null, current_email_verification_id: string | null, current_phone_number_verification_id: string | null, subscription_level: number | null, logo_picture_file: { public_url: string | null } | null, subscription_data: { subscription_level: number, organization_user_seats: number, requires_user_action: boolean, requires_provider_refresh: boolean, active_subscriptions: Array<{ id: string, provider: ORGANIZATION_SUBSCRIPTION_PROVIDER, provider_status: ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS }>, active_plans: Array<{ item_type: ORGANIZATION_SUBSCRIPTION_ITEM, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }>, active_modules: Array<{ item_type: ORGANIZATION_SUBSCRIPTION_ITEM, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }>, active_addons: Array<{ item_type: ORGANIZATION_SUBSCRIPTION_ITEM, quantity: number, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }> } | null, acct_provider_conns: { edges: Array<{ node: { id: string, acct_provider: ACCT_PROVIDER, code: string, url: string | null, payload: unknown, customer_add_url: string | null, invoice_add_url: string | null, vendor_add_url: string | null, bill_add_url: string | null, name: string | null, email: string | null, phone_number: string | null, website_url: string | null, primary_contact_name: string | null, business_name: string | null, business_industry: string | null, business_number_of_employees: number | null, timezone: string | null, language: string | null, business_tax_code_type: TAX_TYPE | null, business_tax_code: string | null, address_line_1: string | null, address_number: string | null, address_line_2: string | null, address_city: string | null, address_state: string | null, address_zip_code: string | null, address_country_code_iso_3: COUNTRY_ISO_3 | null, address_lat: number | null, address_lng: number | null, business_address_line_1: string | null, business_address_number: string | null, business_address_line_2: string | null, business_address_city: string | null, business_address_state: string | null, business_address_zip_code: string | null, business_address_country_code_iso_3: COUNTRY_ISO_3 | null, business_address_lat: number | null, business_address_lng: number | null, automatic_pull_enabled: boolean, status: ORGANIZATION_ACCT_PROVIDER_CONN_STATUS, disconnected_at: unknown, conn_expires_at: unknown, organization_id: string, last_conn_at: unknown, last_successful_sync_id: string | null, last_successful_sync_at: unknown, last_sync_succeeded: boolean | null, last_sync_id: string | null, last_sync_at: unknown, created_at: unknown, updated_at: unknown, synchronizations: { edges: Array<{ node: { id: string, mode: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_MODE, force: boolean | null, provider: ACCT_PROVIDER, errors: Array<string>, warnings: Array<string>, started_at: unknown, finished_at: unknown, failed_at: unknown, succeeded_at: unknown, skipped_at: unknown, read_success: number, read_failure: number, skipped: number, create_success: number, create_failure: number, update_success: number, update_failure: number, delete_failure: number, delete_success: number, process_failure: number, process_success: number, created_at: unknown, updated_at: unknown, scope: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_SCOPE, scope_id: string | null, scope_description: string | null, organization_id: string, organization_acct_provider_conn_id: string, data: { customer: { items: unknown } | null, invoice: { items: unknown } | null, invoice_transaction: { items: unknown } | null, vendor: { items: unknown } | null, bill: { items: unknown } | null, bill_transaction: { items: unknown } | null } | null } }> } } }> } | null } } | null> | null, profile_picture_file: { public_url: string | null } | null };
 
 export type UserQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type UserQuery = { __typename?: 'Query', user: { __typename?: 'User', id: string, email: string, first_name?: string | null, last_name?: string | null, language?: string | null, phone_number?: string | null, timezone?: string | null, is_admin: boolean, referral_code?: string | null, updated_at: any, created_at: any, organizations?: Array<{ __typename?: 'OrganizationUser', id: string, role: ORGANIZATION_USER_ROLE, is_current_organization_user_seat_available?: boolean | null, organization_id: string, organization: { __typename?: 'Organization', id: string, name: string, email: string, website?: string | null, unique_name: string, unique_code: string, phone_number?: string | null, address_line_1?: string | null, address_number?: string | null, address_line_2?: string | null, address_city?: string | null, address_state?: string | null, address_zip_code?: string | null, address_country_code_iso_3?: COUNTRY_ISO_3 | null, address_lat?: number | null, address_lng?: number | null, primary_contact_name?: string | null, business_name?: string | null, business_industry?: string | null, business_number_of_employees?: number | null, business_address_line_1?: string | null, business_address_number?: string | null, business_address_line_2?: string | null, business_address_city?: string | null, business_address_state?: string | null, business_address_zip_code?: string | null, business_address_country_code_iso_3?: COUNTRY_ISO_3 | null, business_address_lat?: number | null, business_address_lng?: number | null, business_tax_code_type?: TAX_TYPE | null, business_tax_code?: string | null, timezone?: string | null, language?: string | null, created_at: any, updated_at: any, logo_picture_file_id?: string | null, setting_customer_email_copy_mode?: NOTIFICATION_EMAIL_COPY_MODE | null, current_email_verification_id?: string | null, current_phone_number_verification_id?: string | null, subscription_level?: number | null, logo_picture_file?: { __typename?: 'File', public_url?: string | null } | null, subscription_data?: { __typename?: 'OrganizationSubscriptionData', subscription_level: number, organization_user_seats: number, requires_user_action: boolean, requires_provider_refresh: boolean, active_subscriptions: Array<{ __typename?: 'OrganizationSubscription', id: string, provider: ORGANIZATION_SUBSCRIPTION_PROVIDER, provider_status: ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS }>, active_plans: Array<{ __typename?: 'OrganizationSubscriptionItem', item_type: ORGANIZATION_SUBSCRIPTION_ITEM, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }>, active_modules: Array<{ __typename?: 'OrganizationSubscriptionItem', item_type: ORGANIZATION_SUBSCRIPTION_ITEM, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }>, active_addons: Array<{ __typename?: 'OrganizationSubscriptionItem', item_type: ORGANIZATION_SUBSCRIPTION_ITEM, quantity: number, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }> } | null, acct_provider_conns?: { __typename?: 'OrganizationAcctProviderConnPaginationConnection', edges: Array<{ __typename?: 'OrganizationAcctProviderConnPaginationEdge', node: { __typename?: 'OrganizationAcctProviderConn', id: string, acct_provider: ACCT_PROVIDER, code: string, url?: string | null, payload?: any | null, customer_add_url?: string | null, invoice_add_url?: string | null, vendor_add_url?: string | null, bill_add_url?: string | null, name?: string | null, email?: string | null, phone_number?: string | null, website_url?: string | null, primary_contact_name?: string | null, business_name?: string | null, business_industry?: string | null, business_number_of_employees?: number | null, timezone?: string | null, language?: string | null, business_tax_code_type?: TAX_TYPE | null, business_tax_code?: string | null, address_line_1?: string | null, address_number?: string | null, address_line_2?: string | null, address_city?: string | null, address_state?: string | null, address_zip_code?: string | null, address_country_code_iso_3?: COUNTRY_ISO_3 | null, address_lat?: number | null, address_lng?: number | null, business_address_line_1?: string | null, business_address_number?: string | null, business_address_line_2?: string | null, business_address_city?: string | null, business_address_state?: string | null, business_address_zip_code?: string | null, business_address_country_code_iso_3?: COUNTRY_ISO_3 | null, business_address_lat?: number | null, business_address_lng?: number | null, automatic_pull_enabled: boolean, status: ORGANIZATION_ACCT_PROVIDER_CONN_STATUS, disconnected_at?: any | null, conn_expires_at: any, organization_id: string, last_conn_at?: any | null, last_successful_sync_id?: string | null, last_successful_sync_at?: any | null, last_sync_succeeded?: boolean | null, last_sync_id?: string | null, last_sync_at?: any | null, created_at: any, updated_at: any, synchronizations: { __typename?: 'OrganizationAcctProviderConnSynchronizationPaginationConnection', edges: Array<{ __typename?: 'OrganizationAcctProviderConnSynchronizationPaginationEdge', node: { __typename?: 'OrganizationAcctProviderConnSynchronization', id: string, mode: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_MODE, force?: boolean | null, provider: ACCT_PROVIDER, errors: Array<string>, warnings: Array<string>, started_at?: any | null, finished_at?: any | null, failed_at?: any | null, succeeded_at?: any | null, skipped_at?: any | null, read_success: number, read_failure: number, skipped: number, create_success: number, create_failure: number, update_success: number, update_failure: number, delete_failure: number, delete_success: number, process_failure: number, process_success: number, created_at: any, updated_at: any, scope: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_SCOPE, scope_id?: string | null, scope_description?: string | null, organization_id: string, organization_acct_provider_conn_id: string, data?: { __typename?: 'OrganizationAcctProviderConnSynchronizationData', customer?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, invoice?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, invoice_transaction?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, vendor?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, bill?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, bill_transaction?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null } | null } }> } } }> } | null } } | null> | null, profile_picture_file?: { __typename?: 'File', public_url?: string | null } | null } };
+export type UserQuery = { user: { id: string, email: string, first_name: string | null, last_name: string | null, language: string | null, phone_number: string | null, timezone: string | null, is_admin: boolean, referral_code: string | null, updated_at: unknown, created_at: unknown, organizations: Array<{ id: string, role: ORGANIZATION_USER_ROLE, is_current_organization_user_seat_available: boolean | null, organization_id: string, organization: { id: string, name: string, email: string, website: string | null, unique_name: string, unique_code: string, phone_number: string | null, address_line_1: string | null, address_number: string | null, address_line_2: string | null, address_city: string | null, address_state: string | null, address_zip_code: string | null, address_country_code_iso_3: COUNTRY_ISO_3 | null, address_lat: number | null, address_lng: number | null, primary_contact_name: string | null, business_name: string | null, business_industry: string | null, business_number_of_employees: number | null, business_address_line_1: string | null, business_address_number: string | null, business_address_line_2: string | null, business_address_city: string | null, business_address_state: string | null, business_address_zip_code: string | null, business_address_country_code_iso_3: COUNTRY_ISO_3 | null, business_address_lat: number | null, business_address_lng: number | null, business_tax_code_type: TAX_TYPE | null, business_tax_code: string | null, timezone: string | null, language: string | null, created_at: unknown, updated_at: unknown, logo_picture_file_id: string | null, setting_customer_email_copy_mode: NOTIFICATION_EMAIL_COPY_MODE | null, current_email_verification_id: string | null, current_phone_number_verification_id: string | null, subscription_level: number | null, logo_picture_file: { public_url: string | null } | null, subscription_data: { subscription_level: number, organization_user_seats: number, requires_user_action: boolean, requires_provider_refresh: boolean, active_subscriptions: Array<{ id: string, provider: ORGANIZATION_SUBSCRIPTION_PROVIDER, provider_status: ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS }>, active_plans: Array<{ item_type: ORGANIZATION_SUBSCRIPTION_ITEM, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }>, active_modules: Array<{ item_type: ORGANIZATION_SUBSCRIPTION_ITEM, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }>, active_addons: Array<{ item_type: ORGANIZATION_SUBSCRIPTION_ITEM, quantity: number, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }> } | null, acct_provider_conns: { edges: Array<{ node: { id: string, acct_provider: ACCT_PROVIDER, code: string, url: string | null, payload: unknown, customer_add_url: string | null, invoice_add_url: string | null, vendor_add_url: string | null, bill_add_url: string | null, name: string | null, email: string | null, phone_number: string | null, website_url: string | null, primary_contact_name: string | null, business_name: string | null, business_industry: string | null, business_number_of_employees: number | null, timezone: string | null, language: string | null, business_tax_code_type: TAX_TYPE | null, business_tax_code: string | null, address_line_1: string | null, address_number: string | null, address_line_2: string | null, address_city: string | null, address_state: string | null, address_zip_code: string | null, address_country_code_iso_3: COUNTRY_ISO_3 | null, address_lat: number | null, address_lng: number | null, business_address_line_1: string | null, business_address_number: string | null, business_address_line_2: string | null, business_address_city: string | null, business_address_state: string | null, business_address_zip_code: string | null, business_address_country_code_iso_3: COUNTRY_ISO_3 | null, business_address_lat: number | null, business_address_lng: number | null, automatic_pull_enabled: boolean, status: ORGANIZATION_ACCT_PROVIDER_CONN_STATUS, disconnected_at: unknown, conn_expires_at: unknown, organization_id: string, last_conn_at: unknown, last_successful_sync_id: string | null, last_successful_sync_at: unknown, last_sync_succeeded: boolean | null, last_sync_id: string | null, last_sync_at: unknown, created_at: unknown, updated_at: unknown, synchronizations: { edges: Array<{ node: { id: string, mode: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_MODE, force: boolean | null, provider: ACCT_PROVIDER, errors: Array<string>, warnings: Array<string>, started_at: unknown, finished_at: unknown, failed_at: unknown, succeeded_at: unknown, skipped_at: unknown, read_success: number, read_failure: number, skipped: number, create_success: number, create_failure: number, update_success: number, update_failure: number, delete_failure: number, delete_success: number, process_failure: number, process_success: number, created_at: unknown, updated_at: unknown, scope: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_SCOPE, scope_id: string | null, scope_description: string | null, organization_id: string, organization_acct_provider_conn_id: string, data: { customer: { items: unknown } | null, invoice: { items: unknown } | null, invoice_transaction: { items: unknown } | null, vendor: { items: unknown } | null, bill: { items: unknown } | null, bill_transaction: { items: unknown } | null } | null } }> } } }> } | null } } | null> | null, profile_picture_file: { public_url: string | null } | null } };
 
 export type UserUpdateDataMutationVariables = Exact<{
   data: UserUpdateDataSchema;
 }>;
 
 
-export type UserUpdateDataMutation = { __typename?: 'Mutation', userUpdateData: { __typename?: 'User', id: string, email: string, first_name?: string | null, last_name?: string | null, language?: string | null, phone_number?: string | null, timezone?: string | null, is_admin: boolean, referral_code?: string | null, updated_at: any, created_at: any, organizations?: Array<{ __typename?: 'OrganizationUser', id: string, role: ORGANIZATION_USER_ROLE, is_current_organization_user_seat_available?: boolean | null, organization_id: string, organization: { __typename?: 'Organization', id: string, name: string, email: string, website?: string | null, unique_name: string, unique_code: string, phone_number?: string | null, address_line_1?: string | null, address_number?: string | null, address_line_2?: string | null, address_city?: string | null, address_state?: string | null, address_zip_code?: string | null, address_country_code_iso_3?: COUNTRY_ISO_3 | null, address_lat?: number | null, address_lng?: number | null, primary_contact_name?: string | null, business_name?: string | null, business_industry?: string | null, business_number_of_employees?: number | null, business_address_line_1?: string | null, business_address_number?: string | null, business_address_line_2?: string | null, business_address_city?: string | null, business_address_state?: string | null, business_address_zip_code?: string | null, business_address_country_code_iso_3?: COUNTRY_ISO_3 | null, business_address_lat?: number | null, business_address_lng?: number | null, business_tax_code_type?: TAX_TYPE | null, business_tax_code?: string | null, timezone?: string | null, language?: string | null, created_at: any, updated_at: any, logo_picture_file_id?: string | null, setting_customer_email_copy_mode?: NOTIFICATION_EMAIL_COPY_MODE | null, current_email_verification_id?: string | null, current_phone_number_verification_id?: string | null, subscription_level?: number | null, logo_picture_file?: { __typename?: 'File', public_url?: string | null } | null, subscription_data?: { __typename?: 'OrganizationSubscriptionData', subscription_level: number, organization_user_seats: number, requires_user_action: boolean, requires_provider_refresh: boolean, active_subscriptions: Array<{ __typename?: 'OrganizationSubscription', id: string, provider: ORGANIZATION_SUBSCRIPTION_PROVIDER, provider_status: ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS }>, active_plans: Array<{ __typename?: 'OrganizationSubscriptionItem', item_type: ORGANIZATION_SUBSCRIPTION_ITEM, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }>, active_modules: Array<{ __typename?: 'OrganizationSubscriptionItem', item_type: ORGANIZATION_SUBSCRIPTION_ITEM, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }>, active_addons: Array<{ __typename?: 'OrganizationSubscriptionItem', item_type: ORGANIZATION_SUBSCRIPTION_ITEM, quantity: number, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }> } | null, acct_provider_conns?: { __typename?: 'OrganizationAcctProviderConnPaginationConnection', edges: Array<{ __typename?: 'OrganizationAcctProviderConnPaginationEdge', node: { __typename?: 'OrganizationAcctProviderConn', id: string, acct_provider: ACCT_PROVIDER, code: string, url?: string | null, payload?: any | null, customer_add_url?: string | null, invoice_add_url?: string | null, vendor_add_url?: string | null, bill_add_url?: string | null, name?: string | null, email?: string | null, phone_number?: string | null, website_url?: string | null, primary_contact_name?: string | null, business_name?: string | null, business_industry?: string | null, business_number_of_employees?: number | null, timezone?: string | null, language?: string | null, business_tax_code_type?: TAX_TYPE | null, business_tax_code?: string | null, address_line_1?: string | null, address_number?: string | null, address_line_2?: string | null, address_city?: string | null, address_state?: string | null, address_zip_code?: string | null, address_country_code_iso_3?: COUNTRY_ISO_3 | null, address_lat?: number | null, address_lng?: number | null, business_address_line_1?: string | null, business_address_number?: string | null, business_address_line_2?: string | null, business_address_city?: string | null, business_address_state?: string | null, business_address_zip_code?: string | null, business_address_country_code_iso_3?: COUNTRY_ISO_3 | null, business_address_lat?: number | null, business_address_lng?: number | null, automatic_pull_enabled: boolean, status: ORGANIZATION_ACCT_PROVIDER_CONN_STATUS, disconnected_at?: any | null, conn_expires_at: any, organization_id: string, last_conn_at?: any | null, last_successful_sync_id?: string | null, last_successful_sync_at?: any | null, last_sync_succeeded?: boolean | null, last_sync_id?: string | null, last_sync_at?: any | null, created_at: any, updated_at: any, synchronizations: { __typename?: 'OrganizationAcctProviderConnSynchronizationPaginationConnection', edges: Array<{ __typename?: 'OrganizationAcctProviderConnSynchronizationPaginationEdge', node: { __typename?: 'OrganizationAcctProviderConnSynchronization', id: string, mode: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_MODE, force?: boolean | null, provider: ACCT_PROVIDER, errors: Array<string>, warnings: Array<string>, started_at?: any | null, finished_at?: any | null, failed_at?: any | null, succeeded_at?: any | null, skipped_at?: any | null, read_success: number, read_failure: number, skipped: number, create_success: number, create_failure: number, update_success: number, update_failure: number, delete_failure: number, delete_success: number, process_failure: number, process_success: number, created_at: any, updated_at: any, scope: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_SCOPE, scope_id?: string | null, scope_description?: string | null, organization_id: string, organization_acct_provider_conn_id: string, data?: { __typename?: 'OrganizationAcctProviderConnSynchronizationData', customer?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, invoice?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, invoice_transaction?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, vendor?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, bill?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null, bill_transaction?: { __typename?: 'OrganizationAcctProviderConnSynchronizationEntity', items?: any | null } | null } | null } }> } } }> } | null } } | null> | null, profile_picture_file?: { __typename?: 'File', public_url?: string | null } | null } };
+export type UserUpdateDataMutation = { userUpdateData: { id: string, email: string, first_name: string | null, last_name: string | null, language: string | null, phone_number: string | null, timezone: string | null, is_admin: boolean, referral_code: string | null, updated_at: unknown, created_at: unknown, organizations: Array<{ id: string, role: ORGANIZATION_USER_ROLE, is_current_organization_user_seat_available: boolean | null, organization_id: string, organization: { id: string, name: string, email: string, website: string | null, unique_name: string, unique_code: string, phone_number: string | null, address_line_1: string | null, address_number: string | null, address_line_2: string | null, address_city: string | null, address_state: string | null, address_zip_code: string | null, address_country_code_iso_3: COUNTRY_ISO_3 | null, address_lat: number | null, address_lng: number | null, primary_contact_name: string | null, business_name: string | null, business_industry: string | null, business_number_of_employees: number | null, business_address_line_1: string | null, business_address_number: string | null, business_address_line_2: string | null, business_address_city: string | null, business_address_state: string | null, business_address_zip_code: string | null, business_address_country_code_iso_3: COUNTRY_ISO_3 | null, business_address_lat: number | null, business_address_lng: number | null, business_tax_code_type: TAX_TYPE | null, business_tax_code: string | null, timezone: string | null, language: string | null, created_at: unknown, updated_at: unknown, logo_picture_file_id: string | null, setting_customer_email_copy_mode: NOTIFICATION_EMAIL_COPY_MODE | null, current_email_verification_id: string | null, current_phone_number_verification_id: string | null, subscription_level: number | null, logo_picture_file: { public_url: string | null } | null, subscription_data: { subscription_level: number, organization_user_seats: number, requires_user_action: boolean, requires_provider_refresh: boolean, active_subscriptions: Array<{ id: string, provider: ORGANIZATION_SUBSCRIPTION_PROVIDER, provider_status: ORGANIZATION_SUBSCRIPTION_PROVIDER_STATUS }>, active_plans: Array<{ item_type: ORGANIZATION_SUBSCRIPTION_ITEM, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }>, active_modules: Array<{ item_type: ORGANIZATION_SUBSCRIPTION_ITEM, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }>, active_addons: Array<{ item_type: ORGANIZATION_SUBSCRIPTION_ITEM, quantity: number, status: ORGANIZATION_SUBSCRIPTION_ITEM_STATUS }> } | null, acct_provider_conns: { edges: Array<{ node: { id: string, acct_provider: ACCT_PROVIDER, code: string, url: string | null, payload: unknown, customer_add_url: string | null, invoice_add_url: string | null, vendor_add_url: string | null, bill_add_url: string | null, name: string | null, email: string | null, phone_number: string | null, website_url: string | null, primary_contact_name: string | null, business_name: string | null, business_industry: string | null, business_number_of_employees: number | null, timezone: string | null, language: string | null, business_tax_code_type: TAX_TYPE | null, business_tax_code: string | null, address_line_1: string | null, address_number: string | null, address_line_2: string | null, address_city: string | null, address_state: string | null, address_zip_code: string | null, address_country_code_iso_3: COUNTRY_ISO_3 | null, address_lat: number | null, address_lng: number | null, business_address_line_1: string | null, business_address_number: string | null, business_address_line_2: string | null, business_address_city: string | null, business_address_state: string | null, business_address_zip_code: string | null, business_address_country_code_iso_3: COUNTRY_ISO_3 | null, business_address_lat: number | null, business_address_lng: number | null, automatic_pull_enabled: boolean, status: ORGANIZATION_ACCT_PROVIDER_CONN_STATUS, disconnected_at: unknown, conn_expires_at: unknown, organization_id: string, last_conn_at: unknown, last_successful_sync_id: string | null, last_successful_sync_at: unknown, last_sync_succeeded: boolean | null, last_sync_id: string | null, last_sync_at: unknown, created_at: unknown, updated_at: unknown, synchronizations: { edges: Array<{ node: { id: string, mode: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_MODE, force: boolean | null, provider: ACCT_PROVIDER, errors: Array<string>, warnings: Array<string>, started_at: unknown, finished_at: unknown, failed_at: unknown, succeeded_at: unknown, skipped_at: unknown, read_success: number, read_failure: number, skipped: number, create_success: number, create_failure: number, update_success: number, update_failure: number, delete_failure: number, delete_success: number, process_failure: number, process_success: number, created_at: unknown, updated_at: unknown, scope: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_SCOPE, scope_id: string | null, scope_description: string | null, organization_id: string, organization_acct_provider_conn_id: string, data: { customer: { items: unknown } | null, invoice: { items: unknown } | null, invoice_transaction: { items: unknown } | null, vendor: { items: unknown } | null, bill: { items: unknown } | null, bill_transaction: { items: unknown } | null } | null } }> } } }> } | null } } | null> | null, profile_picture_file: { public_url: string | null } | null } };
 
 export type UserEmailVerifyOrChangeStartMutationVariables = Exact<{
   data: UserEmailVerifyOrChangeStartSchema;
 }>;
 
 
-export type UserEmailVerifyOrChangeStartMutation = { __typename?: 'Mutation', userEmailVerifyOrChangeStart: any };
+export type UserEmailVerifyOrChangeStartMutation = { userEmailVerifyOrChangeStart: unknown };
 
 export type UserEmailVerifyOrChangeFinishMutationVariables = Exact<{
   data: UserEmailVerifyOrChangeFinishSchema;
 }>;
 
 
-export type UserEmailVerifyOrChangeFinishMutation = { __typename?: 'Mutation', userEmailVerifyOrChangeFinish: { __typename?: 'User', email: string } };
+export type UserEmailVerifyOrChangeFinishMutation = { userEmailVerifyOrChangeFinish: { email: string } };
 
 export type UserPhoneNumberVerifyOrChangeStartMutationVariables = Exact<{
   data: UserPhoneNumberVerifyOrChangeStartSchema;
 }>;
 
 
-export type UserPhoneNumberVerifyOrChangeStartMutation = { __typename?: 'Mutation', userPhoneNumberVerifyOrChangeStart: any };
+export type UserPhoneNumberVerifyOrChangeStartMutation = { userPhoneNumberVerifyOrChangeStart: unknown };
 
 export type UserPhoneNumberVerifyOrChangeFinishMutationVariables = Exact<{
   data: UserPhoneNumberVerifyOrChangeFinishSchema;
 }>;
 
 
-export type UserPhoneNumberVerifyOrChangeFinishMutation = { __typename?: 'Mutation', userPhoneNumberVerifyOrChangeFinish: { __typename?: 'User', phone_number?: string | null } };
+export type UserPhoneNumberVerifyOrChangeFinishMutation = { userPhoneNumberVerifyOrChangeFinish: { phone_number: string | null } };
 
 export type UserPasswordChangeStartMutationVariables = Exact<{
   data: UserPasswordChangeStartSchema;
 }>;
 
 
-export type UserPasswordChangeStartMutation = { __typename?: 'Mutation', userPasswordChangeStart: any };
+export type UserPasswordChangeStartMutation = { userPasswordChangeStart: unknown };
 
 export type UserPasswordChangeFinishMutationVariables = Exact<{
   data: UserPasswordChangeFinishSchema;
 }>;
 
 
-export type UserPasswordChangeFinishMutation = { __typename?: 'Mutation', userPasswordChangeFinish: string };
+export type UserPasswordChangeFinishMutation = { userPasswordChangeFinish: string };
 
 export type UserProfilePictureRemoveMutationVariables = Exact<{ [key: string]: never; }>;
 
 
-export type UserProfilePictureRemoveMutation = { __typename?: 'Mutation', userProfilePictureRemove: { __typename?: 'User', profile_picture_file_id?: string | null } };
+export type UserProfilePictureRemoveMutation = { userProfilePictureRemove: { profile_picture_file_id: string | null } };
 
 export type UserHandleLoginAttemptMutationVariables = Exact<{
-  email: Scalars['String']['input'];
+  email: string;
 }>;
 
 
-export type UserHandleLoginAttemptMutation = { __typename?: 'Mutation', userHandleLoginAttempt: any };
+export type UserHandleLoginAttemptMutation = { userHandleLoginAttempt: unknown };
 
 export type UserCreateReferralCodeMutationVariables = Exact<{ [key: string]: never; }>;
 
 
-export type UserCreateReferralCodeMutation = { __typename?: 'Mutation', userCreateReferralCode: { __typename?: 'User', id: string, email: string, first_name?: string | null, last_name?: string | null, language?: string | null, phone_number?: string | null, timezone?: string | null, is_admin: boolean, referral_code?: string | null, updated_at: any, created_at: any, profile_picture_file?: { __typename?: 'File', public_url?: string | null } | null } };
+export type UserCreateReferralCodeMutation = { userCreateReferralCode: { id: string, email: string, first_name: string | null, last_name: string | null, language: string | null, phone_number: string | null, timezone: string | null, is_admin: boolean, referral_code: string | null, updated_at: unknown, created_at: unknown, profile_picture_file: { public_url: string | null } | null } };
 
-export type OrganizationVendorFragmentFragment = { __typename?: 'OrganizationVendor', id: string, provider: ACCT_PROVIDER, provider_code: string, provider_url?: string | null, provider_errors: Array<string>, provider_warnings: Array<string>, last_successful_sync_id?: string | null, last_successful_sync_at?: any | null, last_sync_succeeded?: boolean | null, last_sync_id?: string | null, last_sync_at?: any | null, has_sync_errors?: boolean | null, is_active: boolean, email?: string | null, name: string, unique_code: string, phone_number?: string | null, tax_code_type?: TAX_TYPE | null, tax_code?: string | null, created_at: any, updated_at: any, latest_acct_provider_balance?: bigint | null, balance?: bigint | null, overdue_amount?: bigint | null };
+export type OrganizationVendorFragmentFragment = { id: string, provider: ACCT_PROVIDER, provider_code: string, provider_url: string | null, provider_errors: Array<string>, provider_warnings: Array<string>, last_successful_sync_id: string | null, last_successful_sync_at: unknown, last_sync_succeeded: boolean | null, last_sync_id: string | null, last_sync_at: unknown, has_sync_errors: boolean | null, is_active: boolean, email: string | null, name: string, unique_code: string, phone_number: string | null, tax_code_type: TAX_TYPE | null, tax_code: string | null, created_at: unknown, updated_at: unknown, latest_acct_provider_balance: bigint | null, balance: bigint | null, overdue_amount: bigint | null };
 
-export type OrganizationVendorBillSummaryFragmentFragment = { __typename?: 'OrganizationVendor', bill_summary: { __typename?: 'OrganizationBillSummary', total_open_bill_count: number, total_overdue_bill_count: number, total_amount: bigint, paid_amount: bigint, overdue_amount: bigint, balance: bigint, data: { __typename?: 'OrganizationBillPaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationBillPaginationEdge', cursor: any, node: { __typename?: 'OrganizationBill', id: string, file_id?: string | null, unique_code: string, number?: string | null, currency_code: CURRENCY, description?: string | null, amount: bigint, tax_amount: bigint, discount_amount: bigint, total_amount: bigint, paid_amount?: bigint | null, bill_date: any, due_date: any, vendor_email?: string | null, created_at: any, updated_at: any, status?: BILL_STATUS | null, latest_acct_provider_status?: BILL_STATUS | null, file?: { __typename?: 'File', public_url?: string | null } | null } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } };
+export type OrganizationVendorBillSummaryFragmentFragment = { bill_summary: { total_open_bill_count: number, total_overdue_bill_count: number, total_amount: bigint, paid_amount: bigint, overdue_amount: bigint, balance: bigint, data: { totalCount: number, edges: Array<{ cursor: unknown, node: { id: string, file_id: string | null, unique_code: string, number: string | null, currency_code: CURRENCY, description: string | null, amount: bigint, tax_amount: bigint, discount_amount: bigint, total_amount: bigint, paid_amount: bigint | null, bill_date: unknown, due_date: unknown, vendor_email: string | null, created_at: unknown, updated_at: unknown, status: BILL_STATUS | null, latest_acct_provider_status: BILL_STATUS | null, file: { public_url: string | null } | null } }>, pageInfo: { startCursor: string | null, endCursor: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } };
 
-export type OrganizationVendorAdditionalDataFragmentFragment = { __typename?: 'OrganizationVendor', conn_locked_data_at?: any | null, address_line_1?: string | null, address_number?: string | null, address_line_2?: string | null, address_city?: string | null, address_state?: string | null, address_zip_code?: string | null, address_country_code_iso_3?: COUNTRY_ISO_3 | null, address_lat?: number | null, address_lng?: number | null, language?: string | null, timezone?: string | null, connection?: { __typename?: 'OrganizationConnection', id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, vendor_conn_status_at?: any | null, vendor_organization_id?: string | null, vendor_organization_name?: string | null, vendor_organization_email?: string | null, vendor_target_customer_id?: string | null, vendor_target_customer_name?: string | null, vendor_target_customer_email?: string | null, customer_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, customer_conn_status_at?: any | null, customer_organization_id?: string | null, customer_organization_name?: string | null, customer_organization_email?: string | null, customer_target_vendor_id?: string | null, customer_target_vendor_name?: string | null, customer_target_vendor_email?: string | null, created_at: any, updated_at: any } | null, contacts: Array<{ __typename?: 'OrganizationVendorContact', id: string, name: string, email: string, phone_number?: string | null, is_default: boolean, created_at: any, updated_at: any }>, bill_summary: { __typename?: 'OrganizationBillSummary', total_open_bill_count: number, total_overdue_bill_count: number, total_amount: bigint, paid_amount: bigint, overdue_amount: bigint, balance: bigint, data: { __typename?: 'OrganizationBillPaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationBillPaginationEdge', cursor: any, node: { __typename?: 'OrganizationBill', id: string, file_id?: string | null, unique_code: string, number?: string | null, currency_code: CURRENCY, description?: string | null, amount: bigint, tax_amount: bigint, discount_amount: bigint, total_amount: bigint, paid_amount?: bigint | null, bill_date: any, due_date: any, vendor_email?: string | null, created_at: any, updated_at: any, status?: BILL_STATUS | null, latest_acct_provider_status?: BILL_STATUS | null, file?: { __typename?: 'File', public_url?: string | null } | null } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } };
+export type OrganizationVendorAdditionalDataFragmentFragment = { conn_locked_data_at: unknown, address_line_1: string | null, address_number: string | null, address_line_2: string | null, address_city: string | null, address_state: string | null, address_zip_code: string | null, address_country_code_iso_3: COUNTRY_ISO_3 | null, address_lat: number | null, address_lng: number | null, language: string | null, timezone: string | null, connection: { id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status: ORGANIZATION_CONNECTION_STATUS | null, vendor_conn_status_at: unknown, vendor_organization_id: string | null, vendor_organization_name: string | null, vendor_organization_email: string | null, vendor_target_customer_id: string | null, vendor_target_customer_name: string | null, vendor_target_customer_email: string | null, customer_conn_status: ORGANIZATION_CONNECTION_STATUS | null, customer_conn_status_at: unknown, customer_organization_id: string | null, customer_organization_name: string | null, customer_organization_email: string | null, customer_target_vendor_id: string | null, customer_target_vendor_name: string | null, customer_target_vendor_email: string | null, created_at: unknown, updated_at: unknown } | null, contacts: Array<{ id: string, name: string, email: string, phone_number: string | null, is_default: boolean, created_at: unknown, updated_at: unknown }>, bill_summary: { total_open_bill_count: number, total_overdue_bill_count: number, total_amount: bigint, paid_amount: bigint, overdue_amount: bigint, balance: bigint, data: { totalCount: number, edges: Array<{ cursor: unknown, node: { id: string, file_id: string | null, unique_code: string, number: string | null, currency_code: CURRENCY, description: string | null, amount: bigint, tax_amount: bigint, discount_amount: bigint, total_amount: bigint, paid_amount: bigint | null, bill_date: unknown, due_date: unknown, vendor_email: string | null, created_at: unknown, updated_at: unknown, status: BILL_STATUS | null, latest_acct_provider_status: BILL_STATUS | null, file: { public_url: string | null } | null } }>, pageInfo: { startCursor: string | null, endCursor: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } };
 
 export type UserOrganizationVendorsQueryVariables = Exact<{
-  organizationId: Scalars['String']['input'];
-  name?: InputMaybe<Scalars['String']['input']>;
-  after?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  first?: InputMaybe<Scalars['Int']['input']>;
-  before?: InputMaybe<Scalars['ConnectionCursor']['input']>;
-  last?: InputMaybe<Scalars['Int']['input']>;
-  skip?: InputMaybe<Scalars['Int']['input']>;
-  take?: InputMaybe<Scalars['Int']['input']>;
-  sorting?: InputMaybe<Array<SortingFieldSchema> | SortingFieldSchema>;
+  organizationId: string;
+  name?: string | null | undefined;
+  after?: unknown;
+  first?: number | null | undefined;
+  before?: unknown;
+  last?: number | null | undefined;
+  skip?: number | null | undefined;
+  take?: number | null | undefined;
+  sorting?: Array<SortingFieldSchema> | SortingFieldSchema | null | undefined;
 }>;
 
 
-export type UserOrganizationVendorsQuery = { __typename?: 'Query', userOrganizationVendors: { __typename?: 'OrganizationVendorPaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationVendorPaginationEdge', cursor: any, node: { __typename?: 'OrganizationVendor', id: string, provider: ACCT_PROVIDER, provider_code: string, provider_url?: string | null, provider_errors: Array<string>, provider_warnings: Array<string>, last_successful_sync_id?: string | null, last_successful_sync_at?: any | null, last_sync_succeeded?: boolean | null, last_sync_id?: string | null, last_sync_at?: any | null, has_sync_errors?: boolean | null, is_active: boolean, email?: string | null, name: string, unique_code: string, phone_number?: string | null, tax_code_type?: TAX_TYPE | null, tax_code?: string | null, created_at: any, updated_at: any, latest_acct_provider_balance?: bigint | null, balance?: bigint | null, overdue_amount?: bigint | null } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } };
+export type UserOrganizationVendorsQuery = { userOrganizationVendors: { totalCount: number, edges: Array<{ cursor: unknown, node: { id: string, provider: ACCT_PROVIDER, provider_code: string, provider_url: string | null, provider_errors: Array<string>, provider_warnings: Array<string>, last_successful_sync_id: string | null, last_successful_sync_at: unknown, last_sync_succeeded: boolean | null, last_sync_id: string | null, last_sync_at: unknown, has_sync_errors: boolean | null, is_active: boolean, email: string | null, name: string, unique_code: string, phone_number: string | null, tax_code_type: TAX_TYPE | null, tax_code: string | null, created_at: unknown, updated_at: unknown, latest_acct_provider_balance: bigint | null, balance: bigint | null, overdue_amount: bigint | null } }>, pageInfo: { startCursor: string | null, endCursor: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } };
 
 export type UserOrganizationVendorQueryVariables = Exact<{
-  organizationVendorId: Scalars['String']['input'];
-  organizationId: Scalars['String']['input'];
+  organizationVendorId: string;
+  organizationId: string;
 }>;
 
 
-export type UserOrganizationVendorQuery = { __typename?: 'Query', userOrganizationVendor: { __typename?: 'OrganizationVendor', id: string, provider: ACCT_PROVIDER, provider_code: string, provider_url?: string | null, provider_errors: Array<string>, provider_warnings: Array<string>, last_successful_sync_id?: string | null, last_successful_sync_at?: any | null, last_sync_succeeded?: boolean | null, last_sync_id?: string | null, last_sync_at?: any | null, has_sync_errors?: boolean | null, is_active: boolean, email?: string | null, name: string, unique_code: string, phone_number?: string | null, tax_code_type?: TAX_TYPE | null, tax_code?: string | null, created_at: any, updated_at: any, latest_acct_provider_balance?: bigint | null, balance?: bigint | null, overdue_amount?: bigint | null, conn_locked_data_at?: any | null, address_line_1?: string | null, address_number?: string | null, address_line_2?: string | null, address_city?: string | null, address_state?: string | null, address_zip_code?: string | null, address_country_code_iso_3?: COUNTRY_ISO_3 | null, address_lat?: number | null, address_lng?: number | null, language?: string | null, timezone?: string | null, connection?: { __typename?: 'OrganizationConnection', id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, vendor_conn_status_at?: any | null, vendor_organization_id?: string | null, vendor_organization_name?: string | null, vendor_organization_email?: string | null, vendor_target_customer_id?: string | null, vendor_target_customer_name?: string | null, vendor_target_customer_email?: string | null, customer_conn_status?: ORGANIZATION_CONNECTION_STATUS | null, customer_conn_status_at?: any | null, customer_organization_id?: string | null, customer_organization_name?: string | null, customer_organization_email?: string | null, customer_target_vendor_id?: string | null, customer_target_vendor_name?: string | null, customer_target_vendor_email?: string | null, created_at: any, updated_at: any } | null, contacts: Array<{ __typename?: 'OrganizationVendorContact', id: string, name: string, email: string, phone_number?: string | null, is_default: boolean, created_at: any, updated_at: any }>, bill_summary: { __typename?: 'OrganizationBillSummary', total_open_bill_count: number, total_overdue_bill_count: number, total_amount: bigint, paid_amount: bigint, overdue_amount: bigint, balance: bigint, data: { __typename?: 'OrganizationBillPaginationConnection', totalCount: number, edges: Array<{ __typename?: 'OrganizationBillPaginationEdge', cursor: any, node: { __typename?: 'OrganizationBill', id: string, file_id?: string | null, unique_code: string, number?: string | null, currency_code: CURRENCY, description?: string | null, amount: bigint, tax_amount: bigint, discount_amount: bigint, total_amount: bigint, paid_amount?: bigint | null, bill_date: any, due_date: any, vendor_email?: string | null, created_at: any, updated_at: any, status?: BILL_STATUS | null, latest_acct_provider_status?: BILL_STATUS | null, file?: { __typename?: 'File', public_url?: string | null } | null } }>, pageInfo: { __typename?: 'PageInfo', startCursor?: string | null, endCursor?: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } } };
+export type UserOrganizationVendorQuery = { userOrganizationVendor: { id: string, provider: ACCT_PROVIDER, provider_code: string, provider_url: string | null, provider_errors: Array<string>, provider_warnings: Array<string>, last_successful_sync_id: string | null, last_successful_sync_at: unknown, last_sync_succeeded: boolean | null, last_sync_id: string | null, last_sync_at: unknown, has_sync_errors: boolean | null, is_active: boolean, email: string | null, name: string, unique_code: string, phone_number: string | null, tax_code_type: TAX_TYPE | null, tax_code: string | null, created_at: unknown, updated_at: unknown, latest_acct_provider_balance: bigint | null, balance: bigint | null, overdue_amount: bigint | null, conn_locked_data_at: unknown, address_line_1: string | null, address_number: string | null, address_line_2: string | null, address_city: string | null, address_state: string | null, address_zip_code: string | null, address_country_code_iso_3: COUNTRY_ISO_3 | null, address_lat: number | null, address_lng: number | null, language: string | null, timezone: string | null, connection: { id: string, is_valid: boolean, is_connected: boolean, vendor_conn_status: ORGANIZATION_CONNECTION_STATUS | null, vendor_conn_status_at: unknown, vendor_organization_id: string | null, vendor_organization_name: string | null, vendor_organization_email: string | null, vendor_target_customer_id: string | null, vendor_target_customer_name: string | null, vendor_target_customer_email: string | null, customer_conn_status: ORGANIZATION_CONNECTION_STATUS | null, customer_conn_status_at: unknown, customer_organization_id: string | null, customer_organization_name: string | null, customer_organization_email: string | null, customer_target_vendor_id: string | null, customer_target_vendor_name: string | null, customer_target_vendor_email: string | null, created_at: unknown, updated_at: unknown } | null, contacts: Array<{ id: string, name: string, email: string, phone_number: string | null, is_default: boolean, created_at: unknown, updated_at: unknown }>, bill_summary: { total_open_bill_count: number, total_overdue_bill_count: number, total_amount: bigint, paid_amount: bigint, overdue_amount: bigint, balance: bigint, data: { totalCount: number, edges: Array<{ cursor: unknown, node: { id: string, file_id: string | null, unique_code: string, number: string | null, currency_code: CURRENCY, description: string | null, amount: bigint, tax_amount: bigint, discount_amount: bigint, total_amount: bigint, paid_amount: bigint | null, bill_date: unknown, due_date: unknown, vendor_email: string | null, created_at: unknown, updated_at: unknown, status: BILL_STATUS | null, latest_acct_provider_status: BILL_STATUS | null, file: { public_url: string | null } | null } }>, pageInfo: { startCursor: string | null, endCursor: string | null, hasPreviousPage: boolean, hasNextPage: boolean } } } } };
 
 export const OrganizationBillFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"OrganizationBillFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"OrganizationBill"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"unique_code"}},{"kind":"Field","name":{"kind":"Name","value":"number"}},{"kind":"Field","name":{"kind":"Name","value":"provider"}},{"kind":"Field","name":{"kind":"Name","value":"provider_code"}},{"kind":"Field","name":{"kind":"Name","value":"provider_url"}},{"kind":"Field","name":{"kind":"Name","value":"provider_errors"}},{"kind":"Field","name":{"kind":"Name","value":"provider_warnings"}},{"kind":"Field","name":{"kind":"Name","value":"last_successful_sync_id"}},{"kind":"Field","name":{"kind":"Name","value":"last_successful_sync_at"}},{"kind":"Field","name":{"kind":"Name","value":"last_sync_succeeded"}},{"kind":"Field","name":{"kind":"Name","value":"last_sync_id"}},{"kind":"Field","name":{"kind":"Name","value":"last_sync_at"}},{"kind":"Field","name":{"kind":"Name","value":"currency_code"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"amount"}},{"kind":"Field","name":{"kind":"Name","value":"tax_amount"}},{"kind":"Field","name":{"kind":"Name","value":"discount_amount"}},{"kind":"Field","name":{"kind":"Name","value":"total_amount"}},{"kind":"Field","name":{"kind":"Name","value":"bill_date"}},{"kind":"Field","name":{"kind":"Name","value":"due_date"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_email"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_address_line_1"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_address_number"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_address_line_2"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_address_city"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_address_state"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_address_zip_code"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_address_country_code_iso_3"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_address_lat"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_address_lng"}},{"kind":"Field","name":{"kind":"Name","value":"conn_linked_invoice_id"}},{"kind":"Field","name":{"kind":"Name","value":"conn_locked_data_at"}},{"kind":"Field","name":{"kind":"Name","value":"organization_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"organization_vendor_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization_vendor"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"balance"}}]}},{"kind":"Field","name":{"kind":"Name","value":"file_id"}},{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"public_url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"has_sync_errors"}},{"kind":"Field","name":{"kind":"Name","value":"last_sync_at"}},{"kind":"Field","name":{"kind":"Name","value":"latest_acct_provider_balance"}},{"kind":"Field","name":{"kind":"Name","value":"latest_acct_provider_status"}},{"kind":"Field","name":{"kind":"Name","value":"latest_acct_provider_is_overdue"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"is_overdue"}},{"kind":"Field","name":{"kind":"Name","value":"paid_amount"}},{"kind":"Field","name":{"kind":"Name","value":"paid_at"}},{"kind":"Field","name":{"kind":"Name","value":"balance"}},{"kind":"Field","name":{"kind":"Name","value":"transaction_links"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"amount"}},{"kind":"Field","name":{"kind":"Name","value":"organization_bill_id"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}},{"kind":"Field","name":{"kind":"Name","value":"organization_bill_transaction_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization_bill_transaction"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]}}]} as unknown as DocumentNode<OrganizationBillFragmentFragment, unknown>;
 export const OrganizationBillSummaryFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"OrganizationBillSummaryFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"OrganizationBillSummary"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"vendor_organization_id"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_organization"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone_number"}},{"kind":"Field","name":{"kind":"Name","value":"address_line_1"}},{"kind":"Field","name":{"kind":"Name","value":"address_number"}},{"kind":"Field","name":{"kind":"Name","value":"address_line_2"}},{"kind":"Field","name":{"kind":"Name","value":"address_city"}},{"kind":"Field","name":{"kind":"Name","value":"address_state"}},{"kind":"Field","name":{"kind":"Name","value":"address_zip_code"}},{"kind":"Field","name":{"kind":"Name","value":"address_country_code_iso_3"}},{"kind":"Field","name":{"kind":"Name","value":"address_lat"}},{"kind":"Field","name":{"kind":"Name","value":"address_lng"}},{"kind":"Field","name":{"kind":"Name","value":"logo_picture_file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"public_url"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"customer_organization_vendor_id"}},{"kind":"Field","name":{"kind":"Name","value":"customer_organization_vendor"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"customer_organization_id"}},{"kind":"Field","name":{"kind":"Name","value":"customer_organization"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"totalCount"}},{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"cursor"}},{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"OrganizationBillFragment"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"startCursor"}},{"kind":"Field","name":{"kind":"Name","value":"endCursor"}},{"kind":"Field","name":{"kind":"Name","value":"hasPreviousPage"}},{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"total_open_bill_count"}},{"kind":"Field","name":{"kind":"Name","value":"total_overdue_bill_count"}},{"kind":"Field","name":{"kind":"Name","value":"total_amount"}},{"kind":"Field","name":{"kind":"Name","value":"paid_amount"}},{"kind":"Field","name":{"kind":"Name","value":"overdue_amount"}},{"kind":"Field","name":{"kind":"Name","value":"balance"}},{"kind":"Field","name":{"kind":"Name","value":"start_date"}},{"kind":"Field","name":{"kind":"Name","value":"end_date"}},{"kind":"Field","name":{"kind":"Name","value":"due_start_date"}},{"kind":"Field","name":{"kind":"Name","value":"due_end_date"}},{"kind":"Field","name":{"kind":"Name","value":"currency"}},{"kind":"Field","name":{"kind":"Name","value":"has_sync_errors"}},{"kind":"Field","name":{"kind":"Name","value":"has_mismatching_balance"}},{"kind":"Field","name":{"kind":"Name","value":"acct_provider"}},{"kind":"Field","name":{"kind":"Name","value":"is_acct_provider_connected"}},{"kind":"Field","name":{"kind":"Name","value":"last_sync_at"}},{"kind":"Field","name":{"kind":"Name","value":"latest_acct_provider_balance"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"OrganizationBillFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"OrganizationBill"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"unique_code"}},{"kind":"Field","name":{"kind":"Name","value":"number"}},{"kind":"Field","name":{"kind":"Name","value":"provider"}},{"kind":"Field","name":{"kind":"Name","value":"provider_code"}},{"kind":"Field","name":{"kind":"Name","value":"provider_url"}},{"kind":"Field","name":{"kind":"Name","value":"provider_errors"}},{"kind":"Field","name":{"kind":"Name","value":"provider_warnings"}},{"kind":"Field","name":{"kind":"Name","value":"last_successful_sync_id"}},{"kind":"Field","name":{"kind":"Name","value":"last_successful_sync_at"}},{"kind":"Field","name":{"kind":"Name","value":"last_sync_succeeded"}},{"kind":"Field","name":{"kind":"Name","value":"last_sync_id"}},{"kind":"Field","name":{"kind":"Name","value":"last_sync_at"}},{"kind":"Field","name":{"kind":"Name","value":"currency_code"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"amount"}},{"kind":"Field","name":{"kind":"Name","value":"tax_amount"}},{"kind":"Field","name":{"kind":"Name","value":"discount_amount"}},{"kind":"Field","name":{"kind":"Name","value":"total_amount"}},{"kind":"Field","name":{"kind":"Name","value":"bill_date"}},{"kind":"Field","name":{"kind":"Name","value":"due_date"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_email"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_address_line_1"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_address_number"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_address_line_2"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_address_city"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_address_state"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_address_zip_code"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_address_country_code_iso_3"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_address_lat"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_address_lng"}},{"kind":"Field","name":{"kind":"Name","value":"conn_linked_invoice_id"}},{"kind":"Field","name":{"kind":"Name","value":"conn_locked_data_at"}},{"kind":"Field","name":{"kind":"Name","value":"organization_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"organization_vendor_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization_vendor"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"balance"}}]}},{"kind":"Field","name":{"kind":"Name","value":"file_id"}},{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"public_url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"has_sync_errors"}},{"kind":"Field","name":{"kind":"Name","value":"last_sync_at"}},{"kind":"Field","name":{"kind":"Name","value":"latest_acct_provider_balance"}},{"kind":"Field","name":{"kind":"Name","value":"latest_acct_provider_status"}},{"kind":"Field","name":{"kind":"Name","value":"latest_acct_provider_is_overdue"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"is_overdue"}},{"kind":"Field","name":{"kind":"Name","value":"paid_amount"}},{"kind":"Field","name":{"kind":"Name","value":"paid_at"}},{"kind":"Field","name":{"kind":"Name","value":"balance"}},{"kind":"Field","name":{"kind":"Name","value":"transaction_links"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"amount"}},{"kind":"Field","name":{"kind":"Name","value":"organization_bill_id"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}},{"kind":"Field","name":{"kind":"Name","value":"organization_bill_transaction_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization_bill_transaction"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]}}]} as unknown as DocumentNode<OrganizationBillSummaryFragmentFragment, unknown>;
@@ -6437,6 +2378,7 @@ export const UserWithOrganizationFragmentFragmentDoc = {"kind":"Document","defin
 export const OrganizationVendorFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"OrganizationVendorFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"OrganizationVendor"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"provider"}},{"kind":"Field","name":{"kind":"Name","value":"provider_code"}},{"kind":"Field","name":{"kind":"Name","value":"provider_url"}},{"kind":"Field","name":{"kind":"Name","value":"provider_errors"}},{"kind":"Field","name":{"kind":"Name","value":"provider_warnings"}},{"kind":"Field","name":{"kind":"Name","value":"last_successful_sync_id"}},{"kind":"Field","name":{"kind":"Name","value":"last_successful_sync_at"}},{"kind":"Field","name":{"kind":"Name","value":"last_sync_succeeded"}},{"kind":"Field","name":{"kind":"Name","value":"last_sync_id"}},{"kind":"Field","name":{"kind":"Name","value":"last_sync_at"}},{"kind":"Field","name":{"kind":"Name","value":"has_sync_errors"}},{"kind":"Field","name":{"kind":"Name","value":"is_active"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"unique_code"}},{"kind":"Field","name":{"kind":"Name","value":"phone_number"}},{"kind":"Field","name":{"kind":"Name","value":"tax_code_type"}},{"kind":"Field","name":{"kind":"Name","value":"tax_code"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}},{"kind":"Field","name":{"kind":"Name","value":"latest_acct_provider_balance"}},{"kind":"Field","name":{"kind":"Name","value":"balance"}},{"kind":"Field","name":{"kind":"Name","value":"overdue_amount"}}]}}]} as unknown as DocumentNode<OrganizationVendorFragmentFragment, unknown>;
 export const OrganizationVendorBillSummaryFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"OrganizationVendorBillSummaryFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"OrganizationVendor"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"bill_summary"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"totalCount"}},{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"cursor"}},{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"file_id"}},{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"public_url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"unique_code"}},{"kind":"Field","name":{"kind":"Name","value":"number"}},{"kind":"Field","name":{"kind":"Name","value":"currency_code"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"amount"}},{"kind":"Field","name":{"kind":"Name","value":"tax_amount"}},{"kind":"Field","name":{"kind":"Name","value":"discount_amount"}},{"kind":"Field","name":{"kind":"Name","value":"total_amount"}},{"kind":"Field","name":{"kind":"Name","value":"paid_amount"}},{"kind":"Field","name":{"kind":"Name","value":"bill_date"}},{"kind":"Field","name":{"kind":"Name","value":"due_date"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_email"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"latest_acct_provider_status"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"startCursor"}},{"kind":"Field","name":{"kind":"Name","value":"endCursor"}},{"kind":"Field","name":{"kind":"Name","value":"hasPreviousPage"}},{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"total_open_bill_count"}},{"kind":"Field","name":{"kind":"Name","value":"total_overdue_bill_count"}},{"kind":"Field","name":{"kind":"Name","value":"total_amount"}},{"kind":"Field","name":{"kind":"Name","value":"paid_amount"}},{"kind":"Field","name":{"kind":"Name","value":"overdue_amount"}},{"kind":"Field","name":{"kind":"Name","value":"balance"}}]}}]}}]} as unknown as DocumentNode<OrganizationVendorBillSummaryFragmentFragment, unknown>;
 export const OrganizationVendorAdditionalDataFragmentFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"OrganizationVendorAdditionalDataFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"OrganizationVendor"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"OrganizationVendorBillSummaryFragment"}},{"kind":"Field","name":{"kind":"Name","value":"conn_locked_data_at"}},{"kind":"Field","name":{"kind":"Name","value":"connection"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"OrganizationConnectionFragment"}}]}},{"kind":"Field","name":{"kind":"Name","value":"address_line_1"}},{"kind":"Field","name":{"kind":"Name","value":"address_number"}},{"kind":"Field","name":{"kind":"Name","value":"address_line_2"}},{"kind":"Field","name":{"kind":"Name","value":"address_city"}},{"kind":"Field","name":{"kind":"Name","value":"address_state"}},{"kind":"Field","name":{"kind":"Name","value":"address_zip_code"}},{"kind":"Field","name":{"kind":"Name","value":"address_country_code_iso_3"}},{"kind":"Field","name":{"kind":"Name","value":"address_lat"}},{"kind":"Field","name":{"kind":"Name","value":"address_lng"}},{"kind":"Field","name":{"kind":"Name","value":"language"}},{"kind":"Field","name":{"kind":"Name","value":"timezone"}},{"kind":"Field","name":{"kind":"Name","value":"contacts"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone_number"}},{"kind":"Field","name":{"kind":"Name","value":"is_default"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"OrganizationVendorBillSummaryFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"OrganizationVendor"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"bill_summary"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"totalCount"}},{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"cursor"}},{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"file_id"}},{"kind":"Field","name":{"kind":"Name","value":"file"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"public_url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"unique_code"}},{"kind":"Field","name":{"kind":"Name","value":"number"}},{"kind":"Field","name":{"kind":"Name","value":"currency_code"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"amount"}},{"kind":"Field","name":{"kind":"Name","value":"tax_amount"}},{"kind":"Field","name":{"kind":"Name","value":"discount_amount"}},{"kind":"Field","name":{"kind":"Name","value":"total_amount"}},{"kind":"Field","name":{"kind":"Name","value":"paid_amount"}},{"kind":"Field","name":{"kind":"Name","value":"bill_date"}},{"kind":"Field","name":{"kind":"Name","value":"due_date"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_email"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"latest_acct_provider_status"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"pageInfo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"startCursor"}},{"kind":"Field","name":{"kind":"Name","value":"endCursor"}},{"kind":"Field","name":{"kind":"Name","value":"hasPreviousPage"}},{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"total_open_bill_count"}},{"kind":"Field","name":{"kind":"Name","value":"total_overdue_bill_count"}},{"kind":"Field","name":{"kind":"Name","value":"total_amount"}},{"kind":"Field","name":{"kind":"Name","value":"paid_amount"}},{"kind":"Field","name":{"kind":"Name","value":"overdue_amount"}},{"kind":"Field","name":{"kind":"Name","value":"balance"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"OrganizationConnectionFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"OrganizationConnection"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"is_valid"}},{"kind":"Field","name":{"kind":"Name","value":"is_connected"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_conn_status"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_conn_status_at"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_organization_id"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_organization_name"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_organization_email"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_target_customer_id"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_target_customer_name"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_target_customer_email"}},{"kind":"Field","name":{"kind":"Name","value":"customer_conn_status"}},{"kind":"Field","name":{"kind":"Name","value":"customer_conn_status_at"}},{"kind":"Field","name":{"kind":"Name","value":"customer_organization_id"}},{"kind":"Field","name":{"kind":"Name","value":"customer_organization_name"}},{"kind":"Field","name":{"kind":"Name","value":"customer_organization_email"}},{"kind":"Field","name":{"kind":"Name","value":"customer_target_vendor_id"}},{"kind":"Field","name":{"kind":"Name","value":"customer_target_vendor_name"}},{"kind":"Field","name":{"kind":"Name","value":"customer_target_vendor_email"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}}]}}]} as unknown as DocumentNode<OrganizationVendorAdditionalDataFragmentFragment, unknown>;
+export const ApolloClientTestQueryDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ApolloClientTestQuery"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"__typename"}}]}}]} as unknown as DocumentNode<ApolloClientTestQueryQuery, ApolloClientTestQueryQueryVariables>;
 export const UserOrganizationAcctProviderConnDisconnectDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UserOrganizationAcctProviderConnDisconnect"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"accountProvider"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ACCT_PROVIDER"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"userOrganizationAcctProviderConnDisconnect"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"organization_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}}},{"kind":"Argument","name":{"kind":"Name","value":"acct_provider"},"value":{"kind":"Variable","name":{"kind":"Name","value":"accountProvider"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"OrganizationAcctProviderConnFragment"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"OrganizationAcctProviderConnSynchronizationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"OrganizationAcctProviderConnSynchronization"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"mode"}},{"kind":"Field","name":{"kind":"Name","value":"force"}},{"kind":"Field","name":{"kind":"Name","value":"provider"}},{"kind":"Field","name":{"kind":"Name","value":"errors"}},{"kind":"Field","name":{"kind":"Name","value":"warnings"}},{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"customer"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"}}]}},{"kind":"Field","name":{"kind":"Name","value":"invoice"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"}}]}},{"kind":"Field","name":{"kind":"Name","value":"invoice_transaction"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"}}]}},{"kind":"Field","name":{"kind":"Name","value":"vendor"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"}}]}},{"kind":"Field","name":{"kind":"Name","value":"bill"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"}}]}},{"kind":"Field","name":{"kind":"Name","value":"bill_transaction"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"started_at"}},{"kind":"Field","name":{"kind":"Name","value":"finished_at"}},{"kind":"Field","name":{"kind":"Name","value":"failed_at"}},{"kind":"Field","name":{"kind":"Name","value":"succeeded_at"}},{"kind":"Field","name":{"kind":"Name","value":"skipped_at"}},{"kind":"Field","name":{"kind":"Name","value":"read_success"}},{"kind":"Field","name":{"kind":"Name","value":"read_failure"}},{"kind":"Field","name":{"kind":"Name","value":"skipped"}},{"kind":"Field","name":{"kind":"Name","value":"create_success"}},{"kind":"Field","name":{"kind":"Name","value":"create_failure"}},{"kind":"Field","name":{"kind":"Name","value":"update_success"}},{"kind":"Field","name":{"kind":"Name","value":"update_failure"}},{"kind":"Field","name":{"kind":"Name","value":"delete_failure"}},{"kind":"Field","name":{"kind":"Name","value":"delete_success"}},{"kind":"Field","name":{"kind":"Name","value":"process_failure"}},{"kind":"Field","name":{"kind":"Name","value":"process_success"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}},{"kind":"Field","name":{"kind":"Name","value":"scope"}},{"kind":"Field","name":{"kind":"Name","value":"scope_id"}},{"kind":"Field","name":{"kind":"Name","value":"scope_description"}},{"kind":"Field","name":{"kind":"Name","value":"organization_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization_acct_provider_conn_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"OrganizationAcctProviderConnFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"OrganizationAcctProviderConn"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"acct_provider"}},{"kind":"Field","name":{"kind":"Name","value":"code"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"payload"}},{"kind":"Field","name":{"kind":"Name","value":"customer_add_url"}},{"kind":"Field","name":{"kind":"Name","value":"invoice_add_url"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_add_url"}},{"kind":"Field","name":{"kind":"Name","value":"bill_add_url"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone_number"}},{"kind":"Field","name":{"kind":"Name","value":"website_url"}},{"kind":"Field","name":{"kind":"Name","value":"primary_contact_name"}},{"kind":"Field","name":{"kind":"Name","value":"business_name"}},{"kind":"Field","name":{"kind":"Name","value":"business_industry"}},{"kind":"Field","name":{"kind":"Name","value":"business_number_of_employees"}},{"kind":"Field","name":{"kind":"Name","value":"timezone"}},{"kind":"Field","name":{"kind":"Name","value":"language"}},{"kind":"Field","name":{"kind":"Name","value":"business_tax_code_type"}},{"kind":"Field","name":{"kind":"Name","value":"business_tax_code"}},{"kind":"Field","name":{"kind":"Name","value":"address_line_1"}},{"kind":"Field","name":{"kind":"Name","value":"address_number"}},{"kind":"Field","name":{"kind":"Name","value":"address_line_2"}},{"kind":"Field","name":{"kind":"Name","value":"address_city"}},{"kind":"Field","name":{"kind":"Name","value":"address_state"}},{"kind":"Field","name":{"kind":"Name","value":"address_zip_code"}},{"kind":"Field","name":{"kind":"Name","value":"address_country_code_iso_3"}},{"kind":"Field","name":{"kind":"Name","value":"address_lat"}},{"kind":"Field","name":{"kind":"Name","value":"address_lng"}},{"kind":"Field","name":{"kind":"Name","value":"business_address_line_1"}},{"kind":"Field","name":{"kind":"Name","value":"business_address_number"}},{"kind":"Field","name":{"kind":"Name","value":"business_address_line_2"}},{"kind":"Field","name":{"kind":"Name","value":"business_address_city"}},{"kind":"Field","name":{"kind":"Name","value":"business_address_state"}},{"kind":"Field","name":{"kind":"Name","value":"business_address_zip_code"}},{"kind":"Field","name":{"kind":"Name","value":"business_address_country_code_iso_3"}},{"kind":"Field","name":{"kind":"Name","value":"business_address_lat"}},{"kind":"Field","name":{"kind":"Name","value":"business_address_lng"}},{"kind":"Field","name":{"kind":"Name","value":"automatic_pull_enabled"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"disconnected_at"}},{"kind":"Field","name":{"kind":"Name","value":"conn_expires_at"}},{"kind":"Field","name":{"kind":"Name","value":"organization_id"}},{"kind":"Field","name":{"kind":"Name","value":"last_conn_at"}},{"kind":"Field","name":{"kind":"Name","value":"last_successful_sync_id"}},{"kind":"Field","name":{"kind":"Name","value":"last_successful_sync_at"}},{"kind":"Field","name":{"kind":"Name","value":"last_sync_succeeded"}},{"kind":"Field","name":{"kind":"Name","value":"last_sync_id"}},{"kind":"Field","name":{"kind":"Name","value":"last_sync_at"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}},{"kind":"Field","name":{"kind":"Name","value":"synchronizations"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"skip"},"value":{"kind":"IntValue","value":"0"}},{"kind":"Argument","name":{"kind":"Name","value":"take"},"value":{"kind":"IntValue","value":"1"}},{"kind":"Argument","name":{"kind":"Name","value":"finished"},"value":{"kind":"BooleanValue","value":true}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"OrganizationAcctProviderConnSynchronizationFragment"}}]}}]}}]}}]}}]} as unknown as DocumentNode<UserOrganizationAcctProviderConnDisconnectMutation, UserOrganizationAcctProviderConnDisconnectMutationVariables>;
 export const UserOrganizationAcctProviderConnUpdateDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UserOrganizationAcctProviderConnUpdate"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"accountProvider"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ACCT_PROVIDER"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"data"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"UserOrganizationAcctProviderConnUpdateSchema"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"userOrganizationAcctProviderConnUpdate"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"organization_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}}},{"kind":"Argument","name":{"kind":"Name","value":"acct_provider"},"value":{"kind":"Variable","name":{"kind":"Name","value":"accountProvider"}}},{"kind":"Argument","name":{"kind":"Name","value":"data"},"value":{"kind":"Variable","name":{"kind":"Name","value":"data"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"OrganizationAcctProviderConnFragment"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"OrganizationAcctProviderConnSynchronizationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"OrganizationAcctProviderConnSynchronization"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"mode"}},{"kind":"Field","name":{"kind":"Name","value":"force"}},{"kind":"Field","name":{"kind":"Name","value":"provider"}},{"kind":"Field","name":{"kind":"Name","value":"errors"}},{"kind":"Field","name":{"kind":"Name","value":"warnings"}},{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"customer"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"}}]}},{"kind":"Field","name":{"kind":"Name","value":"invoice"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"}}]}},{"kind":"Field","name":{"kind":"Name","value":"invoice_transaction"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"}}]}},{"kind":"Field","name":{"kind":"Name","value":"vendor"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"}}]}},{"kind":"Field","name":{"kind":"Name","value":"bill"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"}}]}},{"kind":"Field","name":{"kind":"Name","value":"bill_transaction"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"started_at"}},{"kind":"Field","name":{"kind":"Name","value":"finished_at"}},{"kind":"Field","name":{"kind":"Name","value":"failed_at"}},{"kind":"Field","name":{"kind":"Name","value":"succeeded_at"}},{"kind":"Field","name":{"kind":"Name","value":"skipped_at"}},{"kind":"Field","name":{"kind":"Name","value":"read_success"}},{"kind":"Field","name":{"kind":"Name","value":"read_failure"}},{"kind":"Field","name":{"kind":"Name","value":"skipped"}},{"kind":"Field","name":{"kind":"Name","value":"create_success"}},{"kind":"Field","name":{"kind":"Name","value":"create_failure"}},{"kind":"Field","name":{"kind":"Name","value":"update_success"}},{"kind":"Field","name":{"kind":"Name","value":"update_failure"}},{"kind":"Field","name":{"kind":"Name","value":"delete_failure"}},{"kind":"Field","name":{"kind":"Name","value":"delete_success"}},{"kind":"Field","name":{"kind":"Name","value":"process_failure"}},{"kind":"Field","name":{"kind":"Name","value":"process_success"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}},{"kind":"Field","name":{"kind":"Name","value":"scope"}},{"kind":"Field","name":{"kind":"Name","value":"scope_id"}},{"kind":"Field","name":{"kind":"Name","value":"scope_description"}},{"kind":"Field","name":{"kind":"Name","value":"organization_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization_acct_provider_conn_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"OrganizationAcctProviderConnFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"OrganizationAcctProviderConn"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"acct_provider"}},{"kind":"Field","name":{"kind":"Name","value":"code"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"payload"}},{"kind":"Field","name":{"kind":"Name","value":"customer_add_url"}},{"kind":"Field","name":{"kind":"Name","value":"invoice_add_url"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_add_url"}},{"kind":"Field","name":{"kind":"Name","value":"bill_add_url"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone_number"}},{"kind":"Field","name":{"kind":"Name","value":"website_url"}},{"kind":"Field","name":{"kind":"Name","value":"primary_contact_name"}},{"kind":"Field","name":{"kind":"Name","value":"business_name"}},{"kind":"Field","name":{"kind":"Name","value":"business_industry"}},{"kind":"Field","name":{"kind":"Name","value":"business_number_of_employees"}},{"kind":"Field","name":{"kind":"Name","value":"timezone"}},{"kind":"Field","name":{"kind":"Name","value":"language"}},{"kind":"Field","name":{"kind":"Name","value":"business_tax_code_type"}},{"kind":"Field","name":{"kind":"Name","value":"business_tax_code"}},{"kind":"Field","name":{"kind":"Name","value":"address_line_1"}},{"kind":"Field","name":{"kind":"Name","value":"address_number"}},{"kind":"Field","name":{"kind":"Name","value":"address_line_2"}},{"kind":"Field","name":{"kind":"Name","value":"address_city"}},{"kind":"Field","name":{"kind":"Name","value":"address_state"}},{"kind":"Field","name":{"kind":"Name","value":"address_zip_code"}},{"kind":"Field","name":{"kind":"Name","value":"address_country_code_iso_3"}},{"kind":"Field","name":{"kind":"Name","value":"address_lat"}},{"kind":"Field","name":{"kind":"Name","value":"address_lng"}},{"kind":"Field","name":{"kind":"Name","value":"business_address_line_1"}},{"kind":"Field","name":{"kind":"Name","value":"business_address_number"}},{"kind":"Field","name":{"kind":"Name","value":"business_address_line_2"}},{"kind":"Field","name":{"kind":"Name","value":"business_address_city"}},{"kind":"Field","name":{"kind":"Name","value":"business_address_state"}},{"kind":"Field","name":{"kind":"Name","value":"business_address_zip_code"}},{"kind":"Field","name":{"kind":"Name","value":"business_address_country_code_iso_3"}},{"kind":"Field","name":{"kind":"Name","value":"business_address_lat"}},{"kind":"Field","name":{"kind":"Name","value":"business_address_lng"}},{"kind":"Field","name":{"kind":"Name","value":"automatic_pull_enabled"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"disconnected_at"}},{"kind":"Field","name":{"kind":"Name","value":"conn_expires_at"}},{"kind":"Field","name":{"kind":"Name","value":"organization_id"}},{"kind":"Field","name":{"kind":"Name","value":"last_conn_at"}},{"kind":"Field","name":{"kind":"Name","value":"last_successful_sync_id"}},{"kind":"Field","name":{"kind":"Name","value":"last_successful_sync_at"}},{"kind":"Field","name":{"kind":"Name","value":"last_sync_succeeded"}},{"kind":"Field","name":{"kind":"Name","value":"last_sync_id"}},{"kind":"Field","name":{"kind":"Name","value":"last_sync_at"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}},{"kind":"Field","name":{"kind":"Name","value":"synchronizations"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"skip"},"value":{"kind":"IntValue","value":"0"}},{"kind":"Argument","name":{"kind":"Name","value":"take"},"value":{"kind":"IntValue","value":"1"}},{"kind":"Argument","name":{"kind":"Name","value":"finished"},"value":{"kind":"BooleanValue","value":true}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"OrganizationAcctProviderConnSynchronizationFragment"}}]}}]}}]}}]}}]} as unknown as DocumentNode<UserOrganizationAcctProviderConnUpdateMutation, UserOrganizationAcctProviderConnUpdateMutationVariables>;
 export const UserOrganizationAcctProviderConnectDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"mutation","name":{"kind":"Name","value":"UserOrganizationAcctProviderConnect"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"accountProvider"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"ACCT_PROVIDER"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"url"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"automaticPull"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Boolean"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"userOrganizationAcctProviderConnect"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"organization_id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"organizationId"}}},{"kind":"Argument","name":{"kind":"Name","value":"acct_provider"},"value":{"kind":"Variable","name":{"kind":"Name","value":"accountProvider"}}},{"kind":"Argument","name":{"kind":"Name","value":"url"},"value":{"kind":"Variable","name":{"kind":"Name","value":"url"}}},{"kind":"Argument","name":{"kind":"Name","value":"automatic_pull_enabled"},"value":{"kind":"Variable","name":{"kind":"Name","value":"automaticPull"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"OrganizationAcctProviderConnFragment"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"OrganizationAcctProviderConnSynchronizationFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"OrganizationAcctProviderConnSynchronization"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"mode"}},{"kind":"Field","name":{"kind":"Name","value":"force"}},{"kind":"Field","name":{"kind":"Name","value":"provider"}},{"kind":"Field","name":{"kind":"Name","value":"errors"}},{"kind":"Field","name":{"kind":"Name","value":"warnings"}},{"kind":"Field","name":{"kind":"Name","value":"data"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"customer"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"}}]}},{"kind":"Field","name":{"kind":"Name","value":"invoice"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"}}]}},{"kind":"Field","name":{"kind":"Name","value":"invoice_transaction"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"}}]}},{"kind":"Field","name":{"kind":"Name","value":"vendor"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"}}]}},{"kind":"Field","name":{"kind":"Name","value":"bill"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"}}]}},{"kind":"Field","name":{"kind":"Name","value":"bill_transaction"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"items"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"started_at"}},{"kind":"Field","name":{"kind":"Name","value":"finished_at"}},{"kind":"Field","name":{"kind":"Name","value":"failed_at"}},{"kind":"Field","name":{"kind":"Name","value":"succeeded_at"}},{"kind":"Field","name":{"kind":"Name","value":"skipped_at"}},{"kind":"Field","name":{"kind":"Name","value":"read_success"}},{"kind":"Field","name":{"kind":"Name","value":"read_failure"}},{"kind":"Field","name":{"kind":"Name","value":"skipped"}},{"kind":"Field","name":{"kind":"Name","value":"create_success"}},{"kind":"Field","name":{"kind":"Name","value":"create_failure"}},{"kind":"Field","name":{"kind":"Name","value":"update_success"}},{"kind":"Field","name":{"kind":"Name","value":"update_failure"}},{"kind":"Field","name":{"kind":"Name","value":"delete_failure"}},{"kind":"Field","name":{"kind":"Name","value":"delete_success"}},{"kind":"Field","name":{"kind":"Name","value":"process_failure"}},{"kind":"Field","name":{"kind":"Name","value":"process_success"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}},{"kind":"Field","name":{"kind":"Name","value":"scope"}},{"kind":"Field","name":{"kind":"Name","value":"scope_id"}},{"kind":"Field","name":{"kind":"Name","value":"scope_description"}},{"kind":"Field","name":{"kind":"Name","value":"organization_id"}},{"kind":"Field","name":{"kind":"Name","value":"organization_acct_provider_conn_id"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"OrganizationAcctProviderConnFragment"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"OrganizationAcctProviderConn"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"acct_provider"}},{"kind":"Field","name":{"kind":"Name","value":"code"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"payload"}},{"kind":"Field","name":{"kind":"Name","value":"customer_add_url"}},{"kind":"Field","name":{"kind":"Name","value":"invoice_add_url"}},{"kind":"Field","name":{"kind":"Name","value":"vendor_add_url"}},{"kind":"Field","name":{"kind":"Name","value":"bill_add_url"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"phone_number"}},{"kind":"Field","name":{"kind":"Name","value":"website_url"}},{"kind":"Field","name":{"kind":"Name","value":"primary_contact_name"}},{"kind":"Field","name":{"kind":"Name","value":"business_name"}},{"kind":"Field","name":{"kind":"Name","value":"business_industry"}},{"kind":"Field","name":{"kind":"Name","value":"business_number_of_employees"}},{"kind":"Field","name":{"kind":"Name","value":"timezone"}},{"kind":"Field","name":{"kind":"Name","value":"language"}},{"kind":"Field","name":{"kind":"Name","value":"business_tax_code_type"}},{"kind":"Field","name":{"kind":"Name","value":"business_tax_code"}},{"kind":"Field","name":{"kind":"Name","value":"address_line_1"}},{"kind":"Field","name":{"kind":"Name","value":"address_number"}},{"kind":"Field","name":{"kind":"Name","value":"address_line_2"}},{"kind":"Field","name":{"kind":"Name","value":"address_city"}},{"kind":"Field","name":{"kind":"Name","value":"address_state"}},{"kind":"Field","name":{"kind":"Name","value":"address_zip_code"}},{"kind":"Field","name":{"kind":"Name","value":"address_country_code_iso_3"}},{"kind":"Field","name":{"kind":"Name","value":"address_lat"}},{"kind":"Field","name":{"kind":"Name","value":"address_lng"}},{"kind":"Field","name":{"kind":"Name","value":"business_address_line_1"}},{"kind":"Field","name":{"kind":"Name","value":"business_address_number"}},{"kind":"Field","name":{"kind":"Name","value":"business_address_line_2"}},{"kind":"Field","name":{"kind":"Name","value":"business_address_city"}},{"kind":"Field","name":{"kind":"Name","value":"business_address_state"}},{"kind":"Field","name":{"kind":"Name","value":"business_address_zip_code"}},{"kind":"Field","name":{"kind":"Name","value":"business_address_country_code_iso_3"}},{"kind":"Field","name":{"kind":"Name","value":"business_address_lat"}},{"kind":"Field","name":{"kind":"Name","value":"business_address_lng"}},{"kind":"Field","name":{"kind":"Name","value":"automatic_pull_enabled"}},{"kind":"Field","name":{"kind":"Name","value":"status"}},{"kind":"Field","name":{"kind":"Name","value":"disconnected_at"}},{"kind":"Field","name":{"kind":"Name","value":"conn_expires_at"}},{"kind":"Field","name":{"kind":"Name","value":"organization_id"}},{"kind":"Field","name":{"kind":"Name","value":"last_conn_at"}},{"kind":"Field","name":{"kind":"Name","value":"last_successful_sync_id"}},{"kind":"Field","name":{"kind":"Name","value":"last_successful_sync_at"}},{"kind":"Field","name":{"kind":"Name","value":"last_sync_succeeded"}},{"kind":"Field","name":{"kind":"Name","value":"last_sync_id"}},{"kind":"Field","name":{"kind":"Name","value":"last_sync_at"}},{"kind":"Field","name":{"kind":"Name","value":"created_at"}},{"kind":"Field","name":{"kind":"Name","value":"updated_at"}},{"kind":"Field","name":{"kind":"Name","value":"synchronizations"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"skip"},"value":{"kind":"IntValue","value":"0"}},{"kind":"Argument","name":{"kind":"Name","value":"take"},"value":{"kind":"IntValue","value":"1"}},{"kind":"Argument","name":{"kind":"Name","value":"finished"},"value":{"kind":"BooleanValue","value":true}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"edges"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"node"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"OrganizationAcctProviderConnSynchronizationFragment"}}]}}]}}]}}]}}]} as unknown as DocumentNode<UserOrganizationAcctProviderConnectMutation, UserOrganizationAcctProviderConnectMutationVariables>;

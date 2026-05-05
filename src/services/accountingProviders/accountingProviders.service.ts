@@ -1,4 +1,4 @@
-import { type ApolloClient } from '@apollo/client/core';
+import type { AccruClientContext } from '@/types/context.types';
 import { Res } from '@utils/response.type';
 import {
   ListResponse,
@@ -43,12 +43,12 @@ import {
 } from './accountingProviders.queries';
 
 export default class AccountingProviders {
-  constructor(private readonly apolloClient: ApolloClient<unknown>) {}
+  constructor(private readonly context: AccruClientContext) {}
 
   public disconnect = async (
     variables: UserOrganizationAcctProviderConnDisconnectMutationVariables,
   ): Promise<Res<UserOrganizationAcctProviderConnDisconnectMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: DISCONNECT_ACCT_PROVIDER_MUTATION,
       variables,
     });
@@ -58,7 +58,7 @@ export default class AccountingProviders {
   public update = async (
     variables: UserOrganizationAcctProviderConnUpdateMutationVariables,
   ): Promise<Res<UserOrganizationAcctProviderConnUpdateMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: UPDATE_ACCT_PROVIDER_CONN_MUTATION,
       variables,
     });
@@ -68,7 +68,7 @@ export default class AccountingProviders {
   public connect = async (
     variables: UserOrganizationAcctProviderConnectMutationVariables,
   ): Promise<Res<UserOrganizationAcctProviderConnectMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: CONNECT_ACCT_PROVIDER_MUTATION,
       variables,
     });
@@ -78,7 +78,7 @@ export default class AccountingProviders {
   public getOAuthUrl = async (
     variables: UserOrganizationAcctProviderGetOAuthUrlMutationVariables,
   ): Promise<Res<UserOrganizationAcctProviderGetOAuthUrlMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: GET_ACCT_PROVIDER_OAUTH_URL_MUTATION,
       variables,
     });
@@ -88,7 +88,7 @@ export default class AccountingProviders {
   public sync = async (
     variables: UserOrganizationAcctProviderSynchronizeMutationVariables,
   ): Promise<Res<UserOrganizationAcctProviderSynchronizeMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: SYNC_ACCT_PROVIDER_MUTATION,
       variables,
     });
@@ -98,22 +98,22 @@ export default class AccountingProviders {
   public get = async (
     variables: UserOrganizationAcctProvidersQueryVariables,
   ): Promise<ListResponse<Res<UserOrganizationAcctProvidersQuery>>> => {
-    const { data } = await this.apolloClient.query({
+    const { data } = await this.context.apolloClient.query({
       query: GET_ALL_ACCT_PROVIDER_CONNS_QUERY,
       variables,
     });
-    return processResponseAsList(data.userOrganizationAcctProviders);
+    return processResponseAsList(data!.userOrganizationAcctProviders);
   };
 
   public getOne = async (
     variables: UserOrganizationAcctProviderQueryVariables,
   ): Promise<Res<UserOrganizationAcctProviderQuery>> => {
-    const { data } = await this.apolloClient.query({
+    const { data } = await this.context.apolloClient.query({
       query: GET_ACCT_PROVIDER_CONN_QUERY,
       fetchPolicy: 'no-cache',
       variables,
     });
-    return data.userOrganizationAcctProvider;
+    return data!.userOrganizationAcctProvider;
   };
 
   public getSync = async (
@@ -121,29 +121,29 @@ export default class AccountingProviders {
   ): Promise<
     ListResponse<Res<UserOrganizationAcctProviderSynchronizationsQuery>>
   > => {
-    const { data } = await this.apolloClient.query({
+    const { data } = await this.context.apolloClient.query({
       query: GET_ALL_ACCT_PROVIDER_SYNCS_QUERY,
       variables,
     });
     return processResponseAsList(
-      data.userOrganizationAcctProviderSynchronizations,
+      data!.userOrganizationAcctProviderSynchronizations,
     );
   };
 
   public getOneSync = async (
     variables: UserOrganizationAcctProviderSynchronizationQueryVariables,
   ): Promise<Res<UserOrganizationAcctProviderSynchronizationQuery>> => {
-    const { data } = await this.apolloClient.query({
+    const { data } = await this.context.apolloClient.query({
       query: GET_ACCT_PROVIDER_SYNC_QUERY,
       variables,
     });
-    return data.userOrganizationAcctProviderSynchronization;
+    return data!.userOrganizationAcctProviderSynchronization;
   };
 
   public verifyConnection = async (
     variables: UserOrganizationAcctProviderConnCheckConnectionMutationVariables,
   ): Promise<Res<UserOrganizationAcctProviderConnCheckConnectionMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: ACCT_PROVIDER_CONN_VERIFY_MUTATION,
       variables,
     });
@@ -155,7 +155,7 @@ export default class AccountingProviders {
   ): Promise<
     Res<UnauthorizedUserOrganizationAcctProviderConnCheckConnectionMutation>
   > => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: ACCT_PROVIDER_CONN_VERIFY_UNAUTHORIZED_MUTATION,
       variables,
     });

@@ -9,7 +9,7 @@ import {
   UnconnectedCustomerOrganizationStatementRequestTokenMutation,
   UnconnectedCustomerOrganizationStatementRequestTokenMutationVariables,
 } from '@api/gql/graphql';
-import { ApolloClient } from '@apollo/client';
+import type { AccruClientContext } from '@/types/context.types';
 import { Res } from '@utils/response.type';
 import {
   STATEMENT_AS_UNCONNECTED_CUSTOMER_GET_ORGANIZATION_STATEMENT_LINE_PDF_MUTATION,
@@ -20,29 +20,29 @@ import {
 } from './statementsAsUnconnectedCustomer.queries';
 
 export default class StatementsAsUnconnectedCustomer {
-  constructor(private apolloClient: ApolloClient<unknown>) {}
+  constructor(private context: AccruClientContext) {}
 
   public get = async (
     variables: UnconnectedCustomerOrganizationStatementQueryVariables,
   ): Promise<Res<UnconnectedCustomerOrganizationStatementQuery>> => {
-    const { data } = await this.apolloClient.query({
+    const { data } = await this.context.apolloClient.query({
       query: STATEMENT_AS_UNCONNECTED_CUSTOMER_GET_ORGANIZATION_STATEMENT_QUERY,
       variables,
     });
 
-    return data.unconnectedCustomerOrganizationStatement;
+    return data!.unconnectedCustomerOrganizationStatement;
   };
 
   public getLine = async (
     variables: UnconnectedCustomerOrganizationStatementLineQueryVariables,
   ): Promise<Res<UnconnectedCustomerOrganizationStatementLineQuery>> => {
-    const { data } = await this.apolloClient.query({
+    const { data } = await this.context.apolloClient.query({
       query:
         STATEMENT_AS_UNCONNECTED_CUSTOMER_GET_ORGANIZATION_STATEMENT_LINE_QUERY,
       variables,
     });
 
-    return data.unconnectedCustomerOrganizationStatementLine;
+    return data!.unconnectedCustomerOrganizationStatementLine;
   };
 
   public getLinePdf = async (
@@ -50,7 +50,7 @@ export default class StatementsAsUnconnectedCustomer {
   ): Promise<
     Res<UnconnectedCustomerOrganizationStatementLineGetPDFMutation>
   > => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation:
         STATEMENT_AS_UNCONNECTED_CUSTOMER_GET_ORGANIZATION_STATEMENT_LINE_PDF_MUTATION,
       variables,
@@ -62,7 +62,7 @@ export default class StatementsAsUnconnectedCustomer {
   public sync = async (
     variables: UnconnectedCustomerSynchronizeMutationVariables,
   ): Promise<void> => {
-    await this.apolloClient.mutate({
+    await this.context.apolloClient.mutate({
       mutation: STATEMENT_AS_UNCONNECTED_CUSTOMER_SYNC_MUTATION,
       variables,
     });
@@ -73,7 +73,7 @@ export default class StatementsAsUnconnectedCustomer {
   ): Promise<
     Res<UnconnectedCustomerOrganizationStatementRequestTokenMutation>
   > => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation:
         STATEMENT_AS_UNCONNECTED_CUSTOMER_REQUEST_ORGANIZATION_STATEMENT_TOKEN_QUERY,
       variables,

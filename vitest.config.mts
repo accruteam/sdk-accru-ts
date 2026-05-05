@@ -1,13 +1,23 @@
+import path from 'node:path';
+
+import dotenv from 'dotenv';
 import { defineConfig } from 'vitest/config';
-import tsconfigPaths from 'vite-tsconfig-paths';
+
+const { parsed } = dotenv.config({
+  path: path.resolve(process.cwd(), '.env.test'),
+  quiet: true,
+});
 
 export default defineConfig({
-  plugins: [tsconfigPaths()],
   test: {
-    setupFiles: ['dotenv/config'],
+    env: {
+      ...process.env,
+      ...(parsed ?? {}),
+    },
   },
   // https://github.com/vitest-dev/vitest/issues/4605
   resolve: {
+    tsconfigPaths: true,
     alias: {
       'graphql/language/printer': 'graphql/language/printer.js',
       'graphql/language': 'graphql/language/index.js',

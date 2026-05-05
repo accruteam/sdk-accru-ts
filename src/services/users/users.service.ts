@@ -1,4 +1,4 @@
-import { ApolloClient } from '@apollo/client/core';
+import type { AccruClientContext } from '@/types/context.types';
 import {
   UserCreateReferralCodeMutation,
   UserEmailVerifyOrChangeFinishMutation,
@@ -36,17 +36,19 @@ import {
 } from './users.queries';
 
 export default class UsersService {
-  constructor(private apolloClient: ApolloClient<unknown>) {}
+  constructor(private context: AccruClientContext) {}
 
   public async getCurrent(): Promise<Res<UserQuery>> {
-    const { data } = await this.apolloClient.query({ query: USER_QUERY });
-    return data.user;
+    const { data } = await this.context.apolloClient.query({
+      query: USER_QUERY,
+    });
+    return data!.user;
   }
 
   public update = async (
     variables: UserUpdateDataMutationVariables,
   ): Promise<Res<UserUpdateDataMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: UPDATE_USER_MUTATION,
       variables,
     });
@@ -56,7 +58,7 @@ export default class UsersService {
   public updateEmail = async (
     variables: UserEmailVerifyOrChangeStartMutationVariables,
   ): Promise<Res<UserEmailVerifyOrChangeStartMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: UPDATE_USER_EMAIL_START_MUTATION,
       variables,
     });
@@ -66,7 +68,7 @@ export default class UsersService {
   public verifyUpdatedEmail = async (
     variables: UserEmailVerifyOrChangeFinishMutationVariables,
   ): Promise<Res<UserEmailVerifyOrChangeFinishMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: UPDATE_USER_EMAIL_FINISH_MUTATION,
       variables,
     });
@@ -77,7 +79,7 @@ export default class UsersService {
   public updatePhoneNumber = async (
     variables: UserPhoneNumberVerifyOrChangeStartMutationVariables,
   ): Promise<Res<UserPhoneNumberVerifyOrChangeStartMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: UPDATE_USER_PHONE_START_MUTATION,
       variables,
     });
@@ -87,7 +89,7 @@ export default class UsersService {
   public verifyUpdatedPhoneNumber = async (
     variables: UserPhoneNumberVerifyOrChangeFinishMutationVariables,
   ): Promise<Res<UserPhoneNumberVerifyOrChangeFinishMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: UPDATE_USER_PHONE_FINISH_MUTATION,
       variables,
     });
@@ -98,7 +100,7 @@ export default class UsersService {
   public updatePassword = async (
     variables: UserPasswordChangeStartMutationVariables,
   ): Promise<Res<UserPasswordChangeStartMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: UPDATE_USER_PASSWORD_START_MUTATION,
       variables,
     });
@@ -109,7 +111,7 @@ export default class UsersService {
   public verifyPassword = async (
     variables: UserPasswordChangeFinishMutationVariables,
   ): Promise<Res<UserPasswordChangeFinishMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: UPDATE_USER_PASSWORD_FINISH_MUTATION,
       variables,
     });
@@ -120,7 +122,7 @@ export default class UsersService {
   public removeProfilePicture = async (
     variables: UserProfilePictureRemoveMutationVariables,
   ): Promise<Res<UserProfilePictureRemoveMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: UPDATE_USER_DELETE_PROFILE_PICTURE_MUTATION,
       variables,
     });
@@ -131,7 +133,7 @@ export default class UsersService {
   public handleLoginAttempt = async (
     variables: UserHandleLoginAttemptMutationVariables,
   ): Promise<void> => {
-    await this.apolloClient.mutate({
+    await this.context.apolloClient.mutate({
       mutation: USER_HANDLE_LOGIN_ATTEMPT_MUTATION,
       variables,
     });
@@ -140,7 +142,7 @@ export default class UsersService {
   public createReferralCode = async (): Promise<
     Res<UserCreateReferralCodeMutation>
   > => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: USER_CREATE_REFERRAL_CODE_MUTATION,
     });
 

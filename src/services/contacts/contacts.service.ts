@@ -1,4 +1,4 @@
-import { type ApolloClient } from '@apollo/client/core';
+import type { AccruClientContext } from '@/types/context.types';
 import {
   UserOrganizationCustomerContactCreateMutation,
   UserOrganizationCustomerContactCreateMutationVariables,
@@ -29,12 +29,12 @@ import {
 } from './contacts.queries';
 
 export default class Contacts {
-  constructor(private apolloClient: ApolloClient<unknown>) {}
+  constructor(private context: AccruClientContext) {}
 
   public getCustomerContacts = async (
     variables: UserOrganizationCustomerContactsQueryVariables,
   ): Promise<Res<UserOrganizationCustomerContactsQuery>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: GET_CUSTOMERS_CONTACTS_QUERY,
       variables,
     });
@@ -45,7 +45,7 @@ export default class Contacts {
   public getVendorContacts = async (
     variables: userOrganizationVendorContactsQueryVariables,
   ): Promise<Res<userOrganizationVendorContactsQuery>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: GET_CONTACTS_QUERY,
       variables,
     });
@@ -56,7 +56,7 @@ export default class Contacts {
   public createVendorContact = async (
     variables: userOrganizationVendorContactCreateMutationVariables,
   ): Promise<Res<userOrganizationVendorContactCreateMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: CREATE_CONTACT_MUTATION,
       variables,
     });
@@ -67,7 +67,7 @@ export default class Contacts {
   public createCustomerContact = async (
     variables: UserOrganizationCustomerContactCreateMutationVariables,
   ): Promise<Res<UserOrganizationCustomerContactCreateMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: CREATE_CUSTOMER_CONTACT_QUERY,
       variables,
     });
@@ -78,7 +78,7 @@ export default class Contacts {
   public updateVendorContact = async (
     variables: UserOrganizationVendorContactUpdateMutationVariables,
   ): Promise<Res<UserOrganizationVendorContactUpdateMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: UPDATE_CONTACT_MUTATION,
       variables,
     });
@@ -89,7 +89,7 @@ export default class Contacts {
   public updateCustomerContact = async (
     variables: UserOrganizationCustomerContactUpdateMutationVariables,
   ): Promise<Res<UserOrganizationCustomerContactUpdateMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: UPDATE_CUSTOMER_CONTACT_MUTATION,
       variables,
     });
@@ -100,7 +100,7 @@ export default class Contacts {
   public deleteCustomerContact = async (
     variables: UserOrganizationCustomerContactDeleteMutationVariables,
   ): Promise<Res<UserOrganizationCustomerContactCreateMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: DELETE_CUSTOMER_CONTACT_MUTATION,
       variables,
     });
@@ -111,7 +111,7 @@ export default class Contacts {
   public deleteVendorContact = async (
     variables: UserOrganizationVendorContactDeleteMutationVariables,
   ): Promise<Res<UserOrganizationVendorContactDeleteMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: DELETE_CONTACT_MUTATION,
       variables,
     });

@@ -11,7 +11,7 @@ import {
   UserOrganizationCustomerGetStatementLinkMutation,
   UserOrganizationCustomerGetStatementLinkMutationVariables,
 } from '@api/gql/graphql';
-import { ApolloClient } from '@apollo/client';
+import type { AccruClientContext } from '@/types/context.types';
 import { Res } from '@utils/response.type';
 import {
   STATEMENT_AS_VENDOR_GET_CUSTOMER_STATEMENT_LINE_PDF_QUERY,
@@ -23,45 +23,45 @@ import {
 } from './statementsAsVendor.queries';
 
 export default class StatementsAsVendor {
-  constructor(private apolloClient: ApolloClient<unknown>) {}
+  constructor(private context: AccruClientContext) {}
 
   public get = async (
     variables: UserOrganizationCustomerStatementQueryVariables,
   ): Promise<Res<UserOrganizationCustomerStatementQuery>> => {
-    const { data } = await this.apolloClient.query({
+    const { data } = await this.context.apolloClient.query({
       query: STATEMENT_AS_VENDOR_GET_CUSTOMER_STATEMENT_QUERY,
       variables,
     });
 
-    return data.userOrganizationCustomerStatement;
+    return data!.userOrganizationCustomerStatement;
   };
 
   public getLine = async (
     variables: UserOrganizationCustomerStatementLineQueryVariables,
   ): Promise<Res<UserOrganizationCustomerStatementLineQuery>> => {
-    const { data } = await this.apolloClient.query({
+    const { data } = await this.context.apolloClient.query({
       query: STATEMENT_AS_VENDOR_GET_CUSTOMER_STATEMENT_LINE_QUERY,
       variables,
     });
 
-    return data.userOrganizationCustomerStatementLine;
+    return data!.userOrganizationCustomerStatementLine;
   };
 
   public getLinePdf = async (
     variables: UserOrganizationCustomerStatementLineGetPDFQueryVariables,
   ): Promise<Res<UserOrganizationCustomerStatementLineGetPDFQuery>> => {
-    const { data } = await this.apolloClient.query({
+    const { data } = await this.context.apolloClient.query({
       query: STATEMENT_AS_VENDOR_GET_CUSTOMER_STATEMENT_LINE_PDF_QUERY,
       variables,
     });
 
-    return data.userOrganizationCustomerStatementLineGetPDF;
+    return data!.userOrganizationCustomerStatementLineGetPDF;
   };
 
   public sync = async (
     variables: UserOrganizationCustomerSynchronizeMutationVariables,
   ): Promise<void> => {
-    await this.apolloClient.mutate({
+    await this.context.apolloClient.mutate({
       mutation: STATEMENT_AS_VENDOR_SYNC_CUSTOMER_MUTATION,
       variables,
     });
@@ -70,7 +70,7 @@ export default class StatementsAsVendor {
   public sendEmail = async (
     variables: UserOrganizationCustomerSendStatementEmailMutationVariables,
   ): Promise<Res<UserOrganizationCustomerSendStatementEmailMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: STATEMENT_AS_VENDOR_SEND_CUSTOMER_STATEMENT_EMAIL_MUTATION,
       variables,
     });
@@ -81,7 +81,7 @@ export default class StatementsAsVendor {
   public getLink = async (
     variables: UserOrganizationCustomerGetStatementLinkMutationVariables,
   ): Promise<Res<UserOrganizationCustomerGetStatementLinkMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: STATEMENT_AS_VENDOR_GET_CUSTOMER_STATEMENT_LINK_MUTATION,
       variables,
     });

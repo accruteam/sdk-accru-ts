@@ -18,9 +18,9 @@ describe('Test', () => {
 
   beforeEach(async () => {
     user = await client.users.getCurrent();
-    expect(user.organizations).toBeDefined();
-    expect(user.organizations!.length).toBeGreaterThan(0);
-    expect(user.organizations![0]!.organization_id).toBeDefined();
+    expect(
+      user.organizations?.some(o => o?.organization_id === organizationId),
+    ).toBe(true);
   });
 
   it('should get vendors', async () => {

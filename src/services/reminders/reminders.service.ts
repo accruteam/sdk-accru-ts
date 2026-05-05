@@ -1,4 +1,4 @@
-import { type ApolloClient } from '@apollo/client/core';
+import type { AccruClientContext } from '@/types/context.types';
 import {
   UserOrganizationReminderSettingsQueryVariables,
   UserOrganizationReminderSettingsQuery,
@@ -28,32 +28,32 @@ import {
 } from './reminders.queries';
 
 export default class ReminderSettings {
-  constructor(private readonly apolloClient: ApolloClient<unknown>) {}
+  constructor(private readonly context: AccruClientContext) {}
 
   public get = async (
     variables: UserOrganizationReminderSettingsQueryVariables,
   ): Promise<ListResponse<Res<UserOrganizationReminderSettingsQuery>>> => {
-    const { data } = await this.apolloClient.query({
+    const { data } = await this.context.apolloClient.query({
       query: GET_ALL_REMINDER_SETTINGS_QUERY,
       variables,
     });
-    return processResponseAsList(data.userOrganizationReminderSettings);
+    return processResponseAsList(data!.userOrganizationReminderSettings);
   };
 
   public getOne = async (
     variables: UserOrganizationReminderSettingQueryVariables,
   ): Promise<Res<UserOrganizationReminderSettingQuery>> => {
-    const { data } = await this.apolloClient.query({
+    const { data } = await this.context.apolloClient.query({
       query: GET_REMINDER_SETTING_MUTATION,
       variables,
     });
-    return data.userOrganizationReminderSetting;
+    return data!.userOrganizationReminderSetting;
   };
 
   public create = async (
     variables: UserOrganizationReminderSettingCreateMutationVariables,
   ): Promise<Res<UserOrganizationReminderSettingCreateMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: CREATE_REMINDER_SETTING_MUTATION,
       variables,
     });
@@ -63,7 +63,7 @@ export default class ReminderSettings {
   public update = async (
     variables: UserOrganizationReminderSettingUpdateMutationVariables,
   ): Promise<Res<UserOrganizationReminderSettingUpdateMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: UPDATE_REMINDER_SETTING_MUTATION,
       variables,
     });
@@ -73,7 +73,7 @@ export default class ReminderSettings {
   public del = async (
     variables: UserOrganizationReminderSettingDeleteMutationVariables,
   ): Promise<Res<UserOrganizationReminderSettingDeleteMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: DELETE_REMINDER_SETTING_MUTATION,
       variables,
     });
@@ -83,7 +83,7 @@ export default class ReminderSettings {
   public updateGlobalSettings = async (
     variables: UserOrganizationReminderSettingGlobalUpdateMutationVariables,
   ): Promise<Res<UserOrganizationReminderSettingGlobalUpdateMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: UPDATE_REMINDER_GLOBAL_SETTING_MUTATION,
       variables,
     });

@@ -7,7 +7,7 @@ import {
   UserCustomerOrganizationStatementLineGetPDFMutationVariables,
   UserCustomerOrganizationStatementLineGetPDFMutation,
 } from '@api/gql/graphql';
-import { ApolloClient } from '@apollo/client';
+import type { AccruClientContext } from '@/types/context.types';
 import { Res } from '@utils/response.type';
 import {
   STATEMENT_AS_CUSTOMER_GET_ORGANIZATION_STATEMENT_LINE_PDF_MUTATION,
@@ -17,34 +17,34 @@ import {
 } from './statementsAsCustomer.queries';
 
 export default class StatementsAsCustomer {
-  constructor(private apolloClient: ApolloClient<unknown>) {}
+  constructor(private context: AccruClientContext) {}
 
   public get = async (
     variables: UserCustomerOrganizationStatementQueryVariables,
   ): Promise<Res<UserCustomerOrganizationStatementQuery>> => {
-    const { data } = await this.apolloClient.query({
+    const { data } = await this.context.apolloClient.query({
       query: STATEMENT_AS_CUSTOMER_GET_ORGANIZATION_STATEMENT_QUERY,
       variables,
     });
 
-    return data.userCustomerOrganizationStatement;
+    return data!.userCustomerOrganizationStatement;
   };
 
   public getLine = async (
     variables: UserCustomerOrganizationStatementLineQueryVariables,
   ): Promise<Res<UserCustomerOrganizationStatementLineQuery>> => {
-    const { data } = await this.apolloClient.query({
+    const { data } = await this.context.apolloClient.query({
       query: STATEMENT_AS_CUSTOMER_GET_ORGANIZATION_STATEMENT_LINE_QUERY,
       variables,
     });
 
-    return data.userCustomerOrganizationStatementLine;
+    return data!.userCustomerOrganizationStatementLine;
   };
 
   public getLinePdf = async (
     variables: UserCustomerOrganizationStatementLineGetPDFMutationVariables,
   ): Promise<Res<UserCustomerOrganizationStatementLineGetPDFMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation:
         STATEMENT_AS_CUSTOMER_GET_ORGANIZATION_STATEMENT_LINE_PDF_MUTATION,
       variables,
@@ -56,7 +56,7 @@ export default class StatementsAsCustomer {
   public sync = async (
     variables: UserCustomerOrganizationSynchronizeMutationVariables,
   ): Promise<void> => {
-    await this.apolloClient.mutate({
+    await this.context.apolloClient.mutate({
       mutation: STATEMENT_AS_CUSTOMER_SYNC_MUTATION,
       variables,
     });
