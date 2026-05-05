@@ -1,5 +1,11 @@
 # @accru/client
 
+## 0.19.0
+
+### Minor Changes
+
+- f74924c: migrate to apollo v4 and update schema
+
 ## 0.18.1
 
 ### Patch Changes
