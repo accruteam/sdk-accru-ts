@@ -1,4 +1,4 @@
-import { ApolloClient } from '@apollo/client/core';
+import type { AccruClientContext } from '@/types/context.types';
 import {
   UserOrganizationCustomerNotificationQuery,
   UserOrganizationCustomerNotificationQueryVariables,
@@ -16,26 +16,26 @@ import {
 } from './customers.queries';
 
 export default class CustomerNotifications {
-  constructor(private apolloClient: ApolloClient<unknown>) {}
+  constructor(private context: AccruClientContext) {}
 
   public get = async (
     variables: UserOrganizationCustomerNotificationsQueryVariables,
   ): Promise<ListResponse<Res<UserOrganizationCustomerNotificationsQuery>>> => {
-    const { data } = await this.apolloClient.query({
+    const { data } = await this.context.apolloClient.query({
       query: GET_CUSTOMER_NOTIFICATIONS_QUERY,
       variables,
     });
-    return processResponseAsList(data.userOrganizationCustomerNotifications);
+    return processResponseAsList(data!.userOrganizationCustomerNotifications);
   };
 
   public getOne = async (
     variables: UserOrganizationCustomerNotificationQueryVariables,
   ): Promise<Res<UserOrganizationCustomerNotificationQuery>> => {
-    const { data } = await this.apolloClient.query({
+    const { data } = await this.context.apolloClient.query({
       query: GET_CUSTOMER_NOTIFICATION_QUERY,
       fetchPolicy: 'no-cache',
       variables,
     });
-    return data.userOrganizationCustomerNotification;
+    return data!.userOrganizationCustomerNotification;
   };
 }

@@ -1,9 +1,7 @@
-require('dotenv').config();
-
 async function getAuthToken() {
   const body = JSON.stringify({
-    email: process.env.USERNAME,
-    password: process.env.PASSWORD,
+    email: process.env.TEST_EMAIL,
+    password: process.env.TEST_PASSWORD,
     returnSecureToken: true,
   });
 

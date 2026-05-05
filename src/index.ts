@@ -1,4 +1,5 @@
-import { ApolloClient } from '@apollo/client/core';
+import type { ApolloClient } from '@apollo/client/core';
+import type { AccruClientContext } from '@/types/context.types';
 
 import { IAccruClientParams, createApolloClient } from '@api/apolloClient';
 
@@ -29,7 +30,8 @@ export * from '@gql';
 export * from '@gql/graphql';
 
 export class AccruClient {
-  public readonly apolloClient: ApolloClient<unknown>;
+  public readonly apolloClient: ApolloClient;
+  public readonly context: AccruClientContext;
 
   public readonly accountingProviders: AccountingProviders;
   public readonly admin: Admin;
@@ -50,21 +52,23 @@ export class AccruClient {
 
   constructor(params: IAccruClientParams) {
     this.apolloClient = createApolloClient(params);
-    this.accountingProviders = new AccountingProviders(this.apolloClient);
-    this.admin = new Admin(this.apolloClient);
-    this.auth = new Auth(this.apolloClient);
-    this.bills = new Bills(this.apolloClient);
-    this.connections = new Connections(this.apolloClient);
-    this.contacts = new Contacts(this.apolloClient);
-    this.customers = new Customers(this.apolloClient);
-    this.invoices = new Invoices(this.apolloClient);
-    this.organizations = new Organizations(this.apolloClient);
-    this.projects = new Projects(this.apolloClient);
-    this.reminders = new Reminders(this.apolloClient);
-    this.statements = new Statements(this.apolloClient);
-    this.subscriptions = new Subscriptions(this.apolloClient);
-    this.transactions = new Transactions(this.apolloClient);
-    this.users = new Users(this.apolloClient);
-    this.vendors = new Vendors(this.apolloClient);
+    this.context = { apolloClient: this.apolloClient };
+
+    this.accountingProviders = new AccountingProviders(this.context);
+    this.admin = new Admin(this.context);
+    this.auth = new Auth(this.context);
+    this.bills = new Bills(this.context);
+    this.connections = new Connections(this.context);
+    this.contacts = new Contacts(this.context);
+    this.customers = new Customers(this.context);
+    this.invoices = new Invoices(this.context);
+    this.organizations = new Organizations(this.context);
+    this.projects = new Projects(this.context);
+    this.reminders = new Reminders(this.context);
+    this.statements = new Statements(this.context);
+    this.subscriptions = new Subscriptions(this.context);
+    this.transactions = new Transactions(this.context);
+    this.users = new Users(this.context);
+    this.vendors = new Vendors(this.context);
   }
 }

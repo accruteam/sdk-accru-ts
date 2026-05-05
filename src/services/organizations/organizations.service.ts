@@ -1,8 +1,4 @@
-import {
-  QueryOptions,
-  type ApolloClient,
-  MutationOptions,
-} from '@apollo/client/core';
+import type { AccruClientContext } from '@/types/context.types';
 import {
   UserOrganizationBaseSettingsQuery,
   UserOrganizationBaseSettingsQueryVariables,
@@ -59,25 +55,23 @@ import {
 } from './organizations.queries';
 
 export default class Organizations {
-  constructor(private readonly apolloClient: ApolloClient<unknown>) {}
+  constructor(private readonly context: AccruClientContext) {}
 
   public getOne = async (
     variables: UserOrganizationQueryVariables,
-    apolloClientOptions?: QueryOptions,
   ): Promise<Res<UserOrganizationQuery>> => {
-    const { data } = await this.apolloClient.query({
-      ...apolloClientOptions,
+    const { data } = await this.context.apolloClient.query({
       query: GET_ORGANIZATION_QUERY,
       variables,
     });
 
-    return data.userOrganization;
+    return data!.userOrganization;
   };
 
   public create = async (
     variables: UserOrganizationCreateMutationVariables,
   ): Promise<Res<UserOrganizationCreateMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: CREATE_ORGANIZATION_MUTATION,
       variables,
     });
@@ -87,45 +81,41 @@ export default class Organizations {
 
   public getSettings = async (
     variables: UserOrganizationBaseSettingsQueryVariables,
-    apolloClientOptions?: QueryOptions,
   ): Promise<Res<UserOrganizationBaseSettingsQuery>> => {
-    const { data } = await this.apolloClient.query({
-      ...apolloClientOptions,
+    const { data } = await this.context.apolloClient.query({
       query: GET_ORGANIZATION_BASE_SETTINGS_QUERY,
       variables,
     });
 
-    return data.userOrganization;
+    return data!.userOrganization;
   };
 
   public update = async (
     variables: UserOrganizationUpdateMutationVariables,
-    apolloClientOptions?: MutationOptions,
   ): Promise<Res<UserOrganizationUpdateMutation>> => {
-    const { data } = await this.apolloClient.mutate({
-      ...apolloClientOptions,
+    const { data } = await this.context.apolloClient.mutate({
       mutation: UPDATE_ORGANIZATION_MUTATION,
       variables,
     });
 
-    return data.userOrganization;
+    return data!.userOrganizationUpdate;
   };
 
   public getCollaborators = async (
     variables: UserOrganizationCollaboratorsQueryVariables,
   ): Promise<Res<UserOrganizationCollaboratorsQuery>> => {
-    const { data } = await this.apolloClient.query({
+    const { data } = await this.context.apolloClient.query({
       query: GET_ORGANIZATION_COLLABORATORS_QUERY,
       variables,
     });
 
-    return data.userOrganizationCollaborators;
+    return data!.userOrganizationCollaborators;
   };
 
   public inviteCollaborator = async (
     variables: UserOrganizationInviteCollaboratorCreateMutationVariables,
   ): Promise<Res<UserOrganizationInviteCollaboratorCreateMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: INVITE_ORGANIZATION_COLLABORATOR_MUTATION,
       variables,
     });
@@ -136,7 +126,7 @@ export default class Organizations {
   public deleteCollaboratorInvite = async (
     variables: UserOrganizationInviteCollaboratorCancelMutationVariables,
   ): Promise<Res<UserOrganizationInviteCollaboratorCancelMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: DELETE_ORGANIZATION_COLLABORATOR_INVITE_MUTATION,
       variables,
     });
@@ -147,7 +137,7 @@ export default class Organizations {
   public resendCollaboratorInvite = async (
     variables: UserOrganizationInviteCollaboratorResendMutationVariables,
   ): Promise<Res<UserOrganizationInviteCollaboratorResendMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: RESEND_ORGANIZATION_COLLABORATOR_INVITE_MUTATION,
       variables,
     });
@@ -158,18 +148,18 @@ export default class Organizations {
   public getCollaboratorInvites = async (
     variables: UserOrganizationInviteCollaboratorsQueryVariables,
   ): Promise<ListResponse<Res<UserOrganizationInviteCollaboratorsQuery>>> => {
-    const { data } = await this.apolloClient.query({
+    const { data } = await this.context.apolloClient.query({
       query: GET_ORGANIZATION_COLLABORATOR_INVITES_QUERY,
       variables,
     });
 
-    return processResponseAsList(data.userOrganizationInviteCollaborators);
+    return processResponseAsList(data!.userOrganizationInviteCollaborators);
   };
 
   public updateCollaborator = async (
     variables: UserOrganizationCollaboratorUpdateMutationVariables,
   ): Promise<Res<UserOrganizationCollaboratorUpdateMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: UPDATE_ORGANIZATION_COLLABORATOR_MUTATION,
       variables,
     });
@@ -180,7 +170,7 @@ export default class Organizations {
   public deleteCollaborator = async (
     variables: UserOrganizationCollaboratorDeleteMutationVariables,
   ): Promise<Res<UserOrganizationCollaboratorDeleteMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: DELETE_ORGANIZATION_COLLABORATOR_MUTATION,
       variables,
     });
@@ -191,7 +181,7 @@ export default class Organizations {
   public deleteOrganizationLogo = async (
     variables: UserOrganizationLogoPictureRemoveMutationVariables,
   ): Promise<Res<UserOrganizationLogoPictureRemoveMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: DELETE_ORGANIZATION_LOGO_MUTATION,
       variables,
     });
@@ -202,7 +192,7 @@ export default class Organizations {
   public sendGenericInviteToAccru = async (
     variables: UserOrganizationSendGenericInviteMailMutationVariables,
   ): Promise<Res<UserOrganizationSendGenericInviteMailMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: SEND_GENERIC_INVITE_TO_ACCRU_EMAIL_MUTATION,
       variables,
     });
@@ -213,7 +203,7 @@ export default class Organizations {
   public updateEmailStart = async (
     variables: UserOrganizationEmailVerifyOrChangeStartMutationVariables,
   ): Promise<Res<UserOrganizationEmailVerifyOrChangeStartMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: UPDATE_ORGANIZATION_EMAIL_START_MUTATION,
       variables,
     });
@@ -224,7 +214,7 @@ export default class Organizations {
   public updateEmailFinish = async (
     variables: UserOrganizationEmailVerifyOrChangeFinishMutationVariables,
   ): Promise<Res<UserOrganizationEmailVerifyOrChangeFinishMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: UPDATE_ORGANIZATION_EMAIL_FINISH_MUTATION,
       variables,
     });

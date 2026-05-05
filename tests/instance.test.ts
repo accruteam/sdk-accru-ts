@@ -1,4 +1,4 @@
-import { AccruClient } from 'src';
+import { AccruClient } from '@package';
 import { describe, expect, it, vi } from 'vitest';
 
 describe('Instance test', () => {
@@ -6,7 +6,7 @@ describe('Instance test', () => {
     const getAuthToken = vi.fn(async () => 'token');
 
     const client = new AccruClient({
-      baseUrl: 'http://localhost:3000',
+      url: 'http://localhost:3000',
       getAuthToken,
     });
 

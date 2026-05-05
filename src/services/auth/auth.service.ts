@@ -26,7 +26,7 @@ import {
   UserAcctProviderExchangeTokenMutation,
   UserAcctProviderExchangeTokenMutationVariables,
 } from '@api/gql/graphql';
-import { ApolloClient } from '@apollo/client/core';
+import type { AccruClientContext } from '@/types/context.types';
 import { Res } from '@utils/response.type';
 import {
   ListResponse,
@@ -49,12 +49,12 @@ import {
 } from './auth.queries';
 
 export default class Auth {
-  constructor(private apolloClient: ApolloClient<unknown>) {}
+  constructor(private context: AccruClientContext) {}
 
   public startEmailSignup = async (
     variables: UserSignUpWithEmailStartMutationVariables,
   ): Promise<Res<UserSignUpWithEmailStartMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: EMAIL_SIGNUP_MUTATION,
       variables,
     });
@@ -64,7 +64,7 @@ export default class Auth {
   public verifyEmailSignup = async (
     variables: UserSignUpWithEmailVerifyMutationVariables,
   ): Promise<Res<UserSignUpWithEmailVerifyMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: SIGNUP_CODE_VERIFICATION_MUTATION,
       variables,
     });
@@ -74,7 +74,7 @@ export default class Auth {
   public setEmailSignupPassword = async (
     variables: UserSignUpWithEmailFinishSchemaMutationVariables,
   ): Promise<Res<UserSignUpWithEmailFinishSchemaMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: EMAIL_VERIFICATION_MUTATION,
       variables,
     });
@@ -84,7 +84,7 @@ export default class Auth {
   public getInviteData = async (
     variables: UnauthorizedUserOrganizationUserInviteQueryVariables,
   ): Promise<Res<UnauthorizedUserOrganizationUserInviteQuery>> => {
-    const { data } = await this.apolloClient.query({
+    const { data } = await this.context.apolloClient.query({
       query: USER_ORGANIZATION_USER_INVITE_QUERY,
       variables,
     });
@@ -94,18 +94,18 @@ export default class Auth {
   public getInvites = async (
     variables: UserOrganizationUserInvitesQueryVariables,
   ): Promise<ListResponse<Res<UserOrganizationUserInvitesQuery>>> => {
-    const { data } = await this.apolloClient.query({
+    const { data } = await this.context.apolloClient.query({
       query: USER_GET_ORGANIZATION_INVITES_QUERY,
       variables,
     });
 
-    return processResponseAsList(data.userOrganizationUserInvites);
+    return processResponseAsList(data!.userOrganizationUserInvites);
   };
 
   public acceptInvite = async (
     variables: UserOrganizationUserInviteAcceptMutationVariables,
   ): Promise<Res<UserOrganizationUserInviteAcceptMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: ACCEPT_ORG_INVITE_MUTATE,
       variables,
     });
@@ -115,7 +115,7 @@ export default class Auth {
   public closeSession = async (
     variables: UserSessionsCloseMutationVariables,
   ): Promise<Res<UserSessionsCloseMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: USER_CLOSE_SESSION_MUTATION,
       variables,
     });
@@ -125,7 +125,7 @@ export default class Auth {
   public startResetPassword = async (
     variables: UserPasswordResetStartMutationVariables,
   ): Promise<Res<UserPasswordResetStartMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: PASSWORD_RESET_START_MUTATION,
       variables,
     });
@@ -135,7 +135,7 @@ export default class Auth {
   public finishResetPassword = async (
     variables: UserPasswordResetFinishMutationVariables,
   ): Promise<Res<UserPasswordResetFinishMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: PASSWORD_RESET_FINISH_MUTATION,
       variables,
     });
@@ -145,7 +145,7 @@ export default class Auth {
   public startUserAcctProviderOAuth = async (
     variables: UserAcctProviderGetOAuthUrlMutationVariables,
   ): Promise<Res<UserAcctProviderGetOAuthUrlMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: USER_ACCT_PROVIDER_OAUTH_START_MUTATION,
       variables,
     });
@@ -155,7 +155,7 @@ export default class Auth {
   public finishUserAcctProviderOAuth = async (
     variables: UserAcctProviderExchangeTokenMutationVariables,
   ): Promise<Res<UserAcctProviderExchangeTokenMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: USER_ACCT_PROVIDER_OAUTH_FINISH_MUTATION,
       variables,
     });
@@ -165,7 +165,7 @@ export default class Auth {
   public startUserAndOrganizationAcctProviderOAuth = async (
     variables: UserAndOrganizationAcctProviderGetOAuthUrlMutationVariables,
   ): Promise<Res<UserAndOrganizationAcctProviderGetOAuthUrlMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: USER_AND_ORGANIZATION_ACCT_PROVIDER_OAUTH_START_MUTATION,
       variables,
     });
@@ -175,7 +175,7 @@ export default class Auth {
   public finishUserAndOrganizationAcctProviderOAuth = async (
     variables: UserAndOrganizationAcctProviderExchangeTokenMutationVariables,
   ): Promise<Res<UserAndOrganizationAcctProviderExchangeTokenMutation>> => {
-    const { data } = await this.apolloClient.mutate({
+    const { data } = await this.context.apolloClient.mutate({
       mutation: USER_AND_ORGANIZATION_ACCT_PROVIDER_OAUTH_FINISH_MUTATION,
       variables,
     });
