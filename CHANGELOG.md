@@ -1,5 +1,11 @@
 # @accru/client
 
+## 0.19.2
+
+### Patch Changes
+
+- b1bb92f: update schema
+
 ## 0.19.1
 
 ### Patch Changes
