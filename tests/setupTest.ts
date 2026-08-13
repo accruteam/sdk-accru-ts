@@ -9,10 +9,16 @@ const REQUIRED_TEST_ENV = [
   'TEST_ORGANIZATION_ID',
 ] as const;
 
-function requireTestEnv() {
-  const missing = REQUIRED_TEST_ENV.filter(
+function missingTestEnv() {
+  return REQUIRED_TEST_ENV.filter(
     key => !(process.env[key] ?? '').trim().length,
   );
+}
+
+export const hasTestEnv = () => missingTestEnv().length === 0;
+
+function requireTestEnv() {
+  const missing = missingTestEnv();
   if (missing.length)
     throw new Error(
       `Missing .env.test: ${missing.join(', ')}. See .env.test.example.`,

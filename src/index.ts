@@ -4,6 +4,7 @@ import type { AccruClientContext } from '@/types/context.types';
 import { IAccruClientParams, createApolloClient } from '@api/apolloClient';
 
 import AccountingProviders from '@services/accountingProviders';
+import AccruPay from '@services/accruPay';
 import Admin from '@services/admin';
 import Auth from '@services/auth';
 import Bills from '@services/bills';
@@ -34,6 +35,7 @@ export class AccruClient {
   public readonly context: AccruClientContext;
 
   public readonly accountingProviders: AccountingProviders;
+  public readonly accruPay: AccruPay;
   public readonly admin: Admin;
   public readonly auth: Auth;
   public readonly bills: Bills;
@@ -55,6 +57,7 @@ export class AccruClient {
     this.context = { apolloClient: this.apolloClient };
 
     this.accountingProviders = new AccountingProviders(this.context);
+    this.accruPay = new AccruPay(this.context);
     this.admin = new Admin(this.context);
     this.auth = new Auth(this.context);
     this.bills = new Bills(this.context);

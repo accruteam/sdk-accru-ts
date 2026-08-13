@@ -113,6 +113,7 @@ export const UPDATE_REMINDER_GLOBAL_SETTING_MUTATION = gql(`
     $settingSendInvoiceOverdueReminders: Boolean!
     $settingAllowInvoiceDueSnoozeReminders: Boolean!
     $settingAllowInvoiceOverdueSnoozeReminders: Boolean!
+    $settingAccrupayPauseDays: Int
   ) {
     userOrganizationReminderSettingGlobalUpdate(
       organization_id: $organizationId
@@ -120,11 +121,13 @@ export const UPDATE_REMINDER_GLOBAL_SETTING_MUTATION = gql(`
       setting_send_invoice_overdue_reminders: $settingSendInvoiceOverdueReminders
       setting_allow_invoice_due_snooze_reminders: $settingAllowInvoiceDueSnoozeReminders
       setting_allow_invoice_overdue_snooze_reminders: $settingAllowInvoiceOverdueSnoozeReminders
+      setting_accrupay_pause_days: $settingAccrupayPauseDays
     ) {
       setting_send_invoice_due_reminders
       setting_send_invoice_overdue_reminders
       setting_allow_invoice_due_snooze_reminders
       setting_allow_invoice_overdue_snooze_reminders
+      setting_accrupay_pause_days
     }
   }
 `);
