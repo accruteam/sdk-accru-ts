@@ -5,21 +5,59 @@ if [ -n "$PREFIX" ] && [ "$(uname)" == "Darwin" ]; then
 fi
 
 DIR=$(cd "$(dirname "$0")/.." && pwd)
+NVM_DIR="${NVM_DIR:-$HOME/.nvm}"
+NODE_MANAGER=""
+
+useNodeVersion() {
+  local TARGET_DIR="$1"
+
+  if [ ! -f "$TARGET_DIR/.nvmrc" ]; then
+    return 0
+  fi
+
+  local NODE_VERSION
+  NODE_VERSION=$(tr -d '[:space:]' < "$TARGET_DIR/.nvmrc")
+
+  if [ -z "$NODE_VERSION" ]; then
+    return 0
+  fi
+
+  if [ "$NODE_MANAGER" == "fnm" ]; then
+    fnm use "$NODE_VERSION" >/dev/null 2>&1 || {
+      fnm install "$NODE_VERSION" >/dev/null 2>&1
+      fnm use "$NODE_VERSION" >/dev/null 2>&1
+    }
+  else
+    nvm use "$NODE_VERSION" --silent >/dev/null 2>&1 || {
+      nvm install "$NODE_VERSION" --silent >/dev/null 2>&1
+      nvm use "$NODE_VERSION" --silent >/dev/null 2>&1
+    }
+  fi
+}
+
+if [ -x "$(command -v fnm)" ]; then
+  eval "$(fnm env --shell bash)"
+  NODE_MANAGER="fnm"
+elif [ -s "$NVM_DIR/nvm.sh" ]; then
+  source "$NVM_DIR/nvm.sh"
+  NODE_MANAGER="nvm"
+elif [ -s "$HOME/.nvm/nvm.sh" ]; then
+  source "$HOME/.nvm/nvm.sh"
+  NODE_MANAGER="nvm"
+else
+  echo "Error: neither fnm nor nvm is installed." >&2
+  exit 1
+fi
+
+useNodeVersion "$DIR"
 
 if ! [ -x "$(command -v node)" ]; then
   echo "Error: node is not installed." >&2
   exit 1
 fi
 
-if [ ! -f "$HOME/.nvm/nvm.sh" ] && [ ! -s "$NVM_DIR/nvm.sh" ]; then
-  echo "Error: nvm is not installed." >&2
-  exit 1
-fi
-
-source "$HOME/.nvm/nvm.sh" || source "$NVM_DIR/nvm.sh"
-
 if ! [ -x "$(command -v yarn)" ]; then
-  echo "Error: yarn is not installed in bash, see the nvm installation instructions and check your .bashrc or .bash_profile." >&2
+  echo "Error: yarn is not installed in shell after loading $NODE_MANAGER." >&2
   exit 1
 fi
 
@@ -73,11 +111,6 @@ else
     echo "Error: package.json not found in $PROJECT_PATH" >&2
     exit 1
   fi
-
-  if ! [ -f "$PROJECT_PATH/yarn.lock" ]; then
-    echo "Error: yarn.lock not found in $PROJECT_PATH" >&2
-    exit 1
-  fi
 fi
 
 executeInProject() {
@@ -85,16 +118,15 @@ executeInProject() {
     return
   fi
 
-  local EXEC_ARGS="$@"
-  echo "Executing '$EXEC_ARGS' in $PROJECT_PATH..."
+  local EXEC_ARGS=("$@")
+  echo "Executing '${EXEC_ARGS[*]}' in $PROJECT_PATH..."
 
   (
-    NODE_VERSION=$(cat "$PROJECT_PATH/.nvmrc")
-    cd $PROJECT_PATH
-    nvm use $NODE_VERSION --silent
+    cd "$PROJECT_PATH" || exit 1
+    useNodeVersion "$PROJECT_PATH"
     NEW_PATH=$(echo "$PATH" | sed -e "s/\\/tmp\\/yarn\d*-[^\:]*://g")
     export PATH="$NEW_PATH"
-    $EXEC_ARGS
+    "${EXEC_ARGS[@]}"
   )
 }
 
@@ -125,7 +157,7 @@ cleanup() {
 
 trap cleanup SIGINT SIGTERM
 
-yarn --cwd "$DIR/" tsup --watch --onSuccess "yalc push && sleep 7 && yalc push" &
+yarn --cwd "$DIR/" tsup --watch --onSuccess "yalc push && sleep 10 && yalc push" &
 
 while [ ! -d "$DIR/dist" ]; do
   sleep 1
@@ -156,7 +188,7 @@ if [ -n "$PACKAGE_TYPES" ]; then
   done
 fi
 
-(cd $DIR && yalc publish)
+(cd "$DIR" && yalc publish)
 
 if [ -n "$PROJECT_PATH" ]; then
   echo "Adding $PACKAGE_NAME to $PROJECT_PATH..."

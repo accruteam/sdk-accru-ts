@@ -31,6 +31,7 @@ const config: CodegenConfig = {
         enumType: 'native',
         scalars: {
           BigInt: 'bigint',
+          JSON: 'Record<string, unknown>',
         },
       },
     },

@@ -19,6 +19,7 @@ export const GET_ORGANIZATION_BASE_SETTINGS_QUERY = gql(`
       setting_send_invoice_overdue_reminders
       setting_allow_invoice_due_snooze_reminders
       setting_allow_invoice_overdue_snooze_reminders
+      setting_accrupay_pause_days
     }
   }
 `);

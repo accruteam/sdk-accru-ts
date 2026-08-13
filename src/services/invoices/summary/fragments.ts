@@ -71,6 +71,7 @@ export const INVOICE_SUMMARY_FRAGMENT = gql(`
 
     acct_provider
     is_acct_provider_connected
+    is_accrupay_enabled
 
     last_sync_at
     latest_acct_provider_balance

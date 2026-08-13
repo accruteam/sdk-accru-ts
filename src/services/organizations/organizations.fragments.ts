@@ -54,6 +54,8 @@ export const ORGANIZATION_FRAGMENT = gql(`
       ...OrganizationSubscriptionDataFragment
     }
 
+    owner_contact_email
+
     acct_provider_conns {
       edges {
         node {
