@@ -346,6 +346,27 @@ enum MIME_TYPE {
   PNG
 }
 
+type MaskedOrganizationAccruPayConnection {
+  accrupay_environment: ORGANIZATION_ACCRUPAY_ENVIRONMENT!
+  ach_enabled: Boolean!
+  card_enabled: Boolean!
+  connected_at: DateTime!
+  created_at: DateTime!
+  created_by_user_id: String
+  disconnected_at: DateTime
+  id: ID!
+  integration_enabled: Boolean!
+  masked_secret: String!
+  merchant_public_id: String!
+  organization_id: String!
+  provider_code: String!
+  restored_at: DateTime
+  status: ORGANIZATION_ACCRUPAY_CONNECTION_STATUS!
+  transaction_provider: String
+  transaction_provider_id: String
+  updated_at: DateTime!
+}
+
 type Mutation {
   adminClearCache: DateTime!
   adminOrganizationAcctProviderDelete(acct_provider: ACCT_PROVIDER!, organization_id: String!): DateTime!
@@ -371,6 +392,12 @@ type Mutation {
   adminOrganizationVendorProcess(organization_id: String!, organization_vendor_id: String): Int!
   adminUserDelete(user_id: String!): User!
   unauthorizedUserOrganizationAcctProviderConnCheckConnection(acct_provider: ACCT_PROVIDER!, acct_provider_conn_code: String!): DateTime!
+  unconnectedCustomerOrganizationAccruPayCreatePaymentMethodTransaction(billing_address: OrganizationAccruPayBillingAddressSchema, client_request_nonce: String!, elevation_token: String, invoice_distribution: [OrganizationAccruPayInvoiceDistributionSchema!], organization_customer_payment_method_id: String!, organization_id: String, payment_amount: BigInt!, selected_invoice_ids: [String!]!, statement_session_token: String, token: String!, unique_code: String!): OrganizationAccruPayPaymentMethodTransactionResult!
+  unconnectedCustomerOrganizationAccruPayInitiateAchPayment(account_number: String!, billing_address: OrganizationAccruPayBillingAddressSchema, client_request_nonce: String!, elevation_token: String, invoice_distribution: [OrganizationAccruPayInvoiceDistributionSchema!], organization_id: String, payment_amount: BigInt!, routing_number: String!, selected_invoice_ids: [String!]!, statement_session_token: String, store_payment_method: Boolean, token: String!, unique_code: String!, update_customer_billing_address: Boolean): OrganizationAccruPayAchPaymentResult!
+  unconnectedCustomerOrganizationAccruPayRequestPaymentElevation(organization_id: String, token: String!, unique_code: String!): OrganizationAccruPayPaymentElevationRequest!
+  unconnectedCustomerOrganizationAccruPayStartCardPayment(billing_address: OrganizationAccruPayBillingAddressSchema, client_request_nonce: String!, elevation_token: String, invoice_distribution: [OrganizationAccruPayInvoiceDistributionSchema!], organization_id: String, payment_amount: BigInt!, selected_invoice_ids: [String!]!, statement_session_token: String, store_payment_method: Boolean, token: String!, unique_code: String!, update_customer_billing_address: Boolean): OrganizationAccruPayPaymentSession!
+  unconnectedCustomerOrganizationAccruPayVerifyCardPayment(organization_id: String, payment_id: String!, statement_session_token: String, token: String!, unique_code: String!): OrganizationAccruPayPaymentSessionVerification!
+  unconnectedCustomerOrganizationAccruPayVerifyPaymentElevation(code: String!, organization_id: String, token: String!, unique_code: String!): OrganizationAccruPayPaymentElevationSession!
   unconnectedCustomerOrganizationInvoiceGetPDF(acct_provider: ACCT_PROVIDER, organization_id: String, organization_invoice_id: String!, token: String!, unique_code: String!): String!
   unconnectedCustomerOrganizationProjectChangeRequestAccept(organization_id: String, organization_project_change_request_id: String!, organization_project_id: String!, token: String!, unique_code: String!, verification_code: String!): OrganizationProjectChangeRequest!
   unconnectedCustomerOrganizationProjectChangeRequestActionRequestToken(organization_id: String, organization_project_change_request_id: String!, organization_project_id: String!, token: String!, unique_code: String!): DateTime!
@@ -383,6 +410,10 @@ type Mutation {
   userAndOrganizationAcctProviderExchangeToken(acct_provider: ACCT_PROVIDER!, authorization_token: String!, referred_by_code: String): OrganizationAcctProviderTokenExchange!
   userAndOrganizationAcctProviderGetOAuthUrl(acct_provider: ACCT_PROVIDER!): String!
   userCreateReferralCode: User!
+  userCustomerOrganizationAccruPayCreatePaymentMethodTransaction(billing_address: OrganizationAccruPayBillingAddressSchema, client_request_nonce: String!, invoice_distribution: [OrganizationAccruPayInvoiceDistributionSchema!], organization_customer_payment_method_id: String!, organization_id: String!, organization_vendor_id: String!, payment_amount: BigInt!, selected_invoice_ids: [String!]!, statement_session_token: String): OrganizationAccruPayPaymentMethodTransactionResult!
+  userCustomerOrganizationAccruPayInitiateAchPayment(account_number: String!, billing_address: OrganizationAccruPayBillingAddressSchema, client_request_nonce: String!, invoice_distribution: [OrganizationAccruPayInvoiceDistributionSchema!], organization_id: String!, organization_vendor_id: String!, payment_amount: BigInt!, routing_number: String!, selected_invoice_ids: [String!]!, statement_session_token: String, update_customer_billing_address: Boolean): OrganizationAccruPayAchPaymentResult!
+  userCustomerOrganizationAccruPayStartCardPayment(billing_address: OrganizationAccruPayBillingAddressSchema, client_request_nonce: String!, invoice_distribution: [OrganizationAccruPayInvoiceDistributionSchema!], organization_id: String!, organization_vendor_id: String!, payment_amount: BigInt!, selected_invoice_ids: [String!]!, statement_session_token: String, update_customer_billing_address: Boolean): OrganizationAccruPayPaymentSession!
+  userCustomerOrganizationAccruPayVerifyCardPayment(organization_id: String!, organization_vendor_id: String!, payment_id: String!, statement_session_token: String): OrganizationAccruPayPaymentSessionVerification!
   userCustomerOrganizationInvoiceCreateSyncBill(organization_id: String!, organization_invoice_id: String!, organization_vendor_id: String!): OrganizationBill!
   userCustomerOrganizationInvoiceGetPDF(acct_provider: ACCT_PROVIDER, organization_id: String!, organization_invoice_id: String!, organization_vendor_id: String!): String!
   userCustomerOrganizationProjectChangeRequestAccept(organization_id: String!, organization_project_change_request_id: String!, organization_project_id: String!, organization_vendor_id: String!): OrganizationProjectChangeRequest!
@@ -395,6 +426,14 @@ type Mutation {
   userEmailVerifyOrChangeFinish(data: UserEmailVerifyOrChangeFinishSchema!): User!
   userEmailVerifyOrChangeStart(data: UserEmailVerifyOrChangeStartSchema!): DateTime!
   userHandleLoginAttempt(email: String!): DateTime!
+  userOrganizationAccruPayConnect(api_secret: String!, organization_id: String!): MaskedOrganizationAccruPayConnection!
+  userOrganizationAccruPayDisconnect(connection_id: String!, organization_id: String!): OrganizationAccruPayConnection!
+  userOrganizationAccruPayResolvePayment(invoice_payment_id: String, notify_customer_of_discrepancy: Boolean, organization_id: String!, payment_id: String!, resolution_distribution: [OrganizationAccruPayResolutionDistributionSchema!], resolution_mode: ORGANIZATION_ACCRUPAY_RESOLUTION_MODE!): Boolean!
+  userOrganizationAccruPayReversePayment(organization_id: String!, payment_id: String!, reversal_mode: ORGANIZATION_ACCRUPAY_REVERSAL_MODE!): Boolean!
+  userOrganizationAccruPaySetTransactionProvider(connection_id: String!, organization_id: String!, transaction_provider_id: String!): OrganizationAccruPayConnection!
+  userOrganizationAccruPayUpdateConnectionSettings(connection_id: String!, data: UserOrganizationAccruPayUpdateConnectionSettingsSchema!, organization_id: String!): OrganizationAccruPayConnection!
+  userOrganizationAccruPayUpsertCustomerSetting(data: UserOrganizationAccruPayCustomerSettingSchema!, organization_id: String!): OrganizationAccruPayCustomerSetting!
+  userOrganizationAccruPayUpsertInvoiceSetting(data: UserOrganizationAccruPayInvoiceSettingSchema!, organization_id: String!): OrganizationAccruPayInvoiceSetting!
   userOrganizationAcctProviderConnCheckConnection(acct_provider: ACCT_PROVIDER!, acct_provider_conn_code: String!, organization_id: String!): OrganizationAcctProviderConn!
   userOrganizationAcctProviderConnDelete(acct_provider: ACCT_PROVIDER!, organization_id: String!): OrganizationAcctProviderConn!
   userOrganizationAcctProviderConnDisconnect(acct_provider: ACCT_PROVIDER!, organization_id: String!): OrganizationAcctProviderConn!
@@ -418,6 +457,10 @@ type Mutation {
   userOrganizationConnectionInviteVendor(organization_id: String!, organization_vendor_id: String!): OrganizationConnection!
   userOrganizationConnectionReject(organization_connection_id: String!, organization_id: String!, organization_target_id: String): OrganizationConnection!
   userOrganizationCreate(data: UserOrganizationCreateSchema!): Organization!
+  userOrganizationCustomerAccruPayCreatePaymentMethodTransaction(billing_address: OrganizationAccruPayBillingAddressSchema, client_request_nonce: String!, invoice_distribution: [OrganizationAccruPayInvoiceDistributionSchema!], organization_customer_id: String!, organization_customer_payment_method_id: String!, organization_id: String!, payment_amount: BigInt!, selected_invoice_ids: [String!]!): OrganizationAccruPayPaymentMethodTransactionResult!
+  userOrganizationCustomerAccruPayInitiateAchPayment(account_number: String!, billing_address: OrganizationAccruPayBillingAddressSchema, client_request_nonce: String!, invoice_distribution: [OrganizationAccruPayInvoiceDistributionSchema!], organization_customer_id: String!, organization_id: String!, payment_amount: BigInt!, routing_number: String!, selected_invoice_ids: [String!]!, update_customer_billing_address: Boolean): OrganizationAccruPayAchPaymentResult!
+  userOrganizationCustomerAccruPayStartCardPayment(billing_address: OrganizationAccruPayBillingAddressSchema, client_request_nonce: String!, invoice_distribution: [OrganizationAccruPayInvoiceDistributionSchema!], organization_customer_id: String!, organization_id: String!, payment_amount: BigInt!, selected_invoice_ids: [String!]!, update_customer_billing_address: Boolean): OrganizationAccruPayPaymentSession!
+  userOrganizationCustomerAccruPayVerifyCardPayment(organization_id: String!, payment_id: String!): OrganizationAccruPayPaymentSessionVerification!
   userOrganizationCustomerConnLock(organization_customer_id: String!, organization_id: String!): OrganizationCustomer!
   userOrganizationCustomerConnSync(organization_customer_id: String!, organization_id: String!): OrganizationCustomer!
   userOrganizationCustomerConnUnlock(organization_customer_id: String!, organization_id: String!): OrganizationCustomer!
@@ -460,7 +503,7 @@ type Mutation {
   userOrganizationReceivingMethodUpdate(data: UserOrganizationReceivingMethodUpdateSchema!, organization_id: String!, organization_receiving_method_id: String!): OrganizationReceivingMethod!
   userOrganizationReminderSettingCreate(data: UserOrganizationReminderSettingSchema!, organization_id: String!): OrganizationReminderSetting!
   userOrganizationReminderSettingDelete(organization_id: String!, organization_reminder_setting_id: String!): OrganizationReminderSetting!
-  userOrganizationReminderSettingGlobalUpdate(organization_id: String!, setting_allow_invoice_due_snooze_reminders: Boolean, setting_allow_invoice_overdue_snooze_reminders: Boolean, setting_send_invoice_due_reminders: Boolean, setting_send_invoice_overdue_reminders: Boolean): Organization!
+  userOrganizationReminderSettingGlobalUpdate(organization_id: String!, setting_accrupay_pause_days: Int, setting_allow_invoice_due_snooze_reminders: Boolean, setting_allow_invoice_overdue_snooze_reminders: Boolean, setting_send_invoice_due_reminders: Boolean, setting_send_invoice_overdue_reminders: Boolean): Organization!
   userOrganizationReminderSettingUpdate(data: UserOrganizationReminderSettingSchema!, organization_id: String!, organization_reminder_setting_id: String!): OrganizationReminderSetting!
   userOrganizationSendGenericInviteMail(email: String!, organization_id: String!): DateTime!
   userOrganizationSubscriptionCalculatePricing(data: UserOrganizationSubscriptionCalculatePricingSchema!, organization_id: String!): OrganizationSubscriptionCalculatedPricing!
@@ -508,6 +551,10 @@ enum NOTIFICATION_EMAIL_COPY_MODE {
 }
 
 enum NOTIFICATION_FEATURE_TYPE {
+  ORGANIZATION_ACCRUPAY_RESOLVE_REMINDER
+  ORGANIZATION_ACCRUPAY_TRANSACTION_PERFORMED
+  ORGANIZATION_ACCRUPAY_TRANSACTION_RESOLVED
+  ORGANIZATION_ACCRUPAY_TRANSACTION_STATUS_CHANGE
   ORGANIZATION_ACCT_PROVIDER_APP_DISCONNECTED
   ORGANIZATION_ACCT_PROVIDER_CONNECTION_EXPIRED
   ORGANIZATION_ACCT_PROVIDER_CONNECTION_SUCCESS
@@ -549,6 +596,7 @@ enum NOTIFICATION_PROVIDER {
 }
 
 enum NOTIFICATION_RELATED_ENTITY_TYPE {
+  ORGANIZATION_ACCRUPAY_TRANSACTION
   ORGANIZATION_CONNECTION
   ORGANIZATION_INVOICE
   ORGANIZATION_PROJECT_CHANGE_REQUEST
@@ -611,6 +659,78 @@ type NuveiTransactionProviderPreTransactionData {
   merchant_id: String!
   merchant_site_id: String!
   transaction_provider: TRANSACTION_PROVIDER!
+}
+
+enum ORGANIZATION_ACCRUPAY_CONNECTION_STATUS {
+  ACTIVE
+  DISCONNECTED
+}
+
+enum ORGANIZATION_ACCRUPAY_ENVIRONMENT {
+  PRODUCTION
+  QA
+}
+
+enum ORGANIZATION_ACCRUPAY_PAYMENT_METHOD {
+  ACH
+  CARD
+}
+
+enum ORGANIZATION_ACCRUPAY_PAYMENT_STATE {
+  FAILED_AUDIT
+  HIDDEN
+  NEEDS_REVIEW
+  PENDING
+  RESOLVABLE
+  REVERSED
+}
+
+enum ORGANIZATION_ACCRUPAY_RESOLUTION_MODE {
+  MANUAL_MATCH
+  MANUAL_SKIP
+}
+
+enum ORGANIZATION_ACCRUPAY_REVERSAL_MODE {
+  REFUND
+  VOID
+}
+
+enum ORGANIZATION_ACCRUPAY_SESSION_STATUS {
+  ACTIVE
+  CANCELED
+  COMPLETED
+  DECLINED
+  ERROR
+  EXPIRED
+  PENDING
+  UNKNOWN
+}
+
+enum ORGANIZATION_ACCRUPAY_TRANSACTION_ACTION {
+  ADD_PAYMENT_METHOD
+  AUTHENTICATION
+  AUTHORIZATION
+  CHARGEBACK
+  CREDIT
+  MODIFICATION
+  PAYMENT
+  PAYOUT
+  REFUND
+  SETTLE
+  UNKNOWN
+  VOID
+}
+
+enum ORGANIZATION_ACCRUPAY_TRANSACTION_STATUS {
+  CANCELED
+  DECLINED
+  ERROR
+  EXPIRED
+  FAILED
+  PENDING
+  STARTED
+  SUCCEEDED
+  UNKNOWN
 }
 
 enum ORGANIZATION_ACCT_PROVIDER_CONN_STATUS {
@@ -811,9 +931,11 @@ type Organization {
   logo_picture_file: File
   logo_picture_file_id: String
   name: String!
+  owner_contact_email: String
   phone_number: String
   primary_contact_name: String
   referred_by_code: String
+  setting_accrupay_pause_days: Int
   setting_allow_invoice_due_snooze_reminders: Boolean
   setting_allow_invoice_overdue_snooze_reminders: Boolean
   setting_customer_email_copy_mode: NOTIFICATION_EMAIL_COPY_MODE
@@ -828,6 +950,214 @@ type Organization {
   unique_name: String!
   updated_at: DateTime!
   website: String
+}
+
+type OrganizationAccruPayAchPaymentResult {
+  payment_id: String!
+  state: ORGANIZATION_ACCRUPAY_PAYMENT_STATE!
+}
+
+input OrganizationAccruPayBillingAddressSchema {
+  address_line_1: String!
+  address_line_2: String
+  city: String!
+  country: String = "US"
+  phone_number: String
+  state: String!
+  zip_code: String!
+}
+
+type OrganizationAccruPayBillingAddressSuggestion {
+  address_line_1: String
+  address_line_2: String
+  city: String
+  country: String
+  phone_number: String
+  state: String
+  zip_code: String
+}
+
+type OrganizationAccruPayConnection {
+  accrupay_environment: ORGANIZATION_ACCRUPAY_ENVIRONMENT!
+  ach_enabled: Boolean!
+  card_enabled: Boolean!
+  connected_at: DateTime!
+  created_at: DateTime!
+  created_by_user_id: String
+  disconnected_at: DateTime
+  id: ID!
+  integration_enabled: Boolean!
+  merchant_public_id: String!
+  organization_id: String!
+  provider_code: String!
+  restored_at: DateTime
+  status: ORGANIZATION_ACCRUPAY_CONNECTION_STATUS!
+  transaction_provider: String
+  transaction_provider_id: String
+  updated_at: DateTime!
+}
+
+type OrganizationAccruPayCustomerSetting {
+  accrupay_enabled: Boolean!
+  ach_enabled: Boolean!
+  card_enabled: Boolean!
+  created_at: DateTime!
+  id: ID!
+  organization_customer_id: String!
+  organization_id: String!
+  updated_at: DateTime!
+}
+
+input OrganizationAccruPayInvoiceDistributionSchema {
+  amount: BigInt!
+  organization_invoice_id: String!
+}
+
+type OrganizationAccruPayInvoicePaymentRules {
+  accrupay_enabled: Boolean!
+  ach_enabled: Boolean!
+  billing_address_suggestion: OrganizationAccruPayBillingAddressSuggestion
+  billing_email: String
+  billing_first_name: String
+  billing_last_name: String
+  card_enabled: Boolean!
+  has_saved_payment_methods: Boolean!
+  requires_elevation: Boolean!
+  transaction_provider: String
+  vendor_address: String
+  vendor_email: String
+  vendor_name: String
+  vendor_phone: String
+  vendor_website: String
+}
+
+type OrganizationAccruPayInvoiceSetting {
+  accrupay_enabled: Boolean!
+  ach_enabled: Boolean!
+  card_enabled: Boolean!
+  created_at: DateTime!
+  id: ID!
+  organization_id: String!
+  organization_invoice_id: String!
+  updated_at: DateTime!
+}
+
+type OrganizationAccruPayPayment {
+  accrupay_session_id: String
+  amount: BigInt!
+  client_request_nonce: String!
+  created_at: DateTime!
+  currency_code: String!
+  exact: Boolean!
+  id: ID!
+  invoice_links: [OrganizationAccruPayPaymentInvoiceLink!]!
+  invoice_payment_id: String
+  merchant_internal_transaction_code: String!
+  organization_accrupay_connection_id: String!
+  organization_customer_id: String!
+  organization_id: String!
+  payment_method: ORGANIZATION_ACCRUPAY_PAYMENT_METHOD!
+  provider_session_status: ORGANIZATION_ACCRUPAY_SESSION_STATUS
+  resolution_distribution: JSON
+  resolution_mode: ORGANIZATION_ACCRUPAY_RESOLUTION_MODE
+  resolved_at: DateTime
+  resolved_by_user_id: String
+  start_error: String
+  transactions: [OrganizationAccruPayPaymentTransaction!]!
+  updated_at: DateTime!
+}
+
+type OrganizationAccruPayPaymentElevationRequest {
+  expires_at: DateTime!
+}
+
+type OrganizationAccruPayPaymentElevationSession {
+  expires_at: DateTime!
+  token: String!
+}
+
+type OrganizationAccruPayPaymentInvoiceLink {
+  amount: BigInt!
+  created_at: DateTime!
+  id: ID!
+  number: String
+  organization_accrupay_payment_id: String!
+  organization_invoice_id: String!
+  unique_code: String
+  updated_at: DateTime!
+}
+
+type OrganizationAccruPayPaymentMethod {
+  ach_account_number_masked: String
+  ach_bank_name: String
+  ach_routing_number: String
+  billing: OrganizationAccruPayPaymentMethodBillingAddress
+  card_brand: String
+  card_exp_month: Int
+  card_exp_year: Int
+  card_number_masked: String
+  created_at: DateTime!
+  expires_at: DateTime
+  id: ID!
+  is_default: Boolean!
+  is_enabled: Boolean!
+  method_type: ORGANIZATION_ACCRUPAY_PAYMENT_METHOD!
+  status: String
+}
+
+type OrganizationAccruPayPaymentMethodBillingAddress {
+  city: String
+  country: String
+  email: String
+  first_name: String
+  last_name: String
+  line_1: String
+  line_2: String
+  phone: String
+  postal_code: String
+  state: String
+}
+
+type OrganizationAccruPayPaymentMethodTransactionResult {
+  payment_id: String!
+  state: ORGANIZATION_ACCRUPAY_PAYMENT_STATE!
+}
+
+type OrganizationAccruPayPaymentSession {
+  merchant_public_id: String!
+  session_id: String!
+  transaction_id: String!
+}
+
+type OrganizationAccruPayPaymentSessionVerification {
+  state: ORGANIZATION_ACCRUPAY_PAYMENT_STATE!
+}
+
+type OrganizationAccruPayPaymentTransaction {
+  accrupay_transaction_id: String!
+  amount: BigInt!
+  created_at: DateTime!
+  currency_code: String!
+  id: ID!
+  organization_accrupay_payment_id: String!
+  payment_method_details: JSON
+  payment_method_type: String
+  provider_action: ORGANIZATION_ACCRUPAY_TRANSACTION_ACTION!
+  provider_status: ORGANIZATION_ACCRUPAY_TRANSACTION_STATUS!
+  transaction_date: DateTime!
+  updated_at: DateTime!
+}
+
+input OrganizationAccruPayResolutionDistributionSchema {
+  applied_amount: BigInt!
+  organization_invoice_id: String!
+}
+
+type OrganizationAccruPayTransactionProvider {
+  id: ID!
+  provider: String!
+  provider_code: String!
+  status: String!
 }
 
 type OrganizationAcctProviderConn {
@@ -1088,6 +1418,7 @@ type OrganizationBillSummary {
   end_date: DateTime
   has_mismatching_balance: Boolean
   has_sync_errors: Boolean
+  is_accrupay_enabled: Boolean
   is_acct_provider_connected: Boolean
   last_sync_at: DateTime
   latest_acct_provider_balance: BigInt
@@ -1325,6 +1656,7 @@ type OrganizationCustomerStatement {
   end_date: DateTime
   has_mismatching_balance: Boolean
   has_sync_errors: Boolean
+  is_accrupay_enabled: Boolean
   is_acct_provider_connected: Boolean
   last_sync_at: DateTime
   latest_acct_provider_balance: BigInt
@@ -1674,6 +2006,7 @@ type OrganizationInvoiceSummary {
   end_date: DateTime
   has_mismatching_balance: Boolean
   has_sync_errors: Boolean
+  is_accrupay_enabled: Boolean
   is_acct_provider_connected: Boolean
   last_sync_at: DateTime
   latest_acct_provider_balance: BigInt
@@ -2280,6 +2613,9 @@ type Query {
   adminUsers(after: ConnectionCursor, before: ConnectionCursor, email: String, first: Int, first_name: String, id: String, include_archived: Boolean, last: Int, last_name: String, phone_number: String, skip: Int, sorting: [SortingFieldSchema!], take: Int): UserPaginationConnection!
   session: Session!
   unauthorizedUserOrganizationUserInvite(code: String!, email: String!, organization_id: String!, organization_invite_id: String!): UnauthorizedUserOrganizationUserInviteResponse!
+  unconnectedCustomerOrganizationAccruPayPaymentMethods(elevation_token: String, organization_id: String, token: String!, unique_code: String!): [OrganizationAccruPayPaymentMethod!]!
+  unconnectedCustomerOrganizationAccruPayPendingPayments(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, organization_id: String, skip: Int, sorting: [SortingFieldSchema!], take: Int, token: String!, unique_code: String!): [OrganizationAccruPayPayment!]!
+  unconnectedCustomerOrganizationAccruPayResolveInvoicePaymentRules(organization_id: String, organization_invoice_id: String!, token: String!, unique_code: String!): OrganizationAccruPayInvoicePaymentRules!
   unconnectedCustomerOrganizationInvoice(acct_provider: ACCT_PROVIDER, organization_id: String, organization_invoice_id: String!, token: String!, unique_code: String!): OrganizationInvoice!
   unconnectedCustomerOrganizationInvoiceSummary(after: ConnectionCursor, before: ConnectionCursor, currency: CURRENCY, customer_name: String, due_end_date: DateTime, due_start_date: DateTime, end_date: DateTime, first: Int, is_overdue: Boolean, last: Int, latest_acct_provider_is_overdue: Boolean, latest_acct_provider_status: INVOICE_STATUS, organization_id: String, skip: Int, sorting: [SortingFieldSchema!], start_date: DateTime, statement_session_token: String, status: INVOICE_STATUS, take: Int, token: String!, unique_code: String!): OrganizationInvoiceSummary!
   unconnectedCustomerOrganizationProject(organization_id: String, organization_project_id: String!, token: String!, unique_code: String!): OrganizationProject!
@@ -2288,6 +2624,9 @@ type Query {
   unconnectedCustomerOrganizationStatementLine(organization_customer_statement_line_id: Int, organization_id: String, organization_invoice_id: String, organization_invoice_transaction_id: String, token: String!, unique_code: String!): OrganizationCustomerStatementLineData!
   user: User!
   userCustomerOrganization(organization_id: String!, organization_vendor_id: String!): OrganizationConnection!
+  userCustomerOrganizationAccruPayPaymentMethods(organization_id: String!, organization_vendor_id: String!): [OrganizationAccruPayPaymentMethod!]!
+  userCustomerOrganizationAccruPayPendingPayments(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, organization_id: String!, organization_vendor_id: String!, skip: Int, sorting: [SortingFieldSchema!], take: Int): [OrganizationAccruPayPayment!]!
+  userCustomerOrganizationAccruPayResolveInvoicePaymentRules(organization_id: String!, organization_invoice_id: String!, organization_vendor_id: String!): OrganizationAccruPayInvoicePaymentRules!
   userCustomerOrganizationInvoice(organization_id: String!, organization_invoice_id: String!, organization_vendor_id: String!): OrganizationInvoice!
   userCustomerOrganizationInvoiceSummary(after: ConnectionCursor, before: ConnectionCursor, currency: CURRENCY, customer_name: String, due_end_date: DateTime, due_start_date: DateTime, end_date: DateTime, first: Int, is_overdue: Boolean, last: Int, latest_acct_provider_is_overdue: Boolean, latest_acct_provider_status: INVOICE_STATUS, organization_id: String!, organization_vendor_id: String!, skip: Int, sorting: [SortingFieldSchema!], start_date: DateTime, statement_session_token: String, status: INVOICE_STATUS, take: Int): OrganizationInvoiceSummary!
   userCustomerOrganizationInvoices(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, organization_id: String!, organization_vendor_id: String!, skip: Int, sorting: [SortingFieldSchema!], take: Int): OrganizationInvoicePaginationConnection!
@@ -2297,6 +2636,12 @@ type Query {
   userCustomerOrganizationStatementLine(organization_customer_statement_line_id: Int, organization_id: String!, organization_invoice_id: String, organization_invoice_transaction_id: String, organization_vendor_id: String!): OrganizationCustomerStatementLineData!
   userCustomerOrganizations(organization_id: String!): [OrganizationConnection!]!
   userOrganization(organization_id: String!): Organization!
+  userOrganizationAccruPayConnection(organization_id: String!): MaskedOrganizationAccruPayConnection
+  userOrganizationAccruPayCustomerSettings(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, organization_id: String!, skip: Int, sorting: [SortingFieldSchema!], take: Int): [OrganizationAccruPayCustomerSetting!]!
+  userOrganizationAccruPayInvoiceSettings(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, organization_id: String!, skip: Int, sorting: [SortingFieldSchema!], take: Int): [OrganizationAccruPayInvoiceSetting!]!
+  userOrganizationAccruPayPaymentHistory(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, organization_id: String!, skip: Int, sorting: [SortingFieldSchema!], take: Int): [OrganizationAccruPayPayment!]!
+  userOrganizationAccruPayPendingPayments(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, organization_id: String!, skip: Int, sorting: [SortingFieldSchema!], take: Int): [OrganizationAccruPayPayment!]!
+  userOrganizationAccruPayTransactionProviders(organization_id: String!): [OrganizationAccruPayTransactionProvider!]!
   userOrganizationAcctProvider(organization_acct_provider_conn_id: String!, organization_id: String!): OrganizationAcctProviderConn!
   userOrganizationAcctProviderSynchronization(organization_acct_provider_conn_synchronization_id: String!, organization_id: String!): OrganizationAcctProviderConnSynchronization!
   userOrganizationAcctProviderSynchronizations(after: ConnectionCursor, before: ConnectionCursor, failed: Boolean, finished: Boolean, first: Int, last: Int, organization_acct_provider_conn_id: String, organization_id: String!, scope: ORGANIZATION_ACCT_PROVIDER_SYNCHRONIZATION_SCOPE, skip: Int, skipped: Boolean, sorting: [SortingFieldSchema!], succeeded: Boolean, take: Int): OrganizationAcctProviderConnSynchronizationPaginationConnection!
@@ -2311,6 +2656,8 @@ type Query {
   userOrganizationConnection(organization_connection_id: String!, organization_id: String!): OrganizationConnection!
   userOrganizationConnections(organization_id: String!, status: ORGANIZATION_CONNECTION_STATUS): OrganizationConnectionPaginationConnection!
   userOrganizationCustomer(organization_customer_id: String!, organization_id: String!): OrganizationCustomer!
+  userOrganizationCustomerAccruPayPendingPayments(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, organization_customer_id: String!, organization_id: String!, skip: Int, sorting: [SortingFieldSchema!], take: Int): [OrganizationAccruPayPayment!]!
+  userOrganizationCustomerAccruPayResolveInvoicePaymentRules(organization_customer_id: String!, organization_id: String!, organization_invoice_id: String!): OrganizationAccruPayInvoicePaymentRules!
   userOrganizationCustomerContact(organization_customer_contact_id: String!, organization_customer_id: String!, organization_id: String!): OrganizationCustomerContact!
   userOrganizationCustomerContacts(after: ConnectionCursor, before: ConnectionCursor, first: Int, last: Int, name: String, organization_customer_id: String!, organization_id: String!, skip: Int, sorting: [SortingFieldSchema!], take: Int): OrganizationCustomerContactPaginationConnection!
   userOrganizationCustomerNotification(notification_id: String!, organization_id: String!): Notification!
@@ -2476,6 +2823,26 @@ input UserEmailVerifyOrChangeFinishSchema {
 
 input UserEmailVerifyOrChangeStartSchema {
   email: String!
+}
+
+input UserOrganizationAccruPayCustomerSettingSchema {
+  accrupay_enabled: Boolean!
+  ach_enabled: Boolean!
+  card_enabled: Boolean!
+  organization_customer_id: String!
+}
+
+input UserOrganizationAccruPayInvoiceSettingSchema {
+  accrupay_enabled: Boolean!
+  ach_enabled: Boolean!
+  card_enabled: Boolean!
+  organization_invoice_id: String!
+}
+
+input UserOrganizationAccruPayUpdateConnectionSettingsSchema {
+  ach_enabled: Boolean
+  card_enabled: Boolean
+  integration_enabled: Boolean
 }
 
 input UserOrganizationAcctProviderConnUpdateSchema {
