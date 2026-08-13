@@ -1,5 +1,11 @@
 # @accru/client
 
+## 0.20.0
+
+### Minor Changes
+
+- be1384c: add accrupay integration
+
 ## 0.19.2
 
 ### Patch Changes
